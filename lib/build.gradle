@@ -83,8 +83,28 @@ android {
     consumerProguardFiles 'proguard-behaviors.pro', 'proguard-inflater.pro'
   }
 
+  compileSdkVersion rootProject.ext.compileSdkVersion
   defaultConfig {
-    minSdkVersion 14
+    vectorDrawables.useSupportLibrary = true
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion 28
+  }
+
+  testOptions {
+    unitTests.returnDefaultValues = true
+  }
+
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  dexOptions{
+    preDexLibraries = rootProject.ext.preDexLibs
   }
 }
 
