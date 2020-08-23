@@ -8,27 +8,18 @@
   tools:context=".MainActivity">
 
   <com.zeoflow.material.textfield.TextInputLayout
-    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    android:theme="@style/AppTheme2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:hint="hint"
+    android:hint="Password"
     app:errorEnabled="true"
-    app:helperText="helpertxt"
-    app:helperTextEnabled="true"
-    app:prefixText="prefixtxt">
-
+    app:helperText="Please input a password"
+    app:helperTextEnabled="true">
     <com.zeoflow.material.textfield.TextInputEditText
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
   </com.zeoflow.material.textfield.TextInputLayout>
-
-  <com.zeoflow.material.slider.Slider
-    android:id="@+id/slider_1"
-    android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:stepSize="1"
-    android:valueFrom="0"
-    android:valueTo="11" />
 
 </LinearLayout>
