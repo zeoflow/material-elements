@@ -1,7 +1,7 @@
 # Material Components for Android
 
 Material Components for Android (MDC-Android) help developers execute
-[Material Design](https://www.material.io). Developed by a core team of
+Material Design. Developed by a core team of
 engineers and UX designers at Google, these components enable a reliable
 development workflow to build beautiful and functional Android apps.
 
@@ -16,6 +16,6 @@ take a look at our [Getting Started](docs/getting-started.md) guide.
 ## Submitting Bugs or Feature Requests
 
 For usage questions: ask on
-[Stack  Overflow](http://stackoverflow.com/questions/tagged/material-components).
+[Stack  Overflow](http://stackoverflow.com/questions/tagged/material-elements).
 
 Bugs or feature requests should be submitted at our [GitHub Issues section](https://github.com/zeoflow/material-elements/issues).
