@@ -1,3 +1,4 @@
-include ':lib'
-include ':catalog'
+
 include ':app'
+
+include ':lib'
