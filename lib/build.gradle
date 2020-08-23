@@ -83,16 +83,27 @@ android {
     consumerProguardFiles 'proguard-behaviors.pro', 'proguard-inflater.pro'
   }
 
+  compileSdkVersion rootProject.ext.compileSdkVersion
   defaultConfig {
-    minSdkVersion 14
+    vectorDrawables.useSupportLibrary = true
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion 28
   }
-}
 
-task androidSourcesJar(type: Jar) {
-  classifier = 'sources'
-  from(android.sourceSets.main.java.srcDirs) {
-    // Needed because we have Java sources and resources in same directory
-    include '**/*.java'
-    includeEmptyDirs = false
+  testOptions {
+    unitTests.returnDefaultValues = true
+  }
+
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  dexOptions{
+    preDexLibraries = rootProject.ext.preDexLibs
   }
 }

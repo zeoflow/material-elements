@@ -74,6 +74,7 @@ def srcDirs = [
 ]
 
 android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
   defaultConfig {
     manifestPlaceholders = [
       application_name             : 'CatalogApplication',
@@ -83,7 +84,7 @@ android {
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
-    minSdkVersion 14
+    minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion 28
   }
 
@@ -113,6 +114,10 @@ android {
     //TODO(b/141695010)
     // androidTest.java.srcDir 'androidTest/javatests'
     // test.java.srcDir 'test/javatests'
+  }
+
+  dexOptions {
+    preDexLibraries = rootProject.ext.preDexLibs
   }
 
   compileOptions {
