@@ -1,4 +1,4 @@
-### Thanks for starting a pull request on Material Components!
+### Thanks for starting a pull request on Material Components for ZeoFlow!
 
 #### Don't forget:
 
