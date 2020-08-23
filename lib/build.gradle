@@ -1,5 +1,3 @@
-import org.gradle.internal.os.OperatingSystem
-
 apply plugin: 'com.android.library'
 
 dependencies {
@@ -15,15 +13,6 @@ dependencies {
   api compatibility("transition")
   api compatibility("vectordrawable")
   api compatibility("viewpager2")
-
-  testImplementation "androidx.test:core:${testRunnerVersion}"
-  testImplementation "androidx.test:runner:${testRunnerVersion}"
-  testImplementation "junit:junit:4.12"
-  testImplementation "com.google.truth:truth:${truthVersion}"
-  testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
-  testImplementation "org.robolectric:robolectric:4.3"
-
-//  testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc4"
 }
 
 def srcDirs = [
@@ -86,8 +75,6 @@ android {
       main.res.srcDirs += 'java/' + it + '/res'
       main.res.srcDirs += 'java/' + it + '/res-public'
     }
-
-    test.java.srcDir 'javatests'
   }
 
   testOptions.unitTests.includeAndroidResources = true
@@ -98,115 +85,6 @@ android {
 
   defaultConfig {
     minSdkVersion 14
-  }
-}
-
-task generateJavadocs(type: Javadoc) {
-  if (project.hasProperty("online")) {
-    options.addStringOption("toroot", "/")
-    options.addStringOption("hdf", "android.whichdoc online")
-    options.addStringOption("hdf", "dac")
-    options.addBooleanOption("devsite", true)
-    options.addBooleanOption("yamlV2", true)
-    options.addStringOption("dac_libraryroot", "com/google/android/material")
-    options.addStringOption("dac_dataname", "MATERIAL_DATA")
-  }
-
-  if (project.hasProperty("docletPathRoot")) {
-    def docletPathRoot = project.property("docletPathRoot")
-    def outputPath = project.hasProperty("outputPath") ? project.property("outputPath") : "doclava-out"
-
-    source = android.sourceSets.main.java.source
-    source = source.findAll { it.name.endsWith(".java") }
-
-    title = null
-    destinationDir = new File(outputPath)
-    classpath = files("${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
-    options.addStringOption("federate Android", "https://developer.android.com")
-    options.encoding = "UTF-8"
-    options.doclet = "com.google.doclava.Doclava"
-    options.docletpath = [
-      file(docletPathRoot + "/doclava/current/doclava.jar"),
-      file(docletPathRoot + "/jsilver/v1_0_0/jsilver.jar")
-    ]
-  }
-}
-
-task generateApiXml(type: Javadoc) {
-  if (project.hasProperty("apiName")) {
-    def jdiff = project.property("jdiffJar")
-    def apiName = project.property("apiName")
-    source = android.sourceSets.main.java.source
-    source = source.findAll { it.name.endsWith(".java") }
-    classpath = files("${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar")
-    options.doclet = "jdiff.JDiff"
-    options.addStringOption("subpackages", ".")
-    options.addStringOption("apiname", apiName)
-    options.docletpath = [
-      file(jdiff),
-    ]
-
-    // Doclava does not understand -notimestamp option that is default since Gradle 6.0
-    options.setNoTimestamp(false)
-  }
-
-  doLast {
-    // Escape incorrect ampersands in API XML file
-    if (OperatingSystem.current().isLinux()) {
-      ["sed", "-i", "s/ & / \\&amp; /g", "lib/${apiName}.xml"].execute()
-    } else {
-      ["sed", "-i", "''", "s/ & / \\&amp; /g", "lib/${apiName}.xml"].execute()
-    }
-  }
-}
-
-task generateJdiffReport(type: Javadoc) {
-  if (project.hasProperty('oldApi')) {
-    def outputPath = project.hasProperty('outputPath') ? project.property('outputPath') : 'diffs-out'
-    def jdiff = project.property('jdiffjar')
-    def xerces = project.property('xercesjar')
-    def oldApi = project.property('oldApi')
-    def newApi = project.property('newApi')
-    def newApiDir = project.property('newApiDir')
-    def oldApiDir = project.property('oldApiDir')
-    destinationDir = new File(outputPath)
-    source = android.sourceSets.main.java.source
-    source = source.findAll { it.name.endsWith('.java') }
-    classpath = files('${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar')
-    options.doclet = 'jdiff.JDiff'
-    options.addStringOption('subpackages', '.')
-    options.addStringOption('newapidir', newApiDir)
-    options.addStringOption('oldapidir', oldApiDir)
-    options.addStringOption('oldapi', oldApi)
-    options.addBooleanOption('verbose', true)
-    options.addStringOption('newapi', newApi)
-    // Doclava does not understand -notimestamp option that is default since Gradle 6.0
-    options.setNoTimestamp(false)
-    options.docletpath = [
-      file(jdiff),
-      file(xerces),
-    ]
-  }
-}
-
-def R_CLASS_PATH = "build/generated/not_namespaced_r_class_sources/releaseUnitTest/processReleaseUnitTestResources/r/com/google/android/material/R.java"
-afterEvaluate {
-  [generateJavadocs, generateApiXml].forEach { task ->
-    task.dependsOn(':lib:processReleaseUnitTestResources')
-    task.source += R_CLASS_PATH
-
-    def releaseVariant = android.libraryVariants.find { it.name == 'release' }
-    if (releaseVariant == null) {
-      return
-    }
-    releaseVariant.javaCompileProvider.configure { javaCompileProvider ->
-      task.classpath += releaseVariant.getCompileClasspath(null)
-      task.classpath += task.project.files(javaCompileProvider.destinationDir)
-      task.source += javaCompileProvider.source
-    }
-
-    // Doclava does not understand -notimestamp option that is default since Gradle 6.0
-    task.options.setNoTimestamp(false)
   }
 }
 
