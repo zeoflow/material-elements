@@ -174,3 +174,79 @@ def getArchivesBaseName(name) {
   }
   return result;
 }
+
+subprojects {
+  version = rootProject.ext.mdcLibraryVersion
+  group = 'com.google.android.material'
+
+  // Disable strict dependency resolution version constraints for test projects
+  if (project.name.contains("tests")) {
+    project.configurations.all {
+      dependencyConstraints.configureEach { dependencyConstraint ->
+        dependencyConstraint.version { versionConstraint ->
+          versionConstraint.strictly("")
+        }
+      }
+    }
+  }
+
+  project.plugins.whenPluginAdded { plugin ->
+    def isAndroidLibrary = "com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)
+    def isAndroidApp = "com.android.build.gradle.AppPlugin".equals(plugin.class.name)
+    def isAndroidTest = "com.android.build.gradle.TestPlugin".equals(plugin.class.name)
+
+    if (isAndroidLibrary || isAndroidApp) {
+      // Enable code coverage for debug builds only if we are not running inside the IDE,
+      // since enabling coverage reports breaks the method parameter resolution in the IDE
+      // debugger. Note that we avoid doing this for Android Test projects as it causes
+      // crashes on Dalvik ('Class ref in pre-verified class resolved to unexpected implementation')
+      project.android.buildTypes.debug.testCoverageEnabled = !hasProperty('android.injected.invoked.from.ide')
+    }
+
+    if (isAndroidLibrary || isAndroidApp || isAndroidTest) {
+      if (!isAndroidTest) {
+        rootProject.lint.dependsOn project.lint
+      }
+
+      // Disable pre-dexing when gradle called with -PdisablePreDex;
+      project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+
+      project.android {
+        compileSdkVersion rootProject.ext.compileSdkVersion
+
+        defaultConfig.minSdkVersion rootProject.ext.minSdkVersion
+        // This disables the builds tools automatic vector -> PNG generation
+        defaultConfig.generatedDensities = []
+
+        compileOptions.sourceCompatibility JavaVersion.VERSION_1_7
+        compileOptions.targetCompatibility JavaVersion.VERSION_1_7
+
+        aaptOptions.additionalParameters "--no-version-vectors"
+
+        lintOptions {
+          baseline file("baseline.xml")
+          disable disabledLints
+          warningsAsErrors true
+        }
+
+        if (isAndroidLibrary) {
+          def JAVA_RESOURCES_TEMP_DIR = "$buildDir/javaResources"
+
+          task writeVersionFile() {
+            def versionFileDir = JAVA_RESOURCES_TEMP_DIR + '/META-INF'
+            def versionFileName = mdcLibraryPackage + '_' + getArchivesBaseName(project.name) + '.version'
+
+            new File(versionFileDir).mkdirs()
+            new File(versionFileDir + '/' + versionFileName).text = mdcLibraryVersion + "\n"
+          }
+
+          libraryVariants.all {
+            it.processJavaResourcesProvider.get().dependsOn(writeVersionFile)
+          }
+
+          project.android.sourceSets.main.resources.srcDir JAVA_RESOURCES_TEMP_DIR
+        }
+      }
+    }
+  }
+}
