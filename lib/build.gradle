@@ -23,7 +23,7 @@ dependencies {
   testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
   testImplementation "org.robolectric:robolectric:4.3"
 
-  testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc4"
+//  testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc4"
 }
 
 def srcDirs = [
@@ -98,15 +98,6 @@ android {
 
   defaultConfig {
     minSdkVersion 14
-  }
-}
-
-// Add the resource directories to the main sourceSet for all test tasks
-gradle.projectsEvaluated {
-  tasks.withType(Test) { task ->
-    srcDirs.forEach {
-      android.sourceSets.main.res.srcDirs += 'javatests/' + it + '/res'
-    }
   }
 }
 
