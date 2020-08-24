@@ -2,7 +2,7 @@
   Example: `[Buttons] Updated documentation`
 
 - [ ] Link to GitHub issues it solves.
-  Example: `closes #1234`
+  Example: `closes #4679`
 
 - [ ] Sign the CLA bot. You can do this once the pull request is opened.
 
