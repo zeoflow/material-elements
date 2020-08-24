@@ -1,4 +1,6 @@
-- [ ] Identify the component the PR relates to in brackets in the title.
+
+
+- Identify the component the PR relates to in brackets in the title.
   `[Buttons] Updated documentation`
 
 - [ ] Link to GitHub issues it solves.
