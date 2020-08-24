@@ -7,7 +7,7 @@
   android:orientation="vertical"
   tools:context=".MainActivity">
 
-  <com.zeoflow.material.textfield.TextInputLayout
+  <com.zeoflow.material.elements.textfield.TextInputLayout
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
     android:theme="@style/AppTheme2"
     android:layout_width="match_parent"
@@ -17,9 +17,9 @@
     app:errorEnabled="true"
     app:helperText="Please input a password"
     app:helperTextEnabled="true">
-    <com.zeoflow.material.textfield.TextInputEditText
+    <com.zeoflow.material.elements.textfield.TextInputEditText
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
-  </com.zeoflow.material.textfield.TextInputLayout>
+  </com.zeoflow.material.elements.textfield.TextInputLayout>
 
 </LinearLayout>
