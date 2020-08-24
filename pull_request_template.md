@@ -1,8 +1,8 @@
 - [ ] Identify the component the PR relates to in brackets in the title.
-  Example: `[Buttons] Updated documentation`
+  `[Buttons] Updated documentation`
 
 - [ ] Link to GitHub issues it solves.
-  Example: `closes #5346`
+  `closes #5346`
 
 - [ ] Sign the CLA bot. You can do this once the pull request is opened.
 
