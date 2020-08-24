@@ -44,7 +44,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.ripple.RippleUtils;

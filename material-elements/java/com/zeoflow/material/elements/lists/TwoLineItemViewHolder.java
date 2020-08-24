@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 
 /**
  * A simple two line list item.

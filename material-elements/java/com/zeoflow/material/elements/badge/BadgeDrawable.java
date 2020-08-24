@@ -47,7 +47,7 @@ import androidx.annotation.StyleableRes;
 import androidx.annotation.XmlRes;
 import androidx.core.view.ViewCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.bottomnavigation.BottomNavigationView;
 import com.zeoflow.material.elements.drawable.DrawableUtils;
 import com.zeoflow.material.elements.internal.TextDrawableHelper;

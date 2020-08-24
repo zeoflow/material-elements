@@ -23,7 +23,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.TintTypedArray;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 
 /**
  * TabItem is a special 'view' which allows you to declare tab items for a {@link TabLayout} within

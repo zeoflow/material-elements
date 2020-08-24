@@ -87,7 +87,7 @@ android {
   defaultConfig {
     vectorDrawables.useSupportLibrary = true
     minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion 28
+    targetSdkVersion 30
   }
 
   testOptions {
@@ -114,4 +114,4 @@ ext {
   PUBLISH_VERSION = '1.0.0'
 }
 
-apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
+apply from: "${rootProject.projectDir}/material-elements/maven-push.gradle"
