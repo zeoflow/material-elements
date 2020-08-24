@@ -1,6 +1,10 @@
-### Thanks for starting a pull request on Material Components for ZeoFlow!
+---
+name: Bug report
+about: Create a report to help us improve
+title: "[Component name] Short description of issue"
+assignees: 'TeodorHMX1'
 
-#### Don't forget:
+---
 
 - [ ] Identify the component the PR relates to in brackets in the title.
   `[Buttons] Updated documentation`
