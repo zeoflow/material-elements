@@ -21,20 +21,20 @@
        cannot inherit from it, so we leave pre-21 Framework Alert Dialogs as the
        platform default. -->
 
-  <style name="Base.V21.Theme.MaterialComponents" parent="Base.V14.Theme.MaterialComponents">
+  <style name="Base.V21.Theme.MaterialElements" parent="Base.V14.Theme.MaterialElements">
     <item name="android:alertDialogTheme">
-      @style/ThemeOverlay.MaterialComponents.Dialog.Alert.Framework
+      @style/ThemeOverlay.MaterialElements.Dialog.Alert.Framework
     </item>
   </style>
 
-  <style name="Base.V21.Theme.MaterialComponents.Light" parent="Base.V14.Theme.MaterialComponents.Light">
+  <style name="Base.V21.Theme.MaterialElements.Light" parent="Base.V14.Theme.MaterialElements.Light">
     <item name="android:alertDialogTheme">
-      @style/ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework
+      @style/ThemeOverlay.MaterialElements.Light.Dialog.Alert.Framework
     </item>
   </style>
 
-  <style name="Base.Theme.MaterialComponents" parent="Base.V21.Theme.MaterialComponents" />
+  <style name="Base.Theme.MaterialElements" parent="Base.V21.Theme.MaterialElements" />
 
-  <style name="Base.Theme.MaterialComponents.Light" parent="Base.V21.Theme.MaterialComponents.Light" />
+  <style name="Base.Theme.MaterialElements.Light" parent="Base.V21.Theme.MaterialElements.Light" />
 
 </resources>

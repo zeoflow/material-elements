@@ -15,7 +15,7 @@
   -->
 <resources>
 
-  <style name="TextAppearance.MaterialComponents.Badge" parent="Base.TextAppearance.MaterialComponents.Badge">
+  <style name="TextAppearance.MaterialElements.Badge" parent="Base.TextAppearance.MaterialElements.Badge">
     <!-- Roboto Medium was added in this api level -->
     <item name="fontFamily">sans-serif-medium</item>
     <item name="android:fontFamily">sans-serif-medium</item>

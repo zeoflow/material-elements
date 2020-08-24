@@ -16,12 +16,12 @@
 <resources>
 
   <!-- AppBarLayout styles -->
-  <style name="Widget.MaterialComponents.AppBarLayout.PrimarySurface" parent="Widget.MaterialComponents.AppBarLayout.Surface" />
+  <style name="Widget.MaterialElements.AppBarLayout.PrimarySurface" parent="Widget.MaterialElements.AppBarLayout.Surface" />
 
   <!-- Toolbar styles -->
-  <style name="Widget.MaterialComponents.Toolbar.PrimarySurface" parent="Widget.MaterialComponents.Toolbar.Surface" />
+  <style name="Widget.MaterialElements.Toolbar.PrimarySurface" parent="Widget.MaterialElements.Toolbar.Surface" />
 
   <!-- ActionBar styles -->
-  <style name="Widget.MaterialComponents.ActionBar.PrimarySurface" parent="Widget.MaterialComponents.ActionBar.Surface" />
+  <style name="Widget.MaterialElements.ActionBar.PrimarySurface" parent="Widget.MaterialElements.ActionBar.Surface" />
 
 </resources>

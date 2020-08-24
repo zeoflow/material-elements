@@ -131,7 +131,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
   private static final String TAG = "Chip";
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_Chip_Action;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_Chip_Action;
 
   private static final int CHIP_BODY_VIRTUAL_ID = 0;
   private static final int CLOSE_ICON_VIRTUAL_ID = 1;

@@ -23,8 +23,8 @@
   <public name="itemTextAppearanceActive" type="attr" />
   <public name="labelVisibilityMode" type="attr" />
   <public name="Widget.Design.BottomNavigationView" type="style" />
-  <public name="Widget.MaterialComponents.BottomNavigationView" type="style" />
-  <public name="Widget.MaterialComponents.BottomNavigationView.Colored" type="style" />
-  <public name="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" type="style" />
+  <public name="Widget.MaterialElements.BottomNavigationView" type="style" />
+  <public name="Widget.MaterialElements.BottomNavigationView.Colored" type="style" />
+  <public name="Widget.MaterialElements.BottomNavigationView.PrimarySurface" type="style" />
   <public name="hide_bottom_view_on_scroll_behavior" type="string" />
 </resources>

@@ -43,7 +43,7 @@ public class MaterialCheckBox extends AppCompatCheckBox
 {
 
   private static final int DEF_STYLE_RES =
-      R.style.Widget_MaterialComponents_CompoundButton_CheckBox;
+      R.style.Widget_MaterialElements_CompoundButton_CheckBox;
   private static final int[][] ENABLED_CHECKED_STATES =
       new int[][]{
           new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]

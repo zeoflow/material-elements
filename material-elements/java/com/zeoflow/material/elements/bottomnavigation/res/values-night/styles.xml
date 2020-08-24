@@ -15,6 +15,6 @@
 -->
 <resources>
 
-  <style name="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" parent="Widget.MaterialComponents.BottomNavigationView" />
+  <style name="Widget.MaterialElements.BottomNavigationView.PrimarySurface" parent="Widget.MaterialElements.BottomNavigationView" />
 
 </resources>

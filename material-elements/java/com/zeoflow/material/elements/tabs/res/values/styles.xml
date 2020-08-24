@@ -43,7 +43,7 @@
     <item name="textAllCaps">true</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TabLayout" parent="Widget.Design.TabLayout">
+  <style name="Widget.MaterialElements.TabLayout" parent="Widget.Design.TabLayout">
     <item name="enforceMaterialTheme">true</item>
     <item name="enforceTextAppearance">true</item>
     <item name="android:background">?attr/colorSurface</item>
@@ -56,7 +56,7 @@
     <item name="tabUnboundedRipple">true</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TabLayout.Colored">
+  <style name="Widget.MaterialElements.TabLayout.Colored">
     <item name="android:background">?attr/colorPrimary</item>
     <item name="tabIconTint">@color/mtrl_tabs_icon_color_selector_colored</item>
     <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
@@ -64,6 +64,6 @@
     <item name="tabRippleColor">@color/mtrl_tabs_colored_ripple_color</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TabLayout.PrimarySurface" parent="Widget.MaterialComponents.TabLayout.Colored" />
+  <style name="Widget.MaterialElements.TabLayout.PrimarySurface" parent="Widget.MaterialElements.TabLayout.Colored" />
 
 </resources>

@@ -125,7 +125,7 @@ public class MaterialButtonToggleGroup extends LinearLayout
 
   private static final String LOG_TAG = MaterialButtonToggleGroup.class.getSimpleName();
   private static final int DEF_STYLE_RES =
-      R.style.Widget_MaterialComponents_MaterialButtonToggleGroup;
+      R.style.Widget_MaterialElements_MaterialButtonToggleGroup;
   private final List<CornerData> originalCornerData = new ArrayList<>();
   private final CheckedStateTracker checkedStateTracker = new CheckedStateTracker();
   private final PressedStateTracker pressedStateTracker = new PressedStateTracker();

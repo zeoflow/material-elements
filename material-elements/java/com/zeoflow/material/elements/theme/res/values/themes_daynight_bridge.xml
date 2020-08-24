@@ -16,10 +16,10 @@
 <resources>
 
   <!-- Material bridge themes (day/night versions) for activities. -->
-  <style name="Theme.MaterialComponents.DayNight.Bridge" parent="Theme.MaterialComponents.Light.Bridge" />
+  <style name="Theme.MaterialElements.DayNight.Bridge" parent="Theme.MaterialElements.Light.Bridge" />
 
-  <style name="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge" />
+  <style name="Theme.MaterialElements.DayNight.DarkActionBar.Bridge" parent="Theme.MaterialElements.Light.DarkActionBar.Bridge" />
 
-  <style name="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge" />
+  <style name="Theme.MaterialElements.DayNight.NoActionBar.Bridge" parent="Theme.MaterialElements.Light.NoActionBar.Bridge" />
 
 </resources>

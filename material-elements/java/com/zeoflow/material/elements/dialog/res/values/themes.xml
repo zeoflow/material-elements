@@ -16,16 +16,16 @@
 <resources>
 
   <!--
-    Themes in the "Theme.MaterialComponents" family will contain a default full color scheme.
+    Themes in the "Theme.MaterialElements" family will contain a default full color scheme.
 
     These theme declarations contain any version-independent specification. Items
     that need to vary based on platform version should be defined in the corresponding
     "Base.Theme" theme.
   -->
 
-  <style name="Theme.MaterialComponents.Dialog" parent="Base.Theme.MaterialComponents.Dialog" />
+  <style name="Theme.MaterialElements.Dialog" parent="Base.Theme.MaterialElements.Dialog" />
 
-  <style name="Theme.MaterialComponents.Light.Dialog" parent="Base.Theme.MaterialComponents.Light.Dialog" />
+  <style name="Theme.MaterialElements.Light.Dialog" parent="Base.Theme.MaterialElements.Light.Dialog" />
 
   <!--
     Material theme for alert dialog windows, which is used by the AlertDialog class.
@@ -33,61 +33,61 @@
     two-tone backgrounds. For applications targeting Honeycomb or newer, this is the default
     AlertDialog theme.
   -->
-  <style name="Theme.MaterialComponents.Dialog.Alert" parent="Base.Theme.MaterialComponents.Dialog.Alert" />
+  <style name="Theme.MaterialElements.Dialog.Alert" parent="Base.Theme.MaterialElements.Dialog.Alert" />
 
-  <style name="Theme.MaterialComponents.Light.Dialog.Alert" parent="Base.Theme.MaterialComponents.Light.Dialog.Alert" />
+  <style name="Theme.MaterialElements.Light.Dialog.Alert" parent="Base.Theme.MaterialElements.Light.Dialog.Alert" />
 
   <!--
-    Variant of Theme.MaterialComponents.Dialog that has a nice minimum width for a regular dialog.
+    Variant of Theme.MaterialElements.Dialog that has a nice minimum width for a regular dialog.
   -->
-  <style name="Theme.MaterialComponents.Dialog.MinWidth" parent="Base.Theme.MaterialComponents.Dialog.MinWidth" />
+  <style name="Theme.MaterialElements.Dialog.MinWidth" parent="Base.Theme.MaterialElements.Dialog.MinWidth" />
 
-  <style name="Theme.MaterialComponents.Light.Dialog.MinWidth" parent="Base.Theme.MaterialComponents.Light.Dialog.MinWidth" />
+  <style name="Theme.MaterialElements.Light.Dialog.MinWidth" parent="Base.Theme.MaterialElements.Light.Dialog.MinWidth" />
 
   <!--
-    Variant of Theme.MaterialComponents.Dialog that has a fixed size for a regular dialog.
+    Variant of Theme.MaterialElements.Dialog that has a fixed size for a regular dialog.
   -->
-  <style name="Theme.MaterialComponents.Dialog.FixedSize" parent="Base.Theme.MaterialComponents.Dialog.FixedSize" />
+  <style name="Theme.MaterialElements.Dialog.FixedSize" parent="Base.Theme.MaterialElements.Dialog.FixedSize" />
 
-  <style name="Theme.MaterialComponents.Light.Dialog.FixedSize" parent="Base.Theme.MaterialComponents.Light.Dialog.FixedSize" />
+  <style name="Theme.MaterialElements.Light.Dialog.FixedSize" parent="Base.Theme.MaterialElements.Light.Dialog.FixedSize" />
 
   <!--
-    The default theme overlay used by MaterialComponents for regular dialogs.
+    The default theme overlay used by MaterialElements for regular dialogs.
   -->
-  <style name="ThemeOverlay.MaterialComponents.Dialog" parent="Base.ThemeOverlay.MaterialComponents.Dialog" />
+  <style name="ThemeOverlay.MaterialElements.Dialog" parent="Base.ThemeOverlay.MaterialElements.Dialog" />
 
   <!--
-    The default theme overlay used by MaterialComponents for alert dialogs, via the
+    The default theme overlay used by MaterialElements for alert dialogs, via the
     alertDialogTheme attribute.
   -->
-  <style name="ThemeOverlay.MaterialComponents.Dialog.Alert" parent="Base.ThemeOverlay.MaterialComponents.Dialog.Alert" />
+  <style name="ThemeOverlay.MaterialElements.Dialog.Alert" parent="Base.ThemeOverlay.MaterialElements.Dialog.Alert" />
 
   <!--
-    The default theme overlay used by MaterialComponents for AlertDialogs built with the MaterialAlertDialogBuilder, via the
+    The default theme overlay used by MaterialElements for AlertDialogs built with the MaterialAlertDialogBuilder, via the
     materialAlertDialogTheme attribute.
   -->
-  <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="Base.ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+  <style name="ThemeOverlay.MaterialElements.MaterialAlertDialog" parent="Base.ThemeOverlay.MaterialElements.MaterialAlertDialog">
     <item name="materialAlertDialogTitlePanelStyle">
-      @style/MaterialAlertDialog.MaterialComponents.Title.Panel
+      @style/MaterialAlertDialog.MaterialElements.Title.Panel
     </item>
     <item name="materialAlertDialogTitleIconStyle">
-      @style/MaterialAlertDialog.MaterialComponents.Title.Icon
+      @style/MaterialAlertDialog.MaterialElements.Title.Icon
     </item>
     <item name="materialAlertDialogTitleTextStyle">
-      @style/MaterialAlertDialog.MaterialComponents.Title.Text
+      @style/MaterialAlertDialog.MaterialElements.Title.Text
     </item>
   </style>
 
   <!-- A theme overlay for Alert Dialog panels with a center aligned title text and icon. -->
-  <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.Centered" parent="Base.ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+  <style name="ThemeOverlay.MaterialElements.MaterialAlertDialog.Centered" parent="Base.ThemeOverlay.MaterialElements.MaterialAlertDialog">
     <item name="materialAlertDialogTitlePanelStyle">
-      @style/MaterialAlertDialog.MaterialComponents.Title.Panel.CenterStacked
+      @style/MaterialAlertDialog.MaterialElements.Title.Panel.CenterStacked
     </item>
     <item name="materialAlertDialogTitleIconStyle">
-      @style/MaterialAlertDialog.MaterialComponents.Title.Icon.CenterStacked
+      @style/MaterialAlertDialog.MaterialElements.Title.Icon.CenterStacked
     </item>
     <item name="materialAlertDialogTitleTextStyle">
-      @style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked
+      @style/MaterialAlertDialog.MaterialElements.Title.Text.CenterStacked
     </item>
   </style>
 

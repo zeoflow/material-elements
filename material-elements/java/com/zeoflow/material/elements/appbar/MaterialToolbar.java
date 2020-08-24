@@ -59,7 +59,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 public class MaterialToolbar extends Toolbar
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_Toolbar;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_Toolbar;
 
   public MaterialToolbar(@NonNull Context context)
   {

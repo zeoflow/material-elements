@@ -21,7 +21,7 @@
 
   <TextView
     android:id="@+id/month_title"
-    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+    style="@style/TextAppearance.MaterialElements.Subtitle2"
     android:layout_width="match_parent"
     android:layout_height="@dimen/mtrl_calendar_day_height"
     android:focusable="true"

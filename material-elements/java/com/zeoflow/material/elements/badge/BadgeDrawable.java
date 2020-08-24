@@ -149,7 +149,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   private static final int MAX_CIRCULAR_BADGE_NUMBER_COUNT = 9;
 
   @StyleRes
-  private static final int DEFAULT_STYLE = R.style.Widget_MaterialComponents_Badge;
+  private static final int DEFAULT_STYLE = R.style.Widget_MaterialElements_Badge;
   @AttrRes
   private static final int DEFAULT_THEME_ATTR = R.attr.badgeStyle;
   @NonNull
@@ -191,7 +191,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
     textDrawableHelper = new TextDrawableHelper(/* delegate= */ this);
     textDrawableHelper.getTextPaint().setTextAlign(Paint.Align.CENTER);
     this.savedState = new SavedState(context);
-    setTextAppearanceResource(R.style.TextAppearance_MaterialComponents_Badge);
+    setTextAppearanceResource(R.style.TextAppearance_MaterialElements_Badge);
   }
 
   /**
@@ -915,7 +915,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
       // If the badge text color attribute was not explicitly set, use the text color specified in
       // the TextAppearance.
       TextAppearance textAppearance =
-          new TextAppearance(context, R.style.TextAppearance_MaterialComponents_Badge);
+          new TextAppearance(context, R.style.TextAppearance_MaterialElements_Badge);
       badgeTextColor = textAppearance.textColor.getDefaultColor();
       contentDescriptionNumberless =
           context.getString(R.string.mtrl_badge_numberless_content_description);

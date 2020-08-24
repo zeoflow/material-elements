@@ -25,13 +25,13 @@
     <item name="android:touchscreenBlocksFocus" tools:ignore="NewApi">true</item>
   </style>
 
-  <style name="Widget.MaterialComponents.AppBarLayout.Primary" parent="Widget.Design.AppBarLayout" />
+  <style name="Widget.MaterialElements.AppBarLayout.Primary" parent="Widget.Design.AppBarLayout" />
 
-  <style name="Widget.MaterialComponents.AppBarLayout.Surface" parent="Widget.Design.AppBarLayout">
+  <style name="Widget.MaterialElements.AppBarLayout.Surface" parent="Widget.Design.AppBarLayout">
     <item name="android:background">?attr/colorSurface</item>
   </style>
 
-  <style name="Widget.MaterialComponents.AppBarLayout.PrimarySurface" parent="Widget.MaterialComponents.AppBarLayout.Primary" />
+  <style name="Widget.MaterialElements.AppBarLayout.PrimarySurface" parent="Widget.MaterialElements.AppBarLayout.Primary" />
 
   <!-- CollapsingToolbarLayout styles -->
   <style name="Widget.Design.CollapsingToolbar" parent="android:Widget">
@@ -44,7 +44,7 @@
   </style>
 
   <!-- Toolbar styles -->
-  <style name="Widget.MaterialComponents.Toolbar" parent="Widget.AppCompat.Toolbar">
+  <style name="Widget.MaterialElements.Toolbar" parent="Widget.AppCompat.Toolbar">
     <item name="titleTextAppearance">?attr/textAppearanceHeadline6</item>
     <item name="titleTextColor">?android:attr/textColorPrimary</item>
     <item name="subtitleTextAppearance">?attr/textAppearanceSubtitle1</item>
@@ -54,37 +54,37 @@
     <item name="maxButtonHeight">@dimen/mtrl_toolbar_default_height</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Toolbar.Primary">
+  <style name="Widget.MaterialElements.Toolbar.Primary">
     <item name="android:elevation" tools:ignore="NewApi">@dimen/design_appbar_elevation</item>
     <item name="android:background">?attr/colorPrimary</item>
     <item name="titleTextColor">?attr/colorOnPrimary</item>
     <item name="subtitleTextColor">@color/material_on_primary_emphasis_medium</item>
     <!-- Note: this theme overlay will only work if the style is applied directly to a Toolbar. -->
-    <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary</item>
+    <item name="android:theme">@style/ThemeOverlay.MaterialElements.Toolbar.Primary</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Toolbar.Surface">
+  <style name="Widget.MaterialElements.Toolbar.Surface">
     <item name="android:background">?attr/colorSurface</item>
     <item name="titleTextColor">@color/material_on_surface_emphasis_high_type</item>
     <item name="subtitleTextColor">@color/material_on_surface_emphasis_medium</item>
     <!-- Note: this theme overlay will only work if the style is applied directly to a Toolbar. -->
-    <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Surface</item>
+    <item name="android:theme">@style/ThemeOverlay.MaterialElements.Toolbar.Surface</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Toolbar.PrimarySurface" parent="Widget.MaterialComponents.Toolbar.Primary" />
+  <style name="Widget.MaterialElements.Toolbar.PrimarySurface" parent="Widget.MaterialElements.Toolbar.Primary" />
 
-  <style name="ThemeOverlay.MaterialComponents.Toolbar.Primary" parent="">
+  <style name="ThemeOverlay.MaterialElements.Toolbar.Primary" parent="">
     <item name="colorControlNormal">?attr/colorOnPrimary</item>
     <item name="actionMenuTextColor">?attr/colorOnPrimary</item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.Toolbar.Surface" parent="">
+  <style name="ThemeOverlay.MaterialElements.Toolbar.Surface" parent="">
     <item name="colorControlNormal">@color/material_on_surface_emphasis_medium</item>
     <item name="actionMenuTextColor">@color/material_on_surface_emphasis_medium</item>
   </style>
 
   <!-- ActionBar styles -->
-  <style name="Widget.MaterialComponents.ActionBar.Solid" parent="Widget.AppCompat.ActionBar.Solid">
+  <style name="Widget.MaterialElements.ActionBar.Solid" parent="Widget.AppCompat.ActionBar.Solid">
     <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
     <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
     <!-- Overrides minimum height in landscape to avoid headline6 and subtitle1 height concerns. -->
@@ -92,7 +92,7 @@
     <item name="maxButtonHeight">@dimen/mtrl_toolbar_default_height</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Light.ActionBar.Solid" parent="Widget.AppCompat.Light.ActionBar.Solid">
+  <style name="Widget.MaterialElements.Light.ActionBar.Solid" parent="Widget.AppCompat.Light.ActionBar.Solid">
     <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
     <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
     <!-- Overrides minimum height in landscape to avoid headline6 and subtitle1 height concerns. -->
@@ -100,19 +100,19 @@
     <item name="maxButtonHeight">@dimen/mtrl_toolbar_default_height</item>
   </style>
 
-  <style name="Widget.MaterialComponents.ActionBar.Primary" parent="Widget.AppCompat.ActionBar.Solid">
+  <style name="Widget.MaterialElements.ActionBar.Primary" parent="Widget.AppCompat.ActionBar.Solid">
     <item name="background">?attr/colorPrimary</item>
     <item name="elevation">@dimen/design_appbar_elevation</item>
   </style>
 
-  <style name="Widget.MaterialComponents.ActionBar.Surface" parent="Widget.AppCompat.Light.ActionBar.Solid">
+  <style name="Widget.MaterialElements.ActionBar.Surface" parent="Widget.AppCompat.Light.ActionBar.Solid">
     <item name="background">?attr/colorSurface</item>
     <item name="elevation">0dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.ActionBar.PrimarySurface" parent="Widget.MaterialComponents.ActionBar.Primary" />
+  <style name="Widget.MaterialElements.ActionBar.PrimarySurface" parent="Widget.MaterialElements.ActionBar.Primary" />
 
-  <style name="ThemeOverlay.MaterialComponents.ActionBar.Primary" parent="ThemeOverlay.AppCompat.ActionBar">
+  <style name="ThemeOverlay.MaterialElements.ActionBar.Primary" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
     <item name="android:textColorSecondary">@color/material_on_primary_emphasis_medium</item>
     <item name="actionMenuTextColor">?attr/colorOnPrimary</item>
@@ -121,7 +121,7 @@
     <item name="android:colorBackground">?attr/colorPrimary</item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.ActionBar.Surface" parent="ThemeOverlay.AppCompat.ActionBar">
+  <style name="ThemeOverlay.MaterialElements.ActionBar.Surface" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">@color/material_on_surface_emphasis_high_type</item>
     <item name="android:textColorSecondary">@color/material_on_surface_emphasis_medium</item>
     <item name="actionMenuTextColor">@color/material_on_surface_emphasis_medium</item>

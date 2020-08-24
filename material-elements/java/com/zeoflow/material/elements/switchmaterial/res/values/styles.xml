@@ -15,7 +15,7 @@
 -->
 <resources>
 
-  <style name="Widget.MaterialComponents.CompoundButton.Switch" parent="Widget.AppCompat.CompoundButton.Switch">
+  <style name="Widget.MaterialElements.CompoundButton.Switch" parent="Widget.AppCompat.CompoundButton.Switch">
     <item name="enforceMaterialTheme">true</item>
     <item name="useMaterialThemeColors">true</item>
     <item name="android:minWidth">?attr/minTouchTargetSize</item>

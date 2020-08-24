@@ -31,23 +31,23 @@
   <public name="itemStrokeColor" type="attr" />
   <public name="itemStrokeWidth" type="attr" />
 
-  <public name="ThemeOverlay.MaterialComponents.MaterialCalendar" type="style" />
-  <public name="ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen" type="style" />
+  <public name="ThemeOverlay.MaterialElements.MaterialCalendar" type="style" />
+  <public name="ThemeOverlay.MaterialElements.MaterialCalendar.Fullscreen" type="style" />
 
-  <public name="Widget.MaterialComponents.MaterialCalendar" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Fullscreen" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Fullscreen" type="style" />
 
-  <public name="Widget.MaterialComponents.MaterialCalendar.Item" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Day" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Day.Invalid" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Day.Selected" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Day.Today" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Year" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Year.Selected" type="style" />
-  <public name="Widget.MaterialComponents.MaterialCalendar.Year.Today" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Item" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Day" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Day.Invalid" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Day.Selected" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Day.Today" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Year" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Year.Selected" type="style" />
+  <public name="Widget.MaterialElements.MaterialCalendar.Year.Today" type="style" />
 
-  <public name="ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Day" type="style" />
-  <public name="ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Year" type="style" />
-  <public name="ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Window.Fullscreen" type="style" />
+  <public name="ShapeAppearanceOverlay.MaterialElements.MaterialCalendar.Day" type="style" />
+  <public name="ShapeAppearanceOverlay.MaterialElements.MaterialCalendar.Year" type="style" />
+  <public name="ShapeAppearanceOverlay.MaterialElements.MaterialCalendar.Window.Fullscreen" type="style" />
 
 </resources>

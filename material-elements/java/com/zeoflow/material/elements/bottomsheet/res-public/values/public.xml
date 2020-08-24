@@ -15,8 +15,8 @@
 -->
 <resources>
   <public name="bottom_sheet_behavior" type="string" />
-  <public name="Theme.MaterialComponents.BottomSheetDialog" type="style" />
-  <public name="Theme.MaterialComponents.Light.BottomSheetDialog" type="style" />
+  <public name="Theme.MaterialElements.BottomSheetDialog" type="style" />
+  <public name="Theme.MaterialElements.Light.BottomSheetDialog" type="style" />
   <public name="Theme.Design.BottomSheetDialog" type="style" />
   <public name="bottomSheetDialogTheme" type="attr" />
   <public name="bottomSheetStyle" type="attr" />
@@ -25,8 +25,8 @@
   <public name="behavior_fitToContents" type="attr" />
   <public name="Animation.Design.BottomSheetDialog" type="style" />
   <public name="Widget.Design.BottomSheet.Modal" type="style" />
-  <public name="Widget.MaterialComponents.BottomSheet" type="style" />
-  <public name="Widget.MaterialComponents.BottomSheet.Modal" type="style" />
+  <public name="Widget.MaterialElements.BottomSheet" type="style" />
+  <public name="Widget.MaterialElements.BottomSheet.Modal" type="style" />
   <public name="behavior_draggable" type="attr" />
   <public name="behavior_expandedOffset" type="attr" />
   <public name="behavior_halfExpandedRatio" type="attr" />

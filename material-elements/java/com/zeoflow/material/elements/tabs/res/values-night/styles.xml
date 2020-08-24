@@ -15,6 +15,6 @@
 -->
 <resources>
 
-  <style name="Widget.MaterialComponents.TabLayout.PrimarySurface" parent="Widget.MaterialComponents.TabLayout" />
+  <style name="Widget.MaterialElements.TabLayout.PrimarySurface" parent="Widget.MaterialElements.TabLayout" />
 
 </resources>

@@ -49,8 +49,8 @@
        The background can either be a color or a bitmap drawable with tileMode set to repeat. -->
   <attr name="scrimBackground" format="color|reference" />
 
-  <!-- Internal flag used to denote that a theme is a Theme.MaterialComponents theme or a
-       Theme.MaterialComponents.Bridge theme. -->
+  <!-- Internal flag used to denote that a theme is a Theme.MaterialElements theme or a
+       Theme.MaterialElements.Bridge theme. -->
   <attr name="isMaterialTheme" format="boolean" />
 
   <!-- When set to true, the material selection controls will tint themselves according to

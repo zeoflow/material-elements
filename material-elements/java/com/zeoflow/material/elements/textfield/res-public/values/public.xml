@@ -92,12 +92,12 @@
   <public name="textInputLayoutFocusedRectEnabled" type="attr" />
 
   <public name="Widget.Design.TextInputLayout" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.FilledBox" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.OutlinedBox" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" type="style" />
-  <public name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.FilledBox" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.FilledBox.Dense" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.OutlinedBox" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.OutlinedBox.Dense" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.FilledBox.ExposedDropdownMenu" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.OutlinedBox.ExposedDropdownMenu" type="style" />
+  <public name="Widget.MaterialElements.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu" type="style" />
 </resources>

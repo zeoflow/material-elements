@@ -28,7 +28,7 @@
   <public name="floatingActionButtonStyle" type="attr" />
   <public name="extendedFloatingActionButtonStyle" type="attr" />
   <public name="Widget.Design.FloatingActionButton" type="style" />
-  <public name="Widget.MaterialComponents.FloatingActionButton" type="style" />
-  <public name="Widget.MaterialComponents.ExtendedFloatingActionButton" type="style" />
-  <public name="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon" type="style" />
+  <public name="Widget.MaterialElements.FloatingActionButton" type="style" />
+  <public name="Widget.MaterialElements.ExtendedFloatingActionButton" type="style" />
+  <public name="Widget.MaterialElements.ExtendedFloatingActionButton.Icon" type="style" />
 </resources>

@@ -115,7 +115,7 @@ public class BottomAppBar extends Toolbar implements AttachedBehavior
   public static final int FAB_ALIGNMENT_MODE_END = 1;
   public static final int FAB_ANIMATION_MODE_SCALE = 0;
   public static final int FAB_ANIMATION_MODE_SLIDE = 1;
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_BottomAppBar;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_BottomAppBar;
   private static final long ANIMATION_DURATION = 300;
   private final int fabOffsetEndMode;
   private final MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();

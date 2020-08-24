@@ -16,7 +16,7 @@
 <resources>
 
   <!--
-    Themes in the "Theme.MaterialComponents" family will contain a default full color scheme.
+    Themes in the "Theme.MaterialElements" family will contain a default full color scheme.
 
     These theme declarations contain any version-independent specification. Items
     that need to vary based on platform version should be defined in the corresponding
@@ -24,44 +24,44 @@
   -->
 
   <!-- Platform-independent theme providing a full color scheme in a dark-themed activity. -->
-  <style name="Theme.MaterialComponents" parent="Base.Theme.MaterialComponents" />
+  <style name="Theme.MaterialElements" parent="Base.Theme.MaterialElements" />
 
   <!-- Platform-independent theme providing a full color scheme in a light-themed activity. -->
-  <style name="Theme.MaterialComponents.Light" parent="Base.Theme.MaterialComponents.Light" />
+  <style name="Theme.MaterialElements.Light" parent="Base.Theme.MaterialElements.Light" />
 
   <!-- Platform-independent theme providing an action bar in a dark-themed activity. -->
-  <style name="Theme.MaterialComponents.Light.DarkActionBar" parent="Base.Theme.MaterialComponents.Light.DarkActionBar" />
+  <style name="Theme.MaterialElements.Light.DarkActionBar" parent="Base.Theme.MaterialElements.Light.DarkActionBar" />
 
-  <style name="Theme.MaterialComponents.NoActionBar">
+  <style name="Theme.MaterialElements.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="Theme.MaterialComponents.Light.NoActionBar">
+  <style name="Theme.MaterialElements.Light.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="Theme.MaterialComponents.DialogWhenLarge" parent="Base.Theme.MaterialComponents.DialogWhenLarge"></style>
+  <style name="Theme.MaterialElements.DialogWhenLarge" parent="Base.Theme.MaterialElements.DialogWhenLarge"></style>
 
-  <style name="Theme.MaterialComponents.Light.DialogWhenLarge" parent="Base.Theme.MaterialComponents.Light.DialogWhenLarge"></style>
+  <style name="Theme.MaterialElements.Light.DialogWhenLarge" parent="Base.Theme.MaterialElements.Light.DialogWhenLarge"></style>
 
   <!-- Menu/item attributes -->
-  <style name="Theme.MaterialComponents.CompactMenu" parent="Base.Theme.MaterialComponents.CompactMenu" />
+  <style name="Theme.MaterialElements.CompactMenu" parent="Base.Theme.MaterialElements.CompactMenu" />
 
-  <!-- Deprecated. Use Theme.MaterialComponents instead. -->
+  <!-- Deprecated. Use Theme.MaterialElements instead. -->
   <style name="Theme.Design" parent="Theme.AppCompat"></style>
 
-  <!-- Deprecated. Use Theme.MaterialComponents.Light instead. -->
+  <!-- Deprecated. Use Theme.MaterialElements.Light instead. -->
   <style name="Theme.Design.Light" parent="Theme.AppCompat.Light"></style>
 
-  <!-- Deprecated. Use Theme.MaterialComponents.NoActionBar instead. -->
+  <!-- Deprecated. Use Theme.MaterialElements.NoActionBar instead. -->
   <style name="Theme.Design.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
 
-  <!-- Deprecated. Use Theme.MaterialComponents.Light.NoActionBar instead. -->
+  <!-- Deprecated. Use Theme.MaterialElements.Light.NoActionBar instead. -->
   <style name="Theme.Design.Light.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>

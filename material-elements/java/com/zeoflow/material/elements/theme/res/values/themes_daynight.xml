@@ -16,12 +16,12 @@
 <resources>
 
   <!-- Material themes (day/night versions) for activities. -->
-  <style name="Theme.MaterialComponents.DayNight" parent="Theme.MaterialComponents.Light" />
+  <style name="Theme.MaterialElements.DayNight" parent="Theme.MaterialElements.Light" />
 
-  <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar" />
+  <style name="Theme.MaterialElements.DayNight.DarkActionBar" parent="Theme.MaterialElements.Light.DarkActionBar" />
 
-  <style name="Theme.MaterialComponents.DayNight.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar" />
+  <style name="Theme.MaterialElements.DayNight.NoActionBar" parent="Theme.MaterialElements.Light.NoActionBar" />
 
-  <style name="Theme.MaterialComponents.DayNight.DialogWhenLarge" parent="Theme.MaterialComponents.Light.DialogWhenLarge" />
+  <style name="Theme.MaterialElements.DayNight.DialogWhenLarge" parent="Theme.MaterialElements.Light.DialogWhenLarge" />
 
 </resources>

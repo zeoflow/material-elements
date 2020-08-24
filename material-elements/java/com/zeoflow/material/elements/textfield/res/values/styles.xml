@@ -52,7 +52,7 @@
   </style>
 
   <!-- Base style for TextInputLayout. You should use one of the sub-styles instead. -->
-  <style name="Base.Widget.MaterialComponents.TextInputLayout" parent="Widget.Design.TextInputLayout">
+  <style name="Base.Widget.MaterialElements.TextInputLayout" parent="Widget.Design.TextInputLayout">
     <item name="enforceMaterialTheme">true</item>
     <item name="enforceTextAppearance">true</item>
 
@@ -93,9 +93,9 @@
     <item name="shapeAppearanceOverlay">@null</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputLayout.FilledBox" parent="Base.Widget.MaterialComponents.TextInputLayout">
+  <style name="Widget.MaterialElements.TextInputLayout.FilledBox" parent="Base.Widget.MaterialElements.TextInputLayout">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox
+      @style/ThemeOverlay.MaterialElements.TextInputEditText.FilledBox
     </item>
     <item name="boxBackgroundMode">filled</item>
     <item name="boxBackgroundColor">@color/mtrl_filled_background_color</item>
@@ -104,55 +104,55 @@
     <item name="boxCollapsedPaddingTop">12dp</item>
     <item name="boxStrokeColor">@color/mtrl_filled_stroke_color</item>
     <item name="shapeAppearanceOverlay">
-      @style/ShapeAppearanceOverlay.MaterialComponents.TextInputLayout.FilledBox
+      @style/ShapeAppearanceOverlay.MaterialElements.TextInputLayout.FilledBox
     </item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+  <style name="Widget.MaterialElements.TextInputLayout.FilledBox.Dense">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox.Dense
+      @style/ThemeOverlay.MaterialElements.TextInputEditText.FilledBox.Dense
     </item>
     <item name="boxCollapsedPaddingTop">8dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox" parent="Base.Widget.MaterialComponents.TextInputLayout">
+  <style name="Widget.MaterialElements.TextInputLayout.OutlinedBox" parent="Base.Widget.MaterialElements.TextInputLayout">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox
+      @style/ThemeOverlay.MaterialElements.TextInputEditText.OutlinedBox
     </item>
     <item name="boxCollapsedPaddingTop">0dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+  <style name="Widget.MaterialElements.TextInputLayout.OutlinedBox.Dense">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense
+      @style/ThemeOverlay.MaterialElements.TextInputEditText.OutlinedBox.Dense
     </item>
   </style>
 
   <!-- Styles to be used for the exposed dropdown menu. -->
-  <style name="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+  <style name="Widget.MaterialElements.TextInputLayout.FilledBox.ExposedDropdownMenu">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.AutoCompleteTextView.FilledBox
+      @style/ThemeOverlay.MaterialElements.AutoCompleteTextView.FilledBox
     </item>
     <item name="endIconMode">dropdown_menu</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
+  <style name="Widget.MaterialElements.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.AutoCompleteTextView.FilledBox.Dense
+      @style/ThemeOverlay.MaterialElements.AutoCompleteTextView.FilledBox.Dense
     </item>
     <item name="endIconMode">dropdown_menu</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+  <style name="Widget.MaterialElements.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.AutoCompleteTextView.OutlinedBox
+      @style/ThemeOverlay.MaterialElements.AutoCompleteTextView.OutlinedBox
     </item>
     <item name="endIconMode">dropdown_menu</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+  <style name="Widget.MaterialElements.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
     <item name="materialThemeOverlay">
-      @style/ThemeOverlay.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense
+      @style/ThemeOverlay.MaterialElements.AutoCompleteTextView.OutlinedBox.Dense
     </item>
     <item name="endIconMode">dropdown_menu</item>
   </style>
@@ -163,7 +163,7 @@
   </style>
 
   <!-- Base style for TextInputEditText. You should use one of the sub-styles instead. -->
-  <style name="Base.Widget.MaterialComponents.TextInputEditText" parent="Widget.Design.TextInputEditText">
+  <style name="Base.Widget.MaterialElements.TextInputEditText" parent="Widget.Design.TextInputEditText">
     <item name="enforceMaterialTheme">true</item>
     <item name="enforceTextAppearance">true</item>
     <item name="android:background">@null</item>
@@ -177,25 +177,25 @@
     <item name="textInputLayoutFocusedRectEnabled">true</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputEditText.FilledBox" parent="Base.Widget.MaterialComponents.TextInputEditText">
+  <style name="Widget.MaterialElements.TextInputEditText.FilledBox" parent="Base.Widget.MaterialElements.TextInputEditText">
     <item name="android:paddingTop">28dp</item>
     <item name="android:paddingBottom">12dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputEditText.FilledBox.Dense">
+  <style name="Widget.MaterialElements.TextInputEditText.FilledBox.Dense">
     <item name="android:paddingTop">24dp</item>
     <item name="android:paddingBottom">8dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputEditText.OutlinedBox" parent="Base.Widget.MaterialComponents.TextInputEditText" />
+  <style name="Widget.MaterialElements.TextInputEditText.OutlinedBox" parent="Base.Widget.MaterialElements.TextInputEditText" />
 
-  <style name="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+  <style name="Widget.MaterialElements.TextInputEditText.OutlinedBox.Dense">
     <item name="android:paddingTop">13dp</item>
     <item name="android:paddingBottom">13dp</item>
   </style>
 
   <!-- Base style for AutoCompleteTextView. You should use one of the sub-styles instead. -->
-  <style name="Base.Widget.MaterialComponents.AutoCompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
+  <style name="Base.Widget.MaterialElements.AutoCompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
     <item name="enforceMaterialTheme">true</item>
     <item name="enforceTextAppearance">true</item>
     <item name="android:background">@null</item>
@@ -215,19 +215,19 @@
   </style>
 
   <!-- Styles for the AutocompleteTextView to be used if an ExposedDropdownMenu style is being used. -->
-  <style name="Widget.MaterialComponents.AutoCompleteTextView.FilledBox" parent="Base.Widget.MaterialComponents.AutoCompleteTextView">
+  <style name="Widget.MaterialElements.AutoCompleteTextView.FilledBox" parent="Base.Widget.MaterialElements.AutoCompleteTextView">
     <item name="android:paddingTop">28dp</item>
     <item name="android:paddingBottom">12dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.AutoCompleteTextView.FilledBox.Dense">
+  <style name="Widget.MaterialElements.AutoCompleteTextView.FilledBox.Dense">
     <item name="android:paddingTop">24dp</item>
     <item name="android:paddingBottom">8dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox" parent="Base.Widget.MaterialComponents.AutoCompleteTextView" />
+  <style name="Widget.MaterialElements.AutoCompleteTextView.OutlinedBox" parent="Base.Widget.MaterialElements.AutoCompleteTextView" />
 
-  <style name="Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense">
+  <style name="Widget.MaterialElements.AutoCompleteTextView.OutlinedBox.Dense">
     <item name="android:paddingTop">13dp</item>
     <item name="android:paddingBottom">13dp</item>
   </style>
@@ -236,57 +236,57 @@
        apply the correct TextInputEditText style to the TextInputEditText. -->
   <style name="ThemeOverlay.Design.TextInputEditText" parent="" />
 
-  <style name="ThemeOverlay.MaterialComponents.TextInputEditText" parent="ThemeOverlay.Design.TextInputEditText">
+  <style name="ThemeOverlay.MaterialElements.TextInputEditText" parent="ThemeOverlay.Design.TextInputEditText">
     <item name="colorControlActivated">?attr/colorPrimary</item>
     <item name="android:editTextBackground">@null</item>
     <item name="editTextBackground">@null</item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox">
-    <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox</item>
+  <style name="ThemeOverlay.MaterialElements.TextInputEditText.FilledBox">
+    <item name="editTextStyle">@style/Widget.MaterialElements.TextInputEditText.FilledBox</item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox.Dense">
-    <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox.Dense
+  <style name="ThemeOverlay.MaterialElements.TextInputEditText.FilledBox.Dense">
+    <item name="editTextStyle">@style/Widget.MaterialElements.TextInputEditText.FilledBox.Dense
     </item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
-    <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+  <style name="ThemeOverlay.MaterialElements.TextInputEditText.OutlinedBox">
+    <item name="editTextStyle">@style/Widget.MaterialElements.TextInputEditText.OutlinedBox</item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
-    <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense
+  <style name="ThemeOverlay.MaterialElements.TextInputEditText.OutlinedBox.Dense">
+    <item name="editTextStyle">@style/Widget.MaterialElements.TextInputEditText.OutlinedBox.Dense
     </item>
   </style>
 
   <!-- Set of Theme Overlays to be used internally in the TextInputLayout styles to automatically
        apply the correct AutoCompleteTextView style to the AutoCompleteTextView. -->
-  <style name="ThemeOverlay.MaterialComponents.AutoCompleteTextView" parent="">
+  <style name="ThemeOverlay.MaterialElements.AutoCompleteTextView" parent="">
     <item name="colorControlActivated">?attr/colorPrimary</item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.AutoCompleteTextView.FilledBox">
+  <style name="ThemeOverlay.MaterialElements.AutoCompleteTextView.FilledBox">
     <item name="autoCompleteTextViewStyle">
-      @style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox
+      @style/Widget.MaterialElements.AutoCompleteTextView.FilledBox
     </item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.AutoCompleteTextView.FilledBox.Dense">
+  <style name="ThemeOverlay.MaterialElements.AutoCompleteTextView.FilledBox.Dense">
     <item name="autoCompleteTextViewStyle">
-      @style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox.Dense
+      @style/Widget.MaterialElements.AutoCompleteTextView.FilledBox.Dense
     </item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.AutoCompleteTextView.OutlinedBox">
+  <style name="ThemeOverlay.MaterialElements.AutoCompleteTextView.OutlinedBox">
     <item name="autoCompleteTextViewStyle">
-      @style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox
+      @style/Widget.MaterialElements.AutoCompleteTextView.OutlinedBox
     </item>
   </style>
 
-  <style name="ThemeOverlay.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense">
+  <style name="ThemeOverlay.MaterialElements.AutoCompleteTextView.OutlinedBox.Dense">
     <item name="autoCompleteTextViewStyle">
-      @style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense
+      @style/Widget.MaterialElements.AutoCompleteTextView.OutlinedBox.Dense
     </item>
   </style>
 
@@ -314,7 +314,7 @@
   </style>
 
   <!-- Shape appearance styles. -->
-  <style name="ShapeAppearanceOverlay.MaterialComponents.TextInputLayout.FilledBox" parent="">
+  <style name="ShapeAppearanceOverlay.MaterialElements.TextInputLayout.FilledBox" parent="">
     <item name="cornerSizeBottomLeft">@dimen/mtrl_textinput_box_corner_radius_small</item>
     <item name="cornerSizeBottomRight">@dimen/mtrl_textinput_box_corner_radius_small</item>
   </style>

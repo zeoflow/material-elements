@@ -34,7 +34,7 @@
   <public name="cornerFamilyBottomRight" type="attr" />
   <public name="cornerFamilyBottomLeft" type="attr" />
 
-  <public name="ShapeAppearance.MaterialComponents.SmallComponent" type="style" />
-  <public name="ShapeAppearance.MaterialComponents.MediumComponent" type="style" />
-  <public name="ShapeAppearance.MaterialComponents.LargeComponent" type="style" />
+  <public name="ShapeAppearance.MaterialElements.SmallComponent" type="style" />
+  <public name="ShapeAppearance.MaterialElements.MediumComponent" type="style" />
+  <public name="ShapeAppearance.MaterialElements.LargeComponent" type="style" />
 </resources>

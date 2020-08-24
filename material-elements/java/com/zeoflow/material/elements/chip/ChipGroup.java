@@ -59,7 +59,7 @@ import java.util.List;
 public class ChipGroup extends FlowLayout
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_ChipGroup;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_ChipGroup;
   private final CheckedStateTracker checkedStateTracker = new CheckedStateTracker();
   @Dimension
   private int chipSpacingHorizontal;

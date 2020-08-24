@@ -14,19 +14,19 @@
   ~ limitations under the License.
 -->
 <resources>
-  <public name="TextAppearance.MaterialComponents.Headline1" type="style" />
-  <public name="TextAppearance.MaterialComponents.Headline2" type="style" />
-  <public name="TextAppearance.MaterialComponents.Headline3" type="style" />
-  <public name="TextAppearance.MaterialComponents.Headline4" type="style" />
-  <public name="TextAppearance.MaterialComponents.Headline5" type="style" />
-  <public name="TextAppearance.MaterialComponents.Headline6" type="style" />
-  <public name="TextAppearance.MaterialComponents.Subtitle1" type="style" />
-  <public name="TextAppearance.MaterialComponents.Subtitle2" type="style" />
-  <public name="TextAppearance.MaterialComponents.Body1" type="style" />
-  <public name="TextAppearance.MaterialComponents.Body2" type="style" />
-  <public name="TextAppearance.MaterialComponents.Caption" type="style" />
-  <public name="TextAppearance.MaterialComponents.Button" type="style" />
-  <public name="TextAppearance.MaterialComponents.Overline" type="style" />
+  <public name="TextAppearance.MaterialElements.Headline1" type="style" />
+  <public name="TextAppearance.MaterialElements.Headline2" type="style" />
+  <public name="TextAppearance.MaterialElements.Headline3" type="style" />
+  <public name="TextAppearance.MaterialElements.Headline4" type="style" />
+  <public name="TextAppearance.MaterialElements.Headline5" type="style" />
+  <public name="TextAppearance.MaterialElements.Headline6" type="style" />
+  <public name="TextAppearance.MaterialElements.Subtitle1" type="style" />
+  <public name="TextAppearance.MaterialElements.Subtitle2" type="style" />
+  <public name="TextAppearance.MaterialElements.Body1" type="style" />
+  <public name="TextAppearance.MaterialElements.Body2" type="style" />
+  <public name="TextAppearance.MaterialElements.Caption" type="style" />
+  <public name="TextAppearance.MaterialElements.Button" type="style" />
+  <public name="TextAppearance.MaterialElements.Overline" type="style" />
   <public name="textAppearanceHeadline1" type="attr" />
   <public name="textAppearanceHeadline2" type="attr" />
   <public name="textAppearanceHeadline3" type="attr" />

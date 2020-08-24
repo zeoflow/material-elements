@@ -16,7 +16,7 @@
 <resources>
 
   <!-- Base style for TextView. You should use one of the sub-styles instead. -->
-  <style name="Base.Widget.MaterialComponents.TextView" parent="Widget.AppCompat.TextView" />
+  <style name="Base.Widget.MaterialElements.TextView" parent="Widget.AppCompat.TextView" />
 
-  <style name="Widget.MaterialComponents.TextView" parent="Base.Widget.MaterialComponents.TextView" />
+  <style name="Widget.MaterialElements.TextView" parent="Base.Widget.MaterialElements.TextView" />
 </resources>

@@ -16,12 +16,12 @@
 <resources>
 
   <!-- Material themes (day/night versions) for dialogs. -->
-  <style name="Theme.MaterialComponents.DayNight.Dialog" parent="Theme.MaterialComponents.Dialog" />
+  <style name="Theme.MaterialElements.DayNight.Dialog" parent="Theme.MaterialElements.Dialog" />
 
-  <style name="Theme.MaterialComponents.DayNight.Dialog.Alert" parent="Theme.MaterialComponents.Dialog.Alert" />
+  <style name="Theme.MaterialElements.DayNight.Dialog.Alert" parent="Theme.MaterialElements.Dialog.Alert" />
 
-  <style name="Theme.MaterialComponents.DayNight.Dialog.MinWidth" parent="Theme.MaterialComponents.Dialog.MinWidth" />
+  <style name="Theme.MaterialElements.DayNight.Dialog.MinWidth" parent="Theme.MaterialElements.Dialog.MinWidth" />
 
-  <style name="Theme.MaterialComponents.DayNight.Dialog.FixedSize" parent="Theme.MaterialComponents.Dialog.FixedSize" />
+  <style name="Theme.MaterialElements.DayNight.Dialog.FixedSize" parent="Theme.MaterialElements.Dialog.FixedSize" />
 
 </resources>

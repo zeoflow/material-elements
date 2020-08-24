@@ -16,12 +16,12 @@
 <resources>
 
   <!--
-    The default theme overlay used by MaterialComponents for framework
+    The default theme overlay used by MaterialElements for framework
     (non-AppCompat) alert dialogs, via the android:alertDialogTheme attribute.
     It is recommended to use AppCompat alert dialogs, but Preferences does not.
   -->
-  <style name="ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" />
+  <style name="ThemeOverlay.MaterialElements.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialElements.Dialog.Alert.Framework" />
 
-  <style name="ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" />
+  <style name="ThemeOverlay.MaterialElements.Light.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialElements.Light.Dialog.Alert.Framework" />
 
 </resources>

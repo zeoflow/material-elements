@@ -369,7 +369,7 @@ public class ChipDrawable extends MaterialShapeDrawable
     @StyleRes int style = attrs.getStyleAttribute();
     if (style == 0)
     {
-      style = R.style.Widget_MaterialComponents_Chip_Entry;
+      style = R.style.Widget_MaterialElements_Chip_Entry;
     }
     return createFromAttributes(context, attrs, R.attr.chipStandaloneStyle, style);
   }

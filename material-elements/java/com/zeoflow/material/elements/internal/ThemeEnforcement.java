@@ -59,7 +59,7 @@ public final class ThemeEnforcement
    *
    * <p>Set a component's {@link R.attr#enforceMaterialTheme enforceMaterialTheme} attribute to
    * <code>true</code> to ensure that the Context's theme inherits from {@link
-   * R.style#Theme_MaterialComponents Theme.MaterialComponents}. For example, you'll want to do this
+   * R.style#Theme_MaterialElements Theme.MaterialComponents}. For example, you'll want to do this
    * if the component uses a new attribute defined in <code>Theme.MaterialComponents</code> like
    * {@link R.attr#colorSecondary colorSecondary}.
    *
@@ -95,7 +95,7 @@ public final class ThemeEnforcement
    *
    * <p>Set a component's {@link R.attr#enforceMaterialTheme enforceMaterialTheme} attribute to
    * <code>true</code> to ensure that the Context's theme inherits from {@link
-   * R.style#Theme_MaterialComponents Theme.MaterialComponents}. For example, you'll want to do this
+   * R.style#Theme_MaterialElements Theme.MaterialComponents}. For example, you'll want to do this
    * if the component uses a new attribute defined in <code>Theme.MaterialComponents</code> like
    * {@link R.attr#colorSecondary colorSecondary}.
    *

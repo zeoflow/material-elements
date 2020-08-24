@@ -15,20 +15,20 @@
 -->
 <resources>
 
-  <style name="Widget.MaterialComponents.Tooltip" parent="android:Widget">
+  <style name="Widget.MaterialElements.Tooltip" parent="android:Widget">
     <item name="android:layout_margin">8dp</item>
     <item name="android:minWidth">@dimen/mtrl_tooltip_minWidth</item>
     <item name="android:minHeight">@dimen/mtrl_tooltip_minHeight</item>
     <item name="android:padding">@dimen/mtrl_tooltip_padding</item>
-    <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Tooltip</item>
-    <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.Tooltip</item>
+    <item name="android:textAppearance">@style/TextAppearance.MaterialElements.Tooltip</item>
+    <item name="shapeAppearance">@style/ShapeAppearance.MaterialElements.Tooltip</item>
   </style>
 
-  <style name="TextAppearance.MaterialComponents.Tooltip" parent="TextAppearance.MaterialComponents.Body2">
+  <style name="TextAppearance.MaterialElements.Tooltip" parent="TextAppearance.MaterialElements.Body2">
     <item name="android:textColor">?attr/colorOnPrimary</item>
   </style>
 
-  <style name="ShapeAppearance.MaterialComponents.Tooltip" parent="">
+  <style name="ShapeAppearance.MaterialElements.Tooltip" parent="">
     <item name="cornerFamily">rounded</item>
     <item name="cornerSize">4dp</item>
   </style>

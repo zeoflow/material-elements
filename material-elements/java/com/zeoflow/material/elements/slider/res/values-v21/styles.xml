@@ -15,7 +15,7 @@
 -->
 <resources>
 
-  <style name="Widget.MaterialComponents.Slider" parent="Base.Widget.MaterialComponents.Slider">
+  <style name="Widget.MaterialElements.Slider" parent="Base.Widget.MaterialElements.Slider">
     <item name="android:background">?attr/controlBackground</item>
   </style>
 

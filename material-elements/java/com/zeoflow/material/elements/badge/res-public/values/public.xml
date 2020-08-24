@@ -22,5 +22,5 @@
   <public name="badgeGravity" type="attr" />
   <public name="horizontalOffset" type="attr" />
   <public name="verticalOffset" type="attr" />
-  <public name="Widget.MaterialComponents.Badge" type="style" />
+  <public name="Widget.MaterialElements.Badge" type="style" />
 </resources>
