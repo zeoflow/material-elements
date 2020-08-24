@@ -3,7 +3,7 @@ name: Feature request
 about: Suggest an idea for this project
 title: "[Component name] Short description of request"
 labels: feature request
-assignees: ''
+assignees: 'TeodorHMX1'
 
 ---
 
@@ -19,4 +19,4 @@ A clear and concise description of any alternative solutions or features you've 
 **Additional context**
 Add any other context or screenshots about the feature request here.
 
-We also happily accept [pull requests](https://github.com/material-components/material-components-android/pulls).
+We also happily accept [pull requests](https://github.com/zeoflow/material-elements/pulls).
