@@ -64,7 +64,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
 {
 
   @StyleRes
-  private static final int DEFAULT_STYLE = R.style.Widget_MaterialElements_Tooltip;
+  private static final int DEFAULT_STYLE = R.style.MaterialElements_Tooltip;
   @AttrRes
   private static final int DEFAULT_THEME_ATTR = R.attr.tooltipStyle;
   @NonNull

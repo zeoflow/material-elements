@@ -28,20 +28,20 @@
   <public name="statusBarForeground" type="attr" />
   <public name="statusBarScrim" type="attr" />
   <public name="toolbarId" type="attr" />
-  <public name="Widget.Design.AppBarLayout" type="style" />
-  <public name="Widget.Design.CollapsingToolbar" type="style" />
-  <public name="Widget.MaterialElements.AppBarLayout.Primary" type="style" />
-  <public name="Widget.MaterialElements.AppBarLayout.Surface" type="style" />
-  <public name="Widget.MaterialElements.AppBarLayout.PrimarySurface" type="style" />
-  <public name="Widget.MaterialElements.Toolbar" type="style" />
-  <public name="Widget.MaterialElements.Toolbar.Primary" type="style" />
-  <public name="Widget.MaterialElements.Toolbar.Surface" type="style" />
-  <public name="Widget.MaterialElements.Toolbar.PrimarySurface" type="style" />
-  <public name="Widget.MaterialElements.ActionBar.Solid" type="style" />
-  <public name="Widget.MaterialElements.Light.ActionBar.Solid" type="style" />
-  <public name="Widget.MaterialElements.ActionBar.Primary" type="style" />
-  <public name="Widget.MaterialElements.ActionBar.Surface" type="style" />
-  <public name="Widget.MaterialElements.ActionBar.PrimarySurface" type="style" />
+  <public name="Design.AppBarLayout" type="style" />
+  <public name="Design.CollapsingToolbar" type="style" />
+  <public name="MaterialElements.AppBarLayout.Primary" type="style" />
+  <public name="MaterialElements.AppBarLayout.Surface" type="style" />
+  <public name="MaterialElements.AppBarLayout.PrimarySurface" type="style" />
+  <public name="MaterialElements.Toolbar" type="style" />
+  <public name="MaterialElements.Toolbar.Primary" type="style" />
+  <public name="MaterialElements.Toolbar.Surface" type="style" />
+  <public name="MaterialElements.Toolbar.PrimarySurface" type="style" />
+  <public name="MaterialElements.ActionBar.Solid" type="style" />
+  <public name="MaterialElements.Light.ActionBar.Solid" type="style" />
+  <public name="MaterialElements.ActionBar.Primary" type="style" />
+  <public name="MaterialElements.ActionBar.Surface" type="style" />
+  <public name="MaterialElements.ActionBar.PrimarySurface" type="style" />
   <public name="ThemeOverlay.MaterialElements.Toolbar.Primary" type="style" />
   <public name="ThemeOverlay.MaterialElements.Toolbar.Surface" type="style" />
   <public name="TextAppearance.Design.CollapsingToolbar.Expanded" type="style" />

@@ -142,7 +142,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
   private static final float HIDE_THRESHOLD = 0.5f;
   private static final float HIDE_FRICTION = 0.1f;
   private static final int CORNER_ANIMATION_DURATION = 500;
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_BottomSheet_Modal;
+  private static final int DEF_STYLE_RES = R.style.Design_BottomSheet_Modal;
   @NonNull
   private final ArrayList<BottomSheetCallback> callbacks = new ArrayList<>();
   int expandedOffset;

@@ -212,7 +212,7 @@ XML is defined as:
 
 Note: If you are **not** using a theme that inherits from a Material Elements
 theme, you will have to specify the text field style as well, via
-`style="@style/Widget.MaterialElements.TextInputLayout.FilledBox"`
+`style="@style/MaterialElements.TextInputLayout.FilledBox"`
 
 Other text field styles are also provided. For example, if you want an
 [outlined text field](https://material.io/go/design-text-fields#outlined-text-field)
@@ -221,7 +221,7 @@ text field in XML:
 
 ```xml
 <com.zeoflow.material.elements.textfield.TextInputLayout
-    style="@style/Widget.MaterialElements.TextInputLayout.OutlinedBox"
+    style="@style/MaterialElements.TextInputLayout.OutlinedBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="@string/textfield_label">

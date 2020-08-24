@@ -32,5 +32,5 @@
   <public name="trackHeight" type="attr" />
   <public name="values" type="reference" />
 
-  <public name="Widget.MaterialElements.Slider" type="style" />
+  <public name="MaterialElements.Slider" type="style" />
 </resources>

@@ -78,7 +78,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   private static final int[] CHECKABLE_STATE_SET = {android.R.attr.state_checkable};
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
   private static final int[] DRAGGED_STATE_SET = {R.attr.state_dragged};
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_CardView;
+  private static final int DEF_STYLE_RES = R.style.MaterialElements_CardView;
   private static final String LOG_TAG = "MaterialCardView";
   private static final String ACCESSIBILITY_CLASS_NAME = "androidx.cardview.widget.CardView";
   @NonNull

@@ -358,7 +358,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * <pre>{@code
    * <chip
    *     xmlns:app="http://schemas.android.com/apk/res-auto"
-   *     style="@style/Widget.MaterialElements.Chip.Entry"
+   *     style="@style/MaterialElements.Chip.Entry"
    *     app:chipIcon="@drawable/custom_icon"/>
    * }</pre>
    */
@@ -369,7 +369,7 @@ public class ChipDrawable extends MaterialShapeDrawable
     @StyleRes int style = attrs.getStyleAttribute();
     if (style == 0)
     {
-      style = R.style.Widget_MaterialElements_Chip_Entry;
+      style = R.style.MaterialElements_Chip_Entry;
     }
     return createFromAttributes(context, attrs, R.attr.chipStandaloneStyle, style);
   }

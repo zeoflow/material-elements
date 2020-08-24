@@ -115,7 +115,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 public class CollapsingToolbarLayout extends FrameLayout
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_CollapsingToolbar;
+  private static final int DEF_STYLE_RES = R.style.Design_CollapsingToolbar;
   private static final int DEFAULT_SCRIM_ANIMATION_DURATION = 600;
   @NonNull
   final CollapsingTextHelper collapsingTextHelper;

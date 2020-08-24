@@ -16,23 +16,23 @@
 
 <resources>
 
-  <style name="Widget.MaterialElements.PopupMenu.Overflow" parent="Base.Widget.MaterialElements.PopupMenu.Overflow">
+  <style name="MaterialElements.PopupMenu.Overflow" parent="Base.MaterialElements.PopupMenu.Overflow">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
   </style>
 
-  <style name="Widget.MaterialElements.PopupMenu" parent="Base.Widget.MaterialElements.PopupMenu">
+  <style name="MaterialElements.PopupMenu" parent="Base.MaterialElements.PopupMenu">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
   </style>
 
-  <style name="Base.Widget.MaterialElements.PopupMenu.ListPopupWindow" parent="Widget.AppCompat.ListPopupWindow">
+  <style name="Base.MaterialElements.PopupMenu.ListPopupWindow" parent="Widget.AppCompat.ListPopupWindow">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
     <item name="android:dropDownVerticalOffset">1dp</item>
   </style>
 
-  <style name="Base.Widget.MaterialElements.PopupMenu.ContextMenu" parent="Widget.AppCompat.PopupMenu">
+  <style name="Base.MaterialElements.PopupMenu.ContextMenu" parent="Widget.AppCompat.PopupMenu">
     <item name="android:overlapAnchor">true</item>
   </style>
 

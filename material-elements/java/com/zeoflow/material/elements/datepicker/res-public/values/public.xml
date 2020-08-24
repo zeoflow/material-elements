@@ -34,17 +34,17 @@
   <public name="ThemeOverlay.MaterialElements.MaterialCalendar" type="style" />
   <public name="ThemeOverlay.MaterialElements.MaterialCalendar.Fullscreen" type="style" />
 
-  <public name="Widget.MaterialElements.MaterialCalendar" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Fullscreen" type="style" />
+  <public name="MaterialElements.MaterialCalendar" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Fullscreen" type="style" />
 
-  <public name="Widget.MaterialElements.MaterialCalendar.Item" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Day" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Day.Invalid" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Day.Selected" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Day.Today" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Year" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Year.Selected" type="style" />
-  <public name="Widget.MaterialElements.MaterialCalendar.Year.Today" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Item" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Day" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Day.Invalid" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Day.Selected" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Day.Today" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Year" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Year.Selected" type="style" />
+  <public name="MaterialElements.MaterialCalendar.Year.Today" type="style" />
 
   <public name="ShapeAppearanceOverlay.MaterialElements.MaterialCalendar.Day" type="style" />
   <public name="ShapeAppearanceOverlay.MaterialElements.MaterialCalendar.Year" type="style" />

@@ -27,11 +27,11 @@
   <public name="materialButtonStyle" type="attr" />
   <public name="materialButtonOutlinedStyle" type="attr" />
   <public name="materialButtonToggleGroupStyle" type="attr" />
-  <public name="Widget.MaterialElements.Button" type="style" />
-  <public name="Widget.MaterialElements.Button.UnelevatedButton" type="style" />
-  <public name="Widget.MaterialElements.Button.TextButton" type="style" />
-  <public name="Widget.MaterialElements.Button.OutlinedButton" type="style" />
-  <public name="Widget.MaterialElements.Button.TextButton.Dialog" type="style" />
-  <public name="Widget.MaterialElements.Button.TextButton.Dialog.Flush" type="style" />
+  <public name="MaterialElements.Button" type="style" />
+  <public name="MaterialElements.Button.UnelevatedButton" type="style" />
+  <public name="MaterialElements.Button.TextButton" type="style" />
+  <public name="MaterialElements.Button.OutlinedButton" type="style" />
+  <public name="MaterialElements.Button.TextButton.Dialog" type="style" />
+  <public name="MaterialElements.Button.TextButton.Dialog.Flush" type="style" />
 </resources>
 

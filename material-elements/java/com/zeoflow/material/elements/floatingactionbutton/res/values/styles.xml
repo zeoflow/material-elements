@@ -15,7 +15,7 @@
   -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="Widget.Design.FloatingActionButton" parent="android:Widget">
+  <style name="Design.FloatingActionButton" parent="android:Widget">
     <item name="android:background">@drawable/design_fab_background</item>
     <item name="android:clickable">true</item>
     <item name="android:focusable">true</item>
@@ -31,7 +31,7 @@
     <item name="hideMotionSpec">@animator/design_fab_hide_motion_spec</item>
   </style>
 
-  <style name="Widget.MaterialElements.FloatingActionButton" parent="Widget.Design.FloatingActionButton">
+  <style name="MaterialElements.FloatingActionButton" parent="Design.FloatingActionButton">
     <item name="android:background">@null</item>
     <item name="enforceMaterialTheme">true</item>
     <item name="ensureMinTouchTargetSize">true</item>
@@ -53,7 +53,7 @@
     <item name="cornerSize">50%</item>
   </style>
 
-  <style name="Widget.MaterialElements.ExtendedFloatingActionButton" parent="Widget.MaterialElements.Button">
+  <style name="MaterialElements.ExtendedFloatingActionButton" parent="MaterialElements.Button">
     <item name="android:insetTop">0dp</item>
     <item name="android:insetBottom">0dp</item>
     <item name="android:maxLines">1</item>
@@ -88,7 +88,7 @@
     <item name="cornerSize">@null</item>
   </style>
 
-  <style name="Widget.MaterialElements.ExtendedFloatingActionButton.Icon" parent="Widget.MaterialElements.ExtendedFloatingActionButton">
+  <style name="MaterialElements.ExtendedFloatingActionButton.Icon" parent="MaterialElements.ExtendedFloatingActionButton">
     <item name="android:gravity">start|center_vertical</item>
     <item name="android:paddingStart" tools:ignore="NewApi">
       @dimen/mtrl_extended_fab_start_padding_icon

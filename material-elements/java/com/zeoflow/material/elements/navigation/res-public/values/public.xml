@@ -31,5 +31,5 @@
   <public name="itemHorizontalPadding" type="attr" />
   <public name="itemIconPadding" type="attr" />
   <public name="itemMaxLines" type="attr" />
-  <public name="Widget.Design.NavigationView" type="style" />
+  <public name="Design.NavigationView" type="style" />
 </resources>

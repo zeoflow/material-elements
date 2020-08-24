@@ -27,8 +27,8 @@
   <public name="shrinkMotionSpec" type="attr" />
   <public name="floatingActionButtonStyle" type="attr" />
   <public name="extendedFloatingActionButtonStyle" type="attr" />
-  <public name="Widget.Design.FloatingActionButton" type="style" />
-  <public name="Widget.MaterialElements.FloatingActionButton" type="style" />
-  <public name="Widget.MaterialElements.ExtendedFloatingActionButton" type="style" />
-  <public name="Widget.MaterialElements.ExtendedFloatingActionButton.Icon" type="style" />
+  <public name="Design.FloatingActionButton" type="style" />
+  <public name="MaterialElements.FloatingActionButton" type="style" />
+  <public name="MaterialElements.ExtendedFloatingActionButton" type="style" />
+  <public name="MaterialElements.ExtendedFloatingActionButton.Icon" type="style" />
 </resources>

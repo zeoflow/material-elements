@@ -15,13 +15,13 @@
   -->
 <resources>
 
-  <style name="Widget.Design.TabLayout" parent="Base.Widget.Design.TabLayout">
+  <style name="Design.TabLayout" parent="Base.Design.TabLayout">
     <item name="tabGravity">fill</item>
     <item name="tabMode">fixed</item>
     <item name="tabIndicatorFullWidth">true</item>
   </style>
 
-  <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
+  <style name="Base.Design.TabLayout" parent="android:Widget">
     <item name="android:background">@null</item>
     <item name="tabIconTint">@null</item>
     <item name="tabMaxWidth">@dimen/design_tab_max_width</item>
@@ -43,7 +43,7 @@
     <item name="textAllCaps">true</item>
   </style>
 
-  <style name="Widget.MaterialElements.TabLayout" parent="Widget.Design.TabLayout">
+  <style name="MaterialElements.TabLayout" parent="Design.TabLayout">
     <item name="enforceMaterialTheme">true</item>
     <item name="enforceTextAppearance">true</item>
     <item name="android:background">?attr/colorSurface</item>
@@ -56,7 +56,7 @@
     <item name="tabUnboundedRipple">true</item>
   </style>
 
-  <style name="Widget.MaterialElements.TabLayout.Colored">
+  <style name="MaterialElements.TabLayout.Colored">
     <item name="android:background">?attr/colorPrimary</item>
     <item name="tabIconTint">@color/mtrl_tabs_icon_color_selector_colored</item>
     <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
@@ -64,6 +64,6 @@
     <item name="tabRippleColor">@color/mtrl_tabs_colored_ripple_color</item>
   </style>
 
-  <style name="Widget.MaterialElements.TabLayout.PrimarySurface" parent="Widget.MaterialElements.TabLayout.Colored" />
+  <style name="MaterialElements.TabLayout.PrimarySurface" parent="MaterialElements.TabLayout.Colored" />
 
 </resources>

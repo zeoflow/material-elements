@@ -139,8 +139,8 @@ public class FloatingActionButton extends VisibilityAwareImageButton
 
   // These values must match those in the attrs declaration
   private static final String LOG_TAG = "FloatingActionButton";
-  private static final String EXPANDABLE_WIDGET_HELPER_KEY = "expandableWidgetHelper";
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_FloatingActionButton;
+  private static final String EXPANDABLE_HELPER_KEY = "expandableWidgetHelper";
+  private static final int DEF_STYLE_RES = R.style.Design_FloatingActionButton;
   /**
    * The switch point for the largest screen edge where {@link #SIZE_AUTO} switches from mini to
    * normal.
@@ -932,7 +932,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
 
     ExtendableSavedState state = new ExtendableSavedState(superState);
     state.extendableStates.put(
-        EXPANDABLE_WIDGET_HELPER_KEY, expandableWidgetHelper.onSaveInstanceState());
+        EXPANDABLE_HELPER_KEY, expandableWidgetHelper.onSaveInstanceState());
 
     return state;
   }
@@ -952,7 +952,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
     super.onRestoreInstanceState(ess.getSuperState());
 
     expandableWidgetHelper.onRestoreInstanceState(
-        checkNotNull(ess.extendableStates.get(EXPANDABLE_WIDGET_HELPER_KEY)));
+        checkNotNull(ess.extendableStates.get(EXPANDABLE_HELPER_KEY)));
   }
 
   /**

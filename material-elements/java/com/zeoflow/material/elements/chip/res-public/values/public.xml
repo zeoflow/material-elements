@@ -54,9 +54,9 @@
   <public name="singleSelection" type="attr" />
   <public name="checkedChip" type="attr" />
   <public name="chipMinTouchTargetSize" type="attr" />
-  <public name="Widget.MaterialElements.ChipGroup" type="style" />
-  <public name="Widget.MaterialElements.Chip.Entry" type="style" />
-  <public name="Widget.MaterialElements.Chip.Filter" type="style" />
-  <public name="Widget.MaterialElements.Chip.Choice" type="style" />
-  <public name="Widget.MaterialElements.Chip.Action" type="style" />
+  <public name="MaterialElements.ChipGroup" type="style" />
+  <public name="MaterialElements.Chip.Entry" type="style" />
+  <public name="MaterialElements.Chip.Filter" type="style" />
+  <public name="MaterialElements.Chip.Choice" type="style" />
+  <public name="MaterialElements.Chip.Action" type="style" />
 </resources>

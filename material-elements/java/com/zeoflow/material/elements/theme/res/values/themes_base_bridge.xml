@@ -50,23 +50,23 @@
     <item name="minTouchTargetSize">@dimen/mtrl_min_touch_target_size</item>
 
     <!-- MaterialElements Widget styles -->
-    <item name="badgeStyle">@style/Widget.MaterialElements.Badge</item>
-    <item name="bottomAppBarStyle">@style/Widget.MaterialElements.BottomAppBar</item>
-    <item name="chipStyle">@style/Widget.MaterialElements.Chip.Action</item>
-    <item name="chipGroupStyle">@style/Widget.MaterialElements.ChipGroup</item>
-    <item name="chipStandaloneStyle">@style/Widget.MaterialElements.Chip.Entry</item>
+    <item name="badgeStyle">@style/MaterialElements.Badge</item>
+    <item name="bottomAppBarStyle">@style/MaterialElements.BottomAppBar</item>
+    <item name="chipStyle">@style/MaterialElements.Chip.Action</item>
+    <item name="chipGroupStyle">@style/MaterialElements.ChipGroup</item>
+    <item name="chipStandaloneStyle">@style/MaterialElements.Chip.Entry</item>
     <item name="extendedFloatingActionButtonStyle">
-      @style/Widget.MaterialElements.ExtendedFloatingActionButton.Icon
+      @style/MaterialElements.ExtendedFloatingActionButton.Icon
     </item>
-    <item name="materialButtonStyle">@style/Widget.MaterialElements.Button</item>
+    <item name="materialButtonStyle">@style/MaterialElements.Button</item>
     <item name="materialButtonOutlinedStyle">
-      @style/Widget.MaterialElements.Button.OutlinedButton
+      @style/MaterialElements.Button.OutlinedButton
     </item>
     <item name="materialButtonToggleGroupStyle">
-      @style/Widget.MaterialElements.MaterialButtonToggleGroup
+      @style/MaterialElements.MaterialButtonToggleGroup
     </item>
-    <item name="materialCardViewStyle">@style/Widget.MaterialElements.CardView</item>
-    <item name="sliderStyle">@style/Widget.MaterialElements.Slider</item>
+    <item name="materialCardViewStyle">@style/MaterialElements.CardView</item>
+    <item name="sliderStyle">@style/MaterialElements.Slider</item>
 
     <!-- Type styles -->
     <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialElements.Headline1</item>
@@ -120,23 +120,23 @@
     <item name="minTouchTargetSize">@dimen/mtrl_min_touch_target_size</item>
 
     <!-- MaterialElements Widget styles -->
-    <item name="badgeStyle">@style/Widget.MaterialElements.Badge</item>
-    <item name="bottomAppBarStyle">@style/Widget.MaterialElements.BottomAppBar</item>
-    <item name="chipStyle">@style/Widget.MaterialElements.Chip.Action</item>
-    <item name="chipGroupStyle">@style/Widget.MaterialElements.ChipGroup</item>
-    <item name="chipStandaloneStyle">@style/Widget.MaterialElements.Chip.Entry</item>
+    <item name="badgeStyle">@style/MaterialElements.Badge</item>
+    <item name="bottomAppBarStyle">@style/MaterialElements.BottomAppBar</item>
+    <item name="chipStyle">@style/MaterialElements.Chip.Action</item>
+    <item name="chipGroupStyle">@style/MaterialElements.ChipGroup</item>
+    <item name="chipStandaloneStyle">@style/MaterialElements.Chip.Entry</item>
     <item name="extendedFloatingActionButtonStyle">
-      @style/Widget.MaterialElements.ExtendedFloatingActionButton.Icon
+      @style/MaterialElements.ExtendedFloatingActionButton.Icon
     </item>
-    <item name="materialButtonStyle">@style/Widget.MaterialElements.Button</item>
+    <item name="materialButtonStyle">@style/MaterialElements.Button</item>
     <item name="materialButtonOutlinedStyle">
-      @style/Widget.MaterialElements.Button.OutlinedButton
+      @style/MaterialElements.Button.OutlinedButton
     </item>
     <item name="materialButtonToggleGroupStyle">
-      @style/Widget.MaterialElements.MaterialButtonToggleGroup
+      @style/MaterialElements.MaterialButtonToggleGroup
     </item>
-    <item name="materialCardViewStyle">@style/Widget.MaterialElements.CardView</item>
-    <item name="sliderStyle">@style/Widget.MaterialElements.Slider</item>
+    <item name="materialCardViewStyle">@style/MaterialElements.CardView</item>
+    <item name="sliderStyle">@style/MaterialElements.Slider</item>
 
     <!-- Type styles -->
     <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialElements.Headline1</item>

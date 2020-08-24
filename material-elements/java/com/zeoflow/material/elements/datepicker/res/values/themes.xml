@@ -23,47 +23,47 @@
   <style name="ThemeOverlay.MaterialElements.MaterialAlertDialog.Picker.Date.Calendar" />
 
   <style name="ThemeOverlay.MaterialElements.MaterialCalendar" parent="ThemeOverlay.MaterialElements.Dialog">
-    <item name="materialCalendarStyle">@style/Widget.MaterialElements.MaterialCalendar</item>
+    <item name="materialCalendarStyle">@style/MaterialElements.MaterialCalendar</item>
 
     <!-- Header Styles -->
     <item name="materialCalendarHeaderLayout">
-      @style/Widget.MaterialElements.MaterialCalendar.HeaderLayout
+      @style/MaterialElements.MaterialCalendar.HeaderLayout
     </item>
     <item name="materialCalendarHeaderDivider">
-      @style/Widget.MaterialElements.MaterialCalendar.HeaderDivider
+      @style/MaterialElements.MaterialCalendar.HeaderDivider
     </item>
     <item name="materialCalendarHeaderTitle">
-      @style/Widget.MaterialElements.MaterialCalendar.HeaderTitle
+      @style/MaterialElements.MaterialCalendar.HeaderTitle
     </item>
     <item name="materialCalendarHeaderSelection">
-      @style/Widget.MaterialElements.MaterialCalendar.HeaderSelection
+      @style/MaterialElements.MaterialCalendar.HeaderSelection
     </item>
     <item name="materialCalendarHeaderConfirmButton">
-      @style/Widget.MaterialElements.MaterialCalendar.HeaderConfirmButton
+      @style/MaterialElements.MaterialCalendar.HeaderConfirmButton
     </item>
     <item name="materialCalendarHeaderToggleButton">
-      @style/Widget.MaterialElements.MaterialCalendar.HeaderToggleButton
+      @style/MaterialElements.MaterialCalendar.HeaderToggleButton
     </item>
 
     <!-- Grid Styles -->
-    <item name="materialCalendarDay">@style/Widget.MaterialElements.MaterialCalendar.DayTextView
+    <item name="materialCalendarDay">@style/MaterialElements.MaterialCalendar.DayTextView
     </item>
 
     <!-- Action Styles -->
     <item name="buttonBarPositiveButtonStyle">
-      @style/Widget.MaterialElements.Button.TextButton.Dialog
+      @style/MaterialElements.Button.TextButton.Dialog
     </item>
     <item name="buttonBarNegativeButtonStyle">
-      @style/Widget.MaterialElements.Button.TextButton.Dialog
+      @style/MaterialElements.Button.TextButton.Dialog
     </item>
   </style>
 
   <style name="ThemeOverlay.MaterialElements.MaterialCalendar.Fullscreen" parent="ThemeOverlay.MaterialElements.MaterialCalendar">
     <item name="materialCalendarStyle">
-      @style/Widget.MaterialElements.MaterialCalendar.Fullscreen
+      @style/MaterialElements.MaterialCalendar.Fullscreen
     </item>
     <item name="materialCalendarHeaderSelection">
-      @style/Widget.MaterialElements.MaterialCalendar.HeaderSelection.Fullscreen
+      @style/MaterialElements.MaterialCalendar.HeaderSelection.Fullscreen
     </item>
   </style>
 

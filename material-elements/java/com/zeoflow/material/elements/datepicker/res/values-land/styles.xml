@@ -16,13 +16,13 @@
 
 <resources>
 
-  <style name="Widget.MaterialElements.MaterialCalendar.HeaderSelection.Fullscreen">
+  <style name="MaterialElements.MaterialCalendar.HeaderSelection.Fullscreen">
     <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
     <item name="android:maxLines">1</item>
     <item name="autoSizeMaxTextSize">20sp</item>
   </style>
 
-  <style name="Widget.MaterialElements.MaterialCalendar.HeaderSelection" parent="Widget.AppCompat.TextView">
+  <style name="MaterialElements.MaterialCalendar.HeaderSelection" parent="Widget.AppCompat.TextView">
     <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
     <item name="android:textColor">?attr/colorOnPrimary</item>
     <item name="android:maxLines">@integer/mtrl_calendar_selection_text_lines</item>

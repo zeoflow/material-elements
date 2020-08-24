@@ -44,7 +44,7 @@ public class MaterialRadioButton extends AppCompatRadioButton
 {
 
   private static final int DEF_STYLE_RES =
-      R.style.Widget_MaterialElements_CompoundButton_RadioButton;
+      R.style.MaterialElements_CompoundButton_RadioButton;
   private static final int[][] ENABLED_CHECKED_STATES =
       new int[][]{
           new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]

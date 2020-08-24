@@ -101,7 +101,7 @@ public class NavigationView extends ScrimInsetsFrameLayout
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
   private static final int[] DISABLED_STATE_SET = {-android.R.attr.state_enabled};
 
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_NavigationView;
+  private static final int DEF_STYLE_RES = R.style.Design_NavigationView;
   private static final int PRESENTER_NAVIGATION_VIEW_ID = 1;
 
   @NonNull
