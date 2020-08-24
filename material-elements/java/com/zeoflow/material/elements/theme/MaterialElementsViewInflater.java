@@ -36,9 +36,9 @@ import com.zeoflow.material.elements.textview.MaterialTextView;
 
 /**
  * An extension of {@link AppCompatViewInflater} that replaces some framework widgets with Material
- * Components ones at inflation time, provided a Material Components theme is in use.
+ * elements ones at inflation time, provided a Material Elements theme is in use.
  */
-public class MaterialComponentsViewInflater extends AppCompatViewInflater
+public class MaterialElementsViewInflater extends AppCompatViewInflater
 {
   @NonNull
   @Override

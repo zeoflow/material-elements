@@ -133,7 +133,7 @@ import static com.zeoflow.material.elements.textfield.IndicatorViewController.CO
  *   <li>Showing a button that when clicked displays a dropdown menu. The selected option is
  *       displayed above the dropdown. You need to use an {@link AutoCompleteTextView} instead of a
  *       {@link TextInputEditText} as the input text child, and a
- *       Widget.MaterialComponents.TextInputLayout.(...).ExposedDropdownMenu style.
+ *       Widget.MaterialElements.TextInputLayout.(...).ExposedDropdownMenu style.
  *       <p>To disable user input you should set
  *       <pre>android:editable=&quot;false&quot;</pre>
  *       on the {@link AutoCompleteTextView}.
@@ -220,7 +220,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * The TextInputLayout will show a dropdown button if the EditText is an {@link
    * AutoCompleteTextView} and a {@code
-   * Widget.MaterialComponents.TextInputLayout.(...).ExposedDropdownMenu} style is being used.
+   * Widget.MaterialElements.TextInputLayout.(...).ExposedDropdownMenu} style is being used.
    *
    * <p>Clicking the button will display a popup with a list of options. The current selected option
    * is displayed on the EditText.
@@ -3571,7 +3571,7 @@ public class TextInputLayout extends LinearLayout
    * Add a {@link TextInputLayout.OnEndIconChangedListener} that will be invoked when the end icon
    * gets changed.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnEndIconChangedListener(OnEndIconChangedListener)}.
    *
    * @param listener listener to add
@@ -3604,7 +3604,7 @@ public class TextInputLayout extends LinearLayout
    * Add a {@link OnEditTextAttachedListener} that will be invoked when the edit text is attached,
    * or from this method if the EditText is already present.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnEditTextAttachedListener(OnEditTextAttachedListener)}.
    *
    * @param listener listener to add

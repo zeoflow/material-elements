@@ -1,8 +1,8 @@
-# Material Components for Android
+# Material Elements for Android
 
 Material Elements help developers execute
 Material Elements. Developed by a core team of
-engineers and UX designers, these components enable a reliable
+engineers and UX designers, these elements enable a reliable
 development workflow to build beautiful and functional Android apps.
 
 ## Getting Started

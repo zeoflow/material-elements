@@ -35,7 +35,7 @@ import com.zeoflow.material.elements.resources.MaterialResources;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
- * Utility methods to check Theme compatibility with components.
+ * Utility methods to check Theme compatibility with elements.
  *
  * @hide
  */
@@ -47,7 +47,7 @@ public final class ThemeEnforcement
   private static final String APPCOMPAT_THEME_NAME = "Theme.AppCompat";
 
   private static final int[] MATERIAL_CHECK_ATTRS = {R.attr.colorPrimaryVariant};
-  private static final String MATERIAL_THEME_NAME = "Theme.MaterialComponents";
+  private static final String MATERIAL_THEME_NAME = "Theme.MaterialElements";
 
   private ThemeEnforcement()
   {
@@ -59,8 +59,8 @@ public final class ThemeEnforcement
    *
    * <p>Set a component's {@link R.attr#enforceMaterialTheme enforceMaterialTheme} attribute to
    * <code>true</code> to ensure that the Context's theme inherits from {@link
-   * R.style#Theme_MaterialElements Theme.MaterialComponents}. For example, you'll want to do this
-   * if the component uses a new attribute defined in <code>Theme.MaterialComponents</code> like
+   * R.style#Theme_MaterialElements Theme.MaterialElements}. For example, you'll want to do this
+   * if the component uses a new attribute defined in <code>Theme.MaterialElements</code> like
    * {@link R.attr#colorSecondary colorSecondary}.
    *
    * <p>If {@link R.attr#enforceTextAppearance} attribute is set to <code>true</code> and
@@ -95,11 +95,11 @@ public final class ThemeEnforcement
    *
    * <p>Set a component's {@link R.attr#enforceMaterialTheme enforceMaterialTheme} attribute to
    * <code>true</code> to ensure that the Context's theme inherits from {@link
-   * R.style#Theme_MaterialElements Theme.MaterialComponents}. For example, you'll want to do this
-   * if the component uses a new attribute defined in <code>Theme.MaterialComponents</code> like
+   * R.style#Theme_MaterialElements Theme.MaterialElements}. For example, you'll want to do this
+   * if the component uses a new attribute defined in <code>Theme.MaterialElements</code> like
    * {@link R.attr#colorSecondary colorSecondary}.
    *
-   * <p>New components should prefer to use {@link #obtainStyledAttributes(Context, AttributeSet,
+   * <p>New elements should prefer to use {@link #obtainStyledAttributes(Context, AttributeSet,
    * int[], int, int, int...)}, and use
    * {@link MaterialResources}
    * as a replacement for the functionality in {@link androidx.appcompat.widget.TintTypedArray}.
@@ -201,7 +201,7 @@ public final class ThemeEnforcement
     {
       throw new IllegalArgumentException(
           "This component requires that you specify a valid TextAppearance attribute. Update your "
-              + "app theme to inherit from Theme.MaterialComponents (or a descendant).");
+              + "app theme to inherit from Theme.MaterialElements (or a descendant).");
     }
   }
 

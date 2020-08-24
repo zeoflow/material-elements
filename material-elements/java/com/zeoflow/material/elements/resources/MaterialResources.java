@@ -34,7 +34,7 @@ import androidx.appcompat.widget.TintTypedArray;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
- * Utility methods to resolve resources for components.
+ * Utility methods to resolve resources for elements.
  *
  * @hide
  */

@@ -106,7 +106,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * some offsets). Call #setBadgeGravity(int) to change it to one of the other supported modes.
  *
  * <p>Note: This is still under development and may not support the full range of customization
- * Material Android components generally support (e.g. themed attributes).
+ * Material Android elements generally support (e.g. themed attributes).
  */
 public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDrawableDelegate
 {
@@ -223,7 +223,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * <pre>{@code
    * <badge
    *     xmlns:app="http://schemas.android.com/apk/res-auto"
-   *     style="@style/Widget.MaterialComponents.Badge"
+   *     style="@style/Widget.MaterialElements.Badge"
    *     app:maxCharacterCount="2"/>
    * }</pre>
    */

@@ -358,7 +358,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * <pre>{@code
    * <chip
    *     xmlns:app="http://schemas.android.com/apk/res-auto"
-   *     style="@style/Widget.MaterialComponents.Chip.Entry"
+   *     style="@style/Widget.MaterialElements.Chip.Entry"
    *     app:chipIcon="@drawable/custom_icon"/>
    * }</pre>
    */

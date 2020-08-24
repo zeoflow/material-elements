@@ -1019,7 +1019,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * Add a listener that will be invoked when the checked state of this MaterialButton changes. See
    * {@link OnCheckedChangeListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnCheckedChangeListener(OnCheckedChangeListener)}.
    *
    * @param listener listener to add

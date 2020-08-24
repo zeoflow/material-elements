@@ -13,10 +13,10 @@
 # limitations under the License.
 
 # AppCompatViewInflater reads the viewInflaterClass theme attribute which then
-# reflectively instantiates MaterialComponentsViewInflater using the no-argument
+# reflectively instantiates MaterialElementsViewInflater using the no-argument
 # constructor. We only need to keep this constructor and the class name if
 # AppCompatViewInflater is also being kept.
 -if class androidx.appcompat.app.AppCompatViewInflater
--keep class com.zeoflow.material.elements.theme.MaterialComponentsViewInflater {
+-keep class com.zeoflow.material.elements.theme.MaterialElementsViewInflater {
     <init>();
 }

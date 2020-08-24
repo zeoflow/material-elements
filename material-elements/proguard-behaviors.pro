@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# CoordinatorLayout resolves the behaviors of its child components with reflection.
+# CoordinatorLayout resolves the behaviors of its child elements with reflection.
 -keep public class * extends androidx.coordinatorlayout.widget.CoordinatorLayout$Behavior {
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>();

@@ -278,7 +278,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is shown. See {@link
    * AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnShowAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add
@@ -303,7 +303,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is hidden. See
    * {@link AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnHideAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add
@@ -328,7 +328,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is shrunk. See
    * {@link AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnShrinkAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add
@@ -353,7 +353,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is extended. See
    * {@link AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnExtendAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add

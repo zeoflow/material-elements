@@ -7,7 +7,7 @@ path: /docs/getting-started/
 
 ### 1. Depend on our library
 
-Material Components for Android is available through Google's Maven Repository.
+Material Elements for Android is available through Google's Maven Repository.
 To use it:
 
 1.  Open the `build.gradle` file for your application.
@@ -47,7 +47,7 @@ and code to use the newly packaged `androidx` and `com.zeoflow.material.elements
 libraries.
 
 If you don't want to switch over to the new `androidx` and
-`com.zeoflow.material.elements` packages yet, you can use Material Components via
+`com.zeoflow.material.elements` packages yet, you can use Material Elements via
 the `com.android.support:design:28.0.0` dependency.
 
 Note: You should not use the `com.android.support` and
@@ -55,50 +55,50 @@ Note: You should not use the `com.android.support` and
 
 ### 2. Compile your app with Android 10
 
-In order to use Material Components for Android, and the latest versions of the
+In order to use Material Elements for Android, and the latest versions of the
 Support Libraries, you will have to install Android Studio 3.5 or higher to
 build with Android 10, and update your app's `compileSdkVersion` to `29`.
 
 ### 3. Ensure you are using `AppCompatActivity`
 
-Using `AppCompatActivity` will ensure that all the components work correctly. If
+Using `AppCompatActivity` will ensure that all the elements work correctly. If
 you are unable to extend from `AppCompatActivity`, update your activities to use
-`AppCompatDelegate`. This will enable the `AppCompat` versions of components to
+`AppCompatDelegate`. This will enable the `AppCompat` versions of elements to
 be inflated among other important things.
 
-### 4. Change your app theme to inherit from a Material Components theme
+### 4. Change your app theme to inherit from a Material Elements theme
 
 Doing an app-wide migration by changing your app theme to inherit from a
-Material Components theme is the recommended approach. However, be sure to test
-thoroughly afterwards, as components in existing layouts may change their looks
+Material Elements theme is the recommended approach. However, be sure to test
+thoroughly afterwards, as elements in existing layouts may change their looks
 and behavior.
 
 Note: If you **can't** change your theme, you can do one of the following:
 
-*   Inherit from one of our Material Components **Bridge** themes. See the
+*   Inherit from one of our Material Elements **Bridge** themes. See the
     [**Bridge Themes**](#bridge-themes) section for more details.
 *   Continue to inherit from an AppCompat theme and add some new theme
     attributes to your theme. See the
     [**App Compat Themes**](#app-compat-themes) section for more details.
 
-#### **Material Components themes**
+#### **Material Elements themes**
 
-The following is the list of Material Components themes you can use to get the
+The following is the list of Material Elements themes you can use to get the
 latest component styles and theme-level attributes.
 
-*   `Theme.MaterialComponents`
-*   `Theme.MaterialComponents.NoActionBar`
-*   `Theme.MaterialComponents.Light`
-*   `Theme.MaterialComponents.Light.NoActionBar`
-*   `Theme.MaterialComponents.Light.DarkActionBar`
-*   `Theme.MaterialComponents.DayNight`
-*   `Theme.MaterialComponents.DayNight.NoActionBar`
-*   `Theme.MaterialComponents.DayNight.DarkActionBar`
+*   `Theme.MaterialElements`
+*   `Theme.MaterialElements.NoActionBar`
+*   `Theme.MaterialElements.Light`
+*   `Theme.MaterialElements.Light.NoActionBar`
+*   `Theme.MaterialElements.Light.DarkActionBar`
+*   `Theme.MaterialElements.DayNight`
+*   `Theme.MaterialElements.DayNight.NoActionBar`
+*   `Theme.MaterialElements.DayNight.DarkActionBar`
 
 Update your app theme to inherit from one of these themes, e.g.:
 
 ```xml
-<style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight">
+<style name="Theme.MyApp" parent="Theme.MaterialElements.DayNight">
     <!-- ... -->
 </style>
 ```
@@ -108,42 +108,42 @@ a look at our [Theming](theming.md) guide, as well as our
 [Dark Theme](theming/Dark.md) guide for why it's important to inherit from the
 `DayNight` theme.
 
-Note: Using a Material Components theme enables a custom view inflater which
-replaces default components with their Material counterparts. Currently, this
-only replaces `<Button>` and `<AutoCompleteTextView>` XML components with
-[`<MaterialButton>`](components/Button.md) and
-[`<MaterialAutoCompleteTextView>`](https://github.com/material-components/material-components-android/blob/master/material-elements/java/com/zeoflow/material/elements/textfield/MaterialAutoCompleteTextView.java),
+Note: Using a Material Elements theme enables a custom view inflater which
+replaces default elements with their Material counterparts. Currently, this
+only replaces `<Button>` and `<AutoCompleteTextView>` XML elements with
+[`<MaterialButton>`](elements/Button.md) and
+[`<MaterialAutoCompleteTextView>`](https://github.com/material-elements/material-elements-android/blob/master/material-elements/java/com/zeoflow/material/elements/textfield/MaterialAutoCompleteTextView.java),
 respectively.
 
 #### **Bridge Themes** {#bridge-themes}
 
-If you cannot change your theme to inherit from a Material Components theme, you
-can inherit from a Material Components **Bridge** theme.
+If you cannot change your theme to inherit from a Material Elements theme, you
+can inherit from a Material Elements **Bridge** theme.
 
 ```xml
-<style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.Bridge">
+<style name="Theme.MyApp" parent="Theme.MaterialElements.Light.Bridge">
     <!-- ... -->
 </style>
 ```
 
-Both `Theme.MaterialComponents` and `Theme.MaterialComponents.Light` have
+Both `Theme.MaterialElements` and `Theme.MaterialElements.Light` have
 `.Bridge` themes:
 
-*   `Theme.MaterialComponents.Bridge`
-*   `Theme.MaterialComponents.Light.Bridge`
-*   `Theme.MaterialComponents.NoActionBar.Bridge`
-*   `Theme.MaterialComponents.Light.NoActionBar.Bridge`
-*   `Theme.MaterialComponents.Light.DarkActionBar.Bridge`
+*   `Theme.MaterialElements.Bridge`
+*   `Theme.MaterialElements.Light.Bridge`
+*   `Theme.MaterialElements.NoActionBar.Bridge`
+*   `Theme.MaterialElements.Light.NoActionBar.Bridge`
+*   `Theme.MaterialElements.Light.DarkActionBar.Bridge`
 
 Bridge themes inherit from AppCompat themes, but also define the new Material
-Components theme attributes for you. If you use a bridge theme, you can start
-using Material Design components without changing your app theme.
+elements theme attributes for you. If you use a bridge theme, you can start
+using Material Design elements without changing your app theme.
 
 #### **AppCompat Themes** {#app-compat-themes}
 
-You can also incrementally test new Material components without changing your
+You can also incrementally test new Material Elements without changing your
 app theme. This allows you to keep your existing layouts looking and behaving
-the same, while introducing new components to your layout one at a time.
+the same, while introducing new elements to your layout one at a time.
 
 However, you must add the following new theme attributes to your existing app
 theme, or you will encounter `ThemeEnforcement` errors:
@@ -157,7 +157,7 @@ theme, or you will encounter `ThemeEnforcement` errors:
   <item name="android:colorBackground">@color/my_app_background_color</item>
   <item name="colorError">@color/my_app_error_color</item>
 
-  <!-- New MaterialComponents attributes. -->
+  <!-- New MaterialElements attributes. -->
   <item name="colorPrimaryVariant">@color/my_app_primary_variant_color</item>
   <item name="colorSecondaryVariant">@color/my_app_secondary_variant_color</item>
   <item name="colorSurface">@color/my_app_surface_color</item>
@@ -167,30 +167,30 @@ theme, or you will encounter `ThemeEnforcement` errors:
   <item name="colorOnError">@color/my_app_color_on_error</item>
   <item name="colorOnSurface">@color/my_app_color_on_surface</item>
   <item name="scrimBackground">@color/mtrl_scrim_color</item>
-  <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
-  <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
-  <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
-  <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
-  <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
-  <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
-  <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-  <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-  <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
-  <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
-  <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
-  <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
-  <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+  <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialElements.Headline1</item>
+  <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialElements.Headline2</item>
+  <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialElements.Headline3</item>
+  <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialElements.Headline4</item>
+  <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialElements.Headline5</item>
+  <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialElements.Headline6</item>
+  <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialElements.Subtitle1</item>
+  <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialElements.Subtitle2</item>
+  <item name="textAppearanceBody1">@style/TextAppearance.MaterialElements.Body1</item>
+  <item name="textAppearanceBody2">@style/TextAppearance.MaterialElements.Body2</item>
+  <item name="textAppearanceCaption">@style/TextAppearance.MaterialElements.Caption</item>
+  <item name="textAppearanceButton">@style/TextAppearance.MaterialElements.Button</item>
+  <item name="textAppearanceOverline">@style/TextAppearance.MaterialElements.Overline</item>
 
 </style>
 ```
 
 ### 5. Add a Material component to your app
 
-Take a look at our [documentation](https://www.material.io/components/android)
-for the full list of available Material components. Each component's page has
+Take a look at our [documentation](https://www.material.io/elements/android)
+for the full list of available Material Elements. Each component's page has
 specific instructions on how to implement it in your app.
 
-Let's use [text fields](components/TextField.md) as an example.
+Let's use [text fields](elements/TextField.md) as an example.
 
 #### **Implementing a text field via XML**
 
@@ -210,18 +210,18 @@ XML is defined as:
 </com.zeoflow.material.elements.textfield.TextInputLayout>
 ```
 
-Note: If you are **not** using a theme that inherits from a Material Components
+Note: If you are **not** using a theme that inherits from a Material Elements
 theme, you will have to specify the text field style as well, via
-`style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"`
+`style="@style/Widget.MaterialElements.TextInputLayout.FilledBox"`
 
 Other text field styles are also provided. For example, if you want an
 [outlined text field](https://material.io/go/design-text-fields#outlined-text-field)
-in your layout, you can apply the Material Components `outlined` style to the
+in your layout, you can apply the Material Elements `outlined` style to the
 text field in XML:
 
 ```xml
 <com.zeoflow.material.elements.textfield.TextInputLayout
-    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    style="@style/Widget.MaterialElements.TextInputLayout.OutlinedBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="@string/textfield_label">
@@ -234,7 +234,7 @@ text field in XML:
 
 ## Contributors
 
-Material Components for Android welcomes contributions from the community. Check
+Material Elements for Android welcomes contributions from the community. Check
 out our [contributing guidelines](contributing.md) as well as an overview of the
 [directory structure](directorystructure.md) before getting started.
 
@@ -245,7 +245,7 @@ out our [contributing guidelines](contributing.md) as well as an overview of the
 -   [Building From Source](building-from-source.md)
 -   [Catalog App](catalog-app.md)
 -   [Class documentation](https://developer.android.com/reference/com/google/android/material/classes)
--   [MDC-Android on Stack Overflow](https://www.stackoverflow.com/questions/tagged/material-components+android)
+-   [MDC-Android on Stack Overflow](https://www.stackoverflow.com/questions/tagged/material-elements+android)
 -   [Android Developer’s Guide](https://developer.android.com/training/material/index.html)
 -   [Material.io](https://www.material.io)
 -   [Material Design Guidelines](https://material.google.com)

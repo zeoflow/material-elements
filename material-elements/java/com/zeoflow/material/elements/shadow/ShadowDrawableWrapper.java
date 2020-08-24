@@ -218,7 +218,7 @@ public class ShadowDrawableWrapper extends DrawableWrapper
   {
     if (dirty)
     {
-      buildComponents(getBounds());
+      buildelements(getBounds());
       dirty = false;
     }
     drawShadow(canvas);
@@ -380,7 +380,7 @@ public class ShadowDrawableWrapper extends DrawableWrapper
     edgeShadowPaint.setAntiAlias(false);
   }
 
-  private void buildComponents(@NonNull Rect bounds)
+  private void buildelements(@NonNull Rect bounds)
   {
     // Card is offset SHADOW_MULTIPLIER * maxShadowSize to account for the shadow shift.
     // We could have different top-bottom offsets to avoid extra gap above but in that case

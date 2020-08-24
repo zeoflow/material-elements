@@ -174,7 +174,7 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
  * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabMinWidth
  * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabMaxWidth
  * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabTextAppearance
- * @see <a href="http://www.google.com/design/spec/components/tabs.html">Tabs</a>
+ * @see <a href="http://www.google.com/design/spec/elements/tabs.html">Tabs</a>
  */
 @ViewPager.DecorView
 public class TabLayout extends HorizontalScrollView
@@ -711,7 +711,7 @@ public class TabLayout extends HorizontalScrollView
   /**
    * Add a {@link TabLayout.OnTabSelectedListener} that will be invoked when tab selection changes.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnTabSelectedListener(OnTabSelectedListener)}.
    *
    * @param listener listener to add
@@ -725,7 +725,7 @@ public class TabLayout extends HorizontalScrollView
    * Add a {@link TabLayout.BaseOnTabSelectedListener} that will be invoked when tab selection
    * changes.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnTabSelectedListener(BaseOnTabSelectedListener)}.
    *
    * @param listener listener to add

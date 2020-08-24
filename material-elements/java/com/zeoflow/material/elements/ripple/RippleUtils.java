@@ -96,7 +96,7 @@ public class RippleUtils
    *   <li>Default unselected state - transparent color. TODO: remove
    * </ul>
    *
-   * <p>For selectable components, the ripple color may contain additional colors for these states:
+   * <p>For selectable elements, the ripple color may contain additional colors for these states:
    *
    * <ul>
    *   <li>android:state_pressed="true" and android:state_selected="true"

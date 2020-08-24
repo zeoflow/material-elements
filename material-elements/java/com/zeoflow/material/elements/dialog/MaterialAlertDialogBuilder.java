@@ -56,7 +56,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
 /**
  * An extension of {@link AlertDialog.Builder} for use with a Material theme (e.g.,
- * Theme.MaterialComponents).
+ * Theme.MaterialElements).
  *
  * <p>This Builder must be used in order for AlertDialog objects to respond to color and shape
  * theming provided by Material themes.

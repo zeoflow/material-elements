@@ -28,7 +28,7 @@ import androidx.customview.view.AbsSavedState;
 /**
  * SavedState for widgets that want to save and restore their own state in {@link
  * android.view.View#onSaveInstanceState()}. Supports widgets whose state is composed or delegated
- * out to multiple components.
+ * out to multiple elements.
  *
  * <p>Widgets with only composed or delegated state can directly instantiate this class and write to
  * {@link #extendableStates}. Widgets with additional state should subclass ExtendableSavedState

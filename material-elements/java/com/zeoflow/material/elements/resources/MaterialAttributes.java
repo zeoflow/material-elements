@@ -70,7 +70,7 @@ public class MaterialAttributes
       String errorMessage =
           "%1$s requires a value for the %2$s attribute to be set in your app theme. "
               + "You can either set the attribute in your theme or "
-              + "update your theme to inherit from Theme.MaterialComponents (or a descendant).";
+              + "update your theme to inherit from Theme.MaterialElements (or a descendant).";
       throw new IllegalArgumentException(
           String.format(
               errorMessage,

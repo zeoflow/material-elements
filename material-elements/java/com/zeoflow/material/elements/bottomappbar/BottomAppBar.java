@@ -95,7 +95,7 @@ import static com.zeoflow.material.elements.shape.MaterialShapeDrawable.SHADOW_C
  * materialThemeOverlay} attribute to a ThemeOverlay which sets the {@code colorControlNormal}
  * attribute to the correct color. For example, if the background of the BottomAppBar is {@code
  * colorSurface}, as it is in the default style, you should set {@code materialThemeOverlay} to
- * {@code @style/ThemeOverlay.MaterialComponents.BottomAppBar.Surface}.
+ * {@code @style/ThemeOverlay.MaterialElements.BottomAppBar.Surface}.
  *
  * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_backgroundTint
  * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_fabAlignmentMode

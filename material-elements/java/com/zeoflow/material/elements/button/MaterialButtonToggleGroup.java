@@ -450,7 +450,7 @@ public class MaterialButtonToggleGroup extends LinearLayout
    * Add a listener that will be invoked when the check state of a {@link MaterialButton} in this
    * group changes. See {@link OnButtonCheckedListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnButtonCheckedListener(OnButtonCheckedListener)}.
    *
    * @param listener listener to add
