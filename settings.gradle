@@ -1,4 +1,4 @@
 
 include ':app'
 
-include ':lib'
+include ':material-elements'
