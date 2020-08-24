@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.view.AbsSavedState;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.internal.NavigationMenu;
 import com.zeoflow.material.elements.internal.NavigationMenuPresenter;
 import com.zeoflow.material.elements.internal.ScrimInsetsFrameLayout;
@@ -86,7 +86,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  *
  *     &lt;!-- Your contents --&gt;
  *
- *     &lt;com.google.android.material.navigation.NavigationView
+ *     &lt;com.zeoflow.material.elements.navigation.NavigationView
  *         android:id="@+id/navigation"
  *         android:layout_width="wrap_content"
  *         android:layout_height="match_parent"

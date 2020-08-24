@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.dialog.InsetDialogOnTouchListener;
 import com.zeoflow.material.elements.internal.CheckableImageButton;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
@@ -262,7 +262,7 @@ public final class MaterialDatePicker<S> extends DialogFragment
             context,
             null,
             R.attr.materialCalendarStyle,
-            R.style.Widget_MaterialComponents_MaterialCalendar);
+            R.style.Widget_MaterialElements_MaterialCalendar);
     background.initializeElevationOverlay(context);
     background.setFillColor(ColorStateList.valueOf(surfaceColor));
     background.setElevation(ViewCompat.getElevation(dialog.getWindow().getDecorView()));

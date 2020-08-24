@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ import androidx.core.graphics.drawable.TintAwareDrawable;
 import androidx.core.text.BidiFormatter;
 import androidx.core.view.ViewCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.animation.MotionSpec;
 import com.zeoflow.material.elements.canvas.CanvasCompat;
 import com.zeoflow.material.elements.color.MaterialColors;
@@ -358,7 +358,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * <pre>{@code
    * <chip
    *     xmlns:app="http://schemas.android.com/apk/res-auto"
-   *     style="@style/Widget.MaterialComponents.Chip.Entry"
+   *     style="@style/Widget.MaterialElements.Chip.Entry"
    *     app:chipIcon="@drawable/custom_icon"/>
    * }</pre>
    */
@@ -369,7 +369,7 @@ public class ChipDrawable extends MaterialShapeDrawable
     @StyleRes int style = attrs.getStyleAttribute();
     if (style == 0)
     {
-      style = R.style.Widget_MaterialComponents_Chip_Entry;
+      style = R.style.Widget_MaterialElements_Chip_Entry;
     }
     return createFromAttributes(context, attrs, R.attr.chipStandaloneStyle, style);
   }
@@ -1586,7 +1586,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's background color.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipBackgroundColor
    * @see #setChipBackgroundColor(ColorStateList)
    */
   @Nullable
@@ -1601,7 +1601,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's background color.
    *
    * @param chipBackgroundColor This chip's background color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipBackgroundColor
    */
   public void setChipBackgroundColor(@Nullable ColorStateList chipBackgroundColor)
   {
@@ -1616,7 +1616,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's background color using a resource id.
    *
    * @param id The resource id of this chip's background color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipBackgroundColor
    */
   public void setChipBackgroundColorResource(@ColorRes int id)
   {
@@ -1626,7 +1626,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's minimum height.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipMinHeight
    * @see #setChipMinHeight(float)
    */
   public float getChipMinHeight()
@@ -1638,7 +1638,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's minimum height.
    *
    * @param chipMinHeight This chip's mininum height.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipMinHeight
    */
   public void setChipMinHeight(float chipMinHeight)
   {
@@ -1654,7 +1654,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's minimum height using a resource id.
    *
    * @param id The resource id of this chip's mininum height.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipMinHeight
    */
   public void setChipMinHeightResource(@DimenRes int id)
   {
@@ -1664,7 +1664,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's corner radius.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipCornerRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipCornerRadius
    * @see #setChipCornerRadius(float)
    */
   public float getChipCornerRadius()
@@ -1704,7 +1704,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's stroke color.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeColor
    * @see #setChipStrokeColor(ColorStateList)
    */
   @Nullable
@@ -1717,7 +1717,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's stroke color.
    *
    * @param chipStrokeColor This chip's stroke color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeColor
    */
   public void setChipStrokeColor(@Nullable ColorStateList chipStrokeColor)
   {
@@ -1736,7 +1736,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's stroke color using a resource id.
    *
    * @param id The resource id of this chip's stroke color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeColor
    */
   public void setChipStrokeColorResource(@ColorRes int id)
   {
@@ -1746,7 +1746,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's stroke width.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeWidth
    * @see #setChipStrokeWidth(float)
    */
   public float getChipStrokeWidth()
@@ -1758,7 +1758,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's stroke width.
    *
    * @param chipStrokeWidth This chip's stroke width.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeWidth
    */
   public void setChipStrokeWidth(float chipStrokeWidth)
   {
@@ -1779,7 +1779,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's stroke width using a resource id.
    *
    * @param id The resource id of this chip's stroke width.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeWidth
    */
   public void setChipStrokeWidthResource(@DimenRes int id)
   {
@@ -1789,7 +1789,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's ripple color.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_rippleColor
    * @see #setRippleColor(ColorStateList)
    */
   @Nullable
@@ -1802,7 +1802,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's ripple color.
    *
    * @param rippleColor This chip's ripple color.
-   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_rippleColor
    */
   public void setRippleColor(@Nullable ColorStateList rippleColor)
   {
@@ -1818,7 +1818,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's ripple color using a resource id.
    *
    * @param id The resource id of this chip's ripple color.
-   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_rippleColor
    */
   public void setRippleColorResource(@ColorRes int id)
   {
@@ -1986,7 +1986,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the chip icon's color tint using the specified {@link android.content.res.ColorStateList}.
    *
    * @param chipIconTint ColorStateList to tint the chip icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconTint
    */
   public void setChipIconTint(@Nullable ColorStateList chipIconTint)
   {
@@ -2007,7 +2007,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the chip icon's color tint using a resource ID.
    *
    * @param id Resource id of a {@link android.content.res.ColorStateList} to tint the chip icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconTint
    */
   public void setChipIconTintResource(@ColorRes int id)
   {
@@ -2314,7 +2314,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's checked icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIcon
    * @see #setCheckedIcon(Drawable)
    */
   @Nullable
@@ -2327,7 +2327,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's checked icon.
    *
    * @param checkedIcon This chip's checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIcon
    */
   public void setCheckedIcon(@Nullable Drawable checkedIcon)
   {
@@ -2353,7 +2353,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's checked icon using a resource id.
    *
    * @param id The resource id of this chip's checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIcon
    */
   public void setCheckedIconResource(@DrawableRes int id)
   {
@@ -2374,7 +2374,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * android.content.res.ColorStateList}.
    *
    * @param checkedIconTint ColorStateList to tint the checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconTint
    */
   public void setCheckedIconTint(@Nullable ColorStateList checkedIconTint)
   {
@@ -2395,7 +2395,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the checked icon's color tint using a resource ID.
    *
    * @param id Resource id of a {@link android.content.res.ColorStateList} to tint the checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconTint
    */
   public void setCheckedIconTintResource(@ColorRes int id)
   {
@@ -2405,7 +2405,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's show motion spec.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_showMotionSpec
    * @see #setShowMotionSpec(MotionSpec)
    */
   @Nullable
@@ -2418,7 +2418,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's show motion spec.
    *
    * @param showMotionSpec This chip's show motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_showMotionSpec
    */
   public void setShowMotionSpec(@Nullable MotionSpec showMotionSpec)
   {
@@ -2429,7 +2429,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's show motion spec using a resource id.
    *
    * @param id The resource id of this chip's show motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_showMotionSpec
    */
   public void setShowMotionSpecResource(@AnimatorRes int id)
   {
@@ -2439,7 +2439,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's hide motion spec.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_hideMotionSpec
    * @see #setHideMotionSpec(MotionSpec)
    */
   @Nullable
@@ -2452,7 +2452,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's hide motion spec.
    *
    * @param hideMotionSpec This chip's hide motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_hideMotionSpec
    */
   public void setHideMotionSpec(@Nullable MotionSpec hideMotionSpec)
   {
@@ -2463,7 +2463,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's hide motion spec using a resource id.
    *
    * @param id The resource id of this chip's hide motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_hideMotionSpec
    */
   public void setHideMotionSpecResource(@AnimatorRes int id)
   {
@@ -2473,7 +2473,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's start padding.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStartPadding
    * @see #setChipStartPadding(float)
    */
   public float getChipStartPadding()
@@ -2485,7 +2485,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's start padding.
    *
    * @param chipStartPadding This chip's start padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStartPadding
    */
   public void setChipStartPadding(float chipStartPadding)
   {
@@ -2501,7 +2501,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's start padding using a resource id.
    *
    * @param id The resource id of this chip's start padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStartPadding
    */
   public void setChipStartPaddingResource(@DimenRes int id)
   {
@@ -2511,7 +2511,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns the start padding for this chip's icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconStartPadding
    * @see #setIconStartPadding(float)
    */
   public float getIconStartPadding()
@@ -2523,7 +2523,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's icon start padding.
    *
    * @param iconStartPadding The start padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconStartPadding
    */
   public void setIconStartPadding(float iconStartPadding)
   {
@@ -2545,7 +2545,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the start padding for this chip's icon using a resource id.
    *
    * @param id The resource id for the start padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconStartPadding
    */
   public void setIconStartPaddingResource(@DimenRes int id)
   {
@@ -2555,7 +2555,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns the end padding for this chip's icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconEndPadding
    * @see #setIconEndPadding(float)
    */
   public float getIconEndPadding()
@@ -2567,7 +2567,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the end padding for this chip's icon.
    *
    * @param iconEndPadding The end padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconEndPadding
    */
   public void setIconEndPadding(float iconEndPadding)
   {
@@ -2589,7 +2589,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the end padding for this chip's icon using a resource id.
    *
    * @param id The resource id for the end padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconEndPadding
    */
   public void setIconEndPaddingResource(@DimenRes int id)
   {
@@ -2599,7 +2599,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns the start padding for this chip's text.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    * @see #setTextStartPadding(float)
    */
   public float getTextStartPadding()
@@ -2611,7 +2611,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the start padding for this chip's text.
    *
    * @param textStartPadding The start padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    */
   public void setTextStartPadding(float textStartPadding)
   {
@@ -2627,7 +2627,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the start padding for this chip's text using a resource id.
    *
    * @param id The resource id for the start padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    */
   public void setTextStartPaddingResource(@DimenRes int id)
   {
@@ -2637,7 +2637,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns the end padding for this chip's text.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textEndPadding
    * @see #setTextEndPadding(float)
    */
   public float getTextEndPadding()
@@ -2649,7 +2649,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the end padding for this chip's text.
    *
    * @param textEndPadding The end padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    */
   public void setTextEndPadding(float textEndPadding)
   {
@@ -2665,7 +2665,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the end padding for this chip's text using a resource id.
    *
    * @param id The resource id for the end padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textEndPadding
    */
   public void setTextEndPaddingResource(@DimenRes int id)
   {
@@ -2675,7 +2675,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns the start padding for this chip's close icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconStartPadding
    * @see #setCloseIconStartPadding(float)
    */
   public float getCloseIconStartPadding()
@@ -2687,7 +2687,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the start padding for this chip's close icon.
    *
    * @param closeIconStartPadding The start padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconStartPadding
    */
   public void setCloseIconStartPadding(float closeIconStartPadding)
   {
@@ -2706,7 +2706,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the start padding for this chip's close icon using a resource id.
    *
    * @param id The resource id for the start padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconStartPadding
    */
   public void setCloseIconStartPaddingResource(@DimenRes int id)
   {
@@ -2716,7 +2716,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns the end padding for this chip's close icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconEndPadding
    * @see #setCloseIconEndPadding(float)
    */
   public float getCloseIconEndPadding()
@@ -2728,7 +2728,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the end padding for this chip's close icon.
    *
    * @param closeIconEndPadding The end padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconEndPadding
    */
   public void setCloseIconEndPadding(float closeIconEndPadding)
   {
@@ -2747,7 +2747,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets the end padding for this chip's close icon using a resource id.
    *
    * @param id The resource id for the end padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconEndPadding
    */
   public void setCloseIconEndPaddingResource(@DimenRes int id)
   {
@@ -2757,7 +2757,7 @@ public class ChipDrawable extends MaterialShapeDrawable
   /**
    * Returns this chip's end padding.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipEndPadding
    * @see #setChipEndPadding(float)
    */
   public float getChipEndPadding()
@@ -2769,7 +2769,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's end padding.
    *
    * @param chipEndPadding This chip's end padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipEndPadding
    */
   public void setChipEndPadding(float chipEndPadding)
   {
@@ -2785,7 +2785,7 @@ public class ChipDrawable extends MaterialShapeDrawable
    * Sets this chip's end padding using a resource id.
    *
    * @param id The resource id for this chip's end padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipEndPadding
    */
   public void setChipEndPaddingResource(@DimenRes int id)
   {

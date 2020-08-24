@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.customview.view.AbsSavedState;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.badge.BadgeDrawable;
 import com.zeoflow.material.elements.behavior.HideBottomViewOnScrollBehavior;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
@@ -69,7 +69,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
 /**
  * Represents a standard bottom navigation bar for application. It is an implementation of <a
- * href="https://material.google.com/components/bottom-navigation.html">material design bottom
+ * href="https://material.google.com/elements/bottom-navigation.html">material design bottom
  * navigation</a>.
  *
  * <p>Bottom navigation bars make it easy for users to explore and switch between top-level views in
@@ -88,7 +88,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  *
  * <pre>
  * layout resource file:
- * &lt;com.google.android.material.bottomnavigation.BottomNavigationView
+ * &lt;com.zeoflow.material.elements.bottomnavigation.BottomNavigationView
  *     xmlns:android="http://schemas.android.com/apk/res/android"
  *     xmlns:app="http://schema.android.com/apk/res/res-auto"
  *     android:id="@+id/navigation"
@@ -621,7 +621,7 @@ public class BottomNavigationView extends FrameLayout
   /**
    * Returns the current label visibility mode used by this {@link BottomNavigationView}.
    *
-   * @attr ref com.google.android.material.R.styleable#BottomNavigationView_labelVisibilityMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomNavigationView_labelVisibilityMode
    * @see #setLabelVisibilityMode(int)
    */
   @LabelVisibilityMode
@@ -641,7 +641,7 @@ public class BottomNavigationView extends FrameLayout
    *                            LabelVisibilityMode#LABEL_VISIBILITY_SELECTED}, {@link
    *                            LabelVisibilityMode#LABEL_VISIBILITY_LABELED}, or {@link
    *                            LabelVisibilityMode#LABEL_VISIBILITY_UNLABELED}
-   * @attr ref com.google.android.material.R.styleable#BottomNavigationView_labelVisibilityMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomNavigationView_labelVisibilityMode
    * @see #getLabelVisibilityMode()
    */
   public void setLabelVisibilityMode(@LabelVisibilityMode int labelVisibilityMode)

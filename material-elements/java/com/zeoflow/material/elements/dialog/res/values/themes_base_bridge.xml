@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2019 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,24 +12,24 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
 
   <!--
-      Theme in the "Platform.MaterialComponents" family are designed to be aliases for the default
+      Theme in the "Platform.MaterialElements" family are designed to be aliases for the default
       theme on a given platform version and should set up the default theme ready for adding our
       material component attributes.
   -->
   <eat-comment />
 
-  <style name="Platform.MaterialComponents.Dialog" parent="Theme.AppCompat.Dialog" />
+  <style name="Platform.MaterialElements.Dialog" parent="Theme.AppCompat.Dialog" />
 
-  <style name="Platform.MaterialComponents.Light.Dialog" parent="Theme.AppCompat.Light.Dialog" />
+  <style name="Platform.MaterialElements.Light.Dialog" parent="Theme.AppCompat.Light.Dialog" />
 
   <!-- All new attributes should be set in the following four Base.V14 themes. -->
   <eat-comment />
 
-  <style name="Base.V14.Theme.MaterialComponents.Dialog.Bridge" parent="Platform.MaterialComponents.Dialog">
+  <style name="Base.V14.Theme.MaterialElements.Dialog.Bridge" parent="Platform.MaterialElements.Dialog">
     <item name="isMaterialTheme">true</item>
 
     <item name="colorPrimaryVariant">@color/design_dark_default_color_primary_variant</item>
@@ -49,49 +49,49 @@
 
     <item name="minTouchTargetSize">@dimen/mtrl_min_touch_target_size</item>
 
-    <!-- MaterialComponents Widget styles -->
-    <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
-    <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar</item>
-    <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Action</item>
-    <item name="chipGroupStyle">@style/Widget.MaterialComponents.ChipGroup</item>
-    <item name="chipStandaloneStyle">@style/Widget.MaterialComponents.Chip.Entry</item>
+    <!-- MaterialElements Widget styles -->
+    <item name="badgeStyle">@style/Widget.MaterialElements.Badge</item>
+    <item name="bottomAppBarStyle">@style/Widget.MaterialElements.BottomAppBar</item>
+    <item name="chipStyle">@style/Widget.MaterialElements.Chip.Action</item>
+    <item name="chipGroupStyle">@style/Widget.MaterialElements.ChipGroup</item>
+    <item name="chipStandaloneStyle">@style/Widget.MaterialElements.Chip.Entry</item>
     <item name="extendedFloatingActionButtonStyle">
-      @style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon
+      @style/Widget.MaterialElements.ExtendedFloatingActionButton.Icon
     </item>
-    <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+    <item name="materialButtonStyle">@style/Widget.MaterialElements.Button</item>
     <item name="materialButtonOutlinedStyle">
-      @style/Widget.MaterialComponents.Button.OutlinedButton
+      @style/Widget.MaterialElements.Button.OutlinedButton
     </item>
     <item name="materialButtonToggleGroupStyle">
-      @style/Widget.MaterialComponents.MaterialButtonToggleGroup
+      @style/Widget.MaterialElements.MaterialButtonToggleGroup
     </item>
-    <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
-    <item name="sliderStyle">@style/Widget.MaterialComponents.Slider</item>
+    <item name="materialCardViewStyle">@style/Widget.MaterialElements.CardView</item>
+    <item name="sliderStyle">@style/Widget.MaterialElements.Slider</item>
 
     <!-- Type styles -->
-    <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
-    <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
-    <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
-    <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
-    <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
-    <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
-    <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-    <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
-    <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
-    <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
-    <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
-    <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+    <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialElements.Headline1</item>
+    <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialElements.Headline2</item>
+    <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialElements.Headline3</item>
+    <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialElements.Headline4</item>
+    <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialElements.Headline5</item>
+    <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialElements.Headline6</item>
+    <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialElements.Subtitle1</item>
+    <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialElements.Subtitle2</item>
+    <item name="textAppearanceBody1">@style/TextAppearance.MaterialElements.Body1</item>
+    <item name="textAppearanceBody2">@style/TextAppearance.MaterialElements.Body2</item>
+    <item name="textAppearanceCaption">@style/TextAppearance.MaterialElements.Caption</item>
+    <item name="textAppearanceButton">@style/TextAppearance.MaterialElements.Button</item>
+    <item name="textAppearanceOverline">@style/TextAppearance.MaterialElements.Overline</item>
 
     <!-- Shape styles -->
     <item name="shapeAppearanceSmallComponent">
-      @style/ShapeAppearance.MaterialComponents.SmallComponent
+      @style/ShapeAppearance.MaterialElements.SmallComponent
     </item>
     <item name="shapeAppearanceMediumComponent">
-      @style/ShapeAppearance.MaterialComponents.MediumComponent
+      @style/ShapeAppearance.MaterialElements.MediumComponent
     </item>
     <item name="shapeAppearanceLargeComponent">
-      @style/ShapeAppearance.MaterialComponents.LargeComponent
+      @style/ShapeAppearance.MaterialElements.LargeComponent
     </item>
 
     <!-- Elevation Overlays -->
@@ -99,7 +99,7 @@
     <item name="elevationOverlayColor">?attr/colorOnSurface</item>
   </style>
 
-  <style name="Base.V14.Theme.MaterialComponents.Light.Dialog.Bridge" parent="Platform.MaterialComponents.Light.Dialog">
+  <style name="Base.V14.Theme.MaterialElements.Light.Dialog.Bridge" parent="Platform.MaterialElements.Light.Dialog">
     <item name="isMaterialTheme">true</item>
 
     <item name="colorPrimaryVariant">@color/design_default_color_primary_variant</item>
@@ -119,49 +119,49 @@
 
     <item name="minTouchTargetSize">@dimen/mtrl_min_touch_target_size</item>
 
-    <!-- MaterialComponents Widget styles -->
-    <item name="badgeStyle">@style/Widget.MaterialComponents.Badge</item>
-    <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar</item>
-    <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Action</item>
-    <item name="chipGroupStyle">@style/Widget.MaterialComponents.ChipGroup</item>
-    <item name="chipStandaloneStyle">@style/Widget.MaterialComponents.Chip.Entry</item>
+    <!-- MaterialElements Widget styles -->
+    <item name="badgeStyle">@style/Widget.MaterialElements.Badge</item>
+    <item name="bottomAppBarStyle">@style/Widget.MaterialElements.BottomAppBar</item>
+    <item name="chipStyle">@style/Widget.MaterialElements.Chip.Action</item>
+    <item name="chipGroupStyle">@style/Widget.MaterialElements.ChipGroup</item>
+    <item name="chipStandaloneStyle">@style/Widget.MaterialElements.Chip.Entry</item>
     <item name="extendedFloatingActionButtonStyle">
-      @style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon
+      @style/Widget.MaterialElements.ExtendedFloatingActionButton.Icon
     </item>
-    <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+    <item name="materialButtonStyle">@style/Widget.MaterialElements.Button</item>
     <item name="materialButtonOutlinedStyle">
-      @style/Widget.MaterialComponents.Button.OutlinedButton
+      @style/Widget.MaterialElements.Button.OutlinedButton
     </item>
     <item name="materialButtonToggleGroupStyle">
-      @style/Widget.MaterialComponents.MaterialButtonToggleGroup
+      @style/Widget.MaterialElements.MaterialButtonToggleGroup
     </item>
-    <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
-    <item name="sliderStyle">@style/Widget.MaterialComponents.Slider</item>
+    <item name="materialCardViewStyle">@style/Widget.MaterialElements.CardView</item>
+    <item name="sliderStyle">@style/Widget.MaterialElements.Slider</item>
 
     <!-- Type styles -->
-    <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
-    <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
-    <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
-    <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
-    <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
-    <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
-    <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-    <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
-    <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
-    <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
-    <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
-    <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+    <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialElements.Headline1</item>
+    <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialElements.Headline2</item>
+    <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialElements.Headline3</item>
+    <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialElements.Headline4</item>
+    <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialElements.Headline5</item>
+    <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialElements.Headline6</item>
+    <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialElements.Subtitle1</item>
+    <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialElements.Subtitle2</item>
+    <item name="textAppearanceBody1">@style/TextAppearance.MaterialElements.Body1</item>
+    <item name="textAppearanceBody2">@style/TextAppearance.MaterialElements.Body2</item>
+    <item name="textAppearanceCaption">@style/TextAppearance.MaterialElements.Caption</item>
+    <item name="textAppearanceButton">@style/TextAppearance.MaterialElements.Button</item>
+    <item name="textAppearanceOverline">@style/TextAppearance.MaterialElements.Overline</item>
 
     <!-- Shape styles -->
     <item name="shapeAppearanceSmallComponent">
-      @style/ShapeAppearance.MaterialComponents.SmallComponent
+      @style/ShapeAppearance.MaterialElements.SmallComponent
     </item>
     <item name="shapeAppearanceMediumComponent">
-      @style/ShapeAppearance.MaterialComponents.MediumComponent
+      @style/ShapeAppearance.MaterialElements.MediumComponent
     </item>
     <item name="shapeAppearanceLargeComponent">
-      @style/ShapeAppearance.MaterialComponents.LargeComponent
+      @style/ShapeAppearance.MaterialElements.LargeComponent
     </item>
 
     <!-- Elevation Overlays -->
@@ -173,12 +173,12 @@
        version to provide the correct basis on each device. You probably don't
        want to use them directly in your apps.
 
-       Themes in the "Theme.MaterialComponents" family are meant to be extended or used
+       Themes in the "Theme.MaterialElements" family are meant to be extended or used
        directly by apps. -->
   <eat-comment />
 
-  <style name="Base.Theme.MaterialComponents.Dialog.Bridge" parent="Base.V14.Theme.MaterialComponents.Dialog.Bridge" />
+  <style name="Base.Theme.MaterialElements.Dialog.Bridge" parent="Base.V14.Theme.MaterialElements.Dialog.Bridge" />
 
-  <style name="Base.Theme.MaterialComponents.Light.Dialog.Bridge" parent="Base.V14.Theme.MaterialComponents.Light.Dialog.Bridge" />
+  <style name="Base.Theme.MaterialElements.Light.Dialog.Bridge" parent="Base.V14.Theme.MaterialElements.Light.Dialog.Bridge" />
 
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-    Copyright 2020 The Android Open Source Project
+    Copyright 2020 ZeoFlow
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@
 <resources>
 
   <!--
-    The default theme overlay used by MaterialComponents for framework
+    The default theme overlay used by MaterialElements for framework
     (non-AppCompat) alert dialogs, via the android:alertDialogTheme attribute.
     It is recommended to use AppCompat alert dialogs, but Preferences does not.
   -->
-  <style name="ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" />
+  <style name="ThemeOverlay.MaterialElements.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialElements.Dialog.Alert.Framework" />
 
-  <style name="ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" />
+  <style name="ThemeOverlay.MaterialElements.Light.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialElements.Light.Dialog.Alert.Framework" />
 
 </resources>

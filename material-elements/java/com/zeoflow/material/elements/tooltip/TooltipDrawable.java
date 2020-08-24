@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.graphics.ColorUtils;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.TextDrawableHelper;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
@@ -64,7 +64,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
 {
 
   @StyleRes
-  private static final int DEFAULT_STYLE = R.style.Widget_MaterialComponents_Tooltip;
+  private static final int DEFAULT_STYLE = R.style.Widget_MaterialElements_Tooltip;
   @AttrRes
   private static final int DEFAULT_THEME_ATTR = R.attr.tooltipStyle;
   @NonNull
@@ -195,7 +195,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Return the text that TooltipDrawable is displaying.
    *
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_text
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_text
    */
   @Nullable
   public CharSequence getText()
@@ -207,7 +207,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the text to be displayed.
    *
    * @param text text to be displayed
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_text
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_text
    * @see #setTextResource(int)
    */
   public void setText(@Nullable CharSequence text)
@@ -224,7 +224,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the text to be displayed using a string resource identifier.
    *
    * @param id the resource identifier of the string resource to be displayed
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_text
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_text
    * @see #setText(CharSequence)
    */
   public void setTextResource(@StringRes int id)
@@ -235,7 +235,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the TextAppearance used by this tooltip.
    *
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_textAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_textAppearance
    */
   @Nullable
   public TextAppearance getTextAppearance()
@@ -247,7 +247,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets this tooltip's text appearance.
    *
    * @param textAppearance This tooltip's text appearance.
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_textAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_textAppearance
    */
   public void setTextAppearance(@Nullable TextAppearance textAppearance)
   {
@@ -258,7 +258,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets this tooltip's text appearance using a resource id.
    *
    * @param id The resource id of this tooltip's text appearance.
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_textAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_textAppearance
    */
   public void setTextAppearanceResource(@StyleRes int id)
   {
@@ -268,7 +268,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the minimum width of TooltipDrawable in terms of pixels.
    *
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_minWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_minWidth
    * @see #setMinWidth(int)
    */
   public int getMinWidth()
@@ -280,7 +280,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the width of the TooltipDrawable to be at least {@code minWidth} wide.
    *
    * @param minWidth the minimum width of TooltipDrawable in terms of pixels
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_minWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_minWidth
    * @see #getMinWidth()
    */
   public void setMinWidth(@Px int minWidth)
@@ -292,7 +292,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the minimum height of TooltipDrawable in terms of pixels.
    *
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_minHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_minHeight
    * @see #setMinHeight(int)
    */
   public int getMinHeight()
@@ -304,7 +304,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the height of the TooltipDrawable to be at least {@code minHeight} wide.
    *
    * @param minHeight the minimum height of TooltipDrawable in terms of pixels
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_minHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_minHeight
    * @see #getMinHeight()
    */
   public void setMinHeight(@Px int minHeight)
@@ -316,7 +316,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the padding between the text of TooltipDrawable and the sides in terms of pixels.
    *
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_padding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_padding
    * @see #setTextPadding(int)
    */
   public int getTextPadding()
@@ -328,7 +328,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the padding between the text of the TooltipDrawable and the sides to be {@code padding}.
    *
    * @param padding the padding to use around the text
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_padding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_padding
    * @see #getTextPadding()
    */
   public void setTextPadding(@Px int padding)
@@ -340,7 +340,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the margin around the TooltipDrawable.
    *
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_layout_margin
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_layout_margin
    * @see #setLayoutMargin(int)
    */
   public int getLayoutMargin()
@@ -352,7 +352,7 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the margin around the TooltipDrawable to be {@code margin}.
    *
    * @param layoutMargin the margin to use around the TooltipDrawable
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_layout_margin
+   * @attr ref com.zeoflow.material.elements.R.styleable#Tooltip_android_layout_margin
    * @see #getLayoutMargin()
    */
   public void setLayoutMargin(@Px int layoutMargin)

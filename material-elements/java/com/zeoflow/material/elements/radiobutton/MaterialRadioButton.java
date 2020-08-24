@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.widget.CompoundButtonCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.resources.MaterialResources;
@@ -44,7 +44,7 @@ public class MaterialRadioButton extends AppCompatRadioButton
 {
 
   private static final int DEF_STYLE_RES =
-      R.style.Widget_MaterialComponents_CompoundButton_RadioButton;
+      R.style.Widget_MaterialElements_CompoundButton_RadioButton;
   private static final int[][] ENABLED_CHECKED_STATES =
       new int[][]{
           new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]

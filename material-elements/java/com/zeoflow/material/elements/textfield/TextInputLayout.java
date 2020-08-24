@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.customview.view.AbsSavedState;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.CheckableImageButton;
@@ -133,7 +133,7 @@ import static com.zeoflow.material.elements.textfield.IndicatorViewController.CO
  *   <li>Showing a button that when clicked displays a dropdown menu. The selected option is
  *       displayed above the dropdown. You need to use an {@link AutoCompleteTextView} instead of a
  *       {@link TextInputEditText} as the input text child, and a
- *       Widget.MaterialComponents.TextInputLayout.(...).ExposedDropdownMenu style.
+ *       Widget.MaterialElements.TextInputLayout.(...).ExposedDropdownMenu style.
  *       <p>To disable user input you should set
  *       <pre>android:editable=&quot;false&quot;</pre>
  *       on the {@link AutoCompleteTextView}.
@@ -145,16 +145,16 @@ import static com.zeoflow.material.elements.textfield.IndicatorViewController.CO
  * An example usage is as so:
  *
  * <pre>
- * &lt;com.google.android.material.textfield.TextInputLayout
+ * &lt;com.zeoflow.material.elements.textfield.TextInputLayout
  *         android:layout_width=&quot;match_parent&quot;
  *         android:layout_height=&quot;wrap_content&quot;
  *         android:hint=&quot;@string/form_username&quot;&gt;
  *
- *     &lt;com.google.android.material.textfield.TextInputEditText
+ *     &lt;com.zeoflow.material.elements.textfield.TextInputEditText
  *             android:layout_width=&quot;match_parent&quot;
  *             android:layout_height=&quot;wrap_content&quot;/&gt;
  *
- * &lt;/com.google.android.material.textfield.TextInputLayout&gt;
+ * &lt;/com.zeoflow.material.elements.textfield.TextInputLayout&gt;
  * </pre>
  * <p>
  * The hint should be set on the TextInputLayout, rather than the EditText. If a hint is specified
@@ -220,7 +220,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * The TextInputLayout will show a dropdown button if the EditText is an {@link
    * AutoCompleteTextView} and a {@code
-   * Widget.MaterialComponents.TextInputLayout.(...).ExposedDropdownMenu} style is being used.
+   * Widget.MaterialElements.TextInputLayout.(...).ExposedDropdownMenu} style is being used.
    *
    * <p>Clicking the button will display a popup with a list of options. The current selected option
    * is displayed on the EditText.
@@ -996,7 +996,7 @@ public class TextInputLayout extends LinearLayout
    * underline stroke in filled mode.
    *
    * @param boxStrokeWidthResId the resource dimension to use for the box's stroke width
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_boxStrokeWidth
    * @see #setBoxStrokeWidth(int)
    * @see #getBoxStrokeWidth()
    */
@@ -1021,7 +1021,7 @@ public class TextInputLayout extends LinearLayout
    * in filled mode.
    *
    * @param boxStrokeWidth the value to use for the box's stroke
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_boxStrokeWidth
    * @see #getBoxStrokeWidth()
    */
   public void setBoxStrokeWidth(int boxStrokeWidth)
@@ -1036,7 +1036,7 @@ public class TextInputLayout extends LinearLayout
    *
    * @param boxStrokeWidthFocusedResId the resource dimension to use for the box's stroke width
    *                                   when focused
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidthFocused
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_boxStrokeWidthFocused
    * @see #setBoxStrokeWidthFocused(int)
    * @see #getBoxStrokeWidthFocused()
    */
@@ -1061,7 +1061,7 @@ public class TextInputLayout extends LinearLayout
    * underline stroke in filled mode.
    *
    * @param boxStrokeWidthFocused the value to use for the box's stroke when focused
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidthFocused
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_boxStrokeWidthFocused
    * @see #getBoxStrokeWidthFocused()
    */
   public void setBoxStrokeWidthFocused(int boxStrokeWidthFocused)
@@ -1128,7 +1128,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the box's stroke color when an error is being displayed.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeErrorColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_boxStrokeErrorColor
    * @see #setBoxStrokeErrorColor(ColorStateList)
    */
   @Nullable
@@ -1603,7 +1603,7 @@ public class TextInputLayout extends LinearLayout
    * Returns the hint which is displayed in the floating label, if enabled.
    *
    * @return the hint, or null if there isn't one set, or the hint is not enabled.
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_android_hint
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_android_hint
    */
   @Nullable
   public CharSequence getHint()
@@ -1614,7 +1614,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Set the hint to be displayed in the floating label, if enabled.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_android_hint
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_android_hint
    * @see #setHintEnabled(boolean)
    */
   public void setHint(@Nullable CharSequence hint)
@@ -1629,7 +1629,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns whether the floating label functionality is enabled or not in this layout.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_hintEnabled
    * @see #setHintEnabled(boolean)
    */
   public boolean isHintEnabled()
@@ -1644,7 +1644,7 @@ public class TextInputLayout extends LinearLayout
    * and its existing hint will be cleared. If disabled, then any non-empty floating hint in this
    * layout will be moved into the EditText, and this layout's hint will be cleared.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_hintEnabled
    * @see #setHint(CharSequence)
    * @see #isHintEnabled()
    */
@@ -1704,7 +1704,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the collapsed hint text color, size, style from the specified TextAppearance resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_hintTextAppearance
    */
   public void setHintTextAppearance(@StyleRes int resId)
   {
@@ -1722,7 +1722,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Gets the collapsed hint text color.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_hintTextColor
    */
   @Nullable
   public ColorStateList getHintTextColor()
@@ -1733,7 +1733,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the collapsed hint text color from the specified ColorStateList resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_hintTextColor
    */
   public void setHintTextColor(@Nullable ColorStateList hintTextColor)
   {
@@ -1780,7 +1780,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the text color and size for the error message from the specified TextAppearance resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorTextAppearance
    */
   public void setErrorTextAppearance(@StyleRes int errorTextAppearance)
   {
@@ -1807,7 +1807,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the text color and size for the helper text from the specified TextAppearance resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_helperTextTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_helperTextTextAppearance
    */
   public void setHelperTextTextAppearance(@StyleRes int helperTextTextAppearance)
   {
@@ -1825,7 +1825,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns whether the error functionality is enabled or not in this layout.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorEnabled
    * @see #setErrorEnabled(boolean)
    */
   public boolean isErrorEnabled()
@@ -1838,7 +1838,7 @@ public class TextInputLayout extends LinearLayout
    * before setting an error message via {@link #setError(CharSequence)}, will mean that this layout
    * will not change size when an error is displayed.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorEnabled
    */
   public void setErrorEnabled(boolean enabled)
   {
@@ -1848,7 +1848,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns whether the helper text functionality is enabled or not in this layout.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_helperTextEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_helperTextEnabled
    * @see #setHelperTextEnabled(boolean)
    */
   public boolean isHelperTextEnabled()
@@ -1861,7 +1861,7 @@ public class TextInputLayout extends LinearLayout
    * functionality before setting a helper message via {@link #setHelperText(CharSequence)} will
    * mean that this layout will not change size when a helper message is displayed.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_helperTextEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_helperTextEnabled
    */
   public void setHelperTextEnabled(boolean enabled)
   {
@@ -1896,7 +1896,7 @@ public class TextInputLayout extends LinearLayout
    * content description instead.
    *
    * @param errorContentDecription Content description to set, or null to clear it
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorContentDescription
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorContentDescription
    */
   public void setErrorContentDescription(@Nullable final CharSequence errorContentDecription)
   {
@@ -1906,7 +1906,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the drawable currently used for the error icon.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorIconDrawable
    * @see #setErrorIconDrawable(Drawable)
    */
   @Nullable
@@ -1919,7 +1919,7 @@ public class TextInputLayout extends LinearLayout
    * Set the drawable to use for the error icon.
    *
    * @param resId resource id of the drawable to set, or 0 to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorIconDrawable
    */
   public void setErrorIconDrawable(@DrawableRes int resId)
   {
@@ -1930,7 +1930,7 @@ public class TextInputLayout extends LinearLayout
    * Set the drawable to use for the error icon.
    *
    * @param errorIconDrawable Drawable to set, may be null to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorIconDrawable
    */
   public void setErrorIconDrawable(@Nullable Drawable errorIconDrawable)
   {
@@ -1942,7 +1942,7 @@ public class TextInputLayout extends LinearLayout
    * Applies a tint to the error icon drawable.
    *
    * @param errorIconTintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorIconTint
    */
   public void setErrorIconTintList(@Nullable ColorStateList errorIconTintList)
   {
@@ -1965,7 +1965,7 @@ public class TextInputLayout extends LinearLayout
    * {@link PorterDuff.Mode#SRC_IN}.
    *
    * @param errorIconTintMode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconTintMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_errorIconTintMode
    */
   public void setErrorIconTintMode(@Nullable PorterDuff.Mode errorIconTintMode)
   {
@@ -1986,7 +1986,7 @@ public class TextInputLayout extends LinearLayout
    * Sets the text color and size for the character counter using the specified TextAppearance
    * resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterTextAppearance
    * @see #setCounterTextColor(ColorStateList)
    */
   public void setCounterTextAppearance(int counterTextAppearance)
@@ -2002,7 +2002,7 @@ public class TextInputLayout extends LinearLayout
    * Returns the text color used for the character counter, or null if one has not been set.
    *
    * @return the text color used for the character counter
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterOverflowTextColor
    * @see #setCounterTextAppearance(int)
    */
   @Nullable
@@ -2017,7 +2017,7 @@ public class TextInputLayout extends LinearLayout
    * <p>This text color takes precedence over a text color set in counterTextAppearance.
    *
    * @param counterTextColor text color used for the character counter
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterTextColor
    */
   public void setCounterTextColor(@Nullable ColorStateList counterTextColor)
   {
@@ -2032,7 +2032,7 @@ public class TextInputLayout extends LinearLayout
    * Sets the text color and size for the overflowed character counter using the specified
    * TextAppearance resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterOverflowTextAppearance
    * @see #setCounterOverflowTextColor(ColorStateList)
    */
   public void setCounterOverflowTextAppearance(int counterOverflowTextAppearance)
@@ -2049,7 +2049,7 @@ public class TextInputLayout extends LinearLayout
    * set.
    *
    * @return the text color used for the overflowed character counter
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterOverflowTextColor
    * @see #setCounterOverflowTextAppearance(int)
    */
   @Nullable
@@ -2064,7 +2064,7 @@ public class TextInputLayout extends LinearLayout
    * <p>This text color takes precedence over a text color set in counterOverflowTextAppearance.
    *
    * @param counterOverflowTextColor the text color used for the overflowed character counter
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterOverflowTextColor
    * @see #setCounterOverflowTextAppearance(int)
    */
   public void setCounterOverflowTextColor(@Nullable ColorStateList counterOverflowTextColor)
@@ -2079,7 +2079,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns whether the character counter functionality is enabled or not in this layout.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterEnabled
    * @see #setCounterEnabled(boolean)
    */
   public boolean isCounterEnabled()
@@ -2090,7 +2090,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Whether the character counter functionality is enabled or not in this layout.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterEnabled
    */
   public void setCounterEnabled(boolean enabled)
   {
@@ -2281,7 +2281,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the ColorStateList used for the placeholder text.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_placeholderTextColor
    */
   @Nullable
   public ColorStateList getPlaceholderTextColor()
@@ -2292,7 +2292,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the text color used by the placeholder text in all states.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_placeholderTextColor
    */
   public void setPlaceholderTextColor(@Nullable ColorStateList placeholderTextColor)
   {
@@ -2309,7 +2309,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the TextAppearance resource used for the placeholder text color.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_placeholderTextAppearance
    */
   @StyleRes
   public int getPlaceholderTextAppearance()
@@ -2321,7 +2321,7 @@ public class TextInputLayout extends LinearLayout
    * Sets the text color and size for the placeholder text from the specified TextAppearance
    * resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_placeholderTextAppearance
    */
   public void setPlaceholderTextAppearance(@StyleRes int placeholderTextAppearance)
   {
@@ -2382,7 +2382,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the ColorStateList used for the prefix text.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_prefixTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_prefixTextColor
    */
   @Nullable
   public ColorStateList getPrefixTextColor()
@@ -2393,7 +2393,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the text color used by the prefix text in all states.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_prefixTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_prefixTextColor
    */
   public void setPrefixTextColor(@NonNull ColorStateList prefixTextColor)
   {
@@ -2403,7 +2403,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the text color and size for the prefix text from the specified TextAppearance resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_prefixTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_prefixTextAppearance
    */
   public void setPrefixTextAppearance(@StyleRes int prefixTextAppearance)
   {
@@ -2481,7 +2481,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the ColorStateList used for the suffix text.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_suffixTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_suffixTextColor
    */
   @Nullable
   public ColorStateList getSuffixTextColor()
@@ -2492,7 +2492,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the text color used by the suffix text in all states.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_suffixTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_suffixTextColor
    */
   public void setSuffixTextColor(@NonNull ColorStateList suffixTextColor)
   {
@@ -2502,7 +2502,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Sets the text color and size for the suffix text from the specified TextAppearance resource.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_suffixTextAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_suffixTextAppearance
    */
   public void setSuffixTextAppearance(@StyleRes int suffixTextAppearance)
   {
@@ -2534,7 +2534,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the max length shown at the character counter.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterMaxLength
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterMaxLength
    */
   public int getCounterMaxLength()
   {
@@ -2545,7 +2545,7 @@ public class TextInputLayout extends LinearLayout
    * Sets the max length to display at the character counter.
    *
    * @param maxLength maxLength to display. Any value less than or equal to 0 will not be shown.
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterMaxLength
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_counterMaxLength
    */
   public void setCounterMaxLength(int maxLength)
   {
@@ -3000,7 +3000,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns whether any hint state changes, due to being focused or non-empty text, are animated.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintAnimationEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_hintAnimationEnabled
    * @see #setHintAnimationEnabled(boolean)
    */
   public boolean isHintAnimationEnabled()
@@ -3011,7 +3011,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Set whether any hint state changes, due to being focused or non-empty text, are animated.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintAnimationEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_hintAnimationEnabled
    * @see #isHintAnimationEnabled()
    */
   public void setHintAnimationEnabled(boolean enabled)
@@ -3083,7 +3083,7 @@ public class TextInputLayout extends LinearLayout
    * Returns the start icon.
    *
    * @return the drawable used for the start icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconDrawable
    * @see #setStartIconDrawable(Drawable)
    */
   @Nullable
@@ -3099,7 +3099,7 @@ public class TextInputLayout extends LinearLayout
    * #setStartIconContentDescription(CharSequence)}. This is used for accessibility.
    *
    * @param resId resource id of the drawable to set, or 0 to clear and remove the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconDrawable
    */
   public void setStartIconDrawable(@DrawableRes int resId)
   {
@@ -3113,7 +3113,7 @@ public class TextInputLayout extends LinearLayout
    * #setStartIconContentDescription(CharSequence)}. This is used for accessibility.
    *
    * @param startIconDrawable Drawable to set, may be null to clear and remove the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconDrawable
    */
   public void setStartIconDrawable(@Nullable Drawable startIconDrawable)
   {
@@ -3200,7 +3200,7 @@ public class TextInputLayout extends LinearLayout
    * readers will not announce the icon's checked state.
    *
    * @param startIconCheckable whether the icon should be checkable
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconCheckable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconCheckable
    */
   public void setStartIconCheckable(boolean startIconCheckable)
   {
@@ -3226,7 +3226,7 @@ public class TextInputLayout extends LinearLayout
    * explain the purpose or action of the icon.
    *
    * @param resId Resource ID of a content description string to set, or 0 to clear the description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconContentDescription
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconContentDescription
    */
   public void setStartIconContentDescription(@StringRes int resId)
   {
@@ -3241,7 +3241,7 @@ public class TextInputLayout extends LinearLayout
    *
    * @param startIconContentDescription Content description to set, or null to clear the content
    *                                    description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconContentDescription
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconContentDescription
    */
   public void setStartIconContentDescription(@Nullable CharSequence startIconContentDescription)
   {
@@ -3260,7 +3260,7 @@ public class TextInputLayout extends LinearLayout
    * DrawableCompat#setTintList(Drawable, ColorStateList)}.
    *
    * @param startIconTintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconTint
    */
   public void setStartIconTintList(@Nullable ColorStateList startIconTintList)
   {
@@ -3278,7 +3278,7 @@ public class TextInputLayout extends LinearLayout
    * PorterDuff.Mode#SRC_IN}.
    *
    * @param startIconTintMode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconTintMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_startIconTintMode
    */
   public void setStartIconTintMode(@Nullable PorterDuff.Mode startIconTintMode)
   {
@@ -3294,7 +3294,7 @@ public class TextInputLayout extends LinearLayout
    * Returns the current end icon mode.
    *
    * @return the end icon mode enum
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconMode
    * @see #setEndIconMode(int)
    */
   @EndIconMode
@@ -3310,7 +3310,7 @@ public class TextInputLayout extends LinearLayout
    * @param endIconMode the end icon mode to be set: {@link #END_ICON_PASSWORD_TOGGLE}, {@link
    *                    #END_ICON_CLEAR_TEXT}, or {@link #END_ICON_CUSTOM}; or {@link #END_ICON_NONE} to clear the
    *                    current icon if any
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconMode
    */
   public void setEndIconMode(@EndIconMode int endIconMode)
   {
@@ -3437,7 +3437,7 @@ public class TextInputLayout extends LinearLayout
    * readers will not announce the icon's checked state.
    *
    * @param endIconCheckable whether the icon should be checkable
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconCheckable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconCheckable
    */
   public void setEndIconCheckable(boolean endIconCheckable)
   {
@@ -3447,7 +3447,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the drawable currently used for the end icon.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconDrawable
    * @see #setEndIconDrawable(Drawable)
    */
   @Nullable
@@ -3463,7 +3463,7 @@ public class TextInputLayout extends LinearLayout
    * #setEndIconContentDescription(CharSequence)}. This is used for accessibility.
    *
    * @param resId resource id of the drawable to set, or 0 to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconDrawable
    */
   public void setEndIconDrawable(@DrawableRes int resId)
   {
@@ -3477,7 +3477,7 @@ public class TextInputLayout extends LinearLayout
    * #setEndIconContentDescription(CharSequence)}. This is used for accessibility.
    *
    * @param endIconDrawable Drawable to set, may be null to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconDrawable
    */
   public void setEndIconDrawable(@Nullable Drawable endIconDrawable)
   {
@@ -3503,7 +3503,7 @@ public class TextInputLayout extends LinearLayout
    * explain the action of the icon.
    *
    * @param resId Resource ID of a content description string to set, or 0 to clear the description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconContentDescription
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconContentDescription
    */
   public void setEndIconContentDescription(@StringRes int resId)
   {
@@ -3518,7 +3518,7 @@ public class TextInputLayout extends LinearLayout
    *
    * @param endIconContentDescription Content description to set, or null to clear the content
    *                                  description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconContentDescription
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconContentDescription
    */
   public void setEndIconContentDescription(@Nullable CharSequence endIconContentDescription)
   {
@@ -3537,7 +3537,7 @@ public class TextInputLayout extends LinearLayout
    * DrawableCompat#setTintList(Drawable, ColorStateList)}.
    *
    * @param endIconTintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconTint
    */
   public void setEndIconTintList(@Nullable ColorStateList endIconTintList)
   {
@@ -3555,7 +3555,7 @@ public class TextInputLayout extends LinearLayout
    * PorterDuff.Mode#SRC_IN}.
    *
    * @param endIconTintMode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconTintMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_endIconTintMode
    */
   public void setEndIconTintMode(@Nullable PorterDuff.Mode endIconTintMode)
   {
@@ -3571,7 +3571,7 @@ public class TextInputLayout extends LinearLayout
    * Add a {@link TextInputLayout.OnEndIconChangedListener} that will be invoked when the end icon
    * gets changed.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnEndIconChangedListener(OnEndIconChangedListener)}.
    *
    * @param listener listener to add
@@ -3604,7 +3604,7 @@ public class TextInputLayout extends LinearLayout
    * Add a {@link OnEditTextAttachedListener} that will be invoked when the edit text is attached,
    * or from this method if the EditText is already present.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnEditTextAttachedListener(OnEditTextAttachedListener)}.
    *
    * @param listener listener to add
@@ -3640,7 +3640,7 @@ public class TextInputLayout extends LinearLayout
   /**
    * Returns the icon currently used for the password visibility toggle button.
    *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleDrawable
    * @see #setPasswordVisibilityToggleDrawable(Drawable)
    * @deprecated Use {@link #getEndIconDrawable()} instead.
    */
@@ -3658,7 +3658,7 @@ public class TextInputLayout extends LinearLayout
    * #setPasswordVisibilityToggleContentDescription(CharSequence)}. This is used for accessibility.
    *
    * @param resId resource id of the drawable to set, or 0 to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleDrawable
    * @deprecated Use {@link #setEndIconDrawable(int)} instead.
    */
   @Deprecated
@@ -3675,7 +3675,7 @@ public class TextInputLayout extends LinearLayout
    * #setPasswordVisibilityToggleContentDescription(CharSequence)}. This is used for accessibility.
    *
    * @param icon Drawable to set, may be null to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleDrawable
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleDrawable
    * @deprecated Use {@link #setEndIconDrawable(Drawable)} instead.
    */
   @Deprecated
@@ -3707,7 +3707,7 @@ public class TextInputLayout extends LinearLayout
    *
    * @param resId Resource ID of a content description string to set, or 0 to clear the description
    * @attr ref
-   * com.google.android.material.R.styleable#TextInputLayout_passwordToggleContentDescription
+   * com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleContentDescription
    * @deprecated Use {@link #setEndIconContentDescription(int)} instead.
    */
   @Deprecated
@@ -3725,7 +3725,7 @@ public class TextInputLayout extends LinearLayout
    *
    * @param description Content description to set, or null to clear the content description
    * @attr ref
-   * com.google.android.material.R.styleable#TextInputLayout_passwordToggleContentDescription
+   * com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleContentDescription
    * @deprecated Use {@link #setEndIconContentDescription(CharSequence)} instead.
    */
   @Deprecated
@@ -3753,7 +3753,7 @@ public class TextInputLayout extends LinearLayout
    * between the field's input being visibly disguised or not.
    *
    * @param enabled true to enable the functionality
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleEnabled
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleEnabled
    * @deprecated Use {@link #setEndIconMode(int)} instead.
    */
   @Deprecated
@@ -3779,7 +3779,7 @@ public class TextInputLayout extends LinearLayout
    * DrawableCompat#setTintList(Drawable, ColorStateList)}.
    *
    * @param tintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleTint
    * @deprecated Use {@link #setEndIconTintList(ColorStateList)} instead.
    */
   @Deprecated
@@ -3796,7 +3796,7 @@ public class TextInputLayout extends LinearLayout
    * drawable. The default mode is {@link PorterDuff.Mode#SRC_IN}.
    *
    * @param mode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleTintMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#TextInputLayout_passwordToggleTintMode
    * @deprecated Use {@link #setEndIconTintMode(PorterDuff.Mode)} instead.
    */
   @Deprecated

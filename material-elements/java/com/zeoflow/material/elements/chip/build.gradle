@@ -11,16 +11,16 @@ dependencies {
   implementation compatibility("appcompat")
   implementation compatibility("core")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/canvas"))
-  implementation project(fromPath("lib/java/com/google/android/material/color"))
-  implementation project(fromPath("lib/java/com/google/android/material/drawable"))
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
-  implementation project(fromPath("lib/java/com/google/android/material/math"))
-  implementation project(fromPath("lib/java/com/google/android/material/resources"))
-  implementation project(fromPath("lib/java/com/google/android/material/ripple"))
-  implementation project(fromPath("lib/java/com/google/android/material/shape"))
-  implementation project(fromPath("lib/java/com/google/android/material/typography"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/canvas"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/color"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/drawable"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/math"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/resources"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/ripple"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/shape"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/typography"))
 }
 
 android {

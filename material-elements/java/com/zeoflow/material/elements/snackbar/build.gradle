@@ -11,9 +11,9 @@ dependencies {
   implementation compatibility("appcompat")
   implementation compatibility("core")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/behavior"))
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/behavior"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
 }
 
 android {

@@ -10,7 +10,7 @@ dependencies {
   api compatibility("annotation")
   api compatibility("cardview")
 
-  api project(fromPath("lib/java/com/google/android/material/circularreveal"))
+  api project(fromPath("material-elements/java/com/zeoflow/material/elements/circularreveal"))
 }
 
 android {

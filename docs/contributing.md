@@ -21,7 +21,7 @@ library from source.
 
 ## Running Tests
 
-Material Components for Android has JVM tests as well as Emulator tests.
+Material Elements for Android has JVM tests as well as Emulator tests.
 
 To run the JVM tests, do:
 

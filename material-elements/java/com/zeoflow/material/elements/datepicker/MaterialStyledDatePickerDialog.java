@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.StyleRes;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.dialog.InsetDialogOnTouchListener;
 import com.zeoflow.material.elements.dialog.MaterialDialogs;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
@@ -53,7 +53,7 @@ public class MaterialStyledDatePickerDialog extends DatePickerDialog
 
   @StyleRes
   private static final int DEF_STYLE_RES =
-      R.style.MaterialAlertDialog_MaterialComponents_Picker_Date_Spinner;
+      R.style.MaterialAlertDialog_MaterialElements_Picker_Date_Spinner;
 
   @NonNull
   private final Drawable background;

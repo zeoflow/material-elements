@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2017 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,13 +12,13 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
 
   <declare-styleable name="ThemeEnforcement">
     <!-- Internal flag used to denote that a style uses new attributes defined by
-         Theme.MaterialComponents, and that the component should check via ThemeEnforcement that the
-         client's app theme inherits from Theme.MaterialComponents.
+         Theme.MaterialElements, and that the component should check via ThemeEnforcement that the
+         client's app theme inherits from Theme.MaterialElements.
 
          Not all usages of new attributes are problematic in the context of a legacy app theme. You
          should only use this flag if a particular usage is known to cause a visual glitch or crash.

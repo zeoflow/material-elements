@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2019 The Android Open Source Project
+  ~ Copyright 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
   -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="NewApi">
 
-  <style name="Widget.MaterialComponents.Badge" parent="android:Widget">
+  <style name="Widget.MaterialElements.Badge" parent="android:Widget">
     <item name="backgroundColor">?attr/colorError</item>
     <item name="maxCharacterCount">@integer/mtrl_badge_max_character_count</item>
     <item name="badgeGravity">TOP_END</item>
   </style>
 
-  <style name="Base.TextAppearance.MaterialComponents.Badge" parent="TextAppearance.AppCompat">
+  <style name="Base.TextAppearance.MaterialElements.Badge" parent="TextAppearance.AppCompat">
     <!-- Fake Roboto Medium. -->
     <item name="fontFamily">sans-serif-medium</item>
     <item name="android:fontFamily">sans-serif-medium</item>
@@ -32,5 +32,5 @@
     <item name="android:textColor">?attr/colorOnError</item>
   </style>
 
-  <style name="TextAppearance.MaterialComponents.Badge" parent="Base.TextAppearance.MaterialComponents.Badge" />
+  <style name="TextAppearance.MaterialElements.Badge" parent="Base.TextAppearance.MaterialElements.Badge" />
 </resources>

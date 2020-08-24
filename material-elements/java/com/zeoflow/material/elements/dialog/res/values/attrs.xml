@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-    Copyright 2018 The Android Open Source Project
+    Copyright 2020 ZeoFlow
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 <resources>
   <!-- A group of attributes to control the appearance of Alert Dialogs.
        For default configurations of all attributes, set materialAlertDialogTheme
-       in your App Theme to ThemeOverlay.MaterialComponents.MaterialAlertDialog or
-       ThemeOverlay.MaterialComponents.MaterialAlertDialog.Centered. -->
+       in your App Theme to ThemeOverlay.MaterialElements.MaterialAlertDialog or
+       ThemeOverlay.MaterialElements.MaterialAlertDialog.Centered. -->
   <declare-styleable name="MaterialAlertDialogTheme">
     <attr name="materialAlertDialogTheme" format="reference" />
     <attr name="materialAlertDialogTitlePanelStyle" format="reference" />

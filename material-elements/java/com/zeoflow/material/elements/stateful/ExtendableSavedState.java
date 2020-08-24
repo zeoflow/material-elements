@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import androidx.customview.view.AbsSavedState;
 /**
  * SavedState for widgets that want to save and restore their own state in {@link
  * android.view.View#onSaveInstanceState()}. Supports widgets whose state is composed or delegated
- * out to multiple components.
+ * out to multiple elements.
  *
  * <p>Widgets with only composed or delegated state can directly instantiate this class and write to
  * {@link #extendableStates}. Widgets with additional state should subclass ExtendableSavedState

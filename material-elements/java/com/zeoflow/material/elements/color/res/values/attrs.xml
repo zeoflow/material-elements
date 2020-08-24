@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2017 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
   <!-- A tonal variation of the primary color. -->
   <attr name="colorPrimaryVariant" format="color" />
@@ -49,8 +49,8 @@
        The background can either be a color or a bitmap drawable with tileMode set to repeat. -->
   <attr name="scrimBackground" format="color|reference" />
 
-  <!-- Internal flag used to denote that a theme is a Theme.MaterialComponents theme or a
-       Theme.MaterialComponents.Bridge theme. -->
+  <!-- Internal flag used to denote that a theme is a Theme.MaterialElements theme or a
+       Theme.MaterialElements.Bridge theme. -->
   <attr name="isMaterialTheme" format="boolean" />
 
   <!-- When set to true, the material selection controls will tint themselves according to

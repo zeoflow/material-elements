@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2018 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,38 +12,38 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
-  <public name="Platform.MaterialComponents" type="style" />
-  <public name="Platform.MaterialComponents.Light" type="style" />
+  <public name="Platform.MaterialElements" type="style" />
+  <public name="Platform.MaterialElements.Light" type="style" />
 
-  <public name="Theme.MaterialComponents" type="style" />
-  <public name="Theme.MaterialComponents.Light" type="style" />
-  <public name="Theme.MaterialComponents.DayNight" type="style" />
-  <public name="Theme.MaterialComponents.NoActionBar" type="style" />
-  <public name="Theme.MaterialComponents.Light.NoActionBar" type="style" />
-  <public name="Theme.MaterialComponents.DayNight.NoActionBar" type="style" />
-  <public name="Theme.MaterialComponents.Light.DarkActionBar" type="style" />
-  <public name="Theme.MaterialComponents.DayNight.DarkActionBar" type="style" />
-  <public name="Theme.MaterialComponents.DialogWhenLarge" type="style" />
-  <public name="Theme.MaterialComponents.Light.DialogWhenLarge" type="style" />
-  <public name="Theme.MaterialComponents.DayNight.DialogWhenLarge" type="style" />
-  <public name="Theme.MaterialComponents.CompactMenu" type="style" />
+  <public name="Theme.MaterialElements" type="style" />
+  <public name="Theme.MaterialElements.Light" type="style" />
+  <public name="Theme.MaterialElements.DayNight" type="style" />
+  <public name="Theme.MaterialElements.NoActionBar" type="style" />
+  <public name="Theme.MaterialElements.Light.NoActionBar" type="style" />
+  <public name="Theme.MaterialElements.DayNight.NoActionBar" type="style" />
+  <public name="Theme.MaterialElements.Light.DarkActionBar" type="style" />
+  <public name="Theme.MaterialElements.DayNight.DarkActionBar" type="style" />
+  <public name="Theme.MaterialElements.DialogWhenLarge" type="style" />
+  <public name="Theme.MaterialElements.Light.DialogWhenLarge" type="style" />
+  <public name="Theme.MaterialElements.DayNight.DialogWhenLarge" type="style" />
+  <public name="Theme.MaterialElements.CompactMenu" type="style" />
 
-  <public name="Theme.MaterialComponents.Bridge" type="style" />
-  <public name="Theme.MaterialComponents.Light.Bridge" type="style" />
-  <public name="Theme.MaterialComponents.DayNight.Bridge" type="style" />
-  <public name="Theme.MaterialComponents.NoActionBar.Bridge" type="style" />
-  <public name="Theme.MaterialComponents.Light.NoActionBar.Bridge" type="style" />
-  <public name="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" type="style" />
-  <public name="Theme.MaterialComponents.Light.DarkActionBar.Bridge" type="style" />
-  <public name="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" type="style" />
+  <public name="Theme.MaterialElements.Bridge" type="style" />
+  <public name="Theme.MaterialElements.Light.Bridge" type="style" />
+  <public name="Theme.MaterialElements.DayNight.Bridge" type="style" />
+  <public name="Theme.MaterialElements.NoActionBar.Bridge" type="style" />
+  <public name="Theme.MaterialElements.Light.NoActionBar.Bridge" type="style" />
+  <public name="Theme.MaterialElements.DayNight.NoActionBar.Bridge" type="style" />
+  <public name="Theme.MaterialElements.Light.DarkActionBar.Bridge" type="style" />
+  <public name="Theme.MaterialElements.DayNight.DarkActionBar.Bridge" type="style" />
 
-  <public name="ThemeOverlay.MaterialComponents" type="style" />
-  <public name="ThemeOverlay.MaterialComponents.Light" type="style" />
-  <public name="ThemeOverlay.MaterialComponents.Dark" type="style" />
-  <public name="ThemeOverlay.MaterialComponents.ActionBar" type="style" />
-  <public name="ThemeOverlay.MaterialComponents.Dark.ActionBar" type="style" />
+  <public name="ThemeOverlay.MaterialElements" type="style" />
+  <public name="ThemeOverlay.MaterialElements.Light" type="style" />
+  <public name="ThemeOverlay.MaterialElements.Dark" type="style" />
+  <public name="ThemeOverlay.MaterialElements.ActionBar" type="style" />
+  <public name="ThemeOverlay.MaterialElements.Dark.ActionBar" type="style" />
 
   <public name="Theme.Design" type="style" />
   <public name="Theme.Design.Light" type="style" />

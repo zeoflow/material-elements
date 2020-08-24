@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 
 /**
  * A Property for the alpha of a ViewGroup's children.

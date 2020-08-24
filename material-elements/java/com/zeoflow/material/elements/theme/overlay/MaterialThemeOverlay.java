@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.view.ContextThemeWrapper;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 
 /**
  * Utility to apply a theme overlay to any {@link android.content.Context}. The theme overlay is

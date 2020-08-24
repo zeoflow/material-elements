@@ -6,8 +6,8 @@ apply plugin: 'com.github.dcendents.android-maven'
 dependencies {
   implementation compatibility("appcompat")
 
-  implementation project(fromPath("lib/java/com/google/android/material/color"))
-  implementation project(fromPath("lib/java/com/google/android/material/shape"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/color"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/shape"))
 }
 
 android {

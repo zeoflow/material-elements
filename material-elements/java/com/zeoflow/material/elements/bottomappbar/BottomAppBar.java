@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ import androidx.core.view.ViewCompat.ScrollAxis;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.view.AbsSavedState;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.animation.TransformationCallback;
 import com.zeoflow.material.elements.behavior.HideBottomViewOnScrollBehavior;
 import com.zeoflow.material.elements.floatingactionbutton.ExtendedFloatingActionButton;
@@ -95,18 +95,18 @@ import static com.zeoflow.material.elements.shape.MaterialShapeDrawable.SHADOW_C
  * materialThemeOverlay} attribute to a ThemeOverlay which sets the {@code colorControlNormal}
  * attribute to the correct color. For example, if the background of the BottomAppBar is {@code
  * colorSurface}, as it is in the default style, you should set {@code materialThemeOverlay} to
- * {@code @style/ThemeOverlay.MaterialComponents.BottomAppBar.Surface}.
+ * {@code @style/ThemeOverlay.MaterialElements.BottomAppBar.Surface}.
  *
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_backgroundTint
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_fabAlignmentMode
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_fabAnimationMode
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_fabCradleMargin
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_backgroundTint
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_fabAlignmentMode
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_fabAnimationMode
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_fabCradleMargin
  * @attr ref
- * com.google.android.material.R.styleable#BottomAppBar_fabCradleRoundedCornerRadius
+ * com.zeoflow.material.elements.R.styleable#BottomAppBar_fabCradleRoundedCornerRadius
  * @attr ref
- * com.google.android.material.R.styleable#BottomAppBar_fabCradleVerticalOffset
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_hideOnScroll
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_paddingBottomSystemWindowInsets
+ * com.zeoflow.material.elements.R.styleable#BottomAppBar_fabCradleVerticalOffset
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_hideOnScroll
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_paddingBottomSystemWindowInsets
  */
 public class BottomAppBar extends Toolbar implements AttachedBehavior
 {
@@ -115,7 +115,7 @@ public class BottomAppBar extends Toolbar implements AttachedBehavior
   public static final int FAB_ALIGNMENT_MODE_END = 1;
   public static final int FAB_ANIMATION_MODE_SCALE = 0;
   public static final int FAB_ANIMATION_MODE_SLIDE = 1;
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_BottomAppBar;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_BottomAppBar;
   private static final long ANIMATION_DURATION = 300;
   private final int fabOffsetEndMode;
   private final MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();

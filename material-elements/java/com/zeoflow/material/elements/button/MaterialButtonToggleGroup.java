@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.button.MaterialButton.OnPressedChangeListener;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.internal.ViewUtils;
@@ -63,34 +63,34 @@ import java.util.TreeMap;
  * added to this view group via XML, as follows:
  *
  * <pre>
- * &lt;com.google.android.material.button.MaterialButtonToggleGroup
+ * &lt;com.zeoflow.material.elements.button.MaterialButtonToggleGroup
  *     xmlns:android="http://schemas.android.com/apk/res/android"
  *     android:id="@+id/toggle_button_group"
  *     android:layout_width="wrap_content"
  *     android:layout_height="wrap_content"&gt;
  *
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_private"/&gt;
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_team"/&gt;
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_everyone"/&gt;
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_custom"/&gt;
  *
- * &lt;/com.google.android.material.button.MaterialButtonToggleGroup&gt;
+ * &lt;/com.zeoflow.material.elements.button.MaterialButtonToggleGroup&gt;
  * </pre>
  *
  * <p>Buttons can also be added to this view group programmatically via the {@link #addView(View)}
@@ -125,7 +125,7 @@ public class MaterialButtonToggleGroup extends LinearLayout
 
   private static final String LOG_TAG = MaterialButtonToggleGroup.class.getSimpleName();
   private static final int DEF_STYLE_RES =
-      R.style.Widget_MaterialComponents_MaterialButtonToggleGroup;
+      R.style.Widget_MaterialElements_MaterialButtonToggleGroup;
   private final List<CornerData> originalCornerData = new ArrayList<>();
   private final CheckedStateTracker checkedStateTracker = new CheckedStateTracker();
   private final PressedStateTracker pressedStateTracker = new PressedStateTracker();
@@ -450,7 +450,7 @@ public class MaterialButtonToggleGroup extends LinearLayout
    * Add a listener that will be invoked when the check state of a {@link MaterialButton} in this
    * group changes. See {@link OnButtonCheckedListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnButtonCheckedListener(OnButtonCheckedListener)}.
    *
    * @param listener listener to add

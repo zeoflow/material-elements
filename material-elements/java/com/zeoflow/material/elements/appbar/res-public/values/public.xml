@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2018 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
   <public name="appBarLayoutStyle" type="attr" />
   <public name="layout_scrollInterpolator" type="attr" />
@@ -30,20 +30,20 @@
   <public name="toolbarId" type="attr" />
   <public name="Widget.Design.AppBarLayout" type="style" />
   <public name="Widget.Design.CollapsingToolbar" type="style" />
-  <public name="Widget.MaterialComponents.AppBarLayout.Primary" type="style" />
-  <public name="Widget.MaterialComponents.AppBarLayout.Surface" type="style" />
-  <public name="Widget.MaterialComponents.AppBarLayout.PrimarySurface" type="style" />
-  <public name="Widget.MaterialComponents.Toolbar" type="style" />
-  <public name="Widget.MaterialComponents.Toolbar.Primary" type="style" />
-  <public name="Widget.MaterialComponents.Toolbar.Surface" type="style" />
-  <public name="Widget.MaterialComponents.Toolbar.PrimarySurface" type="style" />
-  <public name="Widget.MaterialComponents.ActionBar.Solid" type="style" />
-  <public name="Widget.MaterialComponents.Light.ActionBar.Solid" type="style" />
-  <public name="Widget.MaterialComponents.ActionBar.Primary" type="style" />
-  <public name="Widget.MaterialComponents.ActionBar.Surface" type="style" />
-  <public name="Widget.MaterialComponents.ActionBar.PrimarySurface" type="style" />
-  <public name="ThemeOverlay.MaterialComponents.Toolbar.Primary" type="style" />
-  <public name="ThemeOverlay.MaterialComponents.Toolbar.Surface" type="style" />
+  <public name="Widget.MaterialElements.AppBarLayout.Primary" type="style" />
+  <public name="Widget.MaterialElements.AppBarLayout.Surface" type="style" />
+  <public name="Widget.MaterialElements.AppBarLayout.PrimarySurface" type="style" />
+  <public name="Widget.MaterialElements.Toolbar" type="style" />
+  <public name="Widget.MaterialElements.Toolbar.Primary" type="style" />
+  <public name="Widget.MaterialElements.Toolbar.Surface" type="style" />
+  <public name="Widget.MaterialElements.Toolbar.PrimarySurface" type="style" />
+  <public name="Widget.MaterialElements.ActionBar.Solid" type="style" />
+  <public name="Widget.MaterialElements.Light.ActionBar.Solid" type="style" />
+  <public name="Widget.MaterialElements.ActionBar.Primary" type="style" />
+  <public name="Widget.MaterialElements.ActionBar.Surface" type="style" />
+  <public name="Widget.MaterialElements.ActionBar.PrimarySurface" type="style" />
+  <public name="ThemeOverlay.MaterialElements.Toolbar.Primary" type="style" />
+  <public name="ThemeOverlay.MaterialElements.Toolbar.Surface" type="style" />
   <public name="TextAppearance.Design.CollapsingToolbar.Expanded" type="style" />
   <public name="appbar_scrolling_view_behavior" type="string" />
   <public name="expanded" type="attr" />

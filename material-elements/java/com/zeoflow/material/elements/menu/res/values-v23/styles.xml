@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  Copyright 2019 The Android Open Source Project
+  Copyright 2020 ZeoFlow
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@
 
 <resources>
 
-  <style name="Widget.MaterialComponents.PopupMenu.ListPopupWindow" parent="Base.Widget.MaterialComponents.PopupMenu.ListPopupWindow">
+  <style name="Widget.MaterialElements.PopupMenu.ListPopupWindow" parent="Base.Widget.MaterialElements.PopupMenu.ListPopupWindow">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.PopupMenu.ContextMenu" parent="Base.Widget.MaterialComponents.PopupMenu.ContextMenu">
+  <style name="Widget.MaterialElements.PopupMenu.ContextMenu" parent="Base.Widget.MaterialElements.PopupMenu.ContextMenu">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
   </style>

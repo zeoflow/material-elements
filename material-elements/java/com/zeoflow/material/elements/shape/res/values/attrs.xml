@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2018 The Android Open Source Project
+  ~ Copyright 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -62,11 +62,11 @@
     </attr>
   </declare-styleable>
 
-  <!-- Shape appearance style reference for small components. -->
+  <!-- Shape appearance style reference for small elements. -->
   <attr name="shapeAppearanceSmallComponent" format="reference" />
-  <!-- Shape appearance style reference for medium components. -->
+  <!-- Shape appearance style reference for medium elements. -->
   <attr name="shapeAppearanceMediumComponent" format="reference" />
-  <!-- Shape appearance style reference for large components. -->
+  <!-- Shape appearance style reference for large elements. -->
   <attr name="shapeAppearanceLargeComponent" format="reference" />
 
 </resources>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.slider.RangeSlider.OnChangeListener;
 import com.zeoflow.material.elements.slider.RangeSlider.OnSliderTouchListener;
 
@@ -39,7 +39,7 @@ import java.util.List;
  * <p>{@code app:values}: <b>Optional.</b> The initial values of the range slider. If not specified,
  * the range slider will only have one value equal to {@code android:valueFrom}
  *
- * @attr ref com.google.android.material.R.styleable#RangeSlider_values
+ * @attr ref com.zeoflow.material.elements.R.styleable#RangeSlider_values
  */
 public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSliderTouchListener>
 {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2015 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
   <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance">
@@ -32,7 +32,7 @@
     <item name="actionTextColorAlpha">@dimen/design_snackbar_action_text_color_alpha</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Snackbar" parent="Widget.Design.Snackbar">
+  <style name="Widget.MaterialElements.Snackbar" parent="Widget.Design.Snackbar">
     <!-- Null out the background here so the programmatically defined default Snackbar background
          will be used, which supports the Material color theming attributes. -->
     <item name="android:background">@null</item>
@@ -43,13 +43,13 @@
     <item name="actionTextColorAlpha">@dimen/mtrl_snackbar_action_text_color_alpha</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Snackbar.FullWidth" parent="Widget.Design.Snackbar">
+  <style name="Widget.MaterialElements.Snackbar.FullWidth" parent="Widget.Design.Snackbar">
     <item name="backgroundOverlayColorAlpha">@dimen/mtrl_snackbar_background_overlay_color_alpha
     </item>
     <item name="actionTextColorAlpha">@dimen/mtrl_snackbar_action_text_color_alpha</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Snackbar.TextView" parent="Widget.AppCompat.TextView">
+  <style name="Widget.MaterialElements.Snackbar.TextView" parent="Widget.AppCompat.TextView">
     <item name="android:alpha">@dimen/material_emphasis_high_type</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">@integer/design_snackbar_text_max_lines</item>

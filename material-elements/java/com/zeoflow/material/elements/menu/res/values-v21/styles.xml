@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  Copyright 2018 The Android Open Source Project
+  Copyright 2020 ZeoFlow
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,23 +16,23 @@
 
 <resources>
 
-  <style name="Widget.MaterialComponents.PopupMenu.Overflow" parent="Base.Widget.MaterialComponents.PopupMenu.Overflow">
+  <style name="Widget.MaterialElements.PopupMenu.Overflow" parent="Base.Widget.MaterialElements.PopupMenu.Overflow">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.PopupMenu" parent="Base.Widget.MaterialComponents.PopupMenu">
+  <style name="Widget.MaterialElements.PopupMenu" parent="Base.Widget.MaterialElements.PopupMenu">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
   </style>
 
-  <style name="Base.Widget.MaterialComponents.PopupMenu.ListPopupWindow" parent="Widget.AppCompat.ListPopupWindow">
+  <style name="Base.Widget.MaterialElements.PopupMenu.ListPopupWindow" parent="Widget.AppCompat.ListPopupWindow">
     <item name="android:popupBackground">?attr/popupMenuBackground</item>
     <item name="android:popupElevation">8dp</item>
     <item name="android:dropDownVerticalOffset">1dp</item>
   </style>
 
-  <style name="Base.Widget.MaterialComponents.PopupMenu.ContextMenu" parent="Widget.AppCompat.PopupMenu">
+  <style name="Base.Widget.MaterialElements.PopupMenu.ContextMenu" parent="Widget.AppCompat.PopupMenu">
     <item name="android:overlapAnchor">true</item>
   </style>
 

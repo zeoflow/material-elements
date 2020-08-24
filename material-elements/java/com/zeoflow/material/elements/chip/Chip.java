@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.Accessibilit
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat;
 import androidx.customview.widget.ExploreByTouchHelper;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.animation.MotionSpec;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.internal.ViewUtils;
@@ -131,7 +131,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
   private static final String TAG = "Chip";
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_Chip_Action;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_Chip_Action;
 
   private static final int CHIP_BODY_VIRTUAL_ID = 0;
   private static final int CLOSE_ICON_VIRTUAL_ID = 1;
@@ -1169,7 +1169,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's background color.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipBackgroundColor
    * @see #setChipBackgroundColor(ColorStateList)
    */
   @Nullable
@@ -1184,7 +1184,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's background color.
    *
    * @param chipBackgroundColor This chip's background color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipBackgroundColor
    */
   public void setChipBackgroundColor(@Nullable ColorStateList chipBackgroundColor)
   {
@@ -1198,7 +1198,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's background color using a resource id.
    *
    * @param id The resource id of this chip's background color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipBackgroundColor
    */
   public void setChipBackgroundColorResource(@ColorRes int id)
   {
@@ -1211,7 +1211,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's minimum height.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipMinHeight
    * @see #setChipMinHeight(float)
    */
   public float getChipMinHeight()
@@ -1223,7 +1223,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's minimum height.
    *
    * @param minHeight This chip's mininum height.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipMinHeight
    */
   public void setChipMinHeight(float minHeight)
   {
@@ -1237,7 +1237,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's minimum height using a resource id.
    *
    * @param id The resource id of this chip's mininum height.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipMinHeight
    */
   public void setChipMinHeightResource(@DimenRes int id)
   {
@@ -1250,7 +1250,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's corner radius.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipCornerRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipCornerRadius
    * @see #setChipCornerRadius(float)
    */
   public float getChipCornerRadius()
@@ -1304,7 +1304,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's stroke color.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeColor
    * @see #setChipStrokeColor(ColorStateList)
    */
   @Nullable
@@ -1317,7 +1317,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's stroke color.
    *
    * @param chipStrokeColor This chip's stroke color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeColor
    */
   public void setChipStrokeColor(@Nullable ColorStateList chipStrokeColor)
   {
@@ -1331,7 +1331,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's stroke color using a resource id.
    *
    * @param id The resource id of this chip's stroke color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeColor
    */
   public void setChipStrokeColorResource(@ColorRes int id)
   {
@@ -1344,7 +1344,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's stroke width.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeWidth
    * @see #setChipStrokeWidth(float)
    */
   public float getChipStrokeWidth()
@@ -1356,7 +1356,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's stroke width.
    *
    * @param chipStrokeWidth This chip's stroke width.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeWidth
    */
   public void setChipStrokeWidth(float chipStrokeWidth)
   {
@@ -1370,7 +1370,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's stroke width using a resource id.
    *
    * @param id The resource id of this chip's stroke width.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStrokeWidth
    */
   public void setChipStrokeWidthResource(@DimenRes int id)
   {
@@ -1383,7 +1383,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's ripple color.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_rippleColor
    * @see #setRippleColor(ColorStateList)
    */
   @Nullable
@@ -1396,7 +1396,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's ripple color.
    *
    * @param rippleColor This chip's ripple color.
-   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_rippleColor
    */
   public void setRippleColor(@Nullable ColorStateList rippleColor)
   {
@@ -1414,7 +1414,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's ripple color using a resource id.
    *
    * @param id The resource id of this chip's ripple color.
-   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_rippleColor
    */
   public void setRippleColorResource(@ColorRes int id)
   {
@@ -1492,7 +1492,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's text appearance using a resource id.
    *
    * @param id The resource id of this chip's text appearance.
-   * @attr ref com.google.android.material.R.styleable#Chip_android_textAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_android_textAppearance
    */
   public void setTextAppearanceResource(@StyleRes int id)
   {
@@ -1534,7 +1534,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's text appearance.
    *
    * @param textAppearance This chip's text appearance.
-   * @attr ref com.google.android.material.R.styleable#Chip_android_textAppearance
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_android_textAppearance
    */
   public void setTextAppearance(@Nullable TextAppearance textAppearance)
   {
@@ -1559,7 +1559,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns whether this chip's icon is visible.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconVisible
    * @see #setChipIconVisible(boolean)
    */
   public boolean isChipIconVisible()
@@ -1571,7 +1571,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the visibility of this chip's icon using a resource id.
    *
    * @param id The resource id for the visibility of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconVisible
    */
   public void setChipIconVisible(@BoolRes int id)
   {
@@ -1585,7 +1585,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets whether this chip's icon is visible.
    *
    * @param chipIconVisible The visibility of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconIsVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconIsVisible
    */
   public void setChipIconVisible(boolean chipIconVisible)
   {
@@ -1625,7 +1625,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIcon
    * @see #setChipIcon(Drawable)
    */
   @Nullable
@@ -1638,7 +1638,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's icon.
    *
    * @param chipIcon drawable of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIcon
    */
   public void setChipIcon(@Nullable Drawable chipIcon)
   {
@@ -1652,7 +1652,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's icon using a resource id.
    *
    * @param id The resource id for this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIcon
    */
   public void setChipIconResource(@DrawableRes int id)
   {
@@ -1665,7 +1665,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the {@link android.content.res.ColorStateList} used to tint the chip icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconTint
    * @see #setChipIconTint(ColorStateList)
    */
   @Nullable
@@ -1679,7 +1679,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * android.content.res.ColorStateList}.
    *
    * @param chipIconTint The tint color of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconTint
    */
   public void setChipIconTint(@Nullable ColorStateList chipIconTint)
   {
@@ -1693,7 +1693,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip icon's color tint using a resource id.
    *
    * @param id The resource id for tinting the chip icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconTint
    */
   public void setChipIconTintResource(@ColorRes int id)
   {
@@ -1706,7 +1706,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's icon size.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconTint
    * @see #setChipIconSize(float)
    */
   public float getChipIconSize()
@@ -1718,7 +1718,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip icon's size.
    *
    * @param chipIconSize This chip's icon size.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconSize
    */
   public void setChipIconSize(float chipIconSize)
   {
@@ -1732,7 +1732,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip icon's size using a resource id.
    *
    * @param id The resource id of this chip's icon size.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconSize
    */
   public void setChipIconSizeResource(@DimenRes int id)
   {
@@ -1745,7 +1745,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns whether this chip's close icon is visible.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipIconSize
    * @see id #setCloseIconVisible(boolean)
    */
   public boolean isCloseIconVisible()
@@ -1757,7 +1757,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets whether this chip close icon is visible using a resource id.
    *
    * @param id The resource id of this chip's close icon visibility.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconVisible
    */
   public void setCloseIconVisible(@BoolRes int id)
   {
@@ -1768,7 +1768,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets whether this chip close icon is visible.
    *
    * @param closeIconVisible This chip's close icon visibility.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconVisible
    */
   public void setCloseIconVisible(boolean closeIconVisible)
   {
@@ -1809,7 +1809,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's close icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIcon
    * @see #setCloseIcon(Drawable).
    */
   @Nullable
@@ -1822,7 +1822,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's close icon.
    *
    * @param closeIcon This chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIcon
    */
   public void setCloseIcon(@Nullable Drawable closeIcon)
   {
@@ -1837,7 +1837,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's close icon using a resource id.
    *
    * @param id The resource id of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIcon
    */
   public void setCloseIconResource(@DrawableRes int id)
   {
@@ -1851,7 +1851,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the tint color for this chip's close icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconTint
    * @see #setCloseIconTint(ColorStateList)
    */
   @Nullable
@@ -1864,7 +1864,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the tint color for this chip's close icon.
    *
    * @param closeIconTint This chip's close icon tint.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconTint
    */
   public void setCloseIconTint(@Nullable ColorStateList closeIconTint)
   {
@@ -1878,7 +1878,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the tint color for this chip's close icon using a resource id.
    *
    * @param id The resource id of this chip's close icon tint.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconTint
    */
   public void setCloseIconTintResource(@ColorRes int id)
   {
@@ -1891,7 +1891,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's close icon size.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconSize
    * @see #setCloseIconSize(float)
    */
   public float getCloseIconSize()
@@ -1903,7 +1903,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's close icon size.
    *
    * @param closeIconSize This chip's close icon size.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconSize
    */
   public void setCloseIconSize(float closeIconSize)
   {
@@ -1917,7 +1917,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's close icon size using a resource id.
    *
    * @param id The resource id of this chip's close icon size.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconSize
    */
   public void setCloseIconSizeResource(@DimenRes int id)
   {
@@ -1954,7 +1954,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns whether this chip is checkable.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_android_checkable
    * @see #setIsCheckable(boolean)
    */
   public boolean isCheckable()
@@ -1966,7 +1966,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets whether this chip is checkable.
    *
    * @param checkable Whether this chip is checkable.
-   * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_android_checkable
    */
   public void setCheckable(boolean checkable)
   {
@@ -1980,7 +1980,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets whether this chip is checkable using a resource id.
    *
    * @param id The resource id of this chip is checkable.
-   * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_android_checkable
    */
   public void setCheckableResource(@BoolRes int id)
   {
@@ -1993,7 +1993,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns whether this chip's checked icon is visible.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconVisible
    * @see #setCheckedIconVisible(boolean)
    */
   public boolean isCheckedIconVisible()
@@ -2005,7 +2005,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets whether this chip's checked icon is visible using a resource id.
    *
    * @param id The resource id of this chip's check icon visibility.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconVisible
    */
   public void setCheckedIconVisible(@BoolRes int id)
   {
@@ -2019,7 +2019,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets whether this chip's checked icon is visible.
    *
    * @param checkedIconVisible This chip's checked icon visibility.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconVisible
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconVisible
    */
   public void setCheckedIconVisible(boolean checkedIconVisible)
   {
@@ -2059,7 +2059,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's checked icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIcon
    * @see #setCheckedIcon(Drawable)
    */
   @Nullable
@@ -2072,7 +2072,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's checked icon.
    *
    * @param checkedIcon This chip's checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIcon
    */
   public void setCheckedIcon(@Nullable Drawable checkedIcon)
   {
@@ -2086,7 +2086,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's checked icon using a resource id.
    *
    * @param id The resource id of this chip's checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIcon
    */
   public void setCheckedIconResource(@DrawableRes int id)
   {
@@ -2099,7 +2099,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the {@link android.content.res.ColorStateList} used to tint the checked icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconTint
    * @see #setCheckedIconTint(ColorStateList)
    */
   @Nullable
@@ -2113,7 +2113,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * android.content.res.ColorStateList}.
    *
    * @param checkedIconTint The tint color of this chip's checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconTint
    */
   public void setCheckedIconTint(@Nullable ColorStateList checkedIconTint)
   {
@@ -2127,7 +2127,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's checked icon's color tint using a resource id.
    *
    * @param id The resource id for tinting the checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_checkedIconTint
    */
   public void setCheckedIconTintResource(@ColorRes int id)
   {
@@ -2140,7 +2140,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's show motion spec.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_showMotionSpec
    * @see #setShowMotionSpec(Drawable)
    */
   @Nullable
@@ -2153,7 +2153,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's show motion spec.
    *
    * @param showMotionSpec This chip's show motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_showMotionSpec
    */
   public void setShowMotionSpec(@Nullable MotionSpec showMotionSpec)
   {
@@ -2167,7 +2167,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's show motion spec using a resource id.
    *
    * @param id The resource id of this chip's show motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_showMotionSpec
    */
   public void setShowMotionSpecResource(@AnimatorRes int id)
   {
@@ -2180,7 +2180,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's hide motion spec.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_hideMotionSpec
    * @see #setHideMotionSpec(Drawable)
    */
   @Nullable
@@ -2193,7 +2193,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's hide motion spec.
    *
    * @param hideMotionSpec This chip's hide motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_hideMotionSpec
    */
   public void setHideMotionSpec(@Nullable MotionSpec hideMotionSpec)
   {
@@ -2207,7 +2207,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's hide motion spec using a resource id.
    *
    * @param id The resource id of this chip's hide motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_hideMotionSpec
    */
   public void setHideMotionSpecResource(@AnimatorRes int id)
   {
@@ -2220,7 +2220,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's start padding.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStartPadding
    * @see #setChipStartPadding(float)
    */
   public float getChipStartPadding()
@@ -2232,7 +2232,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's start padding.
    *
    * @param chipStartPadding This chip's start padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStartPadding
    */
   public void setChipStartPadding(float chipStartPadding)
   {
@@ -2246,7 +2246,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's start padding using a resource id.
    *
    * @param id The resource id of this chip's start padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipStartPadding
    */
   public void setChipStartPaddingResource(@DimenRes int id)
   {
@@ -2259,7 +2259,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the start padding for this chip's icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconStartPadding
    * @see #setIconStartPadding(float)
    */
   public float getIconStartPadding()
@@ -2271,7 +2271,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's icon start padding.
    *
    * @param iconStartPadding The start padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconStartPadding
    */
   public void setIconStartPadding(float iconStartPadding)
   {
@@ -2285,7 +2285,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the start padding for this chip's icon using a resource id.
    *
    * @param id The resource id for the start padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconStartPadding
    */
   public void setIconStartPaddingResource(@DimenRes int id)
   {
@@ -2298,7 +2298,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the end padding for this chip's icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconEndPadding
    * @see #setIconEndPadding(float)
    */
   public float getIconEndPadding()
@@ -2310,7 +2310,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the end padding for this chip's icon.
    *
    * @param iconEndPadding The end padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconEndPadding
    */
   public void setIconEndPadding(float iconEndPadding)
   {
@@ -2324,7 +2324,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the end padding for this chip's icon using a resource id.
    *
    * @param id The resource id for the end padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_iconEndPadding
    */
   public void setIconEndPaddingResource(@DimenRes int id)
   {
@@ -2337,7 +2337,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the start padding for this chip's text.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    * @see #setTextStartPadding(float)
    */
   public float getTextStartPadding()
@@ -2349,7 +2349,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the start padding for this chip's text.
    *
    * @param textStartPadding The start padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    */
   public void setTextStartPadding(float textStartPadding)
   {
@@ -2363,7 +2363,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the start padding for this chip's text using a resource id.
    *
    * @param id The resource id for the start padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    */
   public void setTextStartPaddingResource(@DimenRes int id)
   {
@@ -2376,7 +2376,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the end padding for this chip's text.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textEndPadding
    * @see #setTextEndPadding(float)
    */
   public float getTextEndPadding()
@@ -2388,7 +2388,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the end padding for this chip's text.
    *
    * @param textEndPadding The end padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textStartPadding
    */
   public void setTextEndPadding(float textEndPadding)
   {
@@ -2402,7 +2402,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the end padding for this chip's text using a resource id.
    *
    * @param id The resource id for the end padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_textEndPadding
    */
   public void setTextEndPaddingResource(@DimenRes int id)
   {
@@ -2415,7 +2415,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the start padding for this chip's close icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconStartPadding
    * @see #setCloseIconStartPadding(float)
    */
   public float getCloseIconStartPadding()
@@ -2427,7 +2427,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the start padding for this chip's close icon.
    *
    * @param closeIconStartPadding The start padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconStartPadding
    */
   public void setCloseIconStartPadding(float closeIconStartPadding)
   {
@@ -2441,7 +2441,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the start padding for this chip's close icon using a resource id.
    *
    * @param id The resource id for the start padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconStartPadding
    */
   public void setCloseIconStartPaddingResource(@DimenRes int id)
   {
@@ -2454,7 +2454,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the end padding for this chip's close icon.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconEndPadding
    * @see #setCloseIconEndPadding(float)
    */
   public float getCloseIconEndPadding()
@@ -2466,7 +2466,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the end padding for this chip's close icon.
    *
    * @param closeIconEndPadding The end padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconEndPadding
    */
   public void setCloseIconEndPadding(float closeIconEndPadding)
   {
@@ -2480,7 +2480,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets the end padding for this chip's close icon using a resource id.
    *
    * @param id The resource id for the end padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_closeIconEndPadding
    */
   public void setCloseIconEndPaddingResource(@DimenRes int id)
   {
@@ -2493,7 +2493,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns this chip's end padding.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipEndPadding
    * @see #setChipEndPadding(float)
    */
   public float getChipEndPadding()
@@ -2505,7 +2505,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's end padding.
    *
    * @param chipEndPadding This chip's end padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipEndPadding
    */
   public void setChipEndPadding(float chipEndPadding)
   {
@@ -2519,7 +2519,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Sets this chip's end padding using a resource id.
    *
    * @param id The resource id for this chip's end padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_chipEndPadding
    */
   public void setChipEndPaddingResource(@DimenRes int id)
   {
@@ -2533,7 +2533,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Returns whether this chip will expand its bounds (if needed) to meet the minimum touch target
    * size.
    *
-   * @attr ref com.google.android.material.R.styleable#Chip_ensureMinTouchTargetSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_ensureMinTouchTargetSize
    * @see #setEnsureMinTouchTargetSize(boolean)
    */
   public boolean shouldEnsureMinTouchTargetSize()
@@ -2546,7 +2546,7 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * size.
    *
    * @param flag Whether this chip should meet the min touch target size.
-   * @attr ref com.google.android.material.R.styleable#Chip_ensureMinTouchTargetSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Chip_ensureMinTouchTargetSize
    */
   public void setEnsureMinTouchTargetSize(boolean flag)
   {

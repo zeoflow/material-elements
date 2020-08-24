@@ -9,7 +9,7 @@ version = rootProject.ext.mdcLibraryVersion
 dependencies {
   api compatibility("annotation")
 
-  api project(fromPath("lib/java/com/google/android/material/math"))
+  api project(fromPath("material-elements/java/com/zeoflow/material/elements/math"))
 }
 
 android {

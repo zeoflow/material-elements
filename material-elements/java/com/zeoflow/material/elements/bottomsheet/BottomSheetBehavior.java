@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ import androidx.core.view.accessibility.AccessibilityViewCommand;
 import androidx.customview.view.AbsSavedState;
 import androidx.customview.widget.ViewDragHelper;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.internal.ViewUtils.RelativePadding;
 import com.zeoflow.material.elements.resources.MaterialResources;
@@ -985,7 +985,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    *                   #PEEK_HEIGHT_AUTO} to configure the sheet to peek automatically at 16:9 ratio keyline.
    * @param animate    Whether to animate between the old height and the new height.
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_peekHeight
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_peekHeight
    */
   public final void setPeekHeight(int peekHeight, boolean animate)
   {
@@ -1039,7 +1039,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * @return The height of the collapsed bottom sheet in pixels, or {@link #PEEK_HEIGHT_AUTO} if the
    * sheet is configured to peek automatically at 16:9 ratio keyline
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_peekHeight
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_peekHeight
    */
   public int getPeekHeight()
   {
@@ -1052,7 +1052,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * @param peekHeight The height of the collapsed bottom sheet in pixels, or {@link
    *                   #PEEK_HEIGHT_AUTO} to configure the sheet to peek automatically at 16:9 ratio keyline.
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_peekHeight
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_peekHeight
    */
   public void setPeekHeight(int peekHeight)
   {
@@ -1063,7 +1063,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * Gets the ratio for the height of the BottomSheet in the {@link #STATE_HALF_EXPANDED} state.
    *
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_halfExpandedRatio
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_halfExpandedRatio
    */
   @FloatRange(from = 0.0f, to = 1.0f)
   public float getHalfExpandedRatio()
@@ -1079,7 +1079,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    *
    * @param ratio a float between 0 and 1, representing the {@link #STATE_HALF_EXPANDED} ratio.
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_halfExpandedRatio
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_halfExpandedRatio
    */
   public void setHalfExpandedRatio(@FloatRange(from = 0.0f, to = 1.0f) float ratio)
   {
@@ -1102,7 +1102,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * pick the offset depending on the height of the content.
    *
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_expandedOffset
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_expandedOffset
    */
   public int getExpandedOffset()
   {
@@ -1117,7 +1117,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * @param offset an integer value greater than equal to 0, representing the {@link
    *               #STATE_EXPANDED} offset. Value must not exceed the offset in the half expanded state.
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_expandedOffset
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_expandedOffset
    */
   public void setExpandedOffset(int offset)
   {
@@ -1132,7 +1132,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * Gets whether this bottom sheet can hide when it is swiped down.
    *
    * @return {@code true} if this bottom sheet can hide.
-   * @attr ref com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_hideable
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_hideable
    */
   public boolean isHideable()
   {
@@ -1143,7 +1143,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * Sets whether this bottom sheet can hide when it is swiped down.
    *
    * @param hideable {@code true} to make this bottom sheet hideable.
-   * @attr ref com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_hideable
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_hideable
    */
   public void setHideable(boolean hideable)
   {
@@ -1165,7 +1165,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    *
    * @return Whether the bottom sheet should skip the collapsed state.
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_skipCollapsed
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_skipCollapsed
    */
   public boolean getSkipCollapsed()
   {
@@ -1178,7 +1178,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    *
    * @param skipCollapsed True if the bottom sheet should skip the collapsed state.
    * @attr ref
-   * com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_skipCollapsed
+   * com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_skipCollapsed
    */
   public void setSkipCollapsed(boolean skipCollapsed)
   {
@@ -1195,7 +1195,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    * dragging, an app will require to implement a custom way to expand/collapse the bottom sheet
    *
    * @param draggable {@code false} to prevent dragging the sheet to collapse and expand
-   * @attr ref com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_draggable
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_draggable
    */
   public void setDraggable(boolean draggable)
   {
@@ -1205,7 +1205,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
   /**
    * Returns the save flags.
    *
-   * @attr ref com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_saveFlags
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_saveFlags
    * @see #setSaveFlags(int)
    */
   @SaveFlags
@@ -1219,7 +1219,7 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
    *
    * @param flags bitwise int of {@link #SAVE_PEEK_HEIGHT}, {@link #SAVE_FIT_TO_CONTENTS}, {@link
    *              #SAVE_HIDEABLE}, {@link #SAVE_SKIP_COLLAPSED}, {@link #SAVE_ALL} and {@link #SAVE_NONE}.
-   * @attr ref com.google.android.material.R.styleable#BottomSheetBehavior_Layout_behavior_saveFlags
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomSheetBehavior_Layout_behavior_saveFlags
    * @see #getSaveFlags()
    */
   public void setSaveFlags(@SaveFlags int flags)

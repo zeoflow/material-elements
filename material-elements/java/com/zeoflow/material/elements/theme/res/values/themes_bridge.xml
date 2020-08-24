@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2018 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,23 +12,23 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
 
-  <!-- Bridge themes containing only new attributes defined in MaterialComponents themes. -->
-  <style name="Theme.MaterialComponents.Bridge" parent="Base.Theme.MaterialComponents.Bridge" />
+  <!-- Bridge themes containing only new attributes defined in MaterialElements themes. -->
+  <style name="Theme.MaterialElements.Bridge" parent="Base.Theme.MaterialElements.Bridge" />
 
-  <style name="Theme.MaterialComponents.Light.Bridge" parent="Base.Theme.MaterialComponents.Light.Bridge" />
+  <style name="Theme.MaterialElements.Light.Bridge" parent="Base.Theme.MaterialElements.Light.Bridge" />
 
-  <style name="Theme.MaterialComponents.NoActionBar.Bridge" parent="Theme.MaterialComponents.Bridge">
+  <style name="Theme.MaterialElements.NoActionBar.Bridge" parent="Theme.MaterialElements.Bridge">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="Theme.MaterialComponents.Light.NoActionBar.Bridge" parent="Theme.MaterialComponents.Light.Bridge">
+  <style name="Theme.MaterialElements.Light.NoActionBar.Bridge" parent="Theme.MaterialElements.Light.Bridge">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="Theme.MaterialComponents.Light.DarkActionBar.Bridge" parent="Base.Theme.MaterialComponents.Light.DarkActionBar.Bridge" />
+  <style name="Theme.MaterialElements.Light.DarkActionBar.Bridge" parent="Base.Theme.MaterialElements.Light.DarkActionBar.Bridge" />
 </resources>

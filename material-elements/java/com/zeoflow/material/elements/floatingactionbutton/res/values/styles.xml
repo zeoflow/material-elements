@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2017 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
   <style name="Widget.Design.FloatingActionButton" parent="android:Widget">
@@ -31,7 +31,7 @@
     <item name="hideMotionSpec">@animator/design_fab_hide_motion_spec</item>
   </style>
 
-  <style name="Widget.MaterialComponents.FloatingActionButton" parent="Widget.Design.FloatingActionButton">
+  <style name="Widget.MaterialElements.FloatingActionButton" parent="Widget.Design.FloatingActionButton">
     <item name="android:background">@null</item>
     <item name="enforceMaterialTheme">true</item>
     <item name="ensureMinTouchTargetSize">true</item>
@@ -45,15 +45,15 @@
     <item name="hideMotionSpec">@animator/mtrl_fab_hide_motion_spec</item>
     <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
     <item name="shapeAppearanceOverlay">
-      @style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton
+      @style/ShapeAppearanceOverlay.MaterialElements.FloatingActionButton
     </item>
   </style>
 
-  <style name="ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton" parent="">
+  <style name="ShapeAppearanceOverlay.MaterialElements.FloatingActionButton" parent="">
     <item name="cornerSize">50%</item>
   </style>
 
-  <style name="Widget.MaterialComponents.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.Button">
+  <style name="Widget.MaterialElements.ExtendedFloatingActionButton" parent="Widget.MaterialElements.Button">
     <item name="android:insetTop">0dp</item>
     <item name="android:insetBottom">0dp</item>
     <item name="android:maxLines">1</item>
@@ -80,15 +80,15 @@
     <item name="iconTint">@color/mtrl_fab_icon_text_color_selector</item>
     <item name="rippleColor">@color/mtrl_fab_ripple_color</item>
     <item name="shapeAppearanceOverlay">
-      @style/ShapeAppearanceOverlay.MaterialComponents.ExtendedFloatingActionButton
+      @style/ShapeAppearanceOverlay.MaterialElements.ExtendedFloatingActionButton
     </item>
   </style>
 
-  <style name="ShapeAppearanceOverlay.MaterialComponents.ExtendedFloatingActionButton" parent="">
+  <style name="ShapeAppearanceOverlay.MaterialElements.ExtendedFloatingActionButton" parent="">
     <item name="cornerSize">@null</item>
   </style>
 
-  <style name="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+  <style name="Widget.MaterialElements.ExtendedFloatingActionButton.Icon" parent="Widget.MaterialElements.ExtendedFloatingActionButton">
     <item name="android:gravity">start|center_vertical</item>
     <item name="android:paddingStart" tools:ignore="NewApi">
       @dimen/mtrl_extended_fab_start_padding_icon

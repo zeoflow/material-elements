@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionInfoCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.internal.FlowLayout;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -59,7 +59,7 @@ import java.util.List;
 public class ChipGroup extends FlowLayout
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_ChipGroup;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_ChipGroup;
   private final CheckedStateTracker checkedStateTracker = new CheckedStateTracker();
   @Dimension
   private int chipSpacingHorizontal;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2018 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
   <public name="additionalPaddingStartForIcon" type="attr" />
   <public name="additionalPaddingEndForIcon" type="attr" />
@@ -27,11 +27,11 @@
   <public name="materialButtonStyle" type="attr" />
   <public name="materialButtonOutlinedStyle" type="attr" />
   <public name="materialButtonToggleGroupStyle" type="attr" />
-  <public name="Widget.MaterialComponents.Button" type="style" />
-  <public name="Widget.MaterialComponents.Button.UnelevatedButton" type="style" />
-  <public name="Widget.MaterialComponents.Button.TextButton" type="style" />
-  <public name="Widget.MaterialComponents.Button.OutlinedButton" type="style" />
-  <public name="Widget.MaterialComponents.Button.TextButton.Dialog" type="style" />
-  <public name="Widget.MaterialComponents.Button.TextButton.Dialog.Flush" type="style" />
+  <public name="Widget.MaterialElements.Button" type="style" />
+  <public name="Widget.MaterialElements.Button.UnelevatedButton" type="style" />
+  <public name="Widget.MaterialElements.Button.TextButton" type="style" />
+  <public name="Widget.MaterialElements.Button.OutlinedButton" type="style" />
+  <public name="Widget.MaterialElements.Button.TextButton.Dialog" type="style" />
+  <public name="Widget.MaterialElements.Button.TextButton.Dialog.Flush" type="style" />
 </resources>
 

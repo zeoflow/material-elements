@@ -10,13 +10,13 @@ dependencies {
   implementation compatibility("annotation")
   implementation compatibility("core")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/circularreveal"))
-  implementation project(fromPath("lib/java/com/google/android/material/circularreveal/cardview"))
-  implementation project(fromPath("lib/java/com/google/android/material/expandable"))
-  implementation project(fromPath("lib/java/com/google/android/material/floatingactionbutton"))
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
-  implementation project(fromPath("lib/java/com/google/android/material/math"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/circularreveal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/circularreveal/cardview"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/expandable"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/floatingactionbutton"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/math"))
 }
 
 android {

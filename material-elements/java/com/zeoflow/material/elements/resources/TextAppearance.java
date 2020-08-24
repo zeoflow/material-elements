@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.content.res.ResourcesCompat.FontCallback;
 import androidx.core.provider.FontsContractCompat.FontRequestCallback;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 
 /**
  * Utility class that contains the data from parsing a TextAppearance style resource.

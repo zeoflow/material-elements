@@ -9,8 +9,8 @@ version = rootProject.ext.mdcLibraryVersion
 dependencies {
   implementation compatibility("recyclerview")
 
-  implementation project(fromPath("lib/java/com/google/android/material/color"))
-  implementation project(fromPath("lib/java/com/google/android/material/typography"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/color"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/typography"))
 }
 
 android {

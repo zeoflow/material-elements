@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.MaterialShapeUtils;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -44,14 +44,14 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * assumption that the child {@code Toolbar} does not have a background. While a {@code
  * MaterialToolbar} with a transparent background can be used within an {@link AppBarLayout}, in
  * terms of elevation overlays its main value comes into play with the standalone {@code Toolbar}
- * case, when using the {@code Widget.MaterialComponents.Toolbar.Surface} style with elevation.
+ * case, when using the {@code Widget.MaterialElements.Toolbar.Surface} style with elevation.
  *
  * <p>To get started with the {@code MaterialToolbar} component, use {@code
- * com.google.android.material.appbar.MaterialToolbar} in your layout XML instead of {@code
+ * com.zeoflow.material.elements.appbar.MaterialToolbar} in your layout XML instead of {@code
  * androidx.appcompat.widget.Toolbar} or {@code Toolbar}. E.g.,:
  *
  * <pre>
- * &lt;com.google.android.material.appbar.MaterialToolbar
+ * &lt;com.zeoflow.material.elements.appbar.MaterialToolbar
  *         android:layout_width=&quot;match_parent&quot;
  *         android:layout_height=&quot;wrap_content&quot;/&gt;
  * </pre>
@@ -59,7 +59,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 public class MaterialToolbar extends Toolbar
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_Toolbar;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_Toolbar;
 
   public MaterialToolbar(@NonNull Context context)
   {

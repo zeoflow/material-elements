@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.TintTypedArray;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 
 /**
  * TabItem is a special 'view' which allows you to declare tab items for a {@link TabLayout} within
@@ -31,9 +31,9 @@ import com.google.android.material.R;
  * of a tab items's text, icon and custom layout. See TabLayout for more information on how to use
  * it.
  *
- * @attr ref com.google.android.material.R.styleable#TabItem_android_icon
- * @attr ref com.google.android.material.R.styleable#TabItem_android_text
- * @attr ref com.google.android.material.R.styleable#TabItem_android_layout
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabItem_android_icon
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabItem_android_text
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabItem_android_layout
  * @see TabLayout
  */
 //TODO(b/76413401): make class final after the widget migration

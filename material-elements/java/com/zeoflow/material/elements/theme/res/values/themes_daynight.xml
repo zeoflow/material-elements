@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2018 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,16 +12,16 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
 
   <!-- Material themes (day/night versions) for activities. -->
-  <style name="Theme.MaterialComponents.DayNight" parent="Theme.MaterialComponents.Light" />
+  <style name="Theme.MaterialElements.DayNight" parent="Theme.MaterialElements.Light" />
 
-  <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar" />
+  <style name="Theme.MaterialElements.DayNight.DarkActionBar" parent="Theme.MaterialElements.Light.DarkActionBar" />
 
-  <style name="Theme.MaterialComponents.DayNight.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar" />
+  <style name="Theme.MaterialElements.DayNight.NoActionBar" parent="Theme.MaterialElements.Light.NoActionBar" />
 
-  <style name="Theme.MaterialComponents.DayNight.DialogWhenLarge" parent="Theme.MaterialComponents.Light.DialogWhenLarge" />
+  <style name="Theme.MaterialElements.DayNight.DialogWhenLarge" parent="Theme.MaterialElements.Light.DialogWhenLarge" />
 
 </resources>

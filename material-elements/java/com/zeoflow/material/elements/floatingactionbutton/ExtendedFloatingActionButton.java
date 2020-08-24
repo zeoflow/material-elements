@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout.AttachedBehavior;
 import androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior;
 import androidx.core.view.ViewCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.animation.MotionSpec;
 import com.zeoflow.material.elements.appbar.AppBarLayout;
 import com.zeoflow.material.elements.bottomsheet.BottomSheetBehavior;
@@ -118,7 +118,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
         }
       };
   private static final int DEF_STYLE_RES =
-      R.style.Widget_MaterialComponents_ExtendedFloatingActionButton_Icon;
+      R.style.Widget_MaterialElements_ExtendedFloatingActionButton_Icon;
   private static final int ANIM_STATE_NONE = 0;
   private static final int ANIM_STATE_HIDING = 1;
   private static final int ANIM_STATE_SHOWING = 2;
@@ -278,7 +278,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is shown. See {@link
    * AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnShowAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add
@@ -303,7 +303,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is hidden. See
    * {@link AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnHideAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add
@@ -328,7 +328,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is shrunk. See
    * {@link AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnShrinkAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add
@@ -353,7 +353,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
    * Add a listener that will be invoked when this ExtendedFloatingActionButton is extended. See
    * {@link AnimatorListener}.
    *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
+   * <p>elements that add a listener should take care to remove it when finished via {@link
    * #removeOnExtendAnimationListener(AnimatorListener)}.
    *
    * @param listener listener to add
@@ -482,7 +482,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the show animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_showMotionSpec
    */
   public void setShowMotionSpec(@Nullable MotionSpec spec)
   {
@@ -492,7 +492,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the show animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_showMotionSpec
    */
   public void setShowMotionSpecResource(@AnimatorRes int id)
   {
@@ -511,7 +511,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the hide animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_hideMotionSpec
    */
   public void setHideMotionSpec(@Nullable MotionSpec spec)
   {
@@ -521,7 +521,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the hide animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_hideMotionSpec
    */
   public void setHideMotionSpecResource(@AnimatorRes int id)
   {
@@ -540,7 +540,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the extend animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_extendMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_extendMotionSpec
    */
   public void setExtendMotionSpec(@Nullable MotionSpec spec)
   {
@@ -550,7 +550,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the extend animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_extendMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_extendMotionSpec
    */
   public void setExtendMotionSpecResource(@AnimatorRes int id)
   {
@@ -569,7 +569,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the shrink animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_shrinkMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_shrinkMotionSpec
    */
   public void setShrinkMotionSpec(@Nullable MotionSpec spec)
   {
@@ -579,7 +579,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   /**
    * Updates the motion spec for the shrink animation.
    *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_shrinkMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_shrinkMotionSpec
    */
   public void setShrinkMotionSpecResource(@AnimatorRes int id)
   {
@@ -805,7 +805,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
      *
      * @return true if enabled
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
      */
     public boolean isAutoHideEnabled()
     {
@@ -821,7 +821,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
      *
      * @param autoHide true to enable automatic hiding
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
      */
     public void setAutoHideEnabled(boolean autoHide)
     {
@@ -834,7 +834,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
      *
      * @return true if enabled
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
      */
     public boolean isAutoShrinkEnabled()
     {
@@ -848,7 +848,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
      *
      * @param autoShrink true to enable automatic shrinking
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
      */
     public void setAutoShrinkEnabled(boolean autoShrink)
     {
@@ -976,9 +976,9 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
      * only when the auto-shrink is {@code false} and auto-hide is {@code true}.
      *
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
      * @see #setAutoShrinkEnabled(boolean)
      * @see #setAutoHideEnabled(boolean)
      */
@@ -1000,9 +1000,9 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
      * only when the auto-shrink is {@code false} and auto-hide is {@code true}.
      *
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
      * @attr ref
-     * com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
+     * com.zeoflow.material.elements.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
      * @see #setAutoShrinkEnabled(boolean)
      * @see #setAutoHideEnabled(boolean)
      */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2017 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,11 +12,11 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
 
-  <style name="Base.Theme.MaterialComponents.DialogWhenLarge" parent="Base.Theme.MaterialComponents.Dialog.FixedSize" />
+  <style name="Base.Theme.MaterialElements.DialogWhenLarge" parent="Base.Theme.MaterialElements.Dialog.FixedSize" />
 
-  <style name="Base.Theme.MaterialComponents.Light.DialogWhenLarge" parent="Base.Theme.MaterialComponents.Light.Dialog.FixedSize" />
+  <style name="Base.Theme.MaterialElements.Light.DialogWhenLarge" parent="Base.Theme.MaterialElements.Light.Dialog.FixedSize" />
 
 </resources>

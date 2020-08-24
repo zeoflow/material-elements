@@ -10,9 +10,9 @@ dependencies {
   implementation compatibility("annotation")
   implementation compatibility("transition")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/color"))
-  implementation project(fromPath("lib/java/com/google/android/material/shape"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/color"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/shape"))
 }
 
 android {

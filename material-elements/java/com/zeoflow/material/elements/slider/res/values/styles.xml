@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2019 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,13 +12,13 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
 
-  <style name="Base.Widget.MaterialComponents.Slider" parent="android:Widget">
+  <style name="Base.Widget.MaterialElements.Slider" parent="android:Widget">
     <item name="haloColor">@color/material_slider_halo_color</item>
     <item name="haloRadius">@dimen/mtrl_slider_halo_radius</item>
-    <item name="labelStyle">@style/Widget.MaterialComponents.Tooltip</item>
+    <item name="labelStyle">@style/Widget.MaterialElements.Tooltip</item>
     <item name="thumbColor">@color/material_slider_thumb_color</item>
     <item name="thumbElevation">@dimen/mtrl_slider_thumb_elevation</item>
     <item name="thumbRadius">@dimen/mtrl_slider_thumb_radius</item>
@@ -29,6 +29,6 @@
     <item name="trackHeight">@dimen/mtrl_slider_track_height</item>
   </style>
 
-  <style name="Widget.MaterialComponents.Slider" parent="Base.Widget.MaterialComponents.Slider" />
+  <style name="Widget.MaterialElements.Slider" parent="Base.Widget.MaterialElements.Slider" />
 
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2015 The Android Open Source Project
+  ~ Copyright (C) 2020 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <resources>
 
   <style name="Widget.Design.TabLayout" parent="Base.Widget.Design.TabLayout">
@@ -43,7 +43,7 @@
     <item name="textAllCaps">true</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TabLayout" parent="Widget.Design.TabLayout">
+  <style name="Widget.MaterialElements.TabLayout" parent="Widget.Design.TabLayout">
     <item name="enforceMaterialTheme">true</item>
     <item name="enforceTextAppearance">true</item>
     <item name="android:background">?attr/colorSurface</item>
@@ -56,7 +56,7 @@
     <item name="tabUnboundedRipple">true</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TabLayout.Colored">
+  <style name="Widget.MaterialElements.TabLayout.Colored">
     <item name="android:background">?attr/colorPrimary</item>
     <item name="tabIconTint">@color/mtrl_tabs_icon_color_selector_colored</item>
     <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
@@ -64,6 +64,6 @@
     <item name="tabRippleColor">@color/mtrl_tabs_colored_ripple_color</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TabLayout.PrimarySurface" parent="Widget.MaterialComponents.TabLayout.Colored" />
+  <style name="Widget.MaterialElements.TabLayout.PrimarySurface" parent="Widget.MaterialElements.TabLayout.Colored" />
 
 </resources>

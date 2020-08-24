@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.cardview.widget.CardView;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.MaterialShapeUtils;
@@ -78,7 +78,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   private static final int[] CHECKABLE_STATE_SET = {android.R.attr.state_checkable};
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
   private static final int[] DRAGGED_STATE_SET = {R.attr.state_dragged};
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_CardView;
+  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_CardView;
   private static final String LOG_TAG = "MaterialCardView";
   private static final String ACCESSIBILITY_CLASS_NAME = "androidx.cardview.widget.CardView";
   @NonNull
@@ -308,7 +308,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   /**
    * Sets the ripple color for this card.
    *
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_cardForegroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_cardForegroundColor
    * @see #setCardForegroundColor(ColorStateList)
    */
   @NonNull
@@ -321,7 +321,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * Sets the foreground color for this card.
    *
    * @param foregroundColor Color to use for the foreground.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_cardForegroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_cardForegroundColor
    * @see #getCardForegroundColor()
    */
   public void setCardForegroundColor(@Nullable ColorStateList foregroundColor)
@@ -442,7 +442,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   /**
    * Returns whether this Card is checkable.
    *
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_android_checkable
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_android_checkable
    * @see #setCheckable(boolean)
    */
   public boolean isCheckable()
@@ -454,7 +454,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * Sets whether this Card is checkable.
    *
    * @param checkable Whether this chip is checkable.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_android_checkable
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_android_checkable
    */
   public void setCheckable(boolean checkable)
   {
@@ -512,7 +512,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * Sets the ripple color resource for this card.
    *
    * @param rippleColorResourceId Color resource to use for the ripple.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_rippleColor
    * @see #setRippleColor(ColorStateList)
    * @see #getRippleColor()
    */
@@ -526,7 +526,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * Gets the ripple color for this card.
    *
    * @return The color used for the ripple.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_rippleColor
    * @see #setRippleColor(ColorStateList)
    * @see #setRippleColorResource(int)
    */
@@ -539,7 +539,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * Sets the ripple color for this card.
    *
    * @param rippleColor Color to use for the ripple.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_rippleColor
    * @see #setRippleColorResource(int)
    * @see #getRippleColor()
    */
@@ -551,7 +551,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   /**
    * Returns this cards's checked icon.
    *
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_checkedIcon
    * @see #setCheckedIcon(Drawable)
    */
   @Nullable
@@ -564,7 +564,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * Sets this card's checked icon.
    *
    * @param checkedIcon This card's checked icon.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_checkedIcon
    */
   public void setCheckedIcon(@Nullable Drawable checkedIcon)
   {
@@ -575,7 +575,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * Sets this card's checked icon using a resource id.
    *
    * @param id The resource id of this Card's checked icon.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIcon
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_checkedIcon
    */
   public void setCheckedIconResource(@DrawableRes int id)
   {
@@ -585,7 +585,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   /**
    * Returns the {@link android.content.res.ColorStateList} used to tint the checked icon.
    *
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_checkedIconTint
    * @see #setCheckedIconTint(ColorStateList)
    */
   @Nullable
@@ -599,7 +599,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * android.content.res.ColorStateList}.
    *
    * @param checkedIconTint The tint color of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIconTint
+   * @attr ref com.zeoflow.material.elements.R.styleable#MaterialCardView_checkedIconTint
    */
   public void setCheckedIconTint(@Nullable ColorStateList checkedIconTint)
   {

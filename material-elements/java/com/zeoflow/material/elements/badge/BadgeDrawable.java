@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The Android Open Source Project
+ * Copyright (C) 2020 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ import androidx.annotation.StyleableRes;
 import androidx.annotation.XmlRes;
 import androidx.core.view.ViewCompat;
 
-import com.google.android.material.R;
+import com.zeoflow.R;
 import com.zeoflow.material.elements.bottomnavigation.BottomNavigationView;
 import com.zeoflow.material.elements.drawable.DrawableUtils;
 import com.zeoflow.material.elements.internal.TextDrawableHelper;
@@ -106,7 +106,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * some offsets). Call #setBadgeGravity(int) to change it to one of the other supported modes.
  *
  * <p>Note: This is still under development and may not support the full range of customization
- * Material Android components generally support (e.g. themed attributes).
+ * Material Android elements generally support (e.g. themed attributes).
  */
 public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDrawableDelegate
 {
@@ -149,7 +149,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   private static final int MAX_CIRCULAR_BADGE_NUMBER_COUNT = 9;
 
   @StyleRes
-  private static final int DEFAULT_STYLE = R.style.Widget_MaterialComponents_Badge;
+  private static final int DEFAULT_STYLE = R.style.Widget_MaterialElements_Badge;
   @AttrRes
   private static final int DEFAULT_THEME_ATTR = R.attr.badgeStyle;
   @NonNull
@@ -191,7 +191,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
     textDrawableHelper = new TextDrawableHelper(/* delegate= */ this);
     textDrawableHelper.getTextPaint().setTextAlign(Paint.Align.CENTER);
     this.savedState = new SavedState(context);
-    setTextAppearanceResource(R.style.TextAppearance_MaterialComponents_Badge);
+    setTextAppearanceResource(R.style.TextAppearance_MaterialElements_Badge);
   }
 
   /**
@@ -223,7 +223,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * <pre>{@code
    * <badge
    *     xmlns:app="http://schemas.android.com/apk/res-auto"
-   *     style="@style/Widget.MaterialComponents.Badge"
+   *     style="@style/Widget.MaterialElements.Badge"
    *     app:maxCharacterCount="2"/>
    * }</pre>
    */
@@ -356,7 +356,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   /**
    * Returns this badge's background color.
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_backgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_backgroundColor
    * @see #setBackgroundColor(int)
    */
   @ColorInt
@@ -369,7 +369,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * Sets this badge's background color.
    *
    * @param backgroundColor This badge's background color.
-   * @attr ref com.google.android.material.R.styleable#Badge_backgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_backgroundColor
    */
   public void setBackgroundColor(@ColorInt int backgroundColor)
   {
@@ -385,7 +385,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   /**
    * Returns this badge's text color.
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_badgeTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_badgeTextColor
    * @see #setBadgeTextColor(int)
    */
   @ColorInt
@@ -398,7 +398,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * Sets this badge's text color.
    *
    * @param badgeTextColor This badge's text color.
-   * @attr ref com.google.android.material.R.styleable#Badge_badgeTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_badgeTextColor
    */
   public void setBadgeTextColor(@ColorInt int badgeTextColor)
   {
@@ -424,7 +424,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    *
    * <p>WARNING: Do not call this method if you are planning to compare to BADGE_NUMBER_NONE
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_number
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_number
    * @see #setNumber(int)
    */
   public int getNumber()
@@ -442,7 +442,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * digits exceeds {@code maxCharacterCount} in which case a truncated version will be shown.
    *
    * @param number This badge's number.
-   * @attr ref com.google.android.material.R.styleable#Badge_number
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_number
    */
   public void setNumber(int number)
   {
@@ -468,7 +468,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   /**
    * Returns this badge's max character count.
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_maxCharacterCount
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_maxCharacterCount
    * @see #setMaxCharacterCount(int)
    */
   public int getMaxCharacterCount()
@@ -480,7 +480,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * Sets this badge's max character count.
    *
    * @param maxCharacterCount This badge's max character count.
-   * @attr ref com.google.android.material.R.styleable#Badge_maxCharacterCount
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_maxCharacterCount
    */
   public void setMaxCharacterCount(int maxCharacterCount)
   {
@@ -915,7 +915,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
       // If the badge text color attribute was not explicitly set, use the text color specified in
       // the TextAppearance.
       TextAppearance textAppearance =
-          new TextAppearance(context, R.style.TextAppearance_MaterialComponents_Badge);
+          new TextAppearance(context, R.style.TextAppearance_MaterialElements_Badge);
       badgeTextColor = textAppearance.textColor.getDefaultColor();
       contentDescriptionNumberless =
           context.getString(R.string.mtrl_badge_numberless_content_description);
