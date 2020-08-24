@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.internal;
 
@@ -38,7 +52,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-
+/** @hide */
 @RestrictTo(LIBRARY_GROUP)
 public class NavigationMenuPresenter implements MenuPresenter {
 
@@ -68,10 +82,13 @@ public class NavigationMenuPresenter implements MenuPresenter {
   boolean isBehindStatusBar = true;
   private int itemMaxLines;
 
-  
+  /**
+   * Padding to be inserted at the top of the list to avoid the first menu item from being placed
+   * underneath the status bar.
+   */
   private int paddingTopDefault;
 
-  
+  /** Padding for separators between items */
   int paddingSeparator;
   private int overScrollMode = -1;
 
@@ -209,7 +226,7 @@ public class NavigationMenuPresenter implements MenuPresenter {
 
   public void addHeaderView(@NonNull View view) {
     headerLayout.addView(view);
-    
+    // The padding on top should be cleared.
     menuView.setPadding(0, 0, 0, menuView.getPaddingBottom());
   }
 
@@ -305,7 +322,7 @@ public class NavigationMenuPresenter implements MenuPresenter {
     }
   }
 
-  
+  /** Updates the top padding depending on if this view is drawn behind the status bar. */
   public void setBehindStatusBar(boolean behindStatusBar) {
     if (isBehindStatusBar != behindStatusBar) {
       isBehindStatusBar = behindStatusBar;
@@ -313,14 +330,14 @@ public class NavigationMenuPresenter implements MenuPresenter {
     }
   }
 
-  
+  /** True if the NavigationView will be drawn behind the status bar */
   public boolean isBehindStatusBar() {
     return isBehindStatusBar;
   }
 
   private void updateTopPadding() {
     int topPadding = 0;
-    
+    // Set padding if there's no header and we are drawing behind the status bar.
     if (headerLayout.getChildCount() == 0 && isBehindStatusBar) {
       topPadding = paddingTopDefault;
     }
@@ -332,11 +349,11 @@ public class NavigationMenuPresenter implements MenuPresenter {
     int top = insets.getSystemWindowInsetTop();
     if (paddingTopDefault != top) {
       paddingTopDefault = top;
-      
+      // Apply the padding to the top of the view if it has changed.
       updateTopPadding();
     }
 
-    
+    // Always apply the bottom padding.
     menuView.setPadding(0, menuView.getPaddingTop(), 0, insets.getSystemWindowInsetBottom());
     ViewCompat.dispatchApplyWindowInsets(headerLayout, insets);
   }
@@ -385,7 +402,9 @@ public class NavigationMenuPresenter implements MenuPresenter {
     }
   }
 
-  
+  /**
+   * Handles click events for the menu items. The items has to be {@link NavigationMenuItemView}.
+   */
   final View.OnClickListener onClickListener =
       new View.OnClickListener() {
 
@@ -528,7 +547,10 @@ public class NavigationMenuPresenter implements MenuPresenter {
       notifyDataSetChanged();
     }
 
-    
+    /**
+     * Flattens the visible menu items of {@link #menu} into {@link #items}, while inserting
+     * separators between items when necessary.
+     */
     private void prepareMenuItems() {
       if (updateSuspended) {
         return;
@@ -578,7 +600,7 @@ public class NavigationMenuPresenter implements MenuPresenter {
           }
         } else {
           int groupId = item.getGroupId();
-          if (groupId != currentGroupId) { 
+          if (groupId != currentGroupId) { // first item in group
             currentGroupStart = items.size();
             currentGroupHasIcon = item.getIcon() != null;
             if (i != 0) {
@@ -626,7 +648,7 @@ public class NavigationMenuPresenter implements MenuPresenter {
       if (checkedItem != null) {
         state.putInt(STATE_CHECKED_ITEM, checkedItem.getItemId());
       }
-      
+      // Store the states of the action views.
       SparseArray<ParcelableSparseArray> actionViewStates = new SparseArray<>();
       for (int i = 0, size = items.size(); i < size; i++) {
         NavigationMenuItem navigationMenuItem = items.get(i);
@@ -661,7 +683,7 @@ public class NavigationMenuPresenter implements MenuPresenter {
         updateSuspended = false;
         prepareMenuItems();
       }
-      
+      // Restore the states of the action views.
       SparseArray<ParcelableSparseArray> actionViewStates =
           state.getSparseParcelableArray(STATE_ACTION_VIEWS);
       if (actionViewStates != null) {
@@ -691,7 +713,7 @@ public class NavigationMenuPresenter implements MenuPresenter {
       this.updateSuspended = updateSuspended;
     }
 
-    
+    /** Returns the number of rows that will be used for accessibility. */
     int getRowCount() {
       int itemCount = headerLayout.getChildCount() == 0 ? 0 : 1;
       for (int i = 0; i < adapter.getItemCount(); i++) {
@@ -703,10 +725,10 @@ public class NavigationMenuPresenter implements MenuPresenter {
     }
   }
 
-  
+  /** Unified data model for all sorts of navigation menu items. */
   private interface NavigationMenuItem {}
 
-  
+  /** Normal or subheader items. */
   private static class NavigationMenuTextItem implements NavigationMenuItem {
 
     private final MenuItemImpl menuItem;
@@ -722,7 +744,7 @@ public class NavigationMenuPresenter implements MenuPresenter {
     }
   }
 
-  
+  /** Separator items. */
   private static class NavigationMenuSeparatorItem implements NavigationMenuItem {
 
     private final int paddingTop;
@@ -743,10 +765,10 @@ public class NavigationMenuPresenter implements MenuPresenter {
     }
   }
 
-  
+  /** Header (not subheader) items. */
   private static class NavigationMenuHeaderItem implements NavigationMenuItem {
     NavigationMenuHeaderItem() {}
-    
+    // The actual content is hold by NavigationMenuPresenter#mHeaderLayout.
   }
 
   private class NavigationMenuViewAccessibilityDelegate extends RecyclerViewAccessibilityDelegate {

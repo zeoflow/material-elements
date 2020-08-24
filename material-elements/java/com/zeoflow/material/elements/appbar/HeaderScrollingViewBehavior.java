@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.appbar;
 
@@ -18,7 +32,10 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior;
 import java.util.List;
 
-
+/**
+ * The {@link Behavior} for a scrolling view that is positioned vertically below another view. See
+ * {@link HeaderBehavior}.
+ */
 abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
 
   final Rect tempRect1 = new Rect();
@@ -44,8 +61,8 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
     final int childLpHeight = child.getLayoutParams().height;
     if (childLpHeight == ViewGroup.LayoutParams.MATCH_PARENT
         || childLpHeight == ViewGroup.LayoutParams.WRAP_CONTENT) {
-      
-      
+      // If the menu's height is set to match_parent/wrap_content then measure it
+      // with the maximum visible height
 
       final List<View> dependencies = parent.getDependencies(child);
       final View header = findFirstDependency(dependencies);
@@ -60,7 +77,7 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
             }
           }
         } else {
-          
+          // If the measure spec doesn't specify a size, use the current height
           availableHeight = parent.getHeight();
         }
 
@@ -78,7 +95,7 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
                     ? View.MeasureSpec.EXACTLY
                     : View.MeasureSpec.AT_MOST);
 
-        
+        // Now measure the scrolling view with the correct height
         parent.onMeasureChild(
             child, parentWidthMeasureSpec, widthUsed, heightMeasureSpec, heightUsed);
 
@@ -110,9 +127,9 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
       if (parentInsets != null
           && ViewCompat.getFitsSystemWindows(parent)
           && !ViewCompat.getFitsSystemWindows(child)) {
-        
-        
-        
+        // If we're set to handle insets but this child isn't, then it has been measured as
+        // if there are no insets. We need to lay it out to match horizontally.
+        // Top and bottom and already handled in the logic above
         available.left += parentInsets.getSystemWindowInsetLeft();
         available.right -= parentInsets.getSystemWindowInsetRight();
       }
@@ -131,7 +148,7 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
       child.layout(out.left, out.top - overlap, out.right, out.bottom - overlap);
       verticalLayoutGap = out.top - header.getBottom();
     } else {
-      
+      // If we don't have a dependency, let super handle it
       super.layoutChild(parent, child, layoutDirection);
       verticalLayoutGap = 0;
     }
@@ -162,17 +179,27 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
     return v.getMeasuredHeight();
   }
 
-  
+  /**
+   * The gap between the top of the scrolling view and the bottom of the header layout in pixels.
+   */
   final int getVerticalLayoutGap() {
     return verticalLayoutGap;
   }
 
-  
+  /**
+   * Set the distance that this view should overlap any {@link
+   * AppBarLayout}.
+   *
+   * @param overlayTop the distance in px
+   */
   public final void setOverlayTop(int overlayTop) {
     this.overlayTop = overlayTop;
   }
 
-  
+  /**
+   * Returns the distance that this view should overlap any {@link
+   * AppBarLayout}.
+   */
   public final int getOverlayTop() {
     return overlayTop;
   }

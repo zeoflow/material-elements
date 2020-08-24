@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.textfield;
 
@@ -17,7 +31,10 @@ import android.view.View;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
-
+/**
+ * A {@link MaterialShapeDrawable} that can draw a cutout for the label in {@link TextInputLayout}'s
+ * outline mode.
+ */
 class CutoutDrawable extends MaterialShapeDrawable {
   @NonNull private final Paint cutoutPaint;
   @NonNull private final RectF cutoutBounds;
@@ -45,8 +62,8 @@ class CutoutDrawable extends MaterialShapeDrawable {
   }
 
   void setCutout(float left, float top, float right, float bottom) {
-    
-    
+    // Avoid expensive redraws by only calling invalidateSelf if one of the cutout's dimensions has
+    // changed.
     if (left != cutoutBounds.left
         || top != cutoutBounds.top
         || right != cutoutBounds.right
@@ -61,7 +78,7 @@ class CutoutDrawable extends MaterialShapeDrawable {
   }
 
   void removeCutout() {
-    
+    // Call setCutout with empty bounds to remove the cutout.
     setCutout(0, 0, 0, 0);
   }
 
@@ -70,7 +87,7 @@ class CutoutDrawable extends MaterialShapeDrawable {
     preDraw(canvas);
     super.draw(canvas);
 
-    
+    // Draw mask for the cutout.
     canvas.drawRect(cutoutBounds, cutoutPaint);
 
     postDraw(canvas);
@@ -81,12 +98,12 @@ class CutoutDrawable extends MaterialShapeDrawable {
 
     if (useHardwareLayer(callback)) {
       View viewCallback = (View) callback;
-      
+      // Make sure we're using a hardware layer.
       if (viewCallback.getLayerType() != View.LAYER_TYPE_HARDWARE) {
         viewCallback.setLayerType(View.LAYER_TYPE_HARDWARE, null);
       }
     } else {
-      
+      // If we're not using a hardware layer, save the canvas layer.
       saveCanvasLayer(canvas);
     }
   }

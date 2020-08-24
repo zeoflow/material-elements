@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.circularreveal;
 
 import static com.zeoflow.material.elements.math.MathUtils.DEFAULT_EPSILON;
@@ -27,29 +41,59 @@ import com.zeoflow.material.elements.math.MathUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-
+/**
+ * Helper class to implement circular reveal functionality.
+ *
+ * <p>A {@link CircularRevealWidget} subclass will call the corresponding method in this helper,
+ * which contains the actual implementations for circular reveal. This helper communicates back to
+ * the widget via the {@link Delegate}.
+ */
 public class CircularRevealHelper {
 
   private static final boolean DEBUG = false;
 
-  
+  /**
+   * Delegate interface to be implemented by the {@link CircularRevealWidget} that owns this helper.
+   */
   public interface Delegate {
 
-    
+    /**
+     * Calls {@link View#draw(Canvas) super#draw(Canvas)}.
+     *
+     * <p>The delegate should override {@link View#draw(Canvas)} to call the corresponding method in
+     * {@link CircularRevealHelper} if the helper is non-null.
+     */
     void actualDraw(Canvas canvas);
 
-    
+    /**
+     * Calls {@link View#isOpaque() super#isOpaque()}.
+     *
+     * <p>The delegate should override {@link View#isOpaque()} to call the corresponding method in
+     * {@link CircularRevealHelper} if the helper is non-null.
+     */
     boolean actualIsOpaque();
   }
 
-  
+  /**
+   * Specify that this view should use a {@link BitmapShader} to create the circular reveal effect.
+   * BitmapShader is supported in all APIs, but has the downside that it can only animate a static
+   * {@link Bitmap}.
+   */
   public static final int BITMAP_SHADER = 0;
-  
+  /**
+   * Specify that this view should use {@link Canvas#clipPath(Path)} to create the circular reveal
+   * effect. clipPath() is only hardware accelerated on {@link VERSION_CODES#JELLY_BEAN_MR2} and
+   * above.
+   */
   public static final int CLIP_PATH = 1;
-  
+  /**
+   * Specify that this view should use {@link
+   * android.view.ViewAnimationUtils#createCircularReveal(View, int, int, float, float)} to create
+   * the circular reveal effect. This is only supported on {@link VERSION_CODES#LOLLIPOP} and above.
+   */
   public static final int REVEAL_ANIMATOR = 2;
 
-  
+  /** Which strategy this view should use to create the circular reveal effect. */
   @IntDef({CLIP_PATH, BITMAP_SHADER, REVEAL_ANIMATOR})
   @Retention(RetentionPolicy.SOURCE)
   public @interface Strategy {}
@@ -61,9 +105,17 @@ public class CircularRevealHelper {
   @NonNull private final Path revealPath;
   @NonNull private final Paint revealPaint;
   @NonNull private final Paint scrimPaint;
-  
+  /**
+   * The circular reveal representation which affects how the current frame will be drawn.
+   *
+   * <p>A non-null RevealInfo is {@link RevealInfo#isInvalid() invalid} if a circular reveal is
+   * active and the circular reveal does not cover all four corners of this view. When the circular
+   * reveal is such that it covers the entire view, {@link RevealInfo#radius} should be set to
+   * {@link RevealInfo#INVALID_RADIUS}, making the RevealInfo invalid. An invalid RevealInfo is a
+   * optimization that allows {@link #draw(Canvas)} to use the fastest code path.
+   */
   @Nullable private RevealInfo revealInfo;
-  
+  /** An icon to be drawn on top of the widget's contents and after the scrim color. */
   @Nullable private Drawable overlayDrawable;
 
   private Paint debugPaint;
@@ -129,7 +181,10 @@ public class CircularRevealHelper {
     }
   }
 
-  
+  /**
+   * Sets the reveal info, ensuring that a reveal circle with a large enough radius that covers the
+   * entire View has its {@link RevealInfo#radius} set to {@link RevealInfo#INVALID_RADIUS}.
+   */
   public void setRevealInfo(@Nullable RevealInfo revealInfo) {
     if (revealInfo == null) {
       this.revealInfo = null;
@@ -140,7 +195,7 @@ public class CircularRevealHelper {
         this.revealInfo.set(revealInfo);
       }
 
-      
+      // Check if the reveal circle radius covers all four corners.
       if (MathUtils.geq(
           revealInfo.radius, getDistanceToFurthestCorner(revealInfo), DEFAULT_EPSILON)) {
         this.revealInfo.radius = RevealInfo.INVALID_RADIUS;
@@ -284,7 +339,7 @@ public class CircularRevealHelper {
       canvas.drawCircle(revealInfo.centerX, revealInfo.centerY, revealInfo.radius, scrimPaint);
     }
 
-    
+    // Instead of using a circular mask, draw a circle representing that mask instead.
     if (shouldDrawCircularReveal()) {
       drawDebugCircle(canvas, Color.BLACK, 10f);
       drawDebugCircle(canvas, Color.RED, 5f);

@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.dialog;
 
 import android.app.Dialog;
@@ -14,7 +28,12 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 
-
+/**
+ * Ensures that touches within the transparent region of the inset drawable used for Dialogs are
+ * processed as touches outside the Dialog.
+ *
+ * @hide
+ */
 @RestrictTo(Scope.LIBRARY_GROUP)
 public class InsetDialogOnTouchListener implements OnTouchListener {
 
@@ -47,8 +66,8 @@ public class InsetDialogOnTouchListener implements OnTouchListener {
     if (event.getAction() == MotionEvent.ACTION_UP) {
       outsideEvent.setAction(MotionEvent.ACTION_OUTSIDE);
     }
-    
-    
+    // Window.shouldCloseOnTouch does not respect MotionEvent.ACTION_OUTSIDE until Pie, so we fix
+    // the coordinates outside the view and use MotionEvent.ACTION_DOWN
     if (VERSION.SDK_INT < VERSION_CODES.P) {
       outsideEvent.setAction(MotionEvent.ACTION_DOWN);
       outsideEvent.setLocation(-prePieSlop - 1, -prePieSlop - 1);

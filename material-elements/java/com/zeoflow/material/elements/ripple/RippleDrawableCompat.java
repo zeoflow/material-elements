@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.ripple;
 
@@ -18,13 +32,28 @@ import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.Shapeable;
 
-
+/**
+ * A compat {@link Drawable} that is used to provide an overlay for pressed, focused, and hovered
+ * states (only when in enabled). This is intended to be used pre-Lollipop.
+ *
+ * <p>This Drawable is a {@link MaterialShapeDrawable} so that it can be shaped to match a
+ * MaterialShapeDrawable background.
+ *
+ * <p>Unlike the framework {@link android.graphics.drawable.RippleDrawable}, this will <b>not</b>
+ * apply different alphas for pressed, focused, and hovered states and it does not provide a ripple
+ * animation for the pressed state.
+ */
 @RestrictTo(Scope.LIBRARY_GROUP)
 public class RippleDrawableCompat extends Drawable implements Shapeable, TintAwareDrawable {
 
   private RippleDrawableCompatState drawableState;
 
-  
+  /**
+   * Creates a {@link RippleDrawableCompat} with the given shape that will only draw when enabled
+   * and at leaste one of: presssed, focused, or hovered.
+   *
+   * @param shapeAppearanceModel The shape for the ripple.
+   */
   public RippleDrawableCompat(ShapeAppearanceModel shapeAppearanceModel) {
     this(new RippleDrawableCompatState(new MaterialShapeDrawable(shapeAppearanceModel)));
   }
@@ -54,14 +83,22 @@ public class RippleDrawableCompat extends Drawable implements Shapeable, TintAwa
     drawableState.delegate.setShapeAppearanceModel(shapeAppearanceModel);
   }
 
-  
+  /**
+   * Get the {@link ShapeAppearanceModel} containing the path that will be rendered in this
+   * drawable.
+   *
+   * @return the current model.
+   */
   @Override
   @NonNull
   public ShapeAppearanceModel getShapeAppearanceModel() {
     return drawableState.delegate.getShapeAppearanceModel();
   }
 
-  
+  /*
+   * This is always stateful as it draws on the canvas only when enabled and (pressed, focused, or
+   * hovered).
+   */
   @Override
   public boolean isStateful() {
     return true;
@@ -74,8 +111,8 @@ public class RippleDrawableCompat extends Drawable implements Shapeable, TintAwa
       changed = true;
     }
     boolean shouldDrawRipple = RippleUtils.shouldDrawRippleCompat(stateSet);
-    
-    
+    // If shouldDrawRipple is changing, this needs to be redrawn even if the paint / tint values
+    // are not changing in order to support setting a ColorStateList with a single color.
     if (drawableState.shouldDrawDelegate != shouldDrawRipple) {
       drawableState.shouldDrawDelegate = shouldDrawRipple;
       changed = true;
@@ -85,7 +122,7 @@ public class RippleDrawableCompat extends Drawable implements Shapeable, TintAwa
 
   @Override
   public void draw(Canvas canvas) {
-    
+    // Only draw the delegate Drawable when enabled and at least one of: pressed, focused, hovered.
     if (drawableState.shouldDrawDelegate) {
       drawableState.delegate.draw(canvas);
     }
@@ -126,7 +163,10 @@ public class RippleDrawableCompat extends Drawable implements Shapeable, TintAwa
     return drawableState.delegate.getOpacity();
   }
 
-  
+  /**
+   * A {@link ConstantState} for {@link Ripple}
+   *
+   */
   static final class RippleDrawableCompatState extends ConstantState {
 
     @NonNull MaterialShapeDrawable delegate;

@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.radiobutton;
 
@@ -17,17 +31,24 @@ import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-
+/**
+ * A class that creates a Material Themed RadioButton.
+ *
+ * <p>This class uses attributes from the Material Theme to style a RadioButton. Excepting color
+ * changes, it behaves identically to {@link AppCompatRadioButton}. Your theme's {@code
+ * ?attr/colorControlActivated}, {@code ?attr/colorSurface}, and {@code ?attr/colorOnSurface} must
+ * be set.
+ */
 public class MaterialRadioButton extends AppCompatRadioButton {
 
   private static final int DEF_STYLE_RES =
       R.style.Widget_MaterialComponents_CompoundButton_RadioButton;
   private static final int[][] ENABLED_CHECKED_STATES =
       new int[][] {
-        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, 
-        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, 
-        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, 
-        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} 
+        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]
+        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, // [1]
+        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, // [2]
+        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} // [3]
       };
   @Nullable private ColorStateList materialThemeColorsTintList;
   private boolean useMaterialThemeColors;
@@ -43,15 +64,15 @@ public class MaterialRadioButton extends AppCompatRadioButton {
   public MaterialRadioButton(
       @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
-    
+    // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
     TypedArray attributes =
         ThemeEnforcement.obtainStyledAttributes(
             context, attrs, R.styleable.MaterialRadioButton, defStyleAttr, DEF_STYLE_RES);
 
-    
-    
+    // If buttonTint is specified, read it using MaterialResources to allow themeable attributes in
+    // all API levels.
     if (attributes.hasValue(R.styleable.MaterialRadioButton_buttonTint)) {
       CompoundButtonCompat.setButtonTintList(
           this,
@@ -74,7 +95,11 @@ public class MaterialRadioButton extends AppCompatRadioButton {
     }
   }
 
-  
+  /**
+   * Forces the {@link MaterialRadioButton} to use colors from a Material Theme. Overrides any
+   * specified ButtonTintList. If set to false, sets the tints to null. Use {@link
+   * MaterialRadioButton#setSupportButtonTintList} to change button tints.
+   */
   public void setUseMaterialThemeColors(boolean useMaterialThemeColors) {
     this.useMaterialThemeColors = useMaterialThemeColors;
     if (useMaterialThemeColors) {
@@ -84,7 +109,7 @@ public class MaterialRadioButton extends AppCompatRadioButton {
     }
   }
 
-  
+  /** Returns true if this {@link MaterialRadioButton} defaults to colors from a Material Theme. */
   public boolean isUseMaterialThemeColors() {
     return useMaterialThemeColors;
   }

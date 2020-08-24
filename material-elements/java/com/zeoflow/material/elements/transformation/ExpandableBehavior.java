@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.transformation;
 
 import android.content.Context;
@@ -20,22 +34,36 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
-
+/**
+ * Base Behavior for views that can react to an {@link ExpandableWidget}'s {@link
+ * ExpandableWidget#setExpanded(boolean)} state changes.
+ *
+ * @deprecated Use {@link MaterialContainerTransform}
+ *     instead.
+ */
 @Deprecated
 public abstract class ExpandableBehavior extends Behavior<View> {
 
-  
+  /** Uninitialized expanded state. */
   private static final int STATE_UNINITIALIZED = 0;
-  
+  /** Expanded state. */
   private static final int STATE_EXPANDED = 1;
-  
+  /** Collapsed state. */
   private static final int STATE_COLLAPSED = 2;
 
   @IntDef({STATE_UNINITIALIZED, STATE_EXPANDED, STATE_COLLAPSED})
   @Retention(RetentionPolicy.SOURCE)
   private @interface State {}
 
-  
+  /**
+   * The current expanded state of this behavior. This state follows the expanded state of the
+   * {@link ExpandableWidget} dependency, and is updated in
+   * {@link #onLayoutChild(CoordinatorLayout, View, int)} and {@link
+   * #onDependentViewChanged(CoordinatorLayout, View, View)}.
+   *
+   * <p>This state may be {@link #STATE_UNINITIALIZED} before either of those callbacks have been
+   * invoked.
+   */
   @State private int currentState = STATE_UNINITIALIZED;
 
   public ExpandableBehavior() {}
@@ -47,7 +75,21 @@ public abstract class ExpandableBehavior extends Behavior<View> {
   @Override
   public abstract boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency);
 
-  
+  /**
+   * Reacts to a change in expanded state. This callback is guaranteed to be called only once even
+   * if {@link ExpandableWidget#setExpanded(boolean)} is
+   * called multiple times with the same value. Upon configuration change, this callback is called
+   * with {@code animated} set to false.
+   *
+   * @param dependency the {@link ExpandableWidget}
+   *     dependency containing the new expanded state.
+   * @param child the view that should react to the change in expanded state.
+   * @param expanded the new expanded state.
+   * @param animated true if {@link
+   *     ExpandableWidget#setExpanded(boolean)} was called,
+   *     false if restoring from a configuration change.
+   * @return true if the Behavior changed the child view's size or position, false otherwise.
+   */
   protected abstract boolean onExpandedStateChange(
       View dependency, View child, boolean expanded, boolean animated);
 
@@ -67,7 +109,7 @@ public abstract class ExpandableBehavior extends Behavior<View> {
                   @Override
                   public boolean onPreDraw() {
                     child.getViewTreeObserver().removeOnPreDrawListener(this);
-                    
+                    // Proceed only if the state did not change while we're waiting for pre-draw.
                     if (currentState == expectedState) {
                       onExpandedStateChange((View) dep, child, dep.isExpanded(), false);
                     }
@@ -108,15 +150,21 @@ public abstract class ExpandableBehavior extends Behavior<View> {
 
   private boolean didStateChange(boolean expanded) {
     if (expanded) {
-      
+      // Can expand from uninitialized or collapsed state.
       return currentState == STATE_UNINITIALIZED || currentState == STATE_COLLAPSED;
     } else {
-      
+      // Can only collapse from expanded state. Uninitialized is equivalent to collapsed state.
       return currentState == STATE_EXPANDED;
     }
   }
 
-  
+  /**
+   * A utility function to get the {@link ExpandableBehavior} attached to the {@code view}.
+   *
+   * @param view The {@link View} that the {@link ExpandableBehavior} is attached to.
+   * @param klass The expected {@link Class} of the attached {@link ExpandableBehavior}.
+   * @return The {@link ExpandableBehavior} attached to the {@code view}.
+   */
   @Nullable
   public static <T extends ExpandableBehavior> T from(@NonNull View view, @NonNull Class<T> klass) {
     ViewGroup.LayoutParams params = view.getLayoutParams();

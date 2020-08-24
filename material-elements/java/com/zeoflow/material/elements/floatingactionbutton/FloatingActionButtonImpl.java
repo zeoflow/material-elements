@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.floatingactionbutton;
 
@@ -144,7 +158,7 @@ class FloatingActionButtonImpl {
 
     stateListAnimator = new StateListAnimator();
 
-    
+    // Elevate with translationZ when pressed, focused, or hovered
     stateListAnimator.addState(
         PRESSED_ENABLED_STATE_SET,
         createElevationAnimator(new ElevateToPressedTranslationZAnimation()));
@@ -157,10 +171,10 @@ class FloatingActionButtonImpl {
     stateListAnimator.addState(
         HOVERED_ENABLED_STATE_SET,
         createElevationAnimator(new ElevateToHoveredFocusedTranslationZAnimation()));
-    
+    // Reset back to elevation by default
     stateListAnimator.addState(
         ENABLED_STATE_SET, createElevationAnimator(new ResetElevationAnimation()));
-    
+    // Set to 0 when disabled
     stateListAnimator.addState(
         EMPTY_STATE_SET, createElevationAnimator(new DisabledElevationAnimation()));
 
@@ -172,8 +186,8 @@ class FloatingActionButtonImpl {
       @Nullable PorterDuff.Mode backgroundTintMode,
       ColorStateList rippleColor,
       int borderWidth) {
-    
-    
+    // Now we need to tint the original background with the tint, using
+    // an InsetDrawable if we have a border width
     shapeDrawable = createShapeDrawable();
     shapeDrawable.setTintList(backgroundTint);
     if (backgroundTintMode != null) {
@@ -183,7 +197,7 @@ class FloatingActionButtonImpl {
     shapeDrawable.setShadowColor(Color.DKGRAY);
     shapeDrawable.initializeElevationOverlay(view.getContext());
 
-    
+    // Now we created a mask Drawable which will be used for touch feedback.
     RippleDrawableCompat touchFeedbackShape =
         new RippleDrawableCompat(shapeDrawable.getShapeAppearanceModel());
     touchFeedbackShape.setTintList(RippleUtils.sanitizeRippleDrawableColor(rippleColor));
@@ -261,9 +275,9 @@ class FloatingActionButtonImpl {
     }
   }
 
-  
+  /** Call this whenever the image drawable changes or the view size changes. */
   final void updateImageMatrixScale() {
-    
+    // Recompute the image matrix needed to maintain the same scale.
     setImageMatrixScale(imageMatrixScale);
   }
 
@@ -280,14 +294,14 @@ class FloatingActionButtonImpl {
 
     Drawable drawable = view.getDrawable();
     if (drawable != null && maxImageSize != 0) {
-      
+      // First make sure our image respects mMaxImageSize.
       RectF drawableBounds = tmpRectF1;
       RectF imageBounds = tmpRectF2;
       drawableBounds.set(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
       imageBounds.set(0, 0, maxImageSize, maxImageSize);
       matrix.setRectToRect(drawableBounds, imageBounds, ScaleToFit.CENTER);
 
-      
+      // Then scale it as requested.
       matrix.postScale(scale, scale, maxImageSize / 2f, maxImageSize / 2f);
     }
   }
@@ -376,8 +390,8 @@ class FloatingActionButtonImpl {
 
   void removeOnShowAnimationListener(@NonNull AnimatorListener listener) {
     if (showListeners == null) {
-      
-      
+      // This can happen if this method is called before the first call to
+      // addOnShowAnimationListener.
       return;
     }
     showListeners.remove(listener);
@@ -392,8 +406,8 @@ class FloatingActionButtonImpl {
 
   public void removeOnHideAnimationListener(@NonNull AnimatorListener listener) {
     if (hideListeners == null) {
-      
-      
+      // This can happen if this method is called before the first call to
+      // addOnHideAnimationListener.
       return;
     }
     hideListeners.remove(listener);
@@ -401,7 +415,7 @@ class FloatingActionButtonImpl {
 
   void hide(@Nullable final InternalVisibilityChangedListener listener, final boolean fromUser) {
     if (isOrWillBeHidden()) {
-      
+      // We either are or will soon be hidden, skip the call
       return;
     }
 
@@ -454,7 +468,7 @@ class FloatingActionButtonImpl {
       }
       set.start();
     } else {
-      
+      // If the view isn't laid out, or we're in the editor, don't run the animation
       view.internalSetVisibility(fromUser ? View.GONE : View.INVISIBLE, fromUser);
       if (listener != null) {
         listener.onHidden();
@@ -464,7 +478,7 @@ class FloatingActionButtonImpl {
 
   void show(@Nullable final InternalVisibilityChangedListener listener, final boolean fromUser) {
     if (isOrWillBeShown()) {
-      
+      // We either are or will soon be visible, skip the call
       return;
     }
 
@@ -474,7 +488,7 @@ class FloatingActionButtonImpl {
 
     if (shouldAnimateVisibilityChange()) {
       if (view.getVisibility() != View.VISIBLE) {
-        
+        // If the view isn't visible currently, we'll animate it from a single pixel
         view.setAlpha(0f);
         view.setScaleY(0f);
         view.setScaleX(0f);
@@ -571,8 +585,8 @@ class FloatingActionButtonImpl {
               @Override
               public Matrix evaluate(
                   float fraction, @NonNull Matrix startValue, @NonNull Matrix endValue) {
-                
-                
+                // Also set the current imageMatrixScale fraction so it can be used to correctly
+                // calculate the image matrix at any given point.
                 imageMatrixScale = fraction;
                 return super.evaluate(fraction, startValue, endValue);
               }
@@ -586,7 +600,10 @@ class FloatingActionButtonImpl {
     return set;
   }
 
-  
+  /**
+   * There appears to be a bug in the OpenGL shadow rendering code on API 26. We can work around it
+   * by preventing any scaling close to 0.
+   */
   private void workAroundOreoBug(final ObjectAnimator animator) {
     if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
       return;
@@ -611,8 +628,8 @@ class FloatingActionButtonImpl {
 
   void removeTransformationCallback(@NonNull InternalTransformationCallback listener) {
     if (transformationCallbacks == null) {
-      
-      
+      // This can happen if this method is called before the first call to
+      // addTransformationCallback.
       return;
     }
     transformationCallbacks.remove(listener);
@@ -640,7 +657,7 @@ class FloatingActionButtonImpl {
   }
 
   void onCompatShadowChanged() {
-    
+    // Ignore pre-v21
   }
 
   final void updatePadding() {
@@ -729,20 +746,20 @@ class FloatingActionButtonImpl {
 
   boolean isOrWillBeShown() {
     if (view.getVisibility() != View.VISIBLE) {
-      
+      // If we not currently visible, return true if we're animating to be shown
       return animState == ANIM_STATE_SHOWING;
     } else {
-      
+      // Otherwise if we're visible, return true if we're not animating to be hidden
       return animState != ANIM_STATE_HIDING;
     }
   }
 
   boolean isOrWillBeHidden() {
     if (view.getVisibility() == View.VISIBLE) {
-      
+      // If we currently visible, return true if we're animating to be hidden
       return animState == ANIM_STATE_HIDING;
     } else {
-      
+      // Otherwise if we're not visible, return true if we're not animating to be shown
       return animState != ANIM_STATE_SHOWING;
     }
   }
@@ -785,7 +802,7 @@ class FloatingActionButtonImpl {
       validValues = false;
     }
 
-    
+    /** Returns the shadow size we want to animate to. */
     protected abstract float getTargetShadowSize();
   }
 
@@ -831,8 +848,8 @@ class FloatingActionButtonImpl {
 
   void updateFromViewRotation() {
     if (Build.VERSION.SDK_INT == 19) {
-      
-      
+      // KitKat seems to have an issue with views which are rotated with angles which are
+      // not divisible by 90. Worked around by moving to software rendering in these cases.
       if ((rotation % 90) != 0) {
         if (view.getLayerType() != View.LAYER_TYPE_SOFTWARE) {
           view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -844,7 +861,7 @@ class FloatingActionButtonImpl {
       }
     }
 
-    
+    // Offset any View rotation
     if (shapeDrawable != null) {
       shapeDrawable.setShadowCompatRotation((int) rotation);
     }

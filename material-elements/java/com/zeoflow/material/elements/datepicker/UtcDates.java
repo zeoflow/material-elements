@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.datepicker;
 
 import com.google.android.material.R;
@@ -15,7 +29,10 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicReference;
 
-
+/**
+ * Utility class for common operations on timezones, calendars, dateformats, and longs representing
+ * time in milliseconds.
+ */
 class UtcDates {
 
   static final String UTC = "UTC";
@@ -42,7 +59,9 @@ class UtcDates {
     return android.icu.util.TimeZone.getTimeZone(UTC);
   }
 
-  
+  /**
+   * Returns a Calendar object in UTC time zone representing the first moment of current date.
+   */
   static Calendar getTodayCalendar() {
     Calendar today = getTimeSource().now();
     today.set(Calendar.HOUR_OF_DAY, 0);
@@ -53,12 +72,25 @@ class UtcDates {
     return today;
   }
 
-  
+  /**
+   * Returns an empty Calendar in UTC time zone.
+   *
+   * @return An empty Calendar in UTC time zone.
+   * @see {@link #getUtcCalendarOf(Calendar)}
+   * @see Calendar#clear()
+   */
   static Calendar getUtcCalendar() {
     return getUtcCalendarOf(null);
   }
 
-  
+  /**
+   * Returns a Calendar object in UTC time zone representing the moment in input Calendar object. An
+   * empty Calendar object in UTC will be return if input is null.
+   *
+   * @param rawCalendar the Calendar object representing the moment to process.
+   * @return A Calendar object in UTC time zone.
+   * @see @see Calendar#clear()
+   */
   static Calendar getUtcCalendarOf(@Nullable Calendar rawCalendar) {
     Calendar utc = Calendar.getInstance(getTimeZone());
     if (rawCalendar == null) {
@@ -69,7 +101,14 @@ class UtcDates {
     return utc;
   }
 
-  
+  /**
+   * Returns a Calendar object in UTC time zone representing the start of day in UTC represented in
+   * the input Calendar object, i.e., the time (fields smaller than a day) is stripped based on the
+   * UTC time zone.
+   *
+   * @param rawCalendar the Calendar object representing the moment to process.
+   * @return A Calendar object representing the start of day in UTC time zone.
+   */
   static Calendar getDayCopy(Calendar rawCalendar) {
     Calendar rawCalendarInUtc = getUtcCalendarOf(rawCalendar);
     Calendar utcCalendar = getUtcCalendar();
@@ -80,7 +119,13 @@ class UtcDates {
     return utcCalendar;
   }
 
-  
+  /**
+   * Strips all information from the time in milliseconds at granularities more specific than day of
+   * the month.
+   *
+   * @param rawDate A long representing the time as UTC milliseconds from the epoch
+   * @return A canonical long representing the time as UTC milliseconds for the represented day.
+   */
   static long canonicalYearMonthDay(long rawDate) {
     Calendar rawCalendar = getUtcCalendar();
     rawCalendar.setTimeInMillis(rawDate);
@@ -193,7 +238,7 @@ class UtcDates {
     int yearPosition = findCharactersInDateFormatPattern(pattern, yearCharacters, 1, 0);
 
     if (yearPosition >= pattern.length()) {
-      
+      // No year character was found in this pattern, return as-is
       return pattern;
     }
 
@@ -220,11 +265,11 @@ class UtcDates {
       int initialPosition) {
     int position = initialPosition;
 
-    
+    // Increment while we haven't found the characters we're looking for in the date pattern
     while ((position >= 0 && position < pattern.length())
         && characterSequence.indexOf(pattern.charAt(position)) == -1) {
 
-      
+      // If an open string is found, increment until we close the string
       if (pattern.charAt(position) == '\'') {
         position += increment;
         while ((position >= 0 && position < pattern.length()) && pattern.charAt(position) != '\'') {

@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.textfield;
 
@@ -28,7 +42,17 @@ import com.zeoflow.material.elements.internal.ManufacturerUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-
+/**
+ * A special sub-class of {@link android.widget.AutoCompleteTextView} that is auto-inflated so that
+ * non-editable auto-complete text fields (e.g., for an Exposed Dropdown Menu) are accessible when
+ * being interacted through a screen reader.
+ *
+ * <p>The {@link ListPopupWindow} of the {@link android.widget.AutoCompleteTextView} is not modal,
+ * so it does not grab accessibility focus. The {@link MaterialAutoCompleteTextView} changes that
+ * by having a modal {@link ListPopupWindow} that is displayed instead of the non-modal one when the
+ * {@link MaterialAutoCompleteTextView} is not editable, so that the first item of the popup is
+ * automatically focused. This simulates the behavior of the {@link android.widget.Spinner}.
+ */
 public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 
   private static final int MAX_ITEMS_MEASURED = 15;
@@ -49,7 +73,7 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
   public MaterialAutoCompleteTextView(
       @NonNull Context context, @Nullable AttributeSet attributeSet, int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attributeSet, defStyleAttr, 0), attributeSet, defStyleAttr);
-    
+    // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
     TypedArray attributes =
@@ -60,8 +84,8 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
             defStyleAttr,
             R.style.Widget_AppCompat_AutoCompleteTextView);
 
-    
-    
+    // Due to a framework bug, setting android:inputType="none" on xml has no effect. Therefore,
+    // we check it here in case the autoCompleteTextView should be non-editable.
     if (attributes.hasValue(R.styleable.MaterialAutoCompleteTextView_android_inputType)) {
       int inputType =
           attributes.getInt(
@@ -127,9 +151,9 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    
-    
-    
+    // Meizu devices expect TextView#mHintLayout to be non-null if TextView#getHint() is non-null.
+    // In order to avoid crashing, we force the creation of the layout by setting an empty non-null
+    // hint.
     TextInputLayout layout = findTextInputLayoutAncestor();
     if (layout != null
         && layout.isProvidingHint()
@@ -142,8 +166,8 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
   @Nullable
   @Override
   public CharSequence getHint() {
-    
-    
+    // Certain test frameworks expect the actionable element to expose its hint as a label. Retrieve
+    // the hint from the TextInputLayout when it's providing it.
     TextInputLayout textInputLayout = findTextInputLayoutAncestor();
     if (textInputLayout != null && textInputLayout.isProvidingHint()) {
       return textInputLayout.getHint();
@@ -155,8 +179,8 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-    
-    
+    // Similar to a Spinner, make sure the view's width is at minimum the width of the largest
+    // dropdown item.
     if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.AT_MOST) {
       final int measuredWidth = getMeasuredWidth();
       setMeasuredDimension(
@@ -182,7 +206,7 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
     final int heightMeasureSpec =
         MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.UNSPECIFIED);
 
-    
+    // Cap the number of items that will be measured.
     int start = Math.max(0, modalListPopup.getSelectedItemPosition());
     final int end = Math.min(adapter.getCount(), start + MAX_ITEMS_MEASURED);
     start = Math.max(0, end - MAX_ITEMS_MEASURED);
@@ -201,13 +225,13 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
       itemView.measure(widthMeasureSpec, heightMeasureSpec);
       width = Math.max(width, itemView.getMeasuredWidth());
     }
-    
+    // Add background padding to measured width.
     Drawable background = modalListPopup.getBackground();
     if (background != null) {
       background.getPadding(tempRect);
       width += tempRect.left + tempRect.right;
     }
-    
+    // Add icon width to measured width.
     int iconWidth = textInputLayout.getEndIconView().getMeasuredWidth();
     width += iconWidth;
 

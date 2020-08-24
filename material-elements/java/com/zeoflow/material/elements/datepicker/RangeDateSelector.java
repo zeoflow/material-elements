@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.datepicker;
 
 import com.google.android.material.R;
@@ -28,12 +42,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
+/**
+ * A {@link DateSelector} that uses a {@link Pair} of {@link Long} objects to represent a selected
+ * range.
+ *
+ * @hide
+ */
 @RestrictTo(Scope.LIBRARY_GROUP)
 public class RangeDateSelector implements DateSelector<Pair<Long, Long>> {
 
   private String invalidRangeStartError;
-  
+  // "" is not considered an error
   private final String invalidRangeEndError = " ";
   @Nullable private Long selectedStartItem = null;
   @Nullable private Long selectedEndItem = null;
@@ -162,7 +181,7 @@ public class RangeDateSelector implements DateSelector<Pair<Long, Long>> {
     EditText startEditText = startTextInput.getEditText();
     EditText endEditText = endTextInput.getEditText();
     if (ManufacturerUtils.isDateInputKeyboardMissingSeparatorCharacters()) {
-      
+      // Using the URI variation places the '/' and '.' in more prominent positions
       startEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
       endEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
     }
@@ -253,9 +272,9 @@ public class RangeDateSelector implements DateSelector<Pair<Long, Long>> {
     end.setError(invalidRangeEndError);
   }
 
-  
+  /* Parcelable interface */
 
-  
+  /** {@link Parcelable.Creator} */
   public static final Parcelable.Creator<RangeDateSelector> CREATOR =
       new Parcelable.Creator<RangeDateSelector>() {
         @NonNull

@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.datepicker;
 
 import android.icu.text.DateFormat;
@@ -11,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-
+/** Util methods for formatting date strings for use in {@link MaterialDatePicker}. */
 class DateStrings {
 
   private DateStrings() {}
@@ -20,7 +34,16 @@ class DateStrings {
     return getYearMonthDay(timeInMillis, Locale.getDefault());
   }
 
-  
+  /**
+   * Get date string with year, month, and day formatted properly for the specified Locale.
+   *
+   * <p>Uses {@link DateFormat#getInstanceForSkeleton(String, Locale)} for API 24+, and {@link
+   * java.text.DateFormat#MEDIUM} before API 24.
+   *
+   * @param timeInMillis long in UTC milliseconds to turn into string with year, month, and day.
+   * @param locale Locale for date string.
+   * @return Date string with year, month, and day formatted properly for the specified Locale.
+   */
   static String getYearMonthDay(long timeInMillis, Locale locale) {
     if (VERSION.SDK_INT >= VERSION_CODES.N) {
       return UtcDates.getYearAbbrMonthDayFormat(locale).format(new Date(timeInMillis));
@@ -32,7 +55,16 @@ class DateStrings {
     return getMonthDay(timeInMillis, Locale.getDefault());
   }
 
-  
+  /**
+   * Get date string with month and day formatted properly for the specified Locale.
+   *
+   * <p>Uses {@link DateFormat#getInstanceForSkeleton(String, Locale)} for API 24+, and {@link
+   * java.text.DateFormat#MEDIUM} before API 24.
+   *
+   * @param timeInMillis long in UTC milliseconds to turn into string with month and day.
+   * @param locale Locale for date string.
+   * @return Date string with month and day formatted properly for the specified Locale.
+   */
   static String getMonthDay(long timeInMillis, Locale locale) {
     if (VERSION.SDK_INT >= VERSION_CODES.N) {
       return UtcDates.getAbbrMonthDayFormat(locale).format(new Date(timeInMillis));
@@ -66,7 +98,17 @@ class DateStrings {
     return getDateString(timeInMillis, null);
   }
 
-  
+  /**
+   * Return a date string for the given date.
+   *
+   * <p>Does not show year if date is within current year.
+   *
+   * <p>If userDefinedDateFormat is set, this format overrides the rule above.
+   *
+   * @param timeInMillis milliseconds since UTC epoch.
+   * @param userDefinedDateFormat {@link SimpleDateFormat} specified by the user, if set.
+   * @return Formatted date string.
+   */
   static String getDateString(long timeInMillis, @Nullable SimpleDateFormat userDefinedDateFormat) {
     Calendar currentCalendar = UtcDates.getTodayCalendar();
     Calendar calendarDate = UtcDates.getUtcCalendar();
@@ -85,7 +127,22 @@ class DateStrings {
     return getDateRangeString(start, end, null);
   }
 
-  
+  /**
+   * Return a pair of strings representing the start and end dates of this date range.
+   *
+   * <p>Does not show year if dates are within the same year (Nov 17 - Dec 19).
+   *
+   * <p>Shows year for end date if range is not within the current year (Nov 17 - Nov 19, 2018).
+   *
+   * <p>Shows year for start and end date if range spans several years (Dec 31, 2016 - Jan 1, 2017).
+   *
+   * <p>If userDefinedDateFormat is set, this format overrides the rules above.
+   *
+   * @param start Start date.
+   * @param end End date.
+   * @param userDefinedDateFormat {@link SimpleDateFormat} specified by the user, if set.
+   * @return Formatted date range string.
+   */
   static Pair<String, String> getDateRangeString(
       @Nullable Long start, @Nullable Long end, @Nullable SimpleDateFormat userDefinedDateFormat) {
     if (start == null && end == null) {

@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.internal;
 
@@ -26,7 +40,11 @@ import android.view.ViewParent;
 import android.view.WindowInsets;
 import android.view.inputmethod.InputMethodManager;
 
-
+/**
+ * Utils class for custom views.
+ *
+ * @hide
+ */
 @RestrictTo(LIBRARY_GROUP)
 public class ViewUtils {
 
@@ -74,15 +92,25 @@ public class ViewUtils {
         });
   }
 
-  
+  /**
+   * Wrapper around {@link androidx.core.view.OnApplyWindowInsetsListener} which also passes
+   * the initial padding set on the view. Used with {@link #doOnApplyWindowInsets(View,
+   * OnApplyWindowInsetsListener)}.
+   */
   public interface OnApplyWindowInsetsListener {
 
-    
+    /**
+     * When {@link View#setOnApplyWindowInsetsListener(View.OnApplyWindowInsetsListener) set} on a
+     * View, this listener method will be called instead of the view's own {@link
+     * View#onApplyWindowInsets(WindowInsets)} method. The {@code initialPadding} is the view's
+     * original padding which can be updated and will be applied to the view automatically. This
+     * method should return a new {@link WindowInsetsCompat} with any insets consumed.
+     */
     WindowInsetsCompat onApplyWindowInsets(
         View view, WindowInsetsCompat insets, RelativePadding initialPadding);
   }
 
-  
+  /** Simple data object to store the initial padding for a view. */
   public static class RelativePadding {
     public int start;
     public int top;
@@ -103,19 +131,25 @@ public class ViewUtils {
       this.bottom = other.bottom;
     }
 
-    
+    /** Applies this relative padding to the view. */
     public void applyToView(View view) {
       ViewCompat.setPaddingRelative(view, start, top, end, bottom);
     }
   }
 
-  
+  /**
+   * Wrapper around {@link androidx.core.view.OnApplyWindowInsetsListener} that can
+   * automatically apply inset padding based on view attributes.
+   */
   public static void doOnApplyWindowInsets(
       @NonNull View view, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     doOnApplyWindowInsets(view, attrs, defStyleAttr, defStyleRes, null);
   }
 
-  
+  /**
+   * Wrapper around {@link androidx.core.view.OnApplyWindowInsetsListener} that can
+   * automatically apply inset padding based on view attributes.
+   */
   public static void doOnApplyWindowInsets(
       @NonNull View view,
       @Nullable AttributeSet attrs,
@@ -170,18 +204,21 @@ public class ViewUtils {
         });
   }
 
-  
+  /**
+   * Wrapper around {@link androidx.core.view.OnApplyWindowInsetsListener} that records the
+   * initial padding of the view and requests that insets are applied when attached.
+   */
   public static void doOnApplyWindowInsets(
       @NonNull View view, @NonNull final OnApplyWindowInsetsListener listener) {
-    
+    // Create a snapshot of the view's padding state.
     final RelativePadding initialPadding =
         new RelativePadding(
             ViewCompat.getPaddingStart(view),
             view.getPaddingTop(),
             ViewCompat.getPaddingEnd(view),
             view.getPaddingBottom());
-    
-    
+    // Set an actual OnApplyWindowInsetsListener which proxies to the given callback, also passing
+    // in the original padding state.
     ViewCompat.setOnApplyWindowInsetsListener(
         view,
         new androidx.core.view.OnApplyWindowInsetsListener() {
@@ -190,17 +227,17 @@ public class ViewUtils {
             return listener.onApplyWindowInsets(view, insets, new RelativePadding(initialPadding));
           }
         });
-    
+    // Request some insets.
     requestApplyInsetsWhenAttached(view);
   }
 
-  
+  /** Requests that insets should be applied to this view once it is attached. */
   public static void requestApplyInsetsWhenAttached(@NonNull View view) {
     if (ViewCompat.isAttachedToWindow(view)) {
-      
+      // We're already attached, just request as normal.
       ViewCompat.requestApplyInsets(view);
     } else {
-      
+      // We're not attached to the hierarchy, add a listener to request when we are.
       view.addOnAttachStateChangeListener(
           new OnAttachStateChangeListener() {
             @Override
@@ -215,7 +252,10 @@ public class ViewUtils {
     }
   }
 
-  
+  /**
+   * Returns the absolute elevation of the parent of the provided {@code view}, or in other words,
+   * the sum of the elevations of all ancestors of the {@code view}.
+   */
   public static float getParentAbsoluteElevation(@NonNull View view) {
     float absoluteElevation = 0;
     ViewParent viewParent = view.getParent();
@@ -226,7 +266,10 @@ public class ViewUtils {
     return absoluteElevation;
   }
 
-  
+  /**
+   * Backward-compatible {@link View#getOverlay()}. TODO(b/144937975): Remove and use the official
+   * version from androidx when it's available.
+   */
   @Nullable
   public static ViewOverlayImpl getOverlay(@Nullable View view) {
     if (view == null) {
@@ -238,7 +281,7 @@ public class ViewUtils {
     return ViewOverlayApi14.createFrom(view);
   }
 
-  
+  /** Returns the content view that is the parent of the provided view. */
   @Nullable
   public static ViewGroup getContentView(@Nullable View view) {
     if (view == null) {
@@ -251,10 +294,10 @@ public class ViewUtils {
       return contentView;
     }
 
-    
-    
-    
-    
+    // Account for edge cases: Parent's parent can be null without ever having found
+    // android.R.id.content (e.g. if view is in an overlay during a transition).
+    // Additionally, sometimes parent's parent is neither a ViewGroup nor a View (e.g. if view
+    // is in a PopupWindow).
     if (rootView != view && rootView instanceof ViewGroup) {
       return (ViewGroup) rootView;
     }
@@ -262,7 +305,9 @@ public class ViewUtils {
     return null;
   }
 
-  
+  /**
+   * Returns the content view overlay that can be used to add drawables on top of all other views.
+   */
   @Nullable
   public static ViewOverlayImpl getContentViewOverlay(@NonNull View view) {
     return getOverlay(getContentView(view));

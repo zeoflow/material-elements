@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.button;
 
@@ -31,7 +45,7 @@ import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.Shapeable;
 
-
+/** @hide */
 @RestrictTo(LIBRARY_GROUP)
 class MaterialButtonHelper {
 
@@ -71,7 +85,7 @@ class MaterialButtonHelper {
     insetBottom =
         attributes.getDimensionPixelOffset(R.styleable.MaterialButton_android_insetBottom, 0);
 
-    
+    // cornerRadius should override whatever corner radius is set in shapeAppearanceModel
     if (attributes.hasValue(R.styleable.MaterialButton_cornerRadius)) {
       cornerRadius = attributes.getDimensionPixelSize(R.styleable.MaterialButton_cornerRadius, -1);
       setShapeAppearanceModel(shapeAppearanceModel.withCornerSize(cornerRadius));
@@ -96,13 +110,13 @@ class MaterialButtonHelper {
     checkable = attributes.getBoolean(R.styleable.MaterialButton_android_checkable, false);
     int elevation = attributes.getDimensionPixelSize(R.styleable.MaterialButton_elevation, 0);
 
-    
+    // Store padding before setting background, since background overwrites padding values
     int paddingStart = ViewCompat.getPaddingStart(materialButton);
     int paddingTop = materialButton.getPaddingTop();
     int paddingEnd = ViewCompat.getPaddingEnd(materialButton);
     int paddingBottom = materialButton.getPaddingBottom();
 
-    
+    // Update materialButton's background without triggering setBackgroundOverwritten()
     if (attributes.hasValue(R.styleable.MaterialButton_android_background)) {
       setBackgroundOverwritten();
     } else {
@@ -112,7 +126,7 @@ class MaterialButtonHelper {
         materialShapeDrawable.setElevation(elevation);
       }
     }
-    
+    // Set the stored padding values
     ViewCompat.setPaddingRelative(
         materialButton,
         paddingStart + insetLeft,
@@ -121,11 +135,15 @@ class MaterialButtonHelper {
         paddingBottom + insetBottom);
   }
 
-  
+  /**
+   * Method that is triggered when our initial background, created by {@link #createBackground()},
+   * has been overwritten with a new background. Sets the {@link #backgroundOverwritten} flag, which
+   * disables some of the functionality tied to our custom background.
+   */
   void setBackgroundOverwritten() {
     backgroundOverwritten = true;
-    
-    
+    // AppCompatButton re-applies any tint that was set when background is changed, so we must
+    // pass our tints to AppCompatButton when background is overwritten.
     materialButton.setSupportBackgroundTintList(backgroundTint);
     materialButton.setSupportBackgroundTintMode(backgroundTintMode);
   }
@@ -170,7 +188,11 @@ class MaterialButtonHelper {
     updateStroke();
   }
 
-  
+  /**
+   * Create RippleDrawable background for Lollipop (API 21) and later API versions
+   *
+   * @return Drawable representing background for this button.
+   */
   private Drawable createBackground() {
     MaterialShapeDrawable backgroundDrawable = new MaterialShapeDrawable(shapeAppearanceModel);
     Context context = materialButton.getContext();
@@ -281,8 +303,8 @@ class MaterialButtonHelper {
   }
 
   void setCornerRadius(int cornerRadius) {
-    
-    
+    // If cornerRadius wasn't set in the style, it would have a default value of -1. Therefore, for
+    // setCornerRadius(-1) to take effect, we need this cornerRadiusSet flag.
     if (!cornerRadiusSet || this.cornerRadius != cornerRadius) {
       this.cornerRadius = cornerRadius;
       cornerRadiusSet = true;
@@ -346,10 +368,10 @@ class MaterialButtonHelper {
   public Shapeable getMaskDrawable() {
     if (rippleDrawable != null && rippleDrawable.getNumberOfLayers() > 1) {
       if (rippleDrawable.getNumberOfLayers() > 2) {
-        
+        // This is a LayerDrawable with 3 layers, so return the mask layer
         return (Shapeable) rippleDrawable.getDrawable(2);
       }
-      
+      // This is a RippleDrawable, so return the mask layer
       return (Shapeable) rippleDrawable.getDrawable(1);
     }
 

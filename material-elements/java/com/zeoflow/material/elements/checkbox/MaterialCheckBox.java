@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.checkbox;
 
@@ -16,17 +30,24 @@ import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-
+/**
+ * A class that creates a Material Themed CheckBox.
+ *
+ * <p>This class uses attributes from the Material Theme to style a CheckBox. Excepting color
+ * changes, it behaves identically to {@link AppCompatCheckBox}. Your theme's {@code
+ * ?attr/colorControlActivated}, {@code ?attr/colorSurface}, and {@code ?attr/colorOnSurface} must
+ * be set.
+ */
 public class MaterialCheckBox extends AppCompatCheckBox {
 
   private static final int DEF_STYLE_RES =
       R.style.Widget_MaterialComponents_CompoundButton_CheckBox;
   private static final int[][] ENABLED_CHECKED_STATES =
       new int[][] {
-        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, 
-        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, 
-        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, 
-        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} 
+        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]
+        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, // [1]
+        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, // [2]
+        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} // [3]
       };
   @Nullable private ColorStateList materialThemeColorsTintList;
   private boolean useMaterialThemeColors;
@@ -41,15 +62,15 @@ public class MaterialCheckBox extends AppCompatCheckBox {
 
   public MaterialCheckBox(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
-    
+    // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
     TypedArray attributes =
         ThemeEnforcement.obtainStyledAttributes(
             context, attrs, R.styleable.MaterialCheckBox, defStyleAttr, DEF_STYLE_RES);
 
-    
-    
+    // If buttonTint is specified, read it using MaterialResources to allow themeable attributes in
+    // all API levels.
     if (attributes.hasValue(R.styleable.MaterialCheckBox_buttonTint)) {
       CompoundButtonCompat.setButtonTintList(
           this,
@@ -72,7 +93,11 @@ public class MaterialCheckBox extends AppCompatCheckBox {
     }
   }
 
-  
+  /**
+   * Forces the {@link MaterialCheckBox} to use colors from a Material Theme. Overrides any
+   * specified ButtonTintList. If set to false, sets the tints to null. Use {@link
+   * MaterialCheckBox#setSupportButtonTintList} to change button tints.
+   */
   public void setUseMaterialThemeColors(boolean useMaterialThemeColors) {
     this.useMaterialThemeColors = useMaterialThemeColors;
     if (useMaterialThemeColors) {
@@ -82,7 +107,7 @@ public class MaterialCheckBox extends AppCompatCheckBox {
     }
   }
 
-  
+  /** Returns true if this {@link MaterialCheckBox} defaults to colors from a Material Theme. */
   public boolean isUseMaterialThemeColors() {
     return useMaterialThemeColors;
   }

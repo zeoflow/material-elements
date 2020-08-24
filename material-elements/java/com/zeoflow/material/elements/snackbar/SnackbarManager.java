@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.snackbar;
 
@@ -9,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.lang.ref.WeakReference;
 
-
+/** Manages {@link Snackbar}s. */
 class SnackbarManager {
 
   static final int MSG_TIMEOUT = 0;
@@ -60,30 +74,30 @@ class SnackbarManager {
   public void show(int duration, Callback callback) {
     synchronized (lock) {
       if (isCurrentSnackbarLocked(callback)) {
-        
+        // Means that the callback is already in the queue. We'll just update the duration
         currentSnackbar.duration = duration;
 
-        
-        
+        // If this is the Snackbar currently being shown, call re-schedule it's
+        // timeout
         handler.removeCallbacksAndMessages(currentSnackbar);
         scheduleTimeoutLocked(currentSnackbar);
         return;
       } else if (isNextSnackbarLocked(callback)) {
-        
+        // We'll just update the duration
         nextSnackbar.duration = duration;
       } else {
-        
+        // Else, we need to create a new record and queue it
         nextSnackbar = new SnackbarRecord(duration, callback);
       }
 
       if (currentSnackbar != null
           && cancelSnackbarLocked(currentSnackbar, Snackbar.Callback.DISMISS_EVENT_CONSECUTIVE)) {
-        
+        // If we currently have a Snackbar, try and cancel it and wait in line
         return;
       } else {
-        
+        // Clear out the current snackbar
         currentSnackbar = null;
-        
+        // Otherwise, just show it now
         showNextSnackbarLocked();
       }
     }
@@ -99,11 +113,14 @@ class SnackbarManager {
     }
   }
 
-  
+  /**
+   * Should be called when a Snackbar is no longer displayed. This is after any exit animation has
+   * finished.
+   */
   public void onDismissed(Callback callback) {
     synchronized (lock) {
       if (isCurrentSnackbarLocked(callback)) {
-        
+        // If the callback is from a Snackbar currently show, remove it and show a new one
         currentSnackbar = null;
         if (nextSnackbar != null) {
           showNextSnackbarLocked();
@@ -112,7 +129,10 @@ class SnackbarManager {
     }
   }
 
-  
+  /**
+   * Should be called when a Snackbar is being shown. This is after any entrance animation has
+   * finished.
+   */
   public void onShown(Callback callback) {
     synchronized (lock) {
       if (isCurrentSnackbarLocked(callback)) {
@@ -175,7 +195,7 @@ class SnackbarManager {
       if (callback != null) {
         callback.show();
       } else {
-        
+        // The callback doesn't exist any more, clear out the Snackbar
         currentSnackbar = null;
       }
     }
@@ -184,7 +204,7 @@ class SnackbarManager {
   private boolean cancelSnackbarLocked(@NonNull SnackbarRecord record, int event) {
     final Callback callback = record.callback.get();
     if (callback != null) {
-      
+      // Make sure we remove any timeouts for the SnackbarRecord
       handler.removeCallbacksAndMessages(record);
       callback.dismiss(event);
       return true;
@@ -202,7 +222,7 @@ class SnackbarManager {
 
   private void scheduleTimeoutLocked(@NonNull SnackbarRecord r) {
     if (r.duration == Snackbar.LENGTH_INDEFINITE) {
-      
+      // If we're set to indefinite, we don't want to set a timeout
       return;
     }
 

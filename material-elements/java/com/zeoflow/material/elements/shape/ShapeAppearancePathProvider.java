@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.shape;
 
@@ -16,10 +30,12 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 
-
+/** A class to convert a {@link ShapeAppearanceModel} to a {@link android.graphics.Path}. */
 public class ShapeAppearancePathProvider {
 
-  
+  /**
+   * Listener called every time a {@link ShapePath} is created for a corner or an edge treatment.
+   */
   @RestrictTo(Scope.LIBRARY_GROUP)
   public interface PathListener {
 
@@ -28,12 +44,12 @@ public class ShapeAppearancePathProvider {
     void onEdgePathCreated(ShapePath edgePath, Matrix transform, int count);
   }
 
-  
+  // Inter-method state.
   private final ShapePath[] cornerPaths = new ShapePath[4];
   private final Matrix[] cornerTransforms = new Matrix[4];
   private final Matrix[] edgeTransforms = new Matrix[4];
 
-  
+  // Pre-allocated objects that are re-used several times during path computation and rendering.
   private final PointF pointF = new PointF();
   private final Path overlappedEdgePath = new Path();
   private final Path boundsPath = new Path();
@@ -51,7 +67,14 @@ public class ShapeAppearancePathProvider {
     }
   }
 
-  
+  /**
+   * Writes the given {@link ShapeAppearanceModel} to {@code path}
+   *
+   * @param shapeAppearanceModel The shape to be applied in the path.
+   * @param interpolation the desired interpolation.
+   * @param bounds the desired bounds for the path.
+   * @param path the returned path out-var.
+   */
   public void calculatePath(
       ShapeAppearanceModel shapeAppearanceModel,
       float interpolation,
@@ -60,7 +83,15 @@ public class ShapeAppearancePathProvider {
     calculatePath(shapeAppearanceModel, interpolation, bounds, null, path);
   }
 
-  
+  /**
+   * Writes the given {@link ShapeAppearanceModel} to {@code path}
+   *
+   * @param shapeAppearanceModel The shape to be applied in the path.
+   * @param interpolation the desired interpolation.
+   * @param bounds the desired bounds for the path.
+   * @param pathListener the path
+   * @param path the returned path out-var.
+   */
   @RestrictTo(Scope.LIBRARY_GROUP)
   public void calculatePath(
       ShapeAppearanceModel shapeAppearanceModel,
@@ -76,8 +107,8 @@ public class ShapeAppearancePathProvider {
         new ShapeAppearancePathSpec(
             shapeAppearanceModel, interpolation, bounds, pathListener, path);
 
-    
-    
+    // Calculate the transformations (rotations and translations) necessary for each edge and
+    // corner treatment.
     for (int index = 0; index < 4; index++) {
       setCornerPathAndTransform(spec, index);
       setEdgePathAndTransform(index);
@@ -91,7 +122,7 @@ public class ShapeAppearancePathProvider {
     path.close();
     overlappedEdgePath.close();
 
-    
+    // Union with the edge paths that had an intersection to handle overlaps.
     if (VERSION.SDK_INT >= VERSION_CODES.KITKAT && !overlappedEdgePath.isEmpty()) {
       path.op(overlappedEdgePath, Op.UNION);
     }
@@ -145,7 +176,7 @@ public class ShapeAppearancePathProvider {
     cornerTransforms[nextIndex].mapPoints(scratch2);
 
     float edgeLength = (float) Math.hypot(scratch[0] - scratch2[0], scratch[1] - scratch2[1]);
-    
+    // TODO(b/121352029): Remove this -.001f that is currently needed to handle rounding errors
     edgeLength = Math.max(edgeLength - .001f, 0);
     float center = getEdgeCenterForIndex(spec.bounds, index);
     shapePath.reset(0, 0);
@@ -160,18 +191,18 @@ public class ShapeAppearancePathProvider {
             || pathOverlapsCorner(edgePath, index)
             || pathOverlapsCorner(edgePath, nextIndex))) {
 
-      
-      
+      // Calculate the difference between the edge and the bounds to calculate the part of the edge
+      // outside of the bounds of the shape.
       edgePath.op(edgePath, boundsPath, Op.DIFFERENCE);
 
-      
-      
+      // Add a line to the path between the previous corner and this edge.
+      // TODO(b/144784590): handle the shadow as well.
       scratch[0] = shapePath.getStartX();
       scratch[1] = shapePath.getStartY();
       edgeTransforms[index].mapPoints(scratch);
       overlappedEdgePath.moveTo(scratch[0], scratch[1]);
 
-      
+      // Add this to the overlappedEdgePath which will be unioned later.
       shapePath.applyToPath(edgeTransforms[index], overlappedEdgePath);
     } else {
       shapePath.applyToPath(edgeTransforms[index], spec.path);
@@ -188,10 +219,10 @@ public class ShapeAppearancePathProvider {
     cornerPaths[index].applyToPath(cornerTransforms[index], cornerPath);
 
     RectF bounds = new RectF();
-    edgePath.computeBounds(bounds,  true);
-    cornerPath.computeBounds(bounds,  true);
+    edgePath.computeBounds(bounds, /* exact = */ true);
+    cornerPath.computeBounds(bounds, /* exact = */ true);
     edgePath.op(cornerPath, Op.INTERSECT);
-    edgePath.computeBounds(bounds,  true);
+    edgePath.computeBounds(bounds, /* exact = */ true);
 
     return !bounds.isEmpty() || (bounds.width() > 1 && bounds.height() > 1);
   }
@@ -258,16 +289,16 @@ public class ShapeAppearancePathProvider {
 
   private void getCoordinatesOfCorner(int index, @NonNull RectF bounds, @NonNull PointF pointF) {
     switch (index) {
-      case 1: 
+      case 1: // bottom-right
         pointF.set(bounds.right, bounds.bottom);
         break;
-      case 2: 
+      case 2: // bottom-left
         pointF.set(bounds.left, bounds.bottom);
         break;
-      case 3: 
+      case 3: // top-left
         pointF.set(bounds.left, bounds.top);
         break;
-      case 0: 
+      case 0: // top-right
       default:
         pointF.set(bounds.right, bounds.top);
         break;
@@ -282,7 +313,7 @@ public class ShapeAppearancePathProvider {
     edgeIntersectionCheckEnabled = enable;
   }
 
-  
+  /** Necessary information to map a {@link ShapeAppearanceModel} into a Path. */
   static final class ShapeAppearancePathSpec {
 
     @NonNull public final ShapeAppearanceModel shapeAppearanceModel;

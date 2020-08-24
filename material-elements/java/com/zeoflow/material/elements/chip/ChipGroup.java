@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.chip;
 
@@ -30,17 +44,35 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A ChipGroup is used to hold multiple {@link Chip}s. By default, the chips are reflowed across
+ * multiple lines. Set the {@link R.attr#singleLine app:singleLine} attribute to constrain the chips
+ * to a single horizontal line. If you do so, you'll usually want to wrap this ChipGroup in a {@link
+ * android.widget.HorizontalScrollView}.
+ *
+ * <p>ChipGroup also supports a multiple-exclusion scope for a set of chips. When you set the {@link
+ * R.attr#singleSelection app:singleSelection} attribute, checking one chip that belongs to a chip
+ * group unchecks any previously checked chip within the same group. The behavior mirrors that of
+ * {@link android.widget.RadioGroup}.
+ */
 public class ChipGroup extends FlowLayout
 {
 
-  
+  /**
+   * Interface definition for a callback to be invoked when the checked chip changed in this group.
+   */
   public interface OnCheckedChangeListener {
-    
+    /**
+     * Called when the checked chip has changed. When the selection is cleared, checkedId is {@link
+     * View#NO_ID}.
+     *
+     * @param group the group in which the checked chip has changed
+     * @param checkedId the unique identifier of the newly checked chip
+     */
     public void onCheckedChanged(ChipGroup group, @IdRes int checkedId);
   }
 
-  
+  /** A {@link ChipGroup.LayoutParams} implementation for {@link ChipGroup}. */
   public static class LayoutParams extends MarginLayoutParams {
     public LayoutParams(Context context, AttributeSet attrs) {
       super(context, attrs);
@@ -87,7 +119,7 @@ public class ChipGroup extends FlowLayout
 
   public ChipGroup(Context context, AttributeSet attrs, int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
-    
+    // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
     TypedArray a =
@@ -121,14 +153,14 @@ public class ChipGroup extends FlowLayout
   public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
     super.onInitializeAccessibilityNodeInfo(info);
     AccessibilityNodeInfoCompat infoCompat = AccessibilityNodeInfoCompat.wrap(info);
-    
+    // -1 for an unknown number of columns in a reflowing layout
     int columnCount = isSingleLine() ? getChipCount() : -1;
     infoCompat.setCollectionInfo(
         CollectionInfoCompat.obtain(
-             getRowCount(),
-             columnCount,
-             false,
-             isSingleSelection()
+            /* rowCount= */ getRowCount(),
+            /* columnCount= */ columnCount,
+            /* hierarchical= */ false,
+            /* selectionMode = */ isSingleSelection()
                 ? CollectionInfoCompat.SELECTION_MODE_SINGLE
                 : CollectionInfoCompat.SELECTION_MODE_MULTIPLE));
   }
@@ -158,7 +190,7 @@ public class ChipGroup extends FlowLayout
 
   @Override
   public void setOnHierarchyChangeListener(OnHierarchyChangeListener listener) {
-    
+    // the user listener is delegated to our pass-through listener
     passThroughListener.onHierarchyChangeListener = listener;
   }
 
@@ -166,7 +198,7 @@ public class ChipGroup extends FlowLayout
   protected void onFinishInflate() {
     super.onFinishInflate();
 
-    
+    // checks the appropriate chip as requested in the XML file
     if (checkedId != View.NO_ID) {
       setCheckedStateForView(checkedId, true);
       setCheckedId(checkedId);
@@ -188,7 +220,7 @@ public class ChipGroup extends FlowLayout
     super.addView(child, index, params);
   }
 
-  
+  /** @deprecated Use {@link ChipGroup#setChipSpacingHorizontal(int)} instead. */
   @Deprecated
   public void setDividerDrawableHorizontal(Drawable divider) {
     throw new UnsupportedOperationException(
@@ -196,7 +228,7 @@ public class ChipGroup extends FlowLayout
             + "spacing.");
   }
 
-  
+  /** @deprecated Use {@link ChipGroup#setChipSpacingVertical(int)} instead. */
   @Deprecated
   public void setDividerDrawableVertical(@Nullable Drawable divider) {
     throw new UnsupportedOperationException(
@@ -204,28 +236,37 @@ public class ChipGroup extends FlowLayout
             + "spacing.");
   }
 
-  
+  /** @deprecated Use {@link ChipGroup#setChipSpacingHorizontal(int)} instead. */
   @Deprecated
   public void setShowDividerHorizontal(int dividerMode) {
     throw new UnsupportedOperationException(
         "Changing divider modes has no effect. ChipGroup do not use divider drawables as spacing.");
   }
 
-  
+  /** @deprecated Use {@link ChipGroup#setChipSpacingVertical(int)} instead. */
   @Deprecated
   public void setShowDividerVertical(int dividerMode) {
     throw new UnsupportedOperationException(
         "Changing divider modes has no effect. ChipGroup do not use divider drawables as spacing.");
   }
 
-  
+  /** @deprecated Use {@link ChipGroup#setSingleLine(int)} instead. */
   @Deprecated
   public void setFlexWrap(int flexWrap) {
     throw new UnsupportedOperationException(
         "Changing flex wrap not allowed. ChipGroup exposes a singleLine attribute instead.");
   }
 
-  
+  /**
+   * Sets the selection to the chip whose identifier is passed in parameter.
+   *
+   * <p>In {@link #isSingleSelection() single selection mode}, checking a chip also unchecks all
+   * others.
+   *
+   * @param id the unique id of the chip to select in this group
+   * @see #getCheckedChipId()
+   * @see #clearCheck()
+   */
   public void check(@IdRes int id) {
     if (id == checkedId) {
       return;
@@ -241,13 +282,33 @@ public class ChipGroup extends FlowLayout
 
     setCheckedId(id);
   }
-  
+  /**
+   * When in {@link #isSingleSelection() single selection mode}, returns the identifier of the
+   * selected chip in this group. Upon empty selection, the returned value is {@link View#NO_ID}. If
+   * not in single selection mode, the return value is {@link View#NO_ID}.
+   *
+   * @return the unique id of the selected chip in this group in single selection mode
+   * @see #check(int)
+   * @see #clearCheck()
+   * @see #getCheckedChipIds()
+   * @attr ref R.styleable#ChipGroup_checkedChip
+   */
   @IdRes
   public int getCheckedChipId() {
     return singleSelection ? checkedId : View.NO_ID;
   }
 
-  
+  /**
+   * Returns the identifiers of the selected {@link Chip}s in this group. Upon empty
+   * selection, the returned value is an empty list.
+   *
+   * @return The unique IDs of the selected {@link Chip}s in this group. When in {@link
+   *     #isSingleSelection() single selection mode}, returns a list with a single ID. When no
+   *     {@link Chip}s are selected, returns an empty list.
+   * @see #check(int)
+   * @see #clearCheck()
+   * @see #getCheckedChipId()
+   */
   @NonNull
   public List<Integer> getCheckedChipIds() {
     ArrayList<Integer> checkedIds = new ArrayList<>();
@@ -266,7 +327,14 @@ public class ChipGroup extends FlowLayout
     return checkedIds;
   }
 
-  
+  /**
+   * Clears the selection. When the selection is cleared, no chip in this group is selected and
+   * {@link #getCheckedChipId()} returns {@link View#NO_ID}.
+   *
+   * @see #check(int)
+   * @see #getCheckedChipId()
+   * @see #getCheckedChipIds()
+   */
   public void clearCheck() {
     protectFromCheckedChange = true;
     for (int i = 0; i < getChildCount(); i++) {
@@ -280,7 +348,12 @@ public class ChipGroup extends FlowLayout
     setCheckedId(View.NO_ID);
   }
 
-  
+  /**
+   * Register a callback to be invoked when the checked chip changes in this group. This callback is
+   * only invoked in {@link #isSingleSelection() single selection mode}.
+   *
+   * @param listener the callback to call on checked state change
+   */
   public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
     onCheckedChangeListener = listener;
   }
@@ -316,7 +389,11 @@ public class ChipGroup extends FlowLayout
     return count;
   }
 
-  
+  /**
+   * Returns the index of the Chip within the Chip children.
+   *
+   * <p>Non-Chip children are ignored when computing the index.
+   */
   int getIndexOfChip(@Nullable View child) {
     if (!(child instanceof Chip)) {
       return -1;
@@ -334,24 +411,24 @@ public class ChipGroup extends FlowLayout
     return -1;
   }
 
-  
+  /** Sets the horizontal and vertical spacing between visible chips in this group. */
   public void setChipSpacing(@Dimension int chipSpacing) {
     setChipSpacingHorizontal(chipSpacing);
     setChipSpacingVertical(chipSpacing);
   }
 
-  
+  /** Sets the horizontal and vertical spacing between visible chips in this group. */
   public void setChipSpacingResource(@DimenRes int id) {
     setChipSpacing(getResources().getDimensionPixelOffset(id));
   }
 
-  
+  /** Returns the horizontal spacing between visible chips in this group. */
   @Dimension
   public int getChipSpacingHorizontal() {
     return chipSpacingHorizontal;
   }
 
-  
+  /** Sets the horizontal spacing between visible chips in this group. */
   public void setChipSpacingHorizontal(@Dimension int chipSpacingHorizontal) {
     if (this.chipSpacingHorizontal != chipSpacingHorizontal) {
       this.chipSpacingHorizontal = chipSpacingHorizontal;
@@ -360,18 +437,18 @@ public class ChipGroup extends FlowLayout
     }
   }
 
-  
+  /** Sets the horizontal spacing between visible chips in this group. */
   public void setChipSpacingHorizontalResource(@DimenRes int id) {
     setChipSpacingHorizontal(getResources().getDimensionPixelOffset(id));
   }
 
-  
+  /** Returns the vertical spacing between visible chips in this group. */
   @Dimension
   public int getChipSpacingVertical() {
     return chipSpacingVertical;
   }
 
-  
+  /** Sets the vertical spacing between visible chips in this group. */
   public void setChipSpacingVertical(@Dimension int chipSpacingVertical) {
     if (this.chipSpacingVertical != chipSpacingVertical) {
       this.chipSpacingVertical = chipSpacingVertical;
@@ -380,36 +457,40 @@ public class ChipGroup extends FlowLayout
     }
   }
 
-  
+  /** Sets the vertical spacing between visible chips in this group. */
   public void setChipSpacingVerticalResource(@DimenRes int id) {
     setChipSpacingVertical(getResources().getDimensionPixelOffset(id));
   }
 
-  
+  // Need to override here in order to un-restrict access to this method outside of the library.
   @SuppressWarnings("RedundantOverride")
   @Override
   public boolean isSingleLine() {
     return super.isSingleLine();
   }
 
-  
+  // Need to override here in order to un-restrict access to this method outside of the library.
   @SuppressWarnings("RedundantOverride")
   @Override
   public void setSingleLine(boolean singleLine) {
     super.setSingleLine(singleLine);
   }
 
-  
+  /** Sets whether this chip group is single line, or reflowed multiline. */
   public void setSingleLine(@BoolRes int id) {
     setSingleLine(getResources().getBoolean(id));
   }
 
-  
+  /** Returns whether this chip group only allows a single chip to be checked. */
   public boolean isSingleSelection() {
     return singleSelection;
   }
 
-  
+  /**
+   * Sets whether this chip group only allows a single chip to be checked.
+   *
+   * <p>Calling this method results in all the chips in this group to become unchecked.
+   */
   public void setSingleSelection(boolean singleSelection) {
     if (this.singleSelection != singleSelection) {
       this.singleSelection = singleSelection;
@@ -418,17 +499,32 @@ public class ChipGroup extends FlowLayout
     }
   }
 
-  
+  /**
+   * Sets whether this chip group only allows a single chip to be checked.
+   *
+   * <p>Calling this method results in all the chips in this group to become unchecked.
+   */
   public void setSingleSelection(@BoolRes int id) {
     setSingleSelection(getResources().getBoolean(id));
   }
 
-  
+  /**
+   * Sets whether we prevent all child chips from being deselected.
+   *
+   * @attr ref R.styleable#ChipGroup_selectionRequired
+   * @see #setSingleSelection(boolean)
+   */
   public void setSelectionRequired(boolean selectionRequired) {
     this.selectionRequired = selectionRequired;
   }
 
-  
+  /**
+   * Returns whether we prevent all child chips from being deselected.
+   *
+   * @attr ref R.styleable#ChipGroup_selectionRequired
+   * @see #setSingleSelection(boolean)
+   * @see #setSelectionRequired(boolean)
+   */
   public boolean isSelectionRequired() {
     return selectionRequired;
   }
@@ -436,7 +532,7 @@ public class ChipGroup extends FlowLayout
   private class CheckedStateTracker implements CompoundButton.OnCheckedChangeListener {
     @Override
     public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
-      
+      // prevents from infinite recursion
       if (protectFromCheckedChange) {
         return;
       }
@@ -461,7 +557,11 @@ public class ChipGroup extends FlowLayout
     }
   }
 
-  
+  /**
+   * A pass-through listener acts upon the events and dispatches them to another listener. This
+   * allows the layout to set its own internal hierarchy change listener without preventing the user
+   * to setup theirs.
+   */
   private class PassThroughHierarchyChangeListener implements OnHierarchyChangeListener {
     private OnHierarchyChangeListener onHierarchyChangeListener;
 
@@ -469,7 +569,7 @@ public class ChipGroup extends FlowLayout
     public void onChildViewAdded(View parent, View child) {
       if (parent == ChipGroup.this && child instanceof Chip) {
         int id = child.getId();
-        
+        // generates an id if it's missing
         if (id == View.NO_ID) {
           if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
             id = View.generateViewId();

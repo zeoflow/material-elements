@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.animation;
 
 import android.animation.Animator;
@@ -10,16 +24,16 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
-
+/** A representation of timing for an animation. */
 public class MotionTiming {
 
   private long delay = 0;
   private long duration = 300;
-  
+  /** Set to an instance, or null for {@link AnimationUtils#FAST_OUT_SLOW_IN_INTERPOLATOR}. */
   @Nullable private TimeInterpolator interpolator = null;
-  
+  /** Set to 0, greater than 0, or {@link ValueAnimator#INFINITE}. */
   private int repeatCount = 0;
-  
+  /** Set to {@link ValueAnimator#RESTART} or {@link ValueAnimator#REVERSE}. */
   private int repeatMode = ValueAnimator.RESTART;
 
   public MotionTiming(long delay, long duration) {
@@ -74,7 +88,16 @@ public class MotionTiming {
     return timing;
   }
 
-  
+  /**
+   * This compat implementation enables pre-21 support for
+   * {@code @interpolator/mtrl_fast_out_linear_in}, {@code @interpolator/mtrl_fast_out_slow_in}, and
+   * {@code @interpolator/mtrl_linear_out_slow_in}. Because the respective
+   * {@code @android:interpolator/} resources are not available in pre-21, we use
+   * {@code @android:interpolator/accelerate_quad},
+   * {@code @android:interpolator/accelerate_decelerate}, and
+   * {@code @android:interpolator/decelerate_quad} respectively. This method maps those compat
+   * interpolators back to Material interpolators, which can be instantiated dynamically.
+   */
   private static TimeInterpolator getInterpolatorCompat(@NonNull ValueAnimator animator) {
     @Nullable TimeInterpolator interpolator = animator.getInterpolator();
     if (interpolator instanceof AccelerateDecelerateInterpolator || interpolator == null) {

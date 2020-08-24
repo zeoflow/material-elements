@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.floatingactionbutton;
 
@@ -28,11 +42,19 @@ import androidx.core.graphics.ColorUtils;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.ShapeAppearancePathProvider;
 
-
+/**
+ * A Drawable that draws borders for {@link FloatingActionButton}
+ *
+ * @hide
+ */
 @RestrictTo(LIBRARY_GROUP)
 class BorderDrawable extends Drawable {
 
-  
+  /**
+   * We actually draw the stroke wider than the border size given. This is to reduce any potential
+   * transparent space caused by anti-aliasing and padding rounding. This value defines the
+   * multiplier used to determine to draw stroke width.
+   */
   private static final float DRAW_STROKE_WIDTH_MULTIPLE = 1.3333f;
 
   private final ShapeAppearancePathProvider pathProvider = new ShapeAppearancePathProvider();
@@ -108,8 +130,8 @@ class BorderDrawable extends Drawable {
     copyBounds(rect);
     rectF.set(rect);
 
-    
-    
+    // We need to inset the oval bounds by half the border width. This is because stroke draws
+    // the center of the border on the dimension. Whereas we want the stroke on the inside.
     float cornerSize =
         shapeAppearanceModel.getTopLeftCornerSize().getCornerSize(getBoundsAsRectF());
     float radius = Math.min(cornerSize, rectF.width() / 2f);
@@ -233,7 +255,10 @@ class BorderDrawable extends Drawable {
     return state;
   }
 
-  
+  /**
+   * Dummy implementation of constant state. This drawable doesn't have shared state. Implementing
+   * so that calls to getConstantState().newDrawable() don't crash on L and M.
+   */
   private class BorderState extends ConstantState {
 
     @NonNull

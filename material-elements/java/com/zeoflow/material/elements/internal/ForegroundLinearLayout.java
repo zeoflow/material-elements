@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.internal;
 
@@ -20,7 +34,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
-
+/** @hide */
 @RestrictTo(LIBRARY_GROUP)
 public class ForegroundLinearLayout extends LinearLayoutCompat {
 
@@ -66,13 +80,23 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
     a.recycle();
   }
 
-  
+  /**
+   * Describes how the foreground is positioned.
+   *
+   * @return foreground gravity.
+   * @see #setForegroundGravity(int)
+   */
   @Override
   public int getForegroundGravity() {
     return foregroundGravity;
   }
 
-  
+  /**
+   * Describes how the foreground is positioned. Defaults to START and TOP.
+   *
+   * @param foregroundGravity See {@link android.view.Gravity}
+   * @see #getForegroundGravity()
+   */
   @Override
   public void setForegroundGravity(int foregroundGravity) {
     if (this.foregroundGravity != foregroundGravity) {
@@ -117,7 +141,13 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
     }
   }
 
-  
+  /**
+   * Supply a Drawable that is to be rendered on top of all of the child views in the frame layout.
+   * Any padding in the Drawable will be taken into account by ensuring that the children are inset
+   * to be placed inside of the padding area.
+   *
+   * @param drawable The Drawable to be drawn on top of the children.
+   */
   @Override
   public void setForeground(@Nullable Drawable drawable) {
     if (foreground != drawable) {
@@ -146,7 +176,12 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
     }
   }
 
-  
+  /**
+   * Returns the drawable used as the foreground of this FrameLayout. The foreground drawable, if
+   * non-null, is always drawn on top of the children.
+   *
+   * @return A Drawable or null if no foreground was set.
+   */
   @Nullable
   @Override
   public Drawable getForeground() {

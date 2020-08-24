@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.textfield;
 
@@ -44,7 +58,7 @@ import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
-
+/** Default initialization of the exposed dropdown menu {@link TextInputLayout.EndIconMode}. */
 class DropdownMenuEndIconDelegate extends EndIconDelegate {
 
   private static final boolean IS_LOLLIPOP = VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP;
@@ -91,13 +105,13 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
         public void onInitializeAccessibilityNodeInfo(
             View host, @NonNull AccessibilityNodeInfoCompat info) {
           super.onInitializeAccessibilityNodeInfo(host, info);
-          
+          // The non-editable exposed dropdown menu behaves like a Spinner.
           if (textInputLayout.getEditText().getKeyListener() == null) {
             info.setClassName(Spinner.class.getName());
           }
           if (info.isShowingHintText()) {
-            
-            
+            // Set hint text to null so TalkBack doesn't announce the label twice when there is no
+            // item selected.
             info.setHintText(null);
           }
         }
@@ -134,15 +148,15 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
           textInputLayout.setEndIconVisible(true);
         }
       };
-  @SuppressLint("ClickableViewAccessibility") 
-  
+  @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that handles
+  // interactions with the dropdown menu.
   private final TextInputLayout.OnEndIconChangedListener endIconChangedListener =
       new TextInputLayout.OnEndIconChangedListener() {
         @Override
         public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon) {
           AutoCompleteTextView editText = (AutoCompleteTextView) textInputLayout.getEditText();
           if (editText != null && previousIcon == TextInputLayout.END_ICON_DROPDOWN_MENU) {
-            
+            // Remove any listeners set on the edit text.
             editText.removeTextChangedListener(exposedDropdownEndIconTextWatcher);
             if (editText.getOnFocusChangeListener() == onFocusChangeListener) {
               editText.setOnFocusChangeListener(null);
@@ -182,15 +196,15 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
         context
             .getResources()
             .getDimensionPixelOffset(R.dimen.mtrl_exposed_dropdown_menu_popup_vertical_padding);
-    
-    
+    // Background for the popups of the outlined variation and for the filled variation when it is
+    // being displayed above the layout.
     MaterialShapeDrawable roundedCornersPopupBackground =
         getPopUpMaterialShapeDrawable(
             popupCornerRadius,
             popupCornerRadius,
             exposedDropdownPopupElevation,
             exposedDropdownPopupVerticalPadding);
-    
+    // Background for the popup of the filled variation when it is being displayed below the layout.
     MaterialShapeDrawable roundedBottomCornersPopupBackground =
         getPopUpMaterialShapeDrawable(
             0,
@@ -204,8 +218,8 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
         new int[] {android.R.attr.state_above_anchor}, roundedCornersPopupBackground);
     filledPopupBackground.addState(new int[] {}, roundedBottomCornersPopupBackground);
 
-    
-    
+    // For lollipop+, the arrow icon changes orientation based on dropdown popup, otherwise it
+    // always points down.
     int drawableResId =
         IS_LOLLIPOP ? R.drawable.mtrl_dropdown_arrow : R.drawable.mtrl_ic_arrow_drop_down;
     textInputLayout.setEndIconDrawable(AppCompatResources.getDrawable(context, drawableResId));
@@ -273,7 +287,7 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
     }
   }
 
-  
+  /* Add ripple effect to non editable layouts. */
   private void addRippleEffect(@NonNull AutoCompleteTextView editText) {
     if (editText.getKeyListener() != null) {
       return;
@@ -354,10 +368,10 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
     }
   }
 
-  @SuppressLint("ClickableViewAccessibility") 
-  
+  @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that handles
+  // interactions with the dropdown menu.
   private void setUpDropdownShowHideBehavior(@NonNull final AutoCompleteTextView editText) {
-    
+    // Set whole layout clickable.
     editText.setOnTouchListener(
         new OnTouchListener() {
           @Override

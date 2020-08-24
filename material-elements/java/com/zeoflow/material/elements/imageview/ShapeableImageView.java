@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 
 package com.zeoflow.material.elements.imageview;
 
@@ -37,7 +51,7 @@ import com.zeoflow.material.elements.shape.ShapeAppearancePathProvider;
 import com.zeoflow.material.elements.shape.Shapeable;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-
+/** An ImageView that draws the bitmap with the provided Shape. */
 public class ShapeableImageView extends AppCompatImageView implements Shapeable {
 
   private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_ShapeableImageView;
@@ -64,7 +78,7 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
 
   public ShapeableImageView(Context context, @Nullable AttributeSet attrs, int defStyle) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyle, DEF_STYLE_RES), attrs, defStyle);
-    
+    // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
     clearPaint = new Paint();
@@ -138,11 +152,11 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
         getPaddingTop(),
         width - getPaddingRight(),
         height - getPaddingBottom());
-    pathProvider.calculatePath(shapeAppearanceModel, 1f , destination, path);
-    
+    pathProvider.calculatePath(shapeAppearanceModel, 1f /*interpolation*/, destination, path);
+    // Remove path from rect to draw with clear paint.
     maskPath.rewind();
     maskPath.addPath(path);
-    
+    // Do not include padding to clip the background too.
     maskRect.set(0, 0, width, height);
     maskPath.addRect(maskRect, Direction.CCW);
   }
@@ -162,18 +176,40 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
     }
   }
 
-  
+  /**
+   * Sets the stroke color resource for this ImageView. Both stroke color and stroke width must be
+   * set for a stroke to be drawn.
+   *
+   * @param strokeColorResourceId Color resource to use for the stroke.
+   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeColor
+   * @see #setStrokeColor(ColorStateList)
+   * @see #getStrokeColor()
+   */
   public void setStrokeColorResource(@ColorRes int strokeColorResourceId) {
     setStrokeColor(AppCompatResources.getColorStateList(getContext(), strokeColorResourceId));
   }
 
-  
+  /**
+   * Returns the stroke color for this ImageView.
+   *
+   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeColor
+   * @see #setStrokeColor(ColorStateList)
+   * @see #setStrokeColorResource(int)
+   */
   @Nullable
   public ColorStateList getStrokeColor() {
     return strokeColor;
   }
 
-  
+  /**
+   * Sets the stroke width for this ImageView. Both stroke color and stroke width must be set for a
+   * stroke to be drawn.
+   *
+   * @param strokeWidth Stroke width for this ImageView.
+   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
+   * @see #setStrokeWidthResource(int)
+   * @see #getStrokeWidth()
+   */
   public void setStrokeWidth(@Dimension float strokeWidth) {
     if (this.strokeWidth != strokeWidth) {
       this.strokeWidth = strokeWidth;
@@ -181,12 +217,27 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
     }
   }
 
-  
+  /**
+   * Sets the stroke width dimension resource for this ImageView. Both stroke color and stroke width
+   * must be set for a stroke to be drawn.
+   *
+   * @param strokeWidthResourceId Stroke width dimension resource for this ImageView.
+   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
+   * @see #setStrokeWidth(float)
+   * @see #getStrokeWidth()
+   */
   public void setStrokeWidthResource(@DimenRes int strokeWidthResourceId) {
     setStrokeWidth(getResources().getDimensionPixelSize(strokeWidthResourceId));
   }
 
-  
+  /**
+   * Gets the stroke width for this ImageView.
+   *
+   * @return Stroke width for this ImageView.
+   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
+   * @see #setStrokeWidth(float)
+   * @see #setStrokeWidthResource(int)
+   */
   @Dimension
   public float getStrokeWidth() {
     return strokeWidth;

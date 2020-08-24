@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.textview;
 
@@ -17,11 +31,51 @@ import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-
+/**
+ * A MaterialTextView is a derivative of {@link AppCompatTextView} that displays text to the user.
+ * To provide user-editable text, see {@link android.widget.EditText}.
+ *
+ * <p>MaterialTextView supports the ability to read and apply {@code android:lineHeight} value from
+ * a {@code TextAppearance} style.
+ *
+ * <p>The following code sample shows a typical use, with an XML layout and code to modify the
+ * contents of the material text view:
+ *
+ * <pre>
+ * &lt;LinearLayout
+ * xmlns:android="http://schemas.android.com/apk/res/android"
+ * android:layout_width="match_parent"
+ * android:layout_height="match_parent"&gt;
+ *    &lt;MaterialTextView
+ *        android:id="@+id/text_view_id"
+ *        android:layout_height="wrap_content"
+ *        android:layout_width="wrap_content"
+ *        android:text="@string/hello" /&gt;
+ * &lt;/LinearLayout&gt;
+ * </pre>
+ *
+ * <p>This code sample demonstrates how to modify the contents of the material text view defined in
+ * the previous XML layout:
+ *
+ * <pre>
+ * public class MainActivity extends Activity {
+ *
+ *    protected void onCreate(Bundle savedInstanceState) {
+ *         super.onCreate(savedInstanceState);
+ *         setContentView(R.layout.activity_main);
+ *         final MaterialTextView textView = (MaterialTextView) findViewById(R.id.text_view_id);
+ *         textView.setText(R.string.user_greeting);
+ *     }
+ * }
+ * </pre>
+ *
+ * <p>To customize the appearance of MaterialTextView, see <a
+ * href="https://developer.android.com/guide/topics/ui/themes.html">Styles and Themes</a>.
+ */
 public class MaterialTextView extends AppCompatTextView {
 
   public MaterialTextView(@NonNull Context context) {
-    this(context, null );
+    this(context, null /* attrs */);
   }
 
   public MaterialTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -36,7 +90,7 @@ public class MaterialTextView extends AppCompatTextView {
   public MaterialTextView(
       @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, defStyleRes), attrs, defStyleAttr);
-    
+    // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
     if (canApplyTextAppearanceLineHeight(context)) {

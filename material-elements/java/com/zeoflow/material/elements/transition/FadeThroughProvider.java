@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2020 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.transition;
 
@@ -13,7 +27,11 @@ import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
-
+/**
+ * A class that configures and is able to provide an {@link Animator} that fades out or in a view.
+ *
+ * <p>FadeThroughProvider differs from FadeProvider in that it fades out and in views sequentially.
+ */
 public final class FadeThroughProvider implements VisibilityAnimatorProvider {
 
   static final float PROGRESS_THRESHOLD = 0.35f;
@@ -23,10 +41,10 @@ public final class FadeThroughProvider implements VisibilityAnimatorProvider {
   public Animator createAppear(@NonNull ViewGroup sceneRoot, @NonNull View view) {
     return createFadeThroughAnimator(
         view,
-         0f,
-         1f,
-         PROGRESS_THRESHOLD,
-         1f);
+        /* startValue= */ 0f,
+        /* endValue= */ 1f,
+        /* startFraction= */ PROGRESS_THRESHOLD,
+        /* endFraction= */ 1f);
   }
 
   @Nullable
@@ -34,10 +52,10 @@ public final class FadeThroughProvider implements VisibilityAnimatorProvider {
   public Animator createDisappear(@NonNull ViewGroup sceneRoot, @NonNull View view) {
     return createFadeThroughAnimator(
         view,
-         1f,
-         0f,
-         0f,
-         PROGRESS_THRESHOLD);
+        /* startValue= */ 1f,
+        /* endValue= */ 0f,
+        /* startFraction= */ 0f,
+        /* endFraction= */ PROGRESS_THRESHOLD);
   }
 
   private static Animator createFadeThroughAnimator(

@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.floatingactionbutton;
 
@@ -45,7 +59,7 @@ class FloatingActionButtonImplLollipop extends FloatingActionButtonImpl {
       @Nullable PorterDuff.Mode backgroundTintMode,
       ColorStateList rippleColor,
       int borderWidth) {
-    
+    // Now we need to tint the shape background with the tint
     shapeDrawable = createShapeDrawable();
     shapeDrawable.setTintList(backgroundTint);
     if (backgroundTintMode != null) {
@@ -87,13 +101,13 @@ class FloatingActionButtonImplLollipop extends FloatingActionButtonImpl {
       final float pressedTranslationZ) {
 
     if (Build.VERSION.SDK_INT == VERSION_CODES.LOLLIPOP) {
-      
-      
+      // Animations produce NPE in version 21. Bluntly set the values instead in
+      // #onDrawableStateChanged (matching the logic in the animations below).
       view.refreshDrawableState();
     } else {
       final StateListAnimator stateListAnimator = new StateListAnimator();
 
-      
+      // Animate elevation and translationZ to our values when pressed, focused, and hovered
       stateListAnimator.addState(
           PRESSED_ENABLED_STATE_SET, createElevationAnimator(elevation, pressedTranslationZ));
       stateListAnimator.addState(
@@ -106,15 +120,15 @@ class FloatingActionButtonImplLollipop extends FloatingActionButtonImpl {
           HOVERED_ENABLED_STATE_SET,
           createElevationAnimator(elevation, hoveredFocusedTranslationZ));
 
-      
+      // Animate translationZ to 0 if not pressed, focused, or hovered
       AnimatorSet set = new AnimatorSet();
       List<Animator> animators = new ArrayList<>();
       animators.add(ObjectAnimator.ofFloat(view, "elevation", elevation).setDuration(0));
       if (Build.VERSION.SDK_INT >= 22 && Build.VERSION.SDK_INT <= 24) {
-        
-        
-        
-        
+        // This is a no-op animation which exists here only for introducing the duration
+        // because setting the delay (on the next animation) via "setDelay" or "after"
+        // can trigger a NPE between android versions 22 and 24 (due to a framework
+        // bug). The issue has been fixed in version 25.
         animators.add(
             ObjectAnimator.ofFloat(view, View.TRANSLATION_Z, view.getTranslationZ())
                 .setDuration(ELEVATION_ANIM_DELAY));
@@ -126,7 +140,7 @@ class FloatingActionButtonImplLollipop extends FloatingActionButtonImpl {
       set.setInterpolator(ELEVATION_ANIM_INTERPOLATOR);
       stateListAnimator.addState(ENABLED_STATE_SET, set);
 
-      
+      // Animate everything to 0 when disabled
       stateListAnimator.addState(EMPTY_STATE_SET, createElevationAnimator(0f, 0f));
 
       view.setStateListAnimator(stateListAnimator);
@@ -184,12 +198,12 @@ class FloatingActionButtonImplLollipop extends FloatingActionButtonImpl {
 
   @Override
   void jumpDrawableToCurrentState() {
-    
+    // no-op
   }
 
   @Override
   void updateFromViewRotation() {
-    
+    // no-op
   }
 
   @Override
@@ -230,7 +244,12 @@ class FloatingActionButtonImplLollipop extends FloatingActionButtonImpl {
     }
   }
 
-  
+  /**
+   * LayerDrawable on L+ caches its isStateful() state and doesn't refresh it, meaning that if we
+   * apply a tint to one of its children, the parent doesn't become stateful and the tint doesn't
+   * work for state changes. We workaround it by saying that we are always stateful. If we don't
+   * have a stateful tint, the change is ignored anyway.
+   */
   static class AlwaysStatefulMaterialShapeDrawable extends MaterialShapeDrawable {
 
     AlwaysStatefulMaterialShapeDrawable(ShapeAppearanceModel shapeAppearanceModel) {

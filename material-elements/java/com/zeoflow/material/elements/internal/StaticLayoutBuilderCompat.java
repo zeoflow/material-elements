@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 
 package com.zeoflow.material.elements.internal;
 
@@ -20,7 +34,21 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import java.lang.reflect.Constructor;
 
-
+/**
+ * Class to create StaticLayout using StaticLayout.Builder on API23+ and a hidden StaticLayout
+ * constructor before that.
+ *
+ * <p>Usage:
+ *
+ * <pre>{@code
+ * StaticLayout staticLayout =
+ *   StaticLayoutBuilderCompat.obtain("Lorem Ipsum", new TextPaint(), 100)
+ *     .setAlignment(Alignment.ALIGN_NORMAL)
+ *     .build();
+ * }</pre>
+ *
+ * @hide
+ */
 @RestrictTo(Scope.LIBRARY_GROUP)
 final class StaticLayoutBuilderCompat {
 
@@ -58,56 +86,98 @@ final class StaticLayoutBuilderCompat {
     this.ellipsize = null;
   }
 
-  
+  /**
+   * Obtain a builder for constructing StaticLayout objects.
+   *
+   * @param source The text to be laid out, optionally with spans
+   * @param paint The base paint used for layout
+   * @param width The width in pixels
+   * @return a builder object used for constructing the StaticLayout
+   */
   @NonNull
   public static StaticLayoutBuilderCompat obtain(
       @NonNull CharSequence source, @NonNull TextPaint paint, @IntRange(from = 0) int width) {
     return new StaticLayoutBuilderCompat(source, paint, width);
   }
 
-  
+  /**
+   * Set the alignment. The default is {@link Layout.Alignment#ALIGN_NORMAL}.
+   *
+   * @param alignment Alignment for the resulting {@link StaticLayout}
+   * @return this builder, useful for chaining
+   */
   @NonNull
   public StaticLayoutBuilderCompat setAlignment(@NonNull Alignment alignment) {
     this.alignment = alignment;
     return this;
   }
 
-  
+  /**
+   * Set whether to include extra space beyond font ascent and descent (which is needed to avoid
+   * clipping in some languages, such as Arabic and Kannada). The default is {@code true}.
+   *
+   * @param includePad whether to include padding
+   * @return this builder, useful for chaining
+   * @see android.widget.TextView#setIncludeFontPadding
+   */
   @NonNull
   public StaticLayoutBuilderCompat setIncludePad(boolean includePad) {
     this.includePad = includePad;
     return this;
   }
 
-  
+  /**
+   * Set the index of the start of the text
+   *
+   * @return this builder, useful for chaining
+   */
   @NonNull
   public StaticLayoutBuilderCompat setStart(@IntRange(from = 0) int start) {
     this.start = start;
     return this;
   }
 
-  
+  /**
+   * Set the index + 1 of the end of the text
+   *
+   * @return this builder, useful for chaining
+   * @see android.widget.TextView#setIncludeFontPadding
+   */
   @NonNull
   public StaticLayoutBuilderCompat setEnd(@IntRange(from = 0) int end) {
     this.end = end;
     return this;
   }
 
-  
+  /**
+   * Set maximum number of lines. This is particularly useful in the case of ellipsizing, where it
+   * changes the layout of the last line. The default is unlimited.
+   *
+   * @param maxLines maximum number of lines in the layout
+   * @return this builder, useful for chaining
+   * @see android.widget.TextView#setMaxLines
+   */
   @NonNull
   public StaticLayoutBuilderCompat setMaxLines(@IntRange(from = 0) int maxLines) {
     this.maxLines = maxLines;
     return this;
   }
 
-  
+  /**
+   * Set ellipsizing on the layout. Causes words that are longer than the view is wide, or exceeding
+   * the number of lines (see #setMaxLines).
+   *
+   * @param ellipsize type of ellipsis behavior
+   * @return this builder, useful for chaining
+   * @see android.widget.TextView#setEllipsize
+   */
   @NonNull
   public StaticLayoutBuilderCompat setEllipsize(@Nullable TextUtils.TruncateAt ellipsize) {
     this.ellipsize = ellipsize;
     return this;
   }
 
-  
+  /** A method that allows to create a StaticLayout with maxLines on all supported API levels. */
   public StaticLayout build() throws StaticLayoutBuilderCompatException {
     if (source == null) {
       source = "";
@@ -125,8 +195,8 @@ final class StaticLayoutBuilderCompat {
       if (isRtl) {
         alignment = Alignment.ALIGN_OPPOSITE;
       }
-      
-      
+      // Marshmallow introduced StaticLayout.Builder which allows us not to use
+      // the hidden constructor.
       StaticLayout.Builder builder =
           StaticLayout.Builder.obtain(
               textToDraw, start, end, paint, availableWidth);
@@ -144,7 +214,7 @@ final class StaticLayoutBuilderCompat {
     }
 
     createConstructorWithReflection();
-    
+    // Use the hidden constructor on older API levels.
     try {
       return checkNotNull(constructor)
           .newInstance(
@@ -166,7 +236,26 @@ final class StaticLayoutBuilderCompat {
     }
   }
 
-  
+  /**
+   * set constructor to this hidden {@link StaticLayout constructor.}
+   *
+   * <pre>{@code
+   * StaticLayout(
+   *   CharSequence source,
+   *   int bufstart,
+   *   int bufend,
+   *   TextPaint paint,
+   *   int outerwidth,
+   *   Alignment align,
+   *   TextDirectionHeuristic textDir,
+   *   float spacingmult,
+   *   float spacingadd,
+   *   boolean includepad,
+   *   TextUtils.TruncateAt ellipsize,
+   *   int ellipsizedWidth,
+   *   int maxLines)
+   * }</pre>
+   */
   private void createConstructorWithReflection() throws StaticLayoutBuilderCompatException {
     if (initialized) {
       return;

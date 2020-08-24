@@ -1,4 +1,18 @@
-
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.zeoflow.material.elements.datepicker;
 
 import com.google.android.material.R;
@@ -21,10 +35,20 @@ import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
-
+/**
+ * Loads and applies {@link R.styleable#MaterialCalendarDay} attributes to {@link TextView}
+ * instances.
+ */
 final class CalendarItemStyle {
 
-  
+  /**
+   * The inset between the TextView horizontal edge - bounding the touch target for an item - and
+   * the selection marker.
+   *
+   * <p>The selection marker's size is defined by the {@link
+   * R.styleable.MaterialCalendarItem#itemShapeAppearance} and {@link
+   * R.styleable.MaterialCalendarItem#itemShapeAppearanceOverlay}.
+   */
   @NonNull private final Rect insets;
 
   private final ColorStateList textColor;
@@ -53,7 +77,10 @@ final class CalendarItemStyle {
     this.itemShape = itemShape;
   }
 
-  
+  /**
+   * Creates a {@link CalendarItemStyle} using the provided {@link
+   * R.styleable#MaterialCalendarItem}.
+   */
   @NonNull
   static CalendarItemStyle create(
       @NonNull Context context, @StyleRes int materialCalendarItemStyle) {
@@ -104,7 +131,7 @@ final class CalendarItemStyle {
         backgroundColor, textColor, strokeColor, strokeWidth, itemShape, insets);
   }
 
-  
+  /** Applies the {@link R.styleable#MaterialCalendarDay} style to the provided {@code item} */
   void styleItem(@NonNull TextView item) {
     MaterialShapeDrawable backgroundDrawable = new MaterialShapeDrawable();
     MaterialShapeDrawable shapeMask = new MaterialShapeDrawable();

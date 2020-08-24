@@ -1,4 +1,18 @@
-
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zeoflow.material.elements.switchmaterial;
 
@@ -17,16 +31,24 @@ import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-
+/**
+ * A class that creates a Material Themed Switch.
+ *
+ * <p>This class uses attributes from the Material Theme to style a Switch. Excepting color changes,
+ * it behaves identically to {@link SwitchCompat}. Your theme's {@code ?attr/colorControlActivated},
+ * {@code ?attr/colorSurface}, and {@code ?attr/colorOnSurface} must be set. Because {@link
+ * SwitchCompat} does not extend {@link android.widget.Switch}, you must explicitly declare {@link
+ * SwitchMaterial} in your layout XML.
+ */
 public class SwitchMaterial extends SwitchCompat {
 
   private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_CompoundButton_Switch;
   private static final int[][] ENABLED_CHECKED_STATES =
       new int[][] {
-        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, 
-        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, 
-        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, 
-        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} 
+        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]
+        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, // [1]
+        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, // [2]
+        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} // [3]
       };
 
   @NonNull private final ElevationOverlayProvider elevationOverlayProvider;
@@ -45,7 +67,7 @@ public class SwitchMaterial extends SwitchCompat {
 
   public SwitchMaterial(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
-    
+    // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
     elevationOverlayProvider = new ElevationOverlayProvider(context);
@@ -72,7 +94,12 @@ public class SwitchMaterial extends SwitchCompat {
     }
   }
 
-  
+  /**
+   * Forces the {@link SwitchMaterial} to use colors from a Material Theme. Overrides any specified
+   * tint list for the track and thumb. If set to false, sets the tints to null. Use {@link
+   * SwitchCompat#setTrackTintList(ColorStateList)} and {@link
+   * SwitchCompat#setThumbTintList(ColorStateList)} to change tints.
+   */
   public void setUseMaterialThemeColors(boolean useMaterialThemeColors) {
     this.useMaterialThemeColors = useMaterialThemeColors;
     if (useMaterialThemeColors) {
@@ -84,7 +111,7 @@ public class SwitchMaterial extends SwitchCompat {
     }
   }
 
-  
+  /** Returns true if this {@link SwitchMaterial} defaults to colors from a Material Theme. */
   public boolean isUseMaterialThemeColors() {
     return useMaterialThemeColors;
   }
