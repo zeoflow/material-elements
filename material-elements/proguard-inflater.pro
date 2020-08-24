@@ -17,6 +17,6 @@
 # constructor. We only need to keep this constructor and the class name if
 # AppCompatViewInflater is also being kept.
 -if class androidx.appcompat.app.AppCompatViewInflater
--keep class com.zeoflow.material.theme.MaterialComponentsViewInflater {
+-keep class com.zeoflow.material.elements.theme.MaterialComponentsViewInflater {
     <init>();
 }
