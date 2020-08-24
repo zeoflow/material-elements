@@ -17,27 +17,27 @@
 <resources>
 
   <!-- Popup Menus -->
-  <style name="Base.Widget.MaterialElements.PopupMenu.Overflow" parent="Widget.AppCompat.PopupMenu.Overflow">
+  <style name="Base.MaterialElements.PopupMenu.Overflow" parent="Widget.AppCompat.PopupMenu.Overflow">
     <item name="android:dropDownVerticalOffset">1px</item>
   </style>
 
-  <style name="Widget.MaterialElements.PopupMenu.Overflow" parent="Base.Widget.MaterialElements.PopupMenu.Overflow" />
+  <style name="MaterialElements.PopupMenu.Overflow" parent="Base.MaterialElements.PopupMenu.Overflow" />
 
-  <style name="Base.Widget.MaterialElements.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+  <style name="Base.MaterialElements.PopupMenu" parent="Widget.AppCompat.PopupMenu">
     <item name="overlapAnchor">false</item>
     <item name="android:dropDownVerticalOffset">1px</item>
   </style>
 
-  <style name="Widget.MaterialElements.PopupMenu" parent="Base.Widget.MaterialElements.PopupMenu" />
+  <style name="MaterialElements.PopupMenu" parent="Base.MaterialElements.PopupMenu" />
 
   <!-- List Popup Window Menus -->
-  <style name="Base.Widget.MaterialElements.PopupMenu.ListPopupWindow" parent="Widget.AppCompat.ListPopupWindow" />
+  <style name="Base.MaterialElements.PopupMenu.ListPopupWindow" parent="Widget.AppCompat.ListPopupWindow" />
 
-  <style name="Widget.MaterialElements.PopupMenu.ListPopupWindow" parent="Base.Widget.MaterialElements.PopupMenu.ListPopupWindow" />
+  <style name="MaterialElements.PopupMenu.ListPopupWindow" parent="Base.MaterialElements.PopupMenu.ListPopupWindow" />
 
   <!-- Context Menus -->
-  <style name="Base.Widget.MaterialElements.PopupMenu.ContextMenu" parent="Widget.AppCompat.PopupMenu" />
+  <style name="Base.MaterialElements.PopupMenu.ContextMenu" parent="Widget.AppCompat.PopupMenu" />
 
-  <style name="Widget.MaterialElements.PopupMenu.ContextMenu" parent="Base.Widget.MaterialElements.PopupMenu.ContextMenu" />
+  <style name="MaterialElements.PopupMenu.ContextMenu" parent="Base.MaterialElements.PopupMenu.ContextMenu" />
 
 </resources>

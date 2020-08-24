@@ -15,6 +15,6 @@
   -->
 <resources>
 
-  <style name="Widget.MaterialElements.BottomAppBar.PrimarySurface" parent="Widget.MaterialElements.BottomAppBar" />
+  <style name="MaterialElements.BottomAppBar.PrimarySurface" parent="MaterialElements.BottomAppBar" />
 
 </resources>

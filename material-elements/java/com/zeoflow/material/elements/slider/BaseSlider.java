@@ -101,7 +101,7 @@ import static java.lang.Math.abs;
  * displays the selected value using letters to indicate magnitude (e.g.: 1.5K, 3M, 12B, etc..).
  *
  * <p>With the default style {@link
- * com.zeoflow.material.elements.R.style#Widget_MaterialElements_Slider}, colorPrimary and
+ * com.zeoflow.material.elements.R.style#MaterialElements_Slider}, colorPrimary and
  * colorOnPrimary are used to customize the color of the slider when enabled, and colorOnSurface is
  * used when disabled. The following attributes are used to customize the slider's appearance
  * further:
@@ -195,7 +195,7 @@ abstract class BaseSlider<
   private static final int HALO_ALPHA = 63;
   private static final double THRESHOLD = .0001;
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_Slider;
+  private static final int DEF_STYLE_RES = R.style.MaterialElements_Slider;
 
   @NonNull
   private final Paint inactiveTrackPaint;
@@ -348,7 +348,7 @@ abstract class BaseSlider<
         context,
         null,
         0,
-        a.getResourceId(R.styleable.Slider_labelStyle, R.style.Widget_MaterialElements_Tooltip));
+        a.getResourceId(R.styleable.Slider_labelStyle, R.style.MaterialElements_Tooltip));
   }
 
   /**
@@ -365,7 +365,7 @@ abstract class BaseSlider<
 
   private void loadResources(@NonNull Resources resources)
   {
-    widgetHeight = resources.getDimensionPixelSize(R.dimen.mtrl_slider_widget_height);
+    widgetHeight = resources.getDimensionPixelSize(R.dimen.mtrl_slider_height);
 
     trackSidePadding = resources.getDimensionPixelOffset(R.dimen.mtrl_slider_track_side_padding);
     trackTop = resources.getDimensionPixelOffset(R.dimen.mtrl_slider_track_top);

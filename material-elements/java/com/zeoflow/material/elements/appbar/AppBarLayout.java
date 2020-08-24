@@ -137,7 +137,7 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   static final int PENDING_ACTION_COLLAPSED = 1 << 1;
   static final int PENDING_ACTION_ANIMATE_ENABLED = 1 << 2;
   static final int PENDING_ACTION_FORCE = 1 << 3;
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_AppBarLayout;
+  private static final int DEF_STYLE_RES = R.style.Design_AppBarLayout;
   private static final int INVALID_SCROLL_RANGE = -1;
   private int currentOffset;
   private int totalScrollRange = INVALID_SCROLL_RANGE;

@@ -17,6 +17,6 @@
   <public name="cardForegroundColor" type="attr" />
   <public name="materialCardViewStyle" type="attr" />
   <public name="state_dragged" type="attr" />
-  <public name="Widget.MaterialElements.CardView" type="style" />
+  <public name="MaterialElements.CardView" type="style" />
 </resources>
 

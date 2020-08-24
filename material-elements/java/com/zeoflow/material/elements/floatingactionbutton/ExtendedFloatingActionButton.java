@@ -118,7 +118,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
         }
       };
   private static final int DEF_STYLE_RES =
-      R.style.Widget_MaterialElements_ExtendedFloatingActionButton_Icon;
+      R.style.MaterialElements_ExtendedFloatingActionButton_Icon;
   private static final int ANIM_STATE_NONE = 0;
   private static final int ANIM_STATE_HIDING = 1;
   private static final int ANIM_STATE_SHOWING = 2;

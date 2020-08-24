@@ -16,7 +16,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
   <!-- AppBarLayout styles -->
-  <style name="Widget.Design.AppBarLayout" parent="android:Widget">
+  <style name="Design.AppBarLayout" parent="android:Widget">
     <item name="android:background">?attr/colorPrimary</item>
     <item name="android:stateListAnimator" tools:ignore="NewApi">
       @animator/design_appbar_state_list_animator
@@ -25,16 +25,16 @@
     <item name="android:touchscreenBlocksFocus" tools:ignore="NewApi">true</item>
   </style>
 
-  <style name="Widget.MaterialElements.AppBarLayout.Primary" parent="Widget.Design.AppBarLayout" />
+  <style name="MaterialElements.AppBarLayout.Primary" parent="Design.AppBarLayout" />
 
-  <style name="Widget.MaterialElements.AppBarLayout.Surface" parent="Widget.Design.AppBarLayout">
+  <style name="MaterialElements.AppBarLayout.Surface" parent="Design.AppBarLayout">
     <item name="android:background">?attr/colorSurface</item>
   </style>
 
-  <style name="Widget.MaterialElements.AppBarLayout.PrimarySurface" parent="Widget.MaterialElements.AppBarLayout.Primary" />
+  <style name="MaterialElements.AppBarLayout.PrimarySurface" parent="MaterialElements.AppBarLayout.Primary" />
 
   <!-- CollapsingToolbarLayout styles -->
-  <style name="Widget.Design.CollapsingToolbar" parent="android:Widget">
+  <style name="Design.CollapsingToolbar" parent="android:Widget">
     <item name="expandedTitleMargin">32dp</item>
     <item name="statusBarScrim">?attr/colorPrimaryDark</item>
   </style>
@@ -44,7 +44,7 @@
   </style>
 
   <!-- Toolbar styles -->
-  <style name="Widget.MaterialElements.Toolbar" parent="Widget.AppCompat.Toolbar">
+  <style name="MaterialElements.Toolbar" parent="Widget.AppCompat.Toolbar">
     <item name="titleTextAppearance">?attr/textAppearanceHeadline6</item>
     <item name="titleTextColor">?android:attr/textColorPrimary</item>
     <item name="subtitleTextAppearance">?attr/textAppearanceSubtitle1</item>
@@ -54,7 +54,7 @@
     <item name="maxButtonHeight">@dimen/mtrl_toolbar_default_height</item>
   </style>
 
-  <style name="Widget.MaterialElements.Toolbar.Primary">
+  <style name="MaterialElements.Toolbar.Primary">
     <item name="android:elevation" tools:ignore="NewApi">@dimen/design_appbar_elevation</item>
     <item name="android:background">?attr/colorPrimary</item>
     <item name="titleTextColor">?attr/colorOnPrimary</item>
@@ -63,7 +63,7 @@
     <item name="android:theme">@style/ThemeOverlay.MaterialElements.Toolbar.Primary</item>
   </style>
 
-  <style name="Widget.MaterialElements.Toolbar.Surface">
+  <style name="MaterialElements.Toolbar.Surface">
     <item name="android:background">?attr/colorSurface</item>
     <item name="titleTextColor">@color/material_on_surface_emphasis_high_type</item>
     <item name="subtitleTextColor">@color/material_on_surface_emphasis_medium</item>
@@ -71,7 +71,7 @@
     <item name="android:theme">@style/ThemeOverlay.MaterialElements.Toolbar.Surface</item>
   </style>
 
-  <style name="Widget.MaterialElements.Toolbar.PrimarySurface" parent="Widget.MaterialElements.Toolbar.Primary" />
+  <style name="MaterialElements.Toolbar.PrimarySurface" parent="MaterialElements.Toolbar.Primary" />
 
   <style name="ThemeOverlay.MaterialElements.Toolbar.Primary" parent="">
     <item name="colorControlNormal">?attr/colorOnPrimary</item>
@@ -84,7 +84,7 @@
   </style>
 
   <!-- ActionBar styles -->
-  <style name="Widget.MaterialElements.ActionBar.Solid" parent="Widget.AppCompat.ActionBar.Solid">
+  <style name="MaterialElements.ActionBar.Solid" parent="Widget.AppCompat.ActionBar.Solid">
     <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
     <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
     <!-- Overrides minimum height in landscape to avoid headline6 and subtitle1 height concerns. -->
@@ -92,7 +92,7 @@
     <item name="maxButtonHeight">@dimen/mtrl_toolbar_default_height</item>
   </style>
 
-  <style name="Widget.MaterialElements.Light.ActionBar.Solid" parent="Widget.AppCompat.Light.ActionBar.Solid">
+  <style name="MaterialElements.Light.ActionBar.Solid" parent="Widget.AppCompat.Light.ActionBar.Solid">
     <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
     <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
     <!-- Overrides minimum height in landscape to avoid headline6 and subtitle1 height concerns. -->
@@ -100,17 +100,17 @@
     <item name="maxButtonHeight">@dimen/mtrl_toolbar_default_height</item>
   </style>
 
-  <style name="Widget.MaterialElements.ActionBar.Primary" parent="Widget.AppCompat.ActionBar.Solid">
+  <style name="MaterialElements.ActionBar.Primary" parent="Widget.AppCompat.ActionBar.Solid">
     <item name="background">?attr/colorPrimary</item>
     <item name="elevation">@dimen/design_appbar_elevation</item>
   </style>
 
-  <style name="Widget.MaterialElements.ActionBar.Surface" parent="Widget.AppCompat.Light.ActionBar.Solid">
+  <style name="MaterialElements.ActionBar.Surface" parent="Widget.AppCompat.Light.ActionBar.Solid">
     <item name="background">?attr/colorSurface</item>
     <item name="elevation">0dp</item>
   </style>
 
-  <style name="Widget.MaterialElements.ActionBar.PrimarySurface" parent="Widget.MaterialElements.ActionBar.Primary" />
+  <style name="MaterialElements.ActionBar.PrimarySurface" parent="MaterialElements.ActionBar.Primary" />
 
   <style name="ThemeOverlay.MaterialElements.ActionBar.Primary" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">?attr/colorOnPrimary</item>

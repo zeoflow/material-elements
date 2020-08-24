@@ -20,7 +20,7 @@
     <item name="android:windowAnimationStyle">
       @style/Animation.MaterialElements.BottomSheetDialog
     </item>
-    <item name="bottomSheetStyle">@style/Widget.MaterialElements.BottomSheet.Modal</item>
+    <item name="bottomSheetStyle">@style/MaterialElements.BottomSheet.Modal</item>
   </style>
 
   <style name="Theme.MaterialElements.Light.BottomSheetDialog" parent="Theme.MaterialElements.Light.Dialog">
@@ -28,21 +28,21 @@
     <item name="android:windowAnimationStyle">
       @style/Animation.MaterialElements.BottomSheetDialog
     </item>
-    <item name="bottomSheetStyle">@style/Widget.MaterialElements.BottomSheet.Modal</item>
+    <item name="bottomSheetStyle">@style/MaterialElements.BottomSheet.Modal</item>
   </style>
 
   <!-- Deprecated. Use Theme.MaterialElements.BottomSheetDialog instead. -->
   <style name="Theme.Design.BottomSheetDialog" parent="Theme.AppCompat.Dialog">
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
-    <item name="bottomSheetStyle">@style/Widget.Design.BottomSheet.Modal</item>
+    <item name="bottomSheetStyle">@style/Design.BottomSheet.Modal</item>
   </style>
 
   <!-- Deprecated. Use Theme.MaterialElements.BottomSheetDialog instead. -->
   <style name="Theme.Design.Light.BottomSheetDialog" parent="Theme.AppCompat.Light.Dialog">
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
-    <item name="bottomSheetStyle">@style/Widget.Design.BottomSheet.Modal</item>
+    <item name="bottomSheetStyle">@style/Design.BottomSheet.Modal</item>
   </style>
 
   <style name="ThemeOverlay.MaterialElements.BottomSheetDialog" parent="ThemeOverlay.MaterialElements.Dialog">
@@ -51,8 +51,8 @@
     <item name="android:windowAnimationStyle">
       @style/Animation.MaterialElements.BottomSheetDialog
     </item>
-    <item name="bottomSheetStyle">@style/Widget.MaterialElements.BottomSheet.Modal</item>
-    <item name="materialButtonStyle">@style/Widget.MaterialElements.Button</item>
+    <item name="bottomSheetStyle">@style/MaterialElements.BottomSheet.Modal</item>
+    <item name="materialButtonStyle">@style/MaterialElements.Button</item>
   </style>
 
   <style name="ThemeOverlay.MaterialElements.Light.BottomSheetDialog" parent="ThemeOverlay.MaterialElements.Dialog">
@@ -61,7 +61,7 @@
     <item name="android:windowAnimationStyle">
       @style/Animation.MaterialElements.BottomSheetDialog
     </item>
-    <item name="bottomSheetStyle">@style/Widget.MaterialElements.BottomSheet.Modal</item>
-    <item name="materialButtonStyle">@style/Widget.MaterialElements.Button</item>
+    <item name="bottomSheetStyle">@style/MaterialElements.BottomSheet.Modal</item>
+    <item name="materialButtonStyle">@style/MaterialElements.Button</item>
   </style>
 </resources>

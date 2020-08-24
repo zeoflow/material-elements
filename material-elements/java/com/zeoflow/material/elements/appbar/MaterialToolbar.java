@@ -44,7 +44,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * assumption that the child {@code Toolbar} does not have a background. While a {@code
  * MaterialToolbar} with a transparent background can be used within an {@link AppBarLayout}, in
  * terms of elevation overlays its main value comes into play with the standalone {@code Toolbar}
- * case, when using the {@code Widget.MaterialElements.Toolbar.Surface} style with elevation.
+ * case, when using the {@code MaterialElements.Toolbar.Surface} style with elevation.
  *
  * <p>To get started with the {@code MaterialToolbar} component, use {@code
  * com.zeoflow.material.elements.appbar.MaterialToolbar} in your layout XML instead of {@code
@@ -59,7 +59,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 public class MaterialToolbar extends Toolbar
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_Toolbar;
+  private static final int DEF_STYLE_RES = R.style.MaterialElements_Toolbar;
 
   public MaterialToolbar(@NonNull Context context)
   {

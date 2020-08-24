@@ -15,7 +15,7 @@
   -->
 <resources>
 
-  <style name="Widget.MaterialElements.CompoundButton.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+  <style name="MaterialElements.CompoundButton.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
     <item name="enforceMaterialTheme">true</item>
     <item name="useMaterialThemeColors">true</item>
     <item name="android:minWidth">?attr/minTouchTargetSize</item>

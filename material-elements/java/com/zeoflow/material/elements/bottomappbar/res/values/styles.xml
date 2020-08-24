@@ -15,7 +15,7 @@
   -->
 <resources>
 
-  <style name="Widget.MaterialElements.BottomAppBar" parent="Widget.AppCompat.Toolbar">
+  <style name="MaterialElements.BottomAppBar" parent="Widget.AppCompat.Toolbar">
     <item name="enforceMaterialTheme">true</item>
     <item name="backgroundTint">?attr/colorSurface</item>
     <item name="fabCradleMargin">@dimen/mtrl_bottomappbar_fab_cradle_margin</item>
@@ -31,13 +31,13 @@
     <item name="paddingRightSystemWindowInsets">true</item>
   </style>
 
-  <style name="Widget.MaterialElements.BottomAppBar.Colored" parent="Widget.MaterialElements.BottomAppBar">
+  <style name="MaterialElements.BottomAppBar.Colored" parent="MaterialElements.BottomAppBar">
     <item name="backgroundTint">?attr/colorPrimary</item>
     <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialElements.BottomAppBar.Primary
     </item>
   </style>
 
-  <style name="Widget.MaterialElements.BottomAppBar.PrimarySurface" parent="Widget.MaterialElements.BottomAppBar.Colored" />
+  <style name="MaterialElements.BottomAppBar.PrimarySurface" parent="MaterialElements.BottomAppBar.Colored" />
 
   <style name="ThemeOverlay.MaterialElements.BottomAppBar.Surface" parent="">
     <item name="colorControlNormal">@color/material_on_surface_emphasis_medium</item>

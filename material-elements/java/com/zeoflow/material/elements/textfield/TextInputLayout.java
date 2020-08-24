@@ -133,7 +133,7 @@ import static com.zeoflow.material.elements.textfield.IndicatorViewController.CO
  *   <li>Showing a button that when clicked displays a dropdown menu. The selected option is
  *       displayed above the dropdown. You need to use an {@link AutoCompleteTextView} instead of a
  *       {@link TextInputEditText} as the input text child, and a
- *       Widget.MaterialElements.TextInputLayout.(...).ExposedDropdownMenu style.
+ *       MaterialElements.TextInputLayout.(...).ExposedDropdownMenu style.
  *       <p>To disable user input you should set
  *       <pre>android:editable=&quot;false&quot;</pre>
  *       on the {@link AutoCompleteTextView}.
@@ -220,13 +220,13 @@ public class TextInputLayout extends LinearLayout
   /**
    * The TextInputLayout will show a dropdown button if the EditText is an {@link
    * AutoCompleteTextView} and a {@code
-   * Widget.MaterialElements.TextInputLayout.(...).ExposedDropdownMenu} style is being used.
+   * MaterialElements.TextInputLayout.(...).ExposedDropdownMenu} style is being used.
    *
    * <p>Clicking the button will display a popup with a list of options. The current selected option
    * is displayed on the EditText.
    */
   public static final int END_ICON_DROPDOWN_MENU = 3;
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_TextInputLayout;
+  private static final int DEF_STYLE_RES = R.style.Design_TextInputLayout;
   /**
    * Duration for the label's scale up and down animations.
    */

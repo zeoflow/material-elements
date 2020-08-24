@@ -114,7 +114,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 public class BottomNavigationView extends FrameLayout
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_BottomNavigationView;
+  private static final int DEF_STYLE_RES = R.style.Design_BottomNavigationView;
   private static final int MENU_PRESENTER_ID = 1;
   @NonNull
   @VisibleForTesting
@@ -169,7 +169,7 @@ public class BottomNavigationView extends FrameLayout
             attrs,
             R.styleable.BottomNavigationView,
             defStyleAttr,
-            R.style.Widget_Design_BottomNavigationView,
+            R.style.Design_BottomNavigationView,
             R.styleable.BottomNavigationView_itemTextAppearanceInactive,
             R.styleable.BottomNavigationView_itemTextAppearanceActive);
 

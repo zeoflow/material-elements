@@ -15,7 +15,7 @@
   -->
 <resources>
 
-  <style name="Widget.MaterialElements.Tooltip" parent="android:Widget">
+  <style name="MaterialElements.Tooltip" parent="android:Widget">
     <item name="android:layout_margin">8dp</item>
     <item name="android:minWidth">@dimen/mtrl_tooltip_minWidth</item>
     <item name="android:minHeight">@dimen/mtrl_tooltip_minHeight</item>

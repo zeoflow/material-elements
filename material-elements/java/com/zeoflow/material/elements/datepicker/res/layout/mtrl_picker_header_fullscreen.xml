@@ -34,7 +34,7 @@
 
     <com.zeoflow.material.elements.button.MaterialButton
       android:id="@+id/cancel_button"
-      style="@style/Widget.MaterialElements.Button.TextButton"
+      style="@style/MaterialElements.Button.TextButton"
       android:layout_width="@dimen/mtrl_min_touch_target_size"
       android:layout_height="@dimen/mtrl_min_touch_target_size"
       android:layout_gravity="top"

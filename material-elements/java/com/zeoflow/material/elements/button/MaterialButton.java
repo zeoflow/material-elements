@@ -143,7 +143,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   private static final int[] CHECKABLE_STATE_SET = {android.R.attr.state_checkable};
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
   private static final String LOG_TAG = "MaterialButton";
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_Button;
+  private static final int DEF_STYLE_RES = R.style.MaterialElements_Button;
   @NonNull
   private final MaterialButtonHelper materialButtonHelper;
   @NonNull

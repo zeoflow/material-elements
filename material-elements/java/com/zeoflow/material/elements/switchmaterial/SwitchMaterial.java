@@ -44,7 +44,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 public class SwitchMaterial extends SwitchCompat
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_CompoundButton_Switch;
+  private static final int DEF_STYLE_RES = R.style.MaterialElements_CompoundButton_Switch;
   private static final int[][] ENABLED_CHECKED_STATES =
       new int[][]{
           new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]

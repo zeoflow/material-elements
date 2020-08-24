@@ -39,8 +39,8 @@
   <public name="tabStyle" type="attr" />
   <public name="tabTextAppearance" type="attr" />
   <public name="tabTextColor" type="attr" />
-  <public name="Widget.Design.TabLayout" type="style" />
-  <public name="Widget.MaterialElements.TabLayout" type="style" />
-  <public name="Widget.MaterialElements.TabLayout.Colored" type="style" />
-  <public name="Widget.MaterialElements.TabLayout.PrimarySurface" type="style" />
+  <public name="Design.TabLayout" type="style" />
+  <public name="MaterialElements.TabLayout" type="style" />
+  <public name="MaterialElements.TabLayout.Colored" type="style" />
+  <public name="MaterialElements.TabLayout.PrimarySurface" type="style" />
 </resources>

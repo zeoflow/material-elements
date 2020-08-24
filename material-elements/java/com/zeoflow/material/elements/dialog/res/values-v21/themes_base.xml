@@ -19,13 +19,13 @@
 
   <style name="Base.ThemeOverlay.MaterialElements.Dialog.Alert.Framework" parent="@android:style/Theme.Material.Dialog.Alert">
     <item name="android:buttonBarButtonStyle">
-      @style/Widget.MaterialElements.Button.TextButton.Dialog.Flush
+      @style/MaterialElements.Button.TextButton.Dialog.Flush
     </item>
   </style>
 
   <style name="Base.ThemeOverlay.MaterialElements.Light.Dialog.Alert.Framework" parent="@android:style/Theme.Material.Light.Dialog.Alert">
     <item name="android:buttonBarButtonStyle">
-      @style/Widget.MaterialElements.Button.TextButton.Dialog.Flush
+      @style/MaterialElements.Button.TextButton.Dialog.Flush
     </item>
   </style>
 

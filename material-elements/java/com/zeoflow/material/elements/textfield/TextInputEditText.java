@@ -71,7 +71,7 @@ public class TextInputEditText extends AppCompatEditText
             attrs,
             R.styleable.TextInputEditText,
             defStyleAttr,
-            R.style.Widget_Design_TextInputEditText);
+            R.style.Design_TextInputEditText);
 
     setTextInputLayoutFocusedRectEnabled(
         attributes.getBoolean(R.styleable.TextInputEditText_textInputLayoutFocusedRectEnabled, false));

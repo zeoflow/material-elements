@@ -15,13 +15,13 @@
   -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="Widget.MaterialElements.ChipGroup" parent="android:Widget">
+  <style name="MaterialElements.ChipGroup" parent="android:Widget">
     <item name="chipSpacingHorizontal">8dp</item>
     <item name="singleLine">false</item>
     <item name="singleSelection">false</item>
   </style>
 
-  <style name="Base.Widget.MaterialElements.Chip" parent="android:Widget">
+  <style name="Base.MaterialElements.Chip" parent="android:Widget">
     <item name="android:focusable">true</item>
     <item name="android:clickable">true</item>
     <item name="android:checkable">false</item>
@@ -82,7 +82,7 @@
        closeIconEnabled - optional
        checkable - optional
        checkedIconEnabled - optional -->
-  <style name="Widget.MaterialElements.Chip.Entry" parent="Base.Widget.MaterialElements.Chip">
+  <style name="MaterialElements.Chip.Entry" parent="Base.MaterialElements.Chip">
     <item name="android:checkable">true</item>
   </style>
 
@@ -94,7 +94,7 @@
        closeIconEnabled - optional
        checkable - always
        checkedIconEnabled - optional -->
-  <style name="Widget.MaterialElements.Chip.Filter" parent="Base.Widget.MaterialElements.Chip">
+  <style name="MaterialElements.Chip.Filter" parent="Base.MaterialElements.Chip">
     <item name="android:checkable">true</item>
 
     <item name="chipIconVisible">false</item>
@@ -111,7 +111,7 @@
        closeIconEnabled - never
        checkable - always
        checkedIconEnabled - optional -->
-  <style name="Widget.MaterialElements.Chip.Choice" parent="Base.Widget.MaterialElements.Chip">
+  <style name="MaterialElements.Chip.Choice" parent="Base.MaterialElements.Chip">
     <item name="android:checkable">true</item>
 
     <item name="chipIconVisible">false</item>
@@ -135,7 +135,7 @@
        closeIconEnabled - never
        checkable - never
        checkedIconEnabled - never -->
-  <style name="Widget.MaterialElements.Chip.Action" parent="Base.Widget.MaterialElements.Chip">
+  <style name="MaterialElements.Chip.Action" parent="Base.MaterialElements.Chip">
     <item name="closeIconVisible">false</item>
   </style>
 

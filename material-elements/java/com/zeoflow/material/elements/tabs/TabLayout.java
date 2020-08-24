@@ -294,7 +294,7 @@ public class TabLayout extends HorizontalScrollView
   static final int DEFAULT_GAP_TEXT_ICON = 8;
   @Dimension(unit = Dimension.DP)
   static final int FIXED_WRAP_GUTTER_MIN = 16;
-  private static final int DEF_STYLE_RES = R.style.Widget_Design_TabLayout;
+  private static final int DEF_STYLE_RES = R.style.Design_TabLayout;
   @Dimension(unit = Dimension.DP)
   private static final int DEFAULT_HEIGHT_WITH_TEXT_ICON = 72;
   @Dimension(unit = Dimension.DP)

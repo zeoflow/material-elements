@@ -16,9 +16,9 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="Base.Widget.MaterialElements.CheckedTextView" parent="android:Widget" />
+  <style name="Base.MaterialElements.CheckedTextView" parent="android:Widget" />
 
-  <style name="Widget.MaterialElements.CheckedTextView" parent="Base.Widget.MaterialElements.CheckedTextView">
+  <style name="MaterialElements.CheckedTextView" parent="Base.MaterialElements.CheckedTextView">
     <item name="android:textAppearance">?attr/textAppearanceBody1</item>
     <item name="android:textColor">@color/material_on_surface_emphasis_medium</item>
   </style>

@@ -149,7 +149,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   private static final int MAX_CIRCULAR_BADGE_NUMBER_COUNT = 9;
 
   @StyleRes
-  private static final int DEFAULT_STYLE = R.style.Widget_MaterialElements_Badge;
+  private static final int DEFAULT_STYLE = R.style.MaterialElements_Badge;
   @AttrRes
   private static final int DEFAULT_THEME_ATTR = R.attr.badgeStyle;
   @NonNull
@@ -223,7 +223,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * <pre>{@code
    * <badge
    *     xmlns:app="http://schemas.android.com/apk/res-auto"
-   *     style="@style/Widget.MaterialElements.Badge"
+   *     style="@style/MaterialElements.Badge"
    *     app:maxCharacterCount="2"/>
    * }</pre>
    */

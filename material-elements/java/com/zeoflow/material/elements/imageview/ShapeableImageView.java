@@ -58,7 +58,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 public class ShapeableImageView extends AppCompatImageView implements Shapeable
 {
 
-  private static final int DEF_STYLE_RES = R.style.Widget_MaterialElements_ShapeableImageView;
+  private static final int DEF_STYLE_RES = R.style.MaterialElements_ShapeableImageView;
 
   private final ShapeAppearancePathProvider pathProvider = new ShapeAppearancePathProvider();
   private final RectF destination;

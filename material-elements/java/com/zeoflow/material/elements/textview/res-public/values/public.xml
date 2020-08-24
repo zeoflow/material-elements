@@ -16,5 +16,5 @@
 
 <!-- Definitions of attributes to be exposed as public -->
 <resources>
-  <public name="Widget.MaterialElements.TextView" type="style" />
+  <public name="MaterialElements.TextView" type="style" />
 </resources>

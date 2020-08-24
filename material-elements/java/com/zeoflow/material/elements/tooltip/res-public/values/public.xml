@@ -18,5 +18,5 @@
   <public name="backgroundTint" type="color" />
   <public name="ShapeAppearance.MaterialElements.Tooltip" type="style" />
   <public name="TextAppearance.MaterialElements.Tooltip" type="style" />
-  <public name="Widget.MaterialElements.Tooltip" type="style" />
+  <public name="MaterialElements.Tooltip" type="style" />
 </resources>
