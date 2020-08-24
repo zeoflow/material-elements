@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2017 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +15,6 @@
   -->
 
 <resources>
-  <item type="id" name="snackbar_action"/>
-  <item type="id" name="snackbar_text"/>
+  <item name="snackbar_action" type="id" />
+  <item name="snackbar_text" type="id" />
 </resources>

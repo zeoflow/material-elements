@@ -25,22 +25,26 @@ package com.zeoflow.material.elements.transition.platform;
  * incoming content and a simple fade of outgoing content.
  */
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-public final class MaterialFade extends MaterialVisibility<FadeProvider> {
+public final class MaterialFade extends MaterialVisibility<FadeProvider>
+{
 
   private static final float DEFAULT_START_SCALE = 0.8f;
   private static final float DEFAULT_FADE_END_THRESHOLD_ENTER = 0.3f;
 
-  public MaterialFade() {
+  public MaterialFade()
+  {
     super(createPrimaryAnimatorProvider(), createSecondaryAnimatorProvider());
   }
 
-  private static FadeProvider createPrimaryAnimatorProvider() {
+  private static FadeProvider createPrimaryAnimatorProvider()
+  {
     FadeProvider fadeProvider = new FadeProvider();
     fadeProvider.setIncomingEndThreshold(DEFAULT_FADE_END_THRESHOLD_ENTER);
     return fadeProvider;
   }
 
-  private static VisibilityAnimatorProvider createSecondaryAnimatorProvider() {
+  private static VisibilityAnimatorProvider createSecondaryAnimatorProvider()
+  {
     ScaleProvider scaleProvider = new ScaleProvider();
     scaleProvider.setScaleOnDisappear(false);
     scaleProvider.setIncomingStartScale(DEFAULT_START_SCALE);

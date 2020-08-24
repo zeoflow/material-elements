@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,27 +17,27 @@
 <resources>
 
   <!-- Style to use for Badges in this theme. -->
-  <attr name="badgeStyle" format="reference"/>
+  <attr name="badgeStyle" format="reference" />
 
   <declare-styleable name="Badge">
-    <attr name="backgroundColor" format="color"/>
-    <attr name="badgeTextColor" format="color"/>
-    <attr name="maxCharacterCount" format="integer"/>
-    <attr name="number" format="integer"/>
+    <attr name="backgroundColor" format="color" />
+    <attr name="badgeTextColor" format="color" />
+    <attr name="maxCharacterCount" format="integer" />
+    <attr name="number" format="integer" />
     <attr name="badgeGravity">
       <!-- Gravity.TOP | Gravity.END -->
-      <enum name="TOP_END" value ="8388661"/>
+      <enum name="TOP_END" value="8388661" />
       <!-- Gravity.TOP | Gravity.START -->
-      <enum name="TOP_START" value ="8388659"/>
+      <enum name="TOP_START" value="8388659" />
       <!-- Gravity.BOTTOM | Gravity.END -->
-      <enum name="BOTTOM_END" value ="8388693"/>
+      <enum name="BOTTOM_END" value="8388693" />
       <!-- Gravity.BOTTOM | Gravity.START -->
-      <enum name="BOTTOM_START" value ="8388691"/>
+      <enum name="BOTTOM_START" value="8388691" />
     </attr>
 
     <!-- Offset moves the badge towards the center of its anchor. -->
-    <attr name="horizontalOffset" format="dimension"/>
-    <attr name="verticalOffset" format="dimension"/>
+    <attr name="horizontalOffset" format="dimension" />
+    <attr name="verticalOffset" format="dimension" />
   </declare-styleable>
 
 </resources>

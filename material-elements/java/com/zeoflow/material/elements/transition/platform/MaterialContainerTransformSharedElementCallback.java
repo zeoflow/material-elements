@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.transition.platform;
 
-import com.google.android.material.R;
-
 import android.app.Activity;
 import android.app.SharedElementCallback;
 import android.content.Context;
@@ -27,18 +25,22 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcelable;
+import android.transition.Transition;
+import android.view.View;
+import android.view.View.MeasureSpec;
+import android.view.Window;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
-import android.transition.Transition;
-import android.view.View;
-import android.view.View.MeasureSpec;
-import android.view.Window;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.internal.ContextUtils;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.Shapeable;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
@@ -47,34 +49,58 @@ import java.util.Map;
  * A {@link SharedElementCallback} to be used for {@link MaterialContainerTransform} transitions.
  */
 @RequiresApi(VERSION_CODES.LOLLIPOP)
-public class MaterialContainerTransformSharedElementCallback extends SharedElementCallback {
+public class MaterialContainerTransformSharedElementCallback extends SharedElementCallback
+{
 
-  @Nullable private static WeakReference<View> capturedSharedElement;
+  @Nullable
+  private static WeakReference<View> capturedSharedElement;
 
   private boolean entering = true;
   private boolean transparentWindowBackgroundEnabled = true;
   private boolean sharedElementReenterTransitionEnabled = false;
-  @Nullable private Rect returnEndBounds;
-  @Nullable private ShapeProvider shapeProvider = new ShapeableViewShapeProvider();
+  @Nullable
+  private Rect returnEndBounds;
+  @Nullable
+  private ShapeProvider shapeProvider = new ShapeableViewShapeProvider();
 
-  /** Allows providing a {@link ShapeAppearanceModel} for the shared element view. */
-  public interface ShapeProvider {
-    @Nullable
-    ShapeAppearanceModel provideShape(@NonNull View sharedElement);
+  /**
+   * Make the window background transparent during the container transform.
+   *
+   * <p>This applies a color filter to the window background which clears the background's source
+   * pixels. If the client has set a color filter on the window background manually, this will be
+   * overridden and will not be restored after the transition. If you need to manipulate the color
+   * of the window background and have that manipulation restored after the transition, use {@link
+   * android.graphics.drawable.Drawable#setTint(int)} instead.
+   */
+  private static void removeWindowBackground(Window window)
+  {
+    window
+        .getDecorView()
+        .getBackground()
+        .mutate()
+        .setColorFilter(
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                Color.TRANSPARENT, BlendModeCompat.CLEAR));
   }
 
   /**
-   * A {@link ShapeProvider} that provides the view's {@link ShapeAppearanceModel} if the view
-   * implements the {@link Shapeable} interface.
+   * Restores the window background to its state before running the container transform.
+   *
+   * @see #removeWindowBackground(Window)
    */
-  public static class ShapeableViewShapeProvider implements ShapeProvider {
-    @Nullable
-    @Override
-    public ShapeAppearanceModel provideShape(@NonNull View sharedElement) {
-      return sharedElement instanceof Shapeable
-          ? ((Shapeable) sharedElement).getShapeAppearanceModel()
-          : null;
-    }
+  private static void restoreWindowBackground(Window window)
+  {
+    window.getDecorView().getBackground().mutate().clearColorFilter();
+  }
+
+  /**
+   * When using a transparent window background, make sure that the background fade duration is as
+   * long as the transform's duration. This will help to avoid a black background visual artifact.
+   */
+  private static void updateBackgroundFadeDuration(
+      Window window, MaterialContainerTransform transform)
+  {
+    window.setTransitionBackgroundFadeDuration(transform.getDuration());
   }
 
   @Nullable
@@ -82,20 +108,25 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
   public Parcelable onCaptureSharedElementSnapshot(
       @NonNull View sharedElement,
       @NonNull Matrix viewToGlobalMatrix,
-      @NonNull RectF screenBounds) {
+      @NonNull RectF screenBounds)
+  {
     capturedSharedElement = new WeakReference<>(sharedElement);
     return super.onCaptureSharedElementSnapshot(sharedElement, viewToGlobalMatrix, screenBounds);
   }
 
   @Nullable
   @Override
-  public View onCreateSnapshotView(@NonNull Context context, @Nullable Parcelable snapshot) {
+  public View onCreateSnapshotView(@NonNull Context context, @Nullable Parcelable snapshot)
+  {
     View snapshotView = super.onCreateSnapshotView(context, snapshot);
-    if (snapshotView != null && capturedSharedElement != null && shapeProvider != null) {
+    if (snapshotView != null && capturedSharedElement != null && shapeProvider != null)
+    {
       View sharedElement = capturedSharedElement.get();
-      if (sharedElement != null) {
+      if (sharedElement != null)
+      {
         ShapeAppearanceModel shapeAppearanceModel = shapeProvider.provideShape(sharedElement);
-        if (shapeAppearanceModel != null) {
+        if (shapeAppearanceModel != null)
+        {
           // Set shape appearance as snapshot view tag, which will be used by the transform.
           snapshotView.setTag(R.id.mtrl_motion_snapshot_view, shapeAppearanceModel);
         }
@@ -106,16 +137,22 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
 
   @Override
   public void onMapSharedElements(
-      @NonNull List<String> names, @NonNull Map<String, View> sharedElements) {
-    if (!names.isEmpty() && !sharedElements.isEmpty()) {
+      @NonNull List<String> names, @NonNull Map<String, View> sharedElements)
+  {
+    if (!names.isEmpty() && !sharedElements.isEmpty())
+    {
       View sharedElement = sharedElements.get(names.get(0));
-      if (sharedElement != null) {
+      if (sharedElement != null)
+      {
         Activity activity = ContextUtils.getActivity(sharedElement.getContext());
-        if (activity != null) {
+        if (activity != null)
+        {
           Window window = activity.getWindow();
-          if (entering) {
+          if (entering)
+          {
             setUpEnterTransform(window);
-          } else {
+          } else
+          {
             setUpReturnTransform(activity, window);
           }
         }
@@ -127,14 +164,17 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
   public void onSharedElementStart(
       @NonNull List<String> sharedElementNames,
       @NonNull List<View> sharedElements,
-      @NonNull List<View> sharedElementSnapshots) {
-    if (!sharedElements.isEmpty() && !sharedElementSnapshots.isEmpty()) {
+      @NonNull List<View> sharedElementSnapshots)
+  {
+    if (!sharedElements.isEmpty() && !sharedElementSnapshots.isEmpty())
+    {
       // Set up the snapshot view tag so that the transform knows when to use the snapshot view
       // instead of the view provided by TransitionValues.
       sharedElements.get(0).setTag(R.id.mtrl_motion_snapshot_view, sharedElementSnapshots.get(0));
     }
 
-    if (!entering && !sharedElements.isEmpty() && returnEndBounds != null) {
+    if (!entering && !sharedElements.isEmpty() && returnEndBounds != null)
+    {
       // Counteract the manipulation of the shared element view's bounds in the framework's
       // ExitTransitionCoordinator so that the return animation starts from the correct location.
       View sharedElement = sharedElements.get(0);
@@ -150,23 +190,29 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
   public void onSharedElementEnd(
       @NonNull List<String> sharedElementNames,
       @NonNull List<View> sharedElements,
-      @NonNull List<View> sharedElementSnapshots) {
+      @NonNull List<View> sharedElementSnapshots)
+  {
     if (!sharedElements.isEmpty()
-        && sharedElements.get(0).getTag(R.id.mtrl_motion_snapshot_view) instanceof View) {
+        && sharedElements.get(0).getTag(R.id.mtrl_motion_snapshot_view) instanceof View)
+    {
       // Reset tag so we only use it for the start or end view depending on enter vs return.
       sharedElements.get(0).setTag(R.id.mtrl_motion_snapshot_view, null);
     }
 
-    if (!entering && !sharedElements.isEmpty()) {
+    if (!entering && !sharedElements.isEmpty())
+    {
       returnEndBounds = TransitionUtils.getRelativeBoundsRect(sharedElements.get(0));
     }
 
     entering = false;
   }
 
-  /** Get the {@link ShapeProvider} for this callback, or null if it is not set. */
+  /**
+   * Get the {@link ShapeProvider} for this callback, or null if it is not set.
+   */
   @Nullable
-  public ShapeProvider getShapeProvider() {
+  public ShapeProvider getShapeProvider()
+  {
     return shapeProvider;
   }
 
@@ -177,7 +223,8 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
    * <p>The default is a {@link ShapeableViewShapeProvider}, which will use the view's {@link
    * ShapeAppearanceModel} if the view implements the {@link Shapeable} interface.
    */
-  public void setShapeProvider(@Nullable ShapeProvider shapeProvider) {
+  public void setShapeProvider(@Nullable ShapeProvider shapeProvider)
+  {
     this.shapeProvider = shapeProvider;
   }
 
@@ -187,7 +234,8 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
    *
    * @see #setTransparentWindowBackgroundEnabled(boolean)
    */
-  public boolean isTransparentWindowBackgroundEnabled() {
+  public boolean isTransparentWindowBackgroundEnabled()
+  {
     return transparentWindowBackgroundEnabled;
   }
 
@@ -202,7 +250,8 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
    * Window#setTransitionBackgroundFadeDuration(long)}) will be overridden to be greater than the
    * duration of the transform transition.
    */
-  public void setTransparentWindowBackgroundEnabled(boolean transparentWindowBackgroundEnabled) {
+  public void setTransparentWindowBackgroundEnabled(boolean transparentWindowBackgroundEnabled)
+  {
     this.transparentWindowBackgroundEnabled = transparentWindowBackgroundEnabled;
   }
 
@@ -211,7 +260,8 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
    *
    * @see #setSharedElementReenterTransitionEnabled(boolean)
    */
-  public boolean isSharedElementReenterTransitionEnabled() {
+  public boolean isSharedElementReenterTransitionEnabled()
+  {
     return sharedElementReenterTransitionEnabled;
   }
 
@@ -221,28 +271,36 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
    * null.
    */
   public void setSharedElementReenterTransitionEnabled(
-      boolean sharedElementReenterTransitionEnabled) {
+      boolean sharedElementReenterTransitionEnabled)
+  {
     this.sharedElementReenterTransitionEnabled = sharedElementReenterTransitionEnabled;
   }
 
-  private void setUpEnterTransform(final Window window) {
+  private void setUpEnterTransform(final Window window)
+  {
     Transition transition = window.getSharedElementEnterTransition();
-    if (transition instanceof MaterialContainerTransform) {
+    if (transition instanceof MaterialContainerTransform)
+    {
       MaterialContainerTransform transform = (MaterialContainerTransform) transition;
-      if (!sharedElementReenterTransitionEnabled) {
+      if (!sharedElementReenterTransitionEnabled)
+      {
         window.setSharedElementReenterTransition(null);
       }
-      if (transparentWindowBackgroundEnabled) {
+      if (transparentWindowBackgroundEnabled)
+      {
         updateBackgroundFadeDuration(window, transform);
         transform.addListener(
-            new TransitionListenerAdapter() {
+            new TransitionListenerAdapter()
+            {
               @Override
-              public void onTransitionStart(Transition transition) {
+              public void onTransitionStart(Transition transition)
+              {
                 removeWindowBackground(window);
               }
 
               @Override
-              public void onTransitionEnd(Transition transition) {
+              public void onTransitionEnd(Transition transition)
+              {
                 restoreWindowBackground(window);
               }
             });
@@ -250,19 +308,25 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
     }
   }
 
-  private void setUpReturnTransform(final Activity activity, final Window window) {
+  private void setUpReturnTransform(final Activity activity, final Window window)
+  {
     Transition transition = window.getSharedElementReturnTransition();
-    if (transition instanceof MaterialContainerTransform) {
+    if (transition instanceof MaterialContainerTransform)
+    {
       MaterialContainerTransform transform = (MaterialContainerTransform) transition;
       transform.setHoldAtEndEnabled(true);
       transform.addListener(
-          new TransitionListenerAdapter() {
+          new TransitionListenerAdapter()
+          {
             @Override
-            public void onTransitionEnd(Transition transition) {
+            public void onTransitionEnd(Transition transition)
+            {
               // Make sure initial shared element view is visible to avoid blinking effect.
-              if (capturedSharedElement != null) {
+              if (capturedSharedElement != null)
+              {
                 View sharedElement = capturedSharedElement.get();
-                if (sharedElement != null) {
+                if (sharedElement != null)
+                {
                   sharedElement.setAlpha(1);
                   capturedSharedElement = null;
                 }
@@ -273,12 +337,15 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
               activity.overridePendingTransition(0, 0);
             }
           });
-      if (transparentWindowBackgroundEnabled) {
+      if (transparentWindowBackgroundEnabled)
+      {
         updateBackgroundFadeDuration(window, transform);
         transform.addListener(
-            new TransitionListenerAdapter() {
+            new TransitionListenerAdapter()
+            {
               @Override
-              public void onTransitionStart(Transition transition) {
+              public void onTransitionStart(Transition transition)
+              {
                 removeWindowBackground(window);
               }
             });
@@ -287,39 +354,27 @@ public class MaterialContainerTransformSharedElementCallback extends SharedEleme
   }
 
   /**
-   * Make the window background transparent during the container transform.
-   *
-   * <p>This applies a color filter to the window background which clears the background's source
-   * pixels. If the client has set a color filter on the window background manually, this will be
-   * overridden and will not be restored after the transition. If you need to manipulate the color
-   * of the window background and have that manipulation restored after the transition, use {@link
-   * android.graphics.drawable.Drawable#setTint(int)} instead.
+   * Allows providing a {@link ShapeAppearanceModel} for the shared element view.
    */
-  private static void removeWindowBackground(Window window) {
-    window
-        .getDecorView()
-        .getBackground()
-        .mutate()
-        .setColorFilter(
-            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                Color.TRANSPARENT, BlendModeCompat.CLEAR));
+  public interface ShapeProvider
+  {
+    @Nullable
+    ShapeAppearanceModel provideShape(@NonNull View sharedElement);
   }
 
   /**
-   * Restores the window background to its state before running the container transform.
-   *
-   * @see #removeWindowBackground(Window)
+   * A {@link ShapeProvider} that provides the view's {@link ShapeAppearanceModel} if the view
+   * implements the {@link Shapeable} interface.
    */
-  private static void restoreWindowBackground(Window window) {
-    window.getDecorView().getBackground().mutate().clearColorFilter();
-  }
-
-  /**
-   * When using a transparent window background, make sure that the background fade duration is as
-   * long as the transform's duration. This will help to avoid a black background visual artifact.
-   */
-  private static void updateBackgroundFadeDuration(
-      Window window, MaterialContainerTransform transform) {
-    window.setTransitionBackgroundFadeDuration(transform.getDuration());
+  public static class ShapeableViewShapeProvider implements ShapeProvider
+  {
+    @Nullable
+    @Override
+    public ShapeAppearanceModel provideShape(@NonNull View sharedElement)
+    {
+      return sharedElement instanceof Shapeable
+          ? ((Shapeable) sharedElement).getShapeAppearanceModel()
+          : null;
+    }
   }
 }

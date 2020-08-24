@@ -20,8 +20,6 @@
  */
 package com.zeoflow.material.elements.transition.platform;
 
-import static com.zeoflow.material.elements.transition.platform.TransitionUtils.lerp;
-
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.Path.Op;
@@ -29,8 +27,11 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.ShapeAppearancePathProvider;
+
+import static com.zeoflow.material.elements.transition.platform.TransitionUtils.lerp;
 
 /**
  * A class which is responsible calculating the path which represents a container transform's
@@ -38,7 +39,8 @@ import com.zeoflow.material.elements.shape.ShapeAppearancePathProvider;
  * given path.
  */
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-class MaskEvaluator {
+class MaskEvaluator
+{
 
   private final Path path = new Path();
   private final Path startPath = new Path();
@@ -47,7 +49,9 @@ class MaskEvaluator {
 
   private ShapeAppearanceModel currentShapeAppearanceModel;
 
-  /** Update the mask used by this evaluator based on a given progress. */
+  /**
+   * Update the mask used by this evaluator based on a given progress.
+   */
   void evaluate(
       float progress,
       ShapeAppearanceModel startShapeAppearanceModel,
@@ -55,7 +59,8 @@ class MaskEvaluator {
       RectF currentStartBounds,
       RectF currentStartBoundsMasked,
       RectF currentEndBoundsMasked,
-      MaterialContainerTransform.ProgressThresholds shapeMaskThresholds) {
+      MaterialContainerTransform.ProgressThresholds shapeMaskThresholds)
+  {
 
     // Animate shape appearance corner changes over range of `progress` & use this when
     // drawing the container background & images
@@ -76,26 +81,34 @@ class MaskEvaluator {
 
     // Union the two paths on API 23 and above. API 21 and 22 have problems with this
     // call and instead use the start and end paths to clip.
-    if (VERSION.SDK_INT >= VERSION_CODES.M) {
+    if (VERSION.SDK_INT >= VERSION_CODES.M)
+    {
       path.op(startPath, endPath, Op.UNION);
     }
   }
 
-  /** Clip the given Canvas to the mask held by this evaluator. */
-  void clip(Canvas canvas) {
-    if (VERSION.SDK_INT >= VERSION_CODES.M) {
+  /**
+   * Clip the given Canvas to the mask held by this evaluator.
+   */
+  void clip(Canvas canvas)
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.M)
+    {
       canvas.clipPath(path);
-    } else {
+    } else
+    {
       canvas.clipPath(startPath);
       canvas.clipPath(endPath, Region.Op.UNION);
     }
   }
 
-  Path getPath() {
+  Path getPath()
+  {
     return path;
   }
 
-  ShapeAppearanceModel getCurrentShapeAppearanceModel() {
+  ShapeAppearanceModel getCurrentShapeAppearanceModel()
+  {
     return currentShapeAppearanceModel;
   }
 }

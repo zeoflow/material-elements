@@ -15,12 +15,13 @@
  */
 package com.zeoflow.material.elements.animation;
 
-import com.google.android.material.R;
-
-import androidx.annotation.NonNull;
 import android.util.Property;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.R;
 
 /**
  * A Property for the alpha of a ViewGroup's children.
@@ -30,7 +31,8 @@ import android.view.ViewGroup;
  * <p>This property assumes that it is the only component responsible for the children's {@link
  * View#setAlpha(float) alpha}.
  */
-public class ChildrenAlphaProperty extends Property<ViewGroup, Float> {
+public class ChildrenAlphaProperty extends Property<ViewGroup, Float>
+{
 
   /**
    * A Property wrapper around the <code>alpha</code> functionality of a ViewGroup's children.
@@ -38,28 +40,34 @@ public class ChildrenAlphaProperty extends Property<ViewGroup, Float> {
   public static final Property<ViewGroup, Float> CHILDREN_ALPHA =
       new ChildrenAlphaProperty("childrenAlpha");
 
-  private ChildrenAlphaProperty(String name) {
+  private ChildrenAlphaProperty(String name)
+  {
     super(Float.class, name);
   }
 
   @NonNull
   @Override
-  public Float get(@NonNull ViewGroup object) {
+  public Float get(@NonNull ViewGroup object)
+  {
     Float alpha = (Float) object.getTag(R.id.mtrl_internal_children_alpha_tag);
-    if (alpha != null) {
+    if (alpha != null)
+    {
       return alpha;
-    } else {
+    } else
+    {
       return 1f;
     }
   }
 
   @Override
-  public void set(@NonNull ViewGroup object, @NonNull Float value) {
+  public void set(@NonNull ViewGroup object, @NonNull Float value)
+  {
     float alpha = value;
 
     object.setTag(R.id.mtrl_internal_children_alpha_tag, alpha);
 
-    for (int i = 0, count = object.getChildCount(); i < count; i++) {
+    for (int i = 0, count = object.getChildCount(); i < count; i++)
+    {
       View child = object.getChildAt(i);
       child.setAlpha(alpha);
     }

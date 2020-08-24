@@ -15,16 +15,18 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.material.R;
+
 import java.util.Calendar;
 
 /**
@@ -33,7 +35,8 @@ import java.util.Calendar;
  * <p>The number of rows is always equal to the maximum number of weeks that can exist across all
  * months (e.g., 6 for the GregorianCalendar).
  */
-class MonthAdapter extends BaseAdapter {
+class MonthAdapter extends BaseAdapter
+{
 
   /**
    * The maximum number of weeks possible in any month. 6 for {@link java.util.GregorianCalendar}.
@@ -45,18 +48,19 @@ class MonthAdapter extends BaseAdapter {
    * The {@link DateSelector} dictating the draw behavior of {@link #getView(int, View, ViewGroup)}.
    */
   final DateSelector<?> dateSelector;
-
-  CalendarStyle calendarStyle;
   final CalendarConstraints calendarConstraints;
+  CalendarStyle calendarStyle;
 
-  MonthAdapter(Month month, DateSelector<?> dateSelector, CalendarConstraints calendarConstraints) {
+  MonthAdapter(Month month, DateSelector<?> dateSelector, CalendarConstraints calendarConstraints)
+  {
     this.month = month;
     this.dateSelector = dateSelector;
     this.calendarConstraints = calendarConstraints;
   }
 
   @Override
-  public boolean hasStableIds() {
+  public boolean hasStableIds()
+  {
     return true;
   }
 
@@ -64,21 +68,24 @@ class MonthAdapter extends BaseAdapter {
    * Returns a {@link Long} object for the given grid position
    *
    * @param position Index for the item. 0 matches the {@link Calendar#getFirstDayOfWeek()} for the
-   *     first week of the month represented by {@link Month}.
+   *                 first week of the month represented by {@link Month}.
    * @return A {@link Long} representing the day at the position or null if the position does not
-   *     represent a valid day in the month.
+   * represent a valid day in the month.
    */
   @Nullable
   @Override
-  public Long getItem(int position) {
-    if (position < month.daysFromStartOfWeekToFirstOfMonth() || position > lastPositionInMonth()) {
+  public Long getItem(int position)
+  {
+    if (position < month.daysFromStartOfWeekToFirstOfMonth() || position > lastPositionInMonth())
+    {
       return null;
     }
     return month.getDay(positionToDay(position));
   }
 
   @Override
-  public long getItemId(int position) {
+  public long getItemId(int position)
+  {
     return position / month.daysInWeek;
   }
 
@@ -91,32 +98,39 @@ class MonthAdapter extends BaseAdapter {
    * @return The maximum valid position index
    */
   @Override
-  public int getCount() {
+  public int getCount()
+  {
     return month.daysInMonth + firstPositionInMonth();
   }
 
   @NonNull
   @Override
-  public TextView getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+  public TextView getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+  {
     initializeStyles(parent.getContext());
     TextView day = (TextView) convertView;
-    if (convertView == null) {
+    if (convertView == null)
+    {
       LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
       day = (TextView) layoutInflater.inflate(R.layout.mtrl_calendar_day, parent, false);
     }
     int offsetPosition = position - firstPositionInMonth();
-    if (offsetPosition < 0 || offsetPosition >= month.daysInMonth) {
+    if (offsetPosition < 0 || offsetPosition >= month.daysInMonth)
+    {
       day.setVisibility(View.GONE);
       day.setEnabled(false);
-    } else {
+    } else
+    {
       int dayNumber = offsetPosition + 1;
       // The tag and text uniquely identify the view within the MaterialCalendar for testing
       day.setTag(month);
       day.setText(String.valueOf(dayNumber));
       long dayInMillis = month.getDay(dayNumber);
-      if (month.year == Month.current().year) {
+      if (month.year == Month.current().year)
+      {
         day.setContentDescription(DateStrings.getMonthDayOfWeekDay(dayInMillis));
-      } else {
+      } else
+      {
         day.setContentDescription(DateStrings.getYearMonthDayOfWeekDay(dayInMillis));
       }
       day.setVisibility(View.VISIBLE);
@@ -124,34 +138,43 @@ class MonthAdapter extends BaseAdapter {
     }
 
     Long date = getItem(position);
-    if (date == null) {
+    if (date == null)
+    {
       return day;
     }
-    if (calendarConstraints.getDateValidator().isValid(date)) {
+    if (calendarConstraints.getDateValidator().isValid(date))
+    {
       day.setEnabled(true);
-      for (long selectedDay : dateSelector.getSelectedDays()) {
-        if (UtcDates.canonicalYearMonthDay(date) == UtcDates.canonicalYearMonthDay(selectedDay)) {
+      for (long selectedDay : dateSelector.getSelectedDays())
+      {
+        if (UtcDates.canonicalYearMonthDay(date) == UtcDates.canonicalYearMonthDay(selectedDay))
+        {
           calendarStyle.selectedDay.styleItem(day);
           return day;
         }
       }
 
-      if (UtcDates.getTodayCalendar().getTimeInMillis() == date) {
+      if (UtcDates.getTodayCalendar().getTimeInMillis() == date)
+      {
         calendarStyle.todayDay.styleItem(day);
         return day;
-      } else {
+      } else
+      {
         calendarStyle.day.styleItem(day);
         return day;
       }
-    } else {
+    } else
+    {
       day.setEnabled(false);
       calendarStyle.invalidDay.styleItem(day);
       return day;
     }
   }
 
-  private void initializeStyles(Context context) {
-    if (calendarStyle == null) {
+  private void initializeStyles(Context context)
+  {
+    if (calendarStyle == null)
+    {
       calendarStyle = new CalendarStyle(context);
     }
   }
@@ -163,7 +186,8 @@ class MonthAdapter extends BaseAdapter {
    * represents a day which must be the first day of the week, the first position in the month may
    * be greater than 0.
    */
-  int firstPositionInMonth() {
+  int firstPositionInMonth()
+  {
     return month.daysFromStartOfWeekToFirstOfMonth();
   }
 
@@ -174,7 +198,8 @@ class MonthAdapter extends BaseAdapter {
    * represents a day which must be the first day of the week, the last position in the month may
    * not match the number of days in the month.
    */
-  int lastPositionInMonth() {
+  int lastPositionInMonth()
+  {
     return month.daysFromStartOfWeekToFirstOfMonth() + month.daysInMonth - 1;
   }
 
@@ -183,20 +208,27 @@ class MonthAdapter extends BaseAdapter {
    *
    * @param position The adapter index
    * @return The day corresponding to the adapter index. May be non-positive for position inputs
-   *     less than {@link MonthAdapter#firstPositionInMonth()}.
+   * less than {@link MonthAdapter#firstPositionInMonth()}.
    */
-  int positionToDay(int position) {
+  int positionToDay(int position)
+  {
     return position - month.daysFromStartOfWeekToFirstOfMonth() + 1;
   }
 
-  /** Returns the adapter index representing the provided day. */
-  int dayToPosition(int day) {
+  /**
+   * Returns the adapter index representing the provided day.
+   */
+  int dayToPosition(int day)
+  {
     int offsetFromFirst = day - 1;
     return firstPositionInMonth() + offsetFromFirst;
   }
 
-  /** True when a provided adapter position is within the calendar month */
-  boolean withinMonth(int position) {
+  /**
+   * True when a provided adapter position is within the calendar month
+   */
+  boolean withinMonth(int position)
+  {
     return position >= firstPositionInMonth() && position <= lastPositionInMonth();
   }
 
@@ -204,7 +236,8 @@ class MonthAdapter extends BaseAdapter {
    * True when the provided adapter position is the smallest position for a value of {@link
    * MonthAdapter#getItemId(int)}.
    */
-  boolean isFirstInRow(int position) {
+  boolean isFirstInRow(int position)
+  {
     return position % month.daysInWeek == 0;
   }
 
@@ -212,7 +245,8 @@ class MonthAdapter extends BaseAdapter {
    * True when the provided adapter position is the largest position for a value of {@link
    * MonthAdapter#getItemId(int)}.
    */
-  boolean isLastInRow(int position) {
+  boolean isLastInRow(int position)
+  {
     return (position + 1) % month.daysInWeek == 0;
   }
 }

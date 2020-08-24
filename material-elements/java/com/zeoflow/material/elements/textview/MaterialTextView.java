@@ -16,17 +16,18 @@
 
 package com.zeoflow.material.elements.textview;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
 import android.content.res.TypedArray;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.widget.AppCompatTextView;
-import android.util.AttributeSet;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -72,74 +73,61 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * <p>To customize the appearance of MaterialTextView, see <a
  * href="https://developer.android.com/guide/topics/ui/themes.html">Styles and Themes</a>.
  */
-public class MaterialTextView extends AppCompatTextView {
+public class MaterialTextView extends AppCompatTextView
+{
 
-  public MaterialTextView(@NonNull Context context) {
+  public MaterialTextView(@NonNull Context context)
+  {
     this(context, null /* attrs */);
   }
 
-  public MaterialTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public MaterialTextView(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, android.R.attr.textViewStyle);
   }
 
   public MaterialTextView(
-      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     this(context, attrs, defStyleAttr, 0);
   }
 
   public MaterialTextView(
-      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, defStyleRes), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
 
-    if (canApplyTextAppearanceLineHeight(context)) {
+    if (canApplyTextAppearanceLineHeight(context))
+    {
       final Resources.Theme theme = context.getTheme();
 
-      if (!viewAttrsHasLineHeight(context, theme, attrs, defStyleAttr, defStyleRes)) {
+      if (!viewAttrsHasLineHeight(context, theme, attrs, defStyleAttr, defStyleRes))
+      {
         int resId = findViewAppearanceResourceId(theme, attrs, defStyleAttr, defStyleRes);
-        if (resId != -1) {
+        if (resId != -1)
+        {
           applyLineHeightFromViewAppearance(theme, resId);
         }
       }
     }
   }
 
-  @Override
-  public void setTextAppearance(@NonNull Context context, int resId) {
-    super.setTextAppearance(context, resId);
-
-    if (canApplyTextAppearanceLineHeight(context)) {
-      applyLineHeightFromViewAppearance(context.getTheme(), resId);
-    }
-  }
-
-  private void applyLineHeightFromViewAppearance(@NonNull Theme theme, int resId) {
-    TypedArray attributes = theme.obtainStyledAttributes(resId, R.styleable.MaterialTextAppearance);
-    int lineHeight =
-        readFirstAvailableDimension(
-            getContext(),
-            attributes,
-            R.styleable.MaterialTextAppearance_android_lineHeight,
-            R.styleable.MaterialTextAppearance_lineHeight);
-    attributes.recycle();
-
-    if (lineHeight >= 0) {
-      setLineHeight(lineHeight);
-    }
-  }
-
-  private static boolean canApplyTextAppearanceLineHeight(Context context) {
+  private static boolean canApplyTextAppearanceLineHeight(Context context)
+  {
     return MaterialAttributes.resolveBoolean(context, R.attr.textAppearanceLineHeightEnabled, true);
   }
 
   private static int readFirstAvailableDimension(
       @NonNull Context context,
       @NonNull TypedArray attributes,
-      @NonNull @StyleableRes int... indices) {
+      @NonNull @StyleableRes int... indices)
+  {
     int lineHeight = -1;
 
-    for (int index = 0; index < indices.length && lineHeight < 0; ++index) {
+    for (int index = 0; index < indices.length && lineHeight < 0; ++index)
+    {
       lineHeight = MaterialResources.getDimensionPixelSize(context, attributes, indices[index], -1);
     }
 
@@ -151,7 +139,8 @@ public class MaterialTextView extends AppCompatTextView {
       @NonNull Theme theme,
       @Nullable AttributeSet attrs,
       int defStyleAttr,
-      int defStyleRes) {
+      int defStyleRes)
+  {
     TypedArray attributes =
         theme.obtainStyledAttributes(
             attrs, R.styleable.MaterialTextView, defStyleAttr, defStyleRes);
@@ -167,7 +156,8 @@ public class MaterialTextView extends AppCompatTextView {
   }
 
   private static int findViewAppearanceResourceId(
-      @NonNull Theme theme, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+      @NonNull Theme theme, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
+  {
     TypedArray attributes =
         theme.obtainStyledAttributes(
             attrs, R.styleable.MaterialTextView, defStyleAttr, defStyleRes);
@@ -175,5 +165,33 @@ public class MaterialTextView extends AppCompatTextView {
         attributes.getResourceId(R.styleable.MaterialTextView_android_textAppearance, -1);
     attributes.recycle();
     return appearanceAttrId;
+  }
+
+  @Override
+  public void setTextAppearance(@NonNull Context context, int resId)
+  {
+    super.setTextAppearance(context, resId);
+
+    if (canApplyTextAppearanceLineHeight(context))
+    {
+      applyLineHeightFromViewAppearance(context.getTheme(), resId);
+    }
+  }
+
+  private void applyLineHeightFromViewAppearance(@NonNull Theme theme, int resId)
+  {
+    TypedArray attributes = theme.obtainStyledAttributes(resId, R.styleable.MaterialTextAppearance);
+    int lineHeight =
+        readFirstAvailableDimension(
+            getContext(),
+            attributes,
+            R.styleable.MaterialTextAppearance_android_lineHeight,
+            R.styleable.MaterialTextAppearance_lineHeight);
+    attributes.recycle();
+
+    if (lineHeight >= 0)
+    {
+      setLineHeight(lineHeight);
+    }
   }
 }

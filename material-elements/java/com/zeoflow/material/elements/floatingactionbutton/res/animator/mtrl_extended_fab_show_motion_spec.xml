@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2017 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,19 +16,19 @@
 
 <set xmlns:android="http://schemas.android.com/apk/res/android">
   <objectAnimator
-      android:propertyName="opacity"
-      android:startOffset="0"
-      android:duration="150"
-      android:valueFrom="0.0"
-      android:valueTo="1.0"
-      android:valueType="floatType"
-      android:interpolator="@interpolator/mtrl_fast_out_slow_in"/>
+    android:duration="150"
+    android:interpolator="@interpolator/mtrl_fast_out_slow_in"
+    android:propertyName="opacity"
+    android:startOffset="0"
+    android:valueFrom="0.0"
+    android:valueTo="1.0"
+    android:valueType="floatType" />
   <objectAnimator
-      android:propertyName="scale"
-      android:startOffset="0"
-      android:duration="150"
-      android:valueFrom="0.8"
-      android:valueTo="1.0"
-      android:valueType="floatType"
-      android:interpolator="@interpolator/mtrl_linear_out_slow_in"/>
+    android:duration="150"
+    android:interpolator="@interpolator/mtrl_linear_out_slow_in"
+    android:propertyName="scale"
+    android:startOffset="0"
+    android:valueFrom="0.8"
+    android:valueTo="1.0"
+    android:valueType="floatType" />
 </set>

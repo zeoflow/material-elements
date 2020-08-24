@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +15,7 @@
   -->
 
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    android:contentDescription="@null"
-    android:scaleType="centerInside"/>
+  android:layout_width="24dp"
+  android:layout_height="24dp"
+  android:contentDescription="@null"
+  android:scaleType="centerInside" />

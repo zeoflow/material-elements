@@ -23,9 +23,12 @@ package com.zeoflow.material.elements.transition.platform;
 import android.graphics.RectF;
 
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-interface FitModeEvaluator {
+interface FitModeEvaluator
+{
 
-  /** Calculate the current start and end view sizes and scales depending on the fit mode. */
+  /**
+   * Calculate the current start and end view sizes and scales depending on the fit mode.
+   */
   FitModeResult evaluate(
       float progress,
       float scaleStartFraction,
@@ -42,6 +45,8 @@ interface FitModeEvaluator {
    */
   boolean shouldMaskStartBounds(FitModeResult fitModeResult);
 
-  /** Update the mask bounds to create the reveal effect. */
+  /**
+   * Update the mask bounds to create the reveal effect.
+   */
   void applyMask(RectF maskBounds, float maskMultiplier, FitModeResult fitModeResult);
 }

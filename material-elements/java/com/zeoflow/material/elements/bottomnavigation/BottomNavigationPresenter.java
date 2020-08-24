@@ -16,11 +16,12 @@
 
 package com.zeoflow.material.elements.bottomnavigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.SparseArray;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -29,85 +30,107 @@ import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.view.menu.MenuPresenter;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.view.menu.SubMenuBuilder;
-import android.util.SparseArray;
-import android.view.ViewGroup;
+
 import com.zeoflow.material.elements.badge.BadgeDrawable;
 import com.zeoflow.material.elements.badge.BadgeUtils;
 import com.zeoflow.material.elements.internal.ParcelableSparseArray;
 
-/** @hide */
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
+/**
+ * @hide
+ */
 @RestrictTo(LIBRARY_GROUP)
-public class BottomNavigationPresenter implements MenuPresenter {
+public class BottomNavigationPresenter implements MenuPresenter
+{
   private MenuBuilder menu;
   private BottomNavigationMenuView menuView;
   private boolean updateSuspended = false;
   private int id;
 
-  public void setBottomNavigationMenuView(BottomNavigationMenuView menuView) {
+  public void setBottomNavigationMenuView(BottomNavigationMenuView menuView)
+  {
     this.menuView = menuView;
   }
 
   @Override
-  public void initForMenu(Context context, MenuBuilder menu) {
+  public void initForMenu(Context context, MenuBuilder menu)
+  {
     this.menu = menu;
     menuView.initialize(this.menu);
   }
 
   @Override
-  public MenuView getMenuView(ViewGroup root) {
+  public MenuView getMenuView(ViewGroup root)
+  {
     return menuView;
   }
 
   @Override
-  public void updateMenuView(boolean cleared) {
-    if (updateSuspended) {
+  public void updateMenuView(boolean cleared)
+  {
+    if (updateSuspended)
+    {
       return;
     }
-    if (cleared) {
+    if (cleared)
+    {
       menuView.buildMenuView();
-    } else {
+    } else
+    {
       menuView.updateMenuView();
     }
   }
 
   @Override
-  public void setCallback(Callback cb) {}
+  public void setCallback(Callback cb)
+  {
+  }
 
   @Override
-  public boolean onSubMenuSelected(SubMenuBuilder subMenu) {
+  public boolean onSubMenuSelected(SubMenuBuilder subMenu)
+  {
     return false;
   }
 
   @Override
-  public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {}
+  public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing)
+  {
+  }
 
   @Override
-  public boolean flagActionItems() {
+  public boolean flagActionItems()
+  {
     return false;
   }
 
   @Override
-  public boolean expandItemActionView(MenuBuilder menu, MenuItemImpl item) {
+  public boolean expandItemActionView(MenuBuilder menu, MenuItemImpl item)
+  {
     return false;
   }
 
   @Override
-  public boolean collapseItemActionView(MenuBuilder menu, MenuItemImpl item) {
+  public boolean collapseItemActionView(MenuBuilder menu, MenuItemImpl item)
+  {
     return false;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
   @Override
-  public int getId() {
+  public int getId()
+  {
     return id;
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
   }
 
   @NonNull
   @Override
-  public Parcelable onSaveInstanceState() {
+  public Parcelable onSaveInstanceState()
+  {
     SavedState savedState = new SavedState();
     savedState.selectedItemId = menuView.getSelectedItemId();
     savedState.badgeSavedStates =
@@ -116,8 +139,10 @@ public class BottomNavigationPresenter implements MenuPresenter {
   }
 
   @Override
-  public void onRestoreInstanceState(Parcelable state) {
-    if (state instanceof SavedState) {
+  public void onRestoreInstanceState(Parcelable state)
+  {
+    if (state instanceof SavedState)
+    {
       menuView.tryRestoreSelectedItemId(((SavedState) state).selectedItemId);
       SparseArray<BadgeDrawable> badgeDrawables =
           BadgeUtils.createBadgeDrawablesFromSavedStates(
@@ -126,45 +151,55 @@ public class BottomNavigationPresenter implements MenuPresenter {
     }
   }
 
-  public void setUpdateSuspended(boolean updateSuspended) {
+  public void setUpdateSuspended(boolean updateSuspended)
+  {
     this.updateSuspended = updateSuspended;
   }
 
-  static class SavedState implements Parcelable {
-    int selectedItemId;
-    @Nullable ParcelableSparseArray badgeSavedStates;
-
-    SavedState() {}
-
-    SavedState(@NonNull Parcel in) {
-      selectedItemId = in.readInt();
-      badgeSavedStates = in.readParcelable(getClass().getClassLoader());
-    }
-
-    @Override
-    public int describeContents() {
-      return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel out, int flags) {
-      out.writeInt(selectedItemId);
-      out.writeParcelable(badgeSavedStates, /* parcelableFlags= */ 0);
-    }
-
+  static class SavedState implements Parcelable
+  {
     public static final Creator<SavedState> CREATOR =
-        new Creator<SavedState>() {
+        new Creator<SavedState>()
+        {
           @NonNull
           @Override
-          public SavedState createFromParcel(@NonNull Parcel in) {
+          public SavedState createFromParcel(@NonNull Parcel in)
+          {
             return new SavedState(in);
           }
 
           @NonNull
           @Override
-          public SavedState[] newArray(int size) {
+          public SavedState[] newArray(int size)
+          {
             return new SavedState[size];
           }
         };
+    int selectedItemId;
+    @Nullable
+    ParcelableSparseArray badgeSavedStates;
+
+    SavedState()
+    {
+    }
+
+    SavedState(@NonNull Parcel in)
+    {
+      selectedItemId = in.readInt();
+      badgeSavedStates = in.readParcelable(getClass().getClassLoader());
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel out, int flags)
+    {
+      out.writeInt(selectedItemId);
+      out.writeParcelable(badgeSavedStates, /* parcelableFlags= */ 0);
+    }
   }
 }

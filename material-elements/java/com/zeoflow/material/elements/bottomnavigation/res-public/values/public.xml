@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,15 +16,15 @@
 
 <!-- Definitions of attributes to be exposed as public -->
 <resources>
-  <public name="bottomNavigationStyle" type="attr"/>
-  <public name="itemHorizontalTranslationEnabled" type="attr"/>
-  <public name="itemRippleColor" type="attr"/>
-  <public name="itemTextAppearanceInactive" type="attr"/>
-  <public name="itemTextAppearanceActive" type="attr"/>
-  <public name="labelVisibilityMode" type="attr"/>
-  <public name="Widget.Design.BottomNavigationView" type="style"/>
-  <public name="Widget.MaterialComponents.BottomNavigationView" type="style"/>
-  <public name="Widget.MaterialComponents.BottomNavigationView.Colored" type="style"/>
-  <public name="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" type="style"/>
-  <public name="hide_bottom_view_on_scroll_behavior" type="string"/>
+  <public name="bottomNavigationStyle" type="attr" />
+  <public name="itemHorizontalTranslationEnabled" type="attr" />
+  <public name="itemRippleColor" type="attr" />
+  <public name="itemTextAppearanceInactive" type="attr" />
+  <public name="itemTextAppearanceActive" type="attr" />
+  <public name="labelVisibilityMode" type="attr" />
+  <public name="Widget.Design.BottomNavigationView" type="style" />
+  <public name="Widget.MaterialComponents.BottomNavigationView" type="style" />
+  <public name="Widget.MaterialComponents.BottomNavigationView.Colored" type="style" />
+  <public name="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" type="style" />
+  <public name="hide_bottom_view_on_scroll_behavior" type="string" />
 </resources>

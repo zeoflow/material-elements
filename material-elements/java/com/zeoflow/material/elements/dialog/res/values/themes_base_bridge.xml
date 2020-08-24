@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2019 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,14 +20,14 @@
       theme on a given platform version and should set up the default theme ready for adding our
       material component attributes.
   -->
-  <eat-comment/>
+  <eat-comment />
 
-  <style name="Platform.MaterialComponents.Dialog" parent="Theme.AppCompat.Dialog"/>
+  <style name="Platform.MaterialComponents.Dialog" parent="Theme.AppCompat.Dialog" />
 
-  <style name="Platform.MaterialComponents.Light.Dialog" parent="Theme.AppCompat.Light.Dialog"/>
+  <style name="Platform.MaterialComponents.Light.Dialog" parent="Theme.AppCompat.Light.Dialog" />
 
   <!-- All new attributes should be set in the following four Base.V14 themes. -->
-  <eat-comment/>
+  <eat-comment />
 
   <style name="Base.V14.Theme.MaterialComponents.Dialog.Bridge" parent="Platform.MaterialComponents.Dialog">
     <item name="isMaterialTheme">true</item>
@@ -56,10 +55,16 @@
     <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Action</item>
     <item name="chipGroupStyle">@style/Widget.MaterialComponents.ChipGroup</item>
     <item name="chipStandaloneStyle">@style/Widget.MaterialComponents.Chip.Entry</item>
-    <item name="extendedFloatingActionButtonStyle">@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon</item>
+    <item name="extendedFloatingActionButtonStyle">
+      @style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon
+    </item>
     <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
-    <item name="materialButtonOutlinedStyle">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
-    <item name="materialButtonToggleGroupStyle">@style/Widget.MaterialComponents.MaterialButtonToggleGroup</item>
+    <item name="materialButtonOutlinedStyle">
+      @style/Widget.MaterialComponents.Button.OutlinedButton
+    </item>
+    <item name="materialButtonToggleGroupStyle">
+      @style/Widget.MaterialComponents.MaterialButtonToggleGroup
+    </item>
     <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
     <item name="sliderStyle">@style/Widget.MaterialComponents.Slider</item>
 
@@ -120,10 +125,16 @@
     <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Action</item>
     <item name="chipGroupStyle">@style/Widget.MaterialComponents.ChipGroup</item>
     <item name="chipStandaloneStyle">@style/Widget.MaterialComponents.Chip.Entry</item>
-    <item name="extendedFloatingActionButtonStyle">@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon</item>
+    <item name="extendedFloatingActionButtonStyle">
+      @style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon
+    </item>
     <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
-    <item name="materialButtonOutlinedStyle">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
-    <item name="materialButtonToggleGroupStyle">@style/Widget.MaterialComponents.MaterialButtonToggleGroup</item>
+    <item name="materialButtonOutlinedStyle">
+      @style/Widget.MaterialComponents.Button.OutlinedButton
+    </item>
+    <item name="materialButtonToggleGroupStyle">
+      @style/Widget.MaterialComponents.MaterialButtonToggleGroup
+    </item>
     <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
     <item name="sliderStyle">@style/Widget.MaterialComponents.Slider</item>
 
@@ -164,10 +175,10 @@
 
        Themes in the "Theme.MaterialComponents" family are meant to be extended or used
        directly by apps. -->
-  <eat-comment/>
+  <eat-comment />
 
-  <style name="Base.Theme.MaterialComponents.Dialog.Bridge" parent="Base.V14.Theme.MaterialComponents.Dialog.Bridge"/>
+  <style name="Base.Theme.MaterialComponents.Dialog.Bridge" parent="Base.V14.Theme.MaterialComponents.Dialog.Bridge" />
 
-  <style name="Base.Theme.MaterialComponents.Light.Dialog.Bridge" parent="Base.V14.Theme.MaterialComponents.Light.Dialog.Bridge"/>
+  <style name="Base.Theme.MaterialComponents.Light.Dialog.Bridge" parent="Base.V14.Theme.MaterialComponents.Light.Dialog.Bridge" />
 
 </resources>

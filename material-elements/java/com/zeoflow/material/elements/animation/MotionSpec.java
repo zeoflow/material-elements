@@ -22,13 +22,15 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.Log;
+import android.util.Property;
+
 import androidx.annotation.AnimatorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleableRes;
 import androidx.collection.SimpleArrayMap;
-import android.util.Log;
-import android.util.Property;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +65,8 @@ import java.util.List;
  * </set>
  * }</pre>
  */
-public class MotionSpec {
+public class MotionSpec
+{
 
   private static final String TAG = "MotionSpec";
 
@@ -71,8 +74,83 @@ public class MotionSpec {
   private final SimpleArrayMap<String, PropertyValuesHolder[]> propertyValues =
       new SimpleArrayMap<>();
 
-  /** Returns whether this motion spec contains a MotionTiming with the given name. */
-  public boolean hasTiming(String name) {
+  /**
+   * Inflates an instance of MotionSpec from the animator resource indexed in the given attributes
+   * array.
+   */
+  @Nullable
+  public static MotionSpec createFromAttribute(
+      @NonNull Context context, @NonNull TypedArray attributes, @StyleableRes int index)
+  {
+    if (attributes.hasValue(index))
+    {
+      int resourceId = attributes.getResourceId(index, 0);
+      if (resourceId != 0)
+      {
+        return createFromResource(context, resourceId);
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Inflates an instance of MotionSpec from the given animator resource.
+   */
+  @Nullable
+  public static MotionSpec createFromResource(@NonNull Context context, @AnimatorRes int id)
+  {
+    try
+    {
+      Animator animator = AnimatorInflater.loadAnimator(context, id);
+      if (animator instanceof AnimatorSet)
+      {
+        AnimatorSet set = (AnimatorSet) animator;
+        return createSpecFromAnimators(set.getChildAnimations());
+      } else if (animator != null)
+      {
+        List<Animator> animators = new ArrayList<>();
+        animators.add(animator);
+        return createSpecFromAnimators(animators);
+      } else
+      {
+        return null;
+      }
+    } catch (Exception e)
+    {
+      Log.w(TAG, "Can't load animation resource ID #0x" + Integer.toHexString(id), e);
+      return null;
+    }
+  }
+
+  @NonNull
+  private static MotionSpec createSpecFromAnimators(@NonNull List<Animator> animators)
+  {
+    MotionSpec spec = new MotionSpec();
+    for (int i = 0, count = animators.size(); i < count; i++)
+    {
+      addInfoFromAnimator(spec, animators.get(i));
+    }
+    return spec;
+  }
+
+  private static void addInfoFromAnimator(@NonNull MotionSpec spec, Animator animator)
+  {
+    if (animator instanceof ObjectAnimator)
+    {
+      ObjectAnimator anim = (ObjectAnimator) animator;
+      spec.setPropertyValues(anim.getPropertyName(), anim.getValues());
+      spec.setTiming(anim.getPropertyName(), MotionTiming.createFromAnimator(anim));
+    } else
+    {
+      throw new IllegalArgumentException("Animator must be an ObjectAnimator: " + animator);
+    }
+  }
+
+  /**
+   * Returns whether this motion spec contains a MotionTiming with the given name.
+   */
+  public boolean hasTiming(String name)
+  {
     return timings.get(name) != null;
   }
 
@@ -80,22 +158,28 @@ public class MotionSpec {
    * Returns the MotionTiming with the given name, or throws IllegalArgumentException if it does not
    * exist.
    */
-  public MotionTiming getTiming(String name) {
-    if (!hasTiming(name)) {
+  public MotionTiming getTiming(String name)
+  {
+    if (!hasTiming(name))
+    {
       throw new IllegalArgumentException();
     }
     return timings.get(name);
   }
 
-  /** Sets a MotionTiming with the given name. */
-  public void setTiming(String name, @Nullable MotionTiming timing) {
+  /**
+   * Sets a MotionTiming with the given name.
+   */
+  public void setTiming(String name, @Nullable MotionTiming timing)
+  {
     timings.put(name, timing);
   }
 
   /**
    * Returns whether this motion spec contains a {@link PropertyValuesHolder[]} with the given name.
    */
-  public boolean hasPropertyValues(String name) {
+  public boolean hasPropertyValues(String name)
+  {
     return propertyValues.get(name) != null;
   }
 
@@ -106,8 +190,10 @@ public class MotionSpec {
    * @return Array of {@link PropertyValuesHolder} values for the property.
    */
   @NonNull
-  public PropertyValuesHolder[] getPropertyValues(String name) {
-    if (!hasPropertyValues(name)) {
+  public PropertyValuesHolder[] getPropertyValues(String name)
+  {
+    if (!hasPropertyValues(name))
+    {
       throw new IllegalArgumentException();
     }
     return clonePropertyValuesHolder(propertyValues.get(name));
@@ -116,17 +202,20 @@ public class MotionSpec {
   /**
    * Set values for a property in this MotionSpec.
    *
-   * @param name Name of the property to set values for, e.g. "width" or "opacity".
+   * @param name   Name of the property to set values for, e.g. "width" or "opacity".
    * @param values Array of {@link PropertyValuesHolder} values for the property.
    */
-  public void setPropertyValues(String name, PropertyValuesHolder[] values) {
+  public void setPropertyValues(String name, PropertyValuesHolder[] values)
+  {
     propertyValues.put(name, values);
   }
 
   @NonNull
-  private PropertyValuesHolder[] clonePropertyValuesHolder(@NonNull PropertyValuesHolder[] values) {
+  private PropertyValuesHolder[] clonePropertyValuesHolder(@NonNull PropertyValuesHolder[] values)
+  {
     PropertyValuesHolder[] ret = new PropertyValuesHolder[values.length];
-    for (int i = 0; i < values.length; i++) {
+    for (int i = 0; i < values.length; i++)
+    {
       ret[i] = values[i].clone();
     }
     return ret;
@@ -136,15 +225,16 @@ public class MotionSpec {
    * Creates and returns an {@link ObjectAnimator} that animates the given property. This can be
    * added to an {@link AnimatorSet} to play multiple synchronized animations.
    *
-   * @param name Name of the property to be animated.
-   * @param target The target whose property is to be animated. See {@link
-   *     ObjectAnimator#ofPropertyValuesHolder(T, PropertyValuesHolder...)} for more details.
+   * @param name     Name of the property to be animated.
+   * @param target   The target whose property is to be animated. See {@link
+   *                 ObjectAnimator#ofPropertyValuesHolder(T, PropertyValuesHolder...)} for more details.
    * @param property The {@link Property} object being animated.
    * @return An {@link ObjectAnimator} which animates the given property.
    */
   @NonNull
   public <T> ObjectAnimator getAnimator(
-      @NonNull String name, @NonNull T target, @NonNull Property<T, ?> property) {
+      @NonNull String name, @NonNull T target, @NonNull Property<T, ?> property)
+  {
     ObjectAnimator animator =
         ObjectAnimator.ofPropertyValuesHolder(target, getPropertyValues(name));
     animator.setProperty(property);
@@ -156,77 +246,26 @@ public class MotionSpec {
    * Returns the total duration of this motion spec, which is the maximum delay+duration of its
    * motion timings.
    */
-  public long getTotalDuration() {
+  public long getTotalDuration()
+  {
     long duration = 0;
-    for (int i = 0, count = timings.size(); i < count; i++) {
+    for (int i = 0, count = timings.size(); i < count; i++)
+    {
       MotionTiming timing = timings.valueAt(i);
       duration = Math.max(duration, timing.getDelay() + timing.getDuration());
     }
     return duration;
   }
 
-  /**
-   * Inflates an instance of MotionSpec from the animator resource indexed in the given attributes
-   * array.
-   */
-  @Nullable
-  public static MotionSpec createFromAttribute(
-      @NonNull Context context, @NonNull TypedArray attributes, @StyleableRes int index) {
-    if (attributes.hasValue(index)) {
-      int resourceId = attributes.getResourceId(index, 0);
-      if (resourceId != 0) {
-        return createFromResource(context, resourceId);
-      }
-    }
-    return null;
-  }
-
-  /** Inflates an instance of MotionSpec from the given animator resource. */
-  @Nullable
-  public static MotionSpec createFromResource(@NonNull Context context, @AnimatorRes int id) {
-    try {
-      Animator animator = AnimatorInflater.loadAnimator(context, id);
-      if (animator instanceof AnimatorSet) {
-        AnimatorSet set = (AnimatorSet) animator;
-        return createSpecFromAnimators(set.getChildAnimations());
-      } else if (animator != null) {
-        List<Animator> animators = new ArrayList<>();
-        animators.add(animator);
-        return createSpecFromAnimators(animators);
-      } else {
-        return null;
-      }
-    } catch (Exception e) {
-      Log.w(TAG, "Can't load animation resource ID #0x" + Integer.toHexString(id), e);
-      return null;
-    }
-  }
-
-  @NonNull
-  private static MotionSpec createSpecFromAnimators(@NonNull List<Animator> animators) {
-    MotionSpec spec = new MotionSpec();
-    for (int i = 0, count = animators.size(); i < count; i++) {
-      addInfoFromAnimator(spec, animators.get(i));
-    }
-    return spec;
-  }
-
-  private static void addInfoFromAnimator(@NonNull MotionSpec spec, Animator animator) {
-    if (animator instanceof ObjectAnimator) {
-      ObjectAnimator anim = (ObjectAnimator) animator;
-      spec.setPropertyValues(anim.getPropertyName(), anim.getValues());
-      spec.setTiming(anim.getPropertyName(), MotionTiming.createFromAnimator(anim));
-    } else {
-      throw new IllegalArgumentException("Animator must be an ObjectAnimator: " + animator);
-    }
-  }
-
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof MotionSpec)) {
+    if (!(o instanceof MotionSpec))
+    {
       return false;
     }
 
@@ -236,13 +275,15 @@ public class MotionSpec {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return timings.hashCode();
   }
 
   @NonNull
   @Override
-  public String toString() {
+  public String toString()
+  {
     StringBuilder out = new StringBuilder();
     out.append('\n');
     out.append(getClass().getName());

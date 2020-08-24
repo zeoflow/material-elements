@@ -15,13 +15,14 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
+
 import androidx.annotation.NonNull;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.resources.MaterialResources;
 
@@ -29,49 +30,59 @@ import com.zeoflow.material.elements.resources.MaterialResources;
  * Data class for loaded {@link R.styleable#MaterialCalendar} and {@link
  * R.styleable#MaterialCalendarItem} attributes.
  */
-final class CalendarStyle {
+final class CalendarStyle
+{
 
   /**
    * The {@link R.styleable#MaterialCalendarItem} style for days with no unique characteristics from
    * {@link R.styleable#MaterialCalendar_dayStyle}.
    */
-  @NonNull final CalendarItemStyle day;
+  @NonNull
+  final CalendarItemStyle day;
   /**
    * The {@link R.styleable#MaterialCalendarItem} style for selected days from {@link
    * R.styleable#MaterialCalendar_daySelectedStyle}.
    */
-  @NonNull final CalendarItemStyle selectedDay;
+  @NonNull
+  final CalendarItemStyle selectedDay;
   /**
    * The {@link R.styleable#MaterialCalendarItem} style for today from {@link
    * R.styleable#MaterialCalendar_dayTodayStyle}.
    */
-  @NonNull final CalendarItemStyle todayDay;
+  @NonNull
+  final CalendarItemStyle todayDay;
 
   /**
    * The {@link R.styleable#MaterialCalendarItem} style for years with no unique characteristics
    * from {@link R.styleable#MaterialCalendar_yearStyle}.
    */
-  @NonNull final CalendarItemStyle year;
+  @NonNull
+  final CalendarItemStyle year;
   /**
    * The {@link R.styleable#MaterialCalendarItem} style for selected years from {@link
    * R.styleable#MaterialCalendar_yearSelectedStyle}.
    */
-  @NonNull final CalendarItemStyle selectedYear;
+  @NonNull
+  final CalendarItemStyle selectedYear;
   /**
    * The {@link R.styleable#MaterialCalendarItem} style for today's year from {@link
    * R.styleable#MaterialCalendar_yearTodayStyle}.
    */
-  @NonNull final CalendarItemStyle todayYear;
+  @NonNull
+  final CalendarItemStyle todayYear;
 
-  @NonNull final CalendarItemStyle invalidDay;
+  @NonNull
+  final CalendarItemStyle invalidDay;
 
   /**
    * A {@link Paint} for styling days between selected days with {@link
    * R.styleable#MaterialCalendar_rangeFillColor}.
    */
-  @NonNull final Paint rangeFill;
+  @NonNull
+  final Paint rangeFill;
 
-  CalendarStyle(@NonNull Context context) {
+  CalendarStyle(@NonNull Context context)
+  {
     int calendarStyle =
         MaterialAttributes.resolveOrThrow(
             context, R.attr.materialCalendarStyle, MaterialCalendar.class.getCanonicalName());

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2020 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,5 +20,5 @@
        corner morph animation. This attribute should be set in a theme overlay
        which is then applied to the view. Useful for cases where a view has
        shaped corners but doesn't implement the Shapeable interface. -->
-  <attr name="transitionShapeAppearance" format="reference"/>
+  <attr name="transitionShapeAppearance" format="reference" />
 </resources>

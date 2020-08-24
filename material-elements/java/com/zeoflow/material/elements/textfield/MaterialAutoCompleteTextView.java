@@ -16,17 +16,11 @@
 
 package com.zeoflow.material.elements.textfield;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
-import androidx.appcompat.widget.ListPopupWindow;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
@@ -38,6 +32,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Filterable;
 import android.widget.ListAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+import androidx.appcompat.widget.ListPopupWindow;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.internal.ManufacturerUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -53,25 +54,32 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * {@link MaterialAutoCompleteTextView} is not editable, so that the first item of the popup is
  * automatically focused. This simulates the behavior of the {@link android.widget.Spinner}.
  */
-public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView {
+public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView
+{
 
   private static final int MAX_ITEMS_MEASURED = 15;
 
-  @NonNull private final ListPopupWindow modalListPopup;
-  @Nullable private final AccessibilityManager accessibilityManager;
-  @NonNull private final Rect tempRect = new Rect();
+  @NonNull
+  private final ListPopupWindow modalListPopup;
+  @Nullable
+  private final AccessibilityManager accessibilityManager;
+  @NonNull
+  private final Rect tempRect = new Rect();
 
-  public MaterialAutoCompleteTextView(@NonNull Context context) {
+  public MaterialAutoCompleteTextView(@NonNull Context context)
+  {
     this(context, null);
   }
 
   public MaterialAutoCompleteTextView(
-      @NonNull Context context, @Nullable AttributeSet attributeSet) {
+      @NonNull Context context, @Nullable AttributeSet attributeSet)
+  {
     this(context, attributeSet, R.attr.autoCompleteTextViewStyle);
   }
 
   public MaterialAutoCompleteTextView(
-      @NonNull Context context, @Nullable AttributeSet attributeSet, int defStyleAttr) {
+      @NonNull Context context, @Nullable AttributeSet attributeSet, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attributeSet, defStyleAttr, 0), attributeSet, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -86,11 +94,13 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
 
     // Due to a framework bug, setting android:inputType="none" on xml has no effect. Therefore,
     // we check it here in case the autoCompleteTextView should be non-editable.
-    if (attributes.hasValue(R.styleable.MaterialAutoCompleteTextView_android_inputType)) {
+    if (attributes.hasValue(R.styleable.MaterialAutoCompleteTextView_android_inputType))
+    {
       int inputType =
           attributes.getInt(
               R.styleable.MaterialAutoCompleteTextView_android_inputType, InputType.TYPE_NULL);
-      if (inputType == InputType.TYPE_NULL) {
+      if (inputType == InputType.TYPE_NULL)
+      {
         setKeyListener(null);
       }
     }
@@ -104,17 +114,21 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
     modalListPopup.setInputMethodMode(ListPopupWindow.INPUT_METHOD_NOT_NEEDED);
     modalListPopup.setAdapter(getAdapter());
     modalListPopup.setOnItemClickListener(
-        new OnItemClickListener() {
+        new OnItemClickListener()
+        {
           @Override
-          public void onItemClick(AdapterView<?> parent, View selectedView, int position, long id) {
+          public void onItemClick(AdapterView<?> parent, View selectedView, int position, long id)
+          {
             Object selectedItem =
                 position < 0 ? modalListPopup.getSelectedItem() : getAdapter().getItem(position);
 
             updateText(selectedItem);
 
             OnItemClickListener userOnitemClickListener = getOnItemClickListener();
-            if (userOnitemClickListener != null) {
-              if (selectedView == null || position < 0) {
+            if (userOnitemClickListener != null)
+            {
+              if (selectedView == null || position < 0)
+              {
                 selectedView = modalListPopup.getSelectedView();
                 position = modalListPopup.getSelectedItemPosition();
                 id = modalListPopup.getSelectedItemId();
@@ -131,24 +145,29 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
   }
 
   @Override
-  public void showDropDown() {
+  public void showDropDown()
+  {
     if (getInputType() == EditorInfo.TYPE_NULL
         && accessibilityManager != null
-        && accessibilityManager.isTouchExplorationEnabled()) {
+        && accessibilityManager.isTouchExplorationEnabled())
+    {
       modalListPopup.show();
-    } else {
+    } else
+    {
       super.showDropDown();
     }
   }
 
   @Override
-  public <T extends ListAdapter & Filterable> void setAdapter(@Nullable T adapter) {
+  public <T extends ListAdapter & Filterable> void setAdapter(@Nullable T adapter)
+  {
     super.setAdapter(adapter);
     modalListPopup.setAdapter(getAdapter());
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
     // Meizu devices expect TextView#mHintLayout to be non-null if TextView#getHint() is non-null.
@@ -158,30 +177,35 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
     if (layout != null
         && layout.isProvidingHint()
         && super.getHint() == null
-        && ManufacturerUtils.isMeizuDevice()) {
+        && ManufacturerUtils.isMeizuDevice())
+    {
       setHint("");
     }
   }
 
   @Nullable
   @Override
-  public CharSequence getHint() {
+  public CharSequence getHint()
+  {
     // Certain test frameworks expect the actionable element to expose its hint as a label. Retrieve
     // the hint from the TextInputLayout when it's providing it.
     TextInputLayout textInputLayout = findTextInputLayoutAncestor();
-    if (textInputLayout != null && textInputLayout.isProvidingHint()) {
+    if (textInputLayout != null && textInputLayout.isProvidingHint())
+    {
       return textInputLayout.getHint();
     }
     return super.getHint();
   }
 
   @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+  {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     // Similar to a Spinner, make sure the view's width is at minimum the width of the largest
     // dropdown item.
-    if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.AT_MOST) {
+    if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.AT_MOST)
+    {
       final int measuredWidth = getMeasuredWidth();
       setMeasuredDimension(
           Math.min(
@@ -191,10 +215,12 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
     }
   }
 
-  private int measureContentWidth() {
+  private int measureContentWidth()
+  {
     ListAdapter adapter = getAdapter();
     TextInputLayout textInputLayout = findTextInputLayoutAncestor();
-    if (adapter == null || textInputLayout == null) {
+    if (adapter == null || textInputLayout == null)
+    {
       return 0;
     }
 
@@ -210,14 +236,17 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
     int start = Math.max(0, modalListPopup.getSelectedItemPosition());
     final int end = Math.min(adapter.getCount(), start + MAX_ITEMS_MEASURED);
     start = Math.max(0, end - MAX_ITEMS_MEASURED);
-    for (int i = start; i < end; i++) {
+    for (int i = start; i < end; i++)
+    {
       final int positionType = adapter.getItemViewType(i);
-      if (positionType != itemType) {
+      if (positionType != itemType)
+      {
         itemType = positionType;
         itemView = null;
       }
       itemView = adapter.getView(i, itemView, textInputLayout);
-      if (itemView.getLayoutParams() == null) {
+      if (itemView.getLayoutParams() == null)
+      {
         itemView.setLayoutParams(new LayoutParams(
             LayoutParams.WRAP_CONTENT,
             LayoutParams.WRAP_CONTENT));
@@ -227,7 +256,8 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
     }
     // Add background padding to measured width.
     Drawable background = modalListPopup.getBackground();
-    if (background != null) {
+    if (background != null)
+    {
       background.getPadding(tempRect);
       width += tempRect.left + tempRect.right;
     }
@@ -239,10 +269,13 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
   }
 
   @Nullable
-  private TextInputLayout findTextInputLayoutAncestor() {
+  private TextInputLayout findTextInputLayoutAncestor()
+  {
     ViewParent parent = getParent();
-    while (parent != null) {
-      if (parent instanceof TextInputLayout) {
+    while (parent != null)
+    {
+      if (parent instanceof TextInputLayout)
+      {
         return (TextInputLayout) parent;
       }
       parent = parent.getParent();
@@ -251,10 +284,13 @@ public class MaterialAutoCompleteTextView extends AppCompatAutoCompleteTextView 
   }
 
   @SuppressWarnings("unchecked")
-  private <T extends ListAdapter & Filterable> void updateText(Object selectedItem) {
-    if (VERSION.SDK_INT >= 17) {
+  private <T extends ListAdapter & Filterable> void updateText(Object selectedItem)
+  {
+    if (VERSION.SDK_INT >= 17)
+    {
       setText(convertSelectionToString(selectedItem), false);
-    } else {
+    } else
+    {
       ListAdapter adapter = getAdapter();
       setAdapter(null);
       setText(convertSelectionToString(selectedItem));

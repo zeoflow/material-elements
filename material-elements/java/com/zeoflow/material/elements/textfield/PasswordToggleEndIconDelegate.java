@@ -16,10 +16,6 @@
 
 package com.zeoflow.material.elements.textfield;
 
-import com.google.android.material.R;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -27,32 +23,48 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.textfield.TextInputLayout.OnEditTextAttachedListener;
 import com.zeoflow.material.elements.textfield.TextInputLayout.OnEndIconChangedListener;
 
-/** Default initialization of the password toggle end icon. */
-class PasswordToggleEndIconDelegate extends EndIconDelegate {
+/**
+ * Default initialization of the password toggle end icon.
+ */
+class PasswordToggleEndIconDelegate extends EndIconDelegate
+{
 
   private final TextWatcher textWatcher =
-      new TextWatcher() {
+      new TextWatcher()
+      {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after)
+        {
           // Make sure the password toggle state always matches the EditText's transformation
           // method.
           endIconView.setChecked(!hasPasswordTransformation());
         }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {
+        }
 
         @Override
-        public void afterTextChanged(Editable s) {}
+        public void afterTextChanged(Editable s)
+        {
+        }
       };
 
   private final OnEditTextAttachedListener onEditTextAttachedListener =
-      new OnEditTextAttachedListener() {
+      new OnEditTextAttachedListener()
+      {
         @Override
-        public void onEditTextAttached(@NonNull TextInputLayout textInputLayout) {
+        public void onEditTextAttached(@NonNull TextInputLayout textInputLayout)
+        {
           EditText editText = textInputLayout.getEditText();
           textInputLayout.setEndIconVisible(true);
           textInputLayout.setEndIconCheckable(true);
@@ -63,11 +75,14 @@ class PasswordToggleEndIconDelegate extends EndIconDelegate {
         }
       };
   private final OnEndIconChangedListener onEndIconChangedListener =
-      new OnEndIconChangedListener() {
+      new OnEndIconChangedListener()
+      {
         @Override
-        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon) {
+        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon)
+        {
           EditText editText = textInputLayout.getEditText();
-          if (editText != null && previousIcon == TextInputLayout.END_ICON_PASSWORD_TOGGLE) {
+          if (editText != null && previousIcon == TextInputLayout.END_ICON_PASSWORD_TOGGLE)
+          {
             // If the end icon was the password toggle add it back the PasswordTransformation
             // in case it might have been removed to make the password visible.
             editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -77,33 +92,50 @@ class PasswordToggleEndIconDelegate extends EndIconDelegate {
         }
       };
 
-  PasswordToggleEndIconDelegate(@NonNull TextInputLayout textInputLayout) {
+  PasswordToggleEndIconDelegate(@NonNull TextInputLayout textInputLayout)
+  {
     super(textInputLayout);
   }
 
+  private static boolean isInputTypePassword(EditText editText)
+  {
+    return editText != null
+        && (editText.getInputType() == InputType.TYPE_NUMBER_VARIATION_PASSWORD
+        || editText.getInputType() == InputType.TYPE_TEXT_VARIATION_PASSWORD
+        || editText.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        || editText.getInputType() == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+  }
+
   @Override
-  void initialize() {
+  void initialize()
+  {
     textInputLayout.setEndIconDrawable(
         AppCompatResources.getDrawable(context, R.drawable.design_password_eye));
     textInputLayout.setEndIconContentDescription(
         textInputLayout.getResources().getText(R.string.password_toggle_content_description));
     textInputLayout.setEndIconOnClickListener(
-        new OnClickListener() {
+        new OnClickListener()
+        {
           @Override
-          public void onClick(View v) {
+          public void onClick(View v)
+          {
             EditText editText = textInputLayout.getEditText();
-            if (editText == null) {
+            if (editText == null)
+            {
               return;
             }
             // Store the current cursor position
             final int selection = editText.getSelectionEnd();
-            if (hasPasswordTransformation()) {
+            if (hasPasswordTransformation())
+            {
               editText.setTransformationMethod(null);
-            } else {
+            } else
+            {
               editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
             // And restore the cursor position
-            if (selection >= 0) {
+            if (selection >= 0)
+            {
               editText.setSelection(selection);
             }
           }
@@ -111,23 +143,17 @@ class PasswordToggleEndIconDelegate extends EndIconDelegate {
     textInputLayout.addOnEditTextAttachedListener(onEditTextAttachedListener);
     textInputLayout.addOnEndIconChangedListener(onEndIconChangedListener);
     EditText editText = textInputLayout.getEditText();
-    if (isInputTypePassword(editText)) {
+    if (isInputTypePassword(editText))
+    {
       // By default set the input to be disguised.
       editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
     }
   }
 
-  private boolean hasPasswordTransformation() {
+  private boolean hasPasswordTransformation()
+  {
     EditText editText = textInputLayout.getEditText();
     return editText != null
         && editText.getTransformationMethod() instanceof PasswordTransformationMethod;
-  }
-
-  private static boolean isInputTypePassword(EditText editText) {
-    return editText != null
-        && (editText.getInputType() == InputType.TYPE_NUMBER_VARIATION_PASSWORD
-            || editText.getInputType() == InputType.TYPE_TEXT_VARIATION_PASSWORD
-            || editText.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            || editText.getInputType() == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
   }
 }

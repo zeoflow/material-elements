@@ -23,7 +23,8 @@ package com.zeoflow.material.elements.shape;
  * @deprecated Use {@link ShapeAppearanceModel} instead.
  */
 @Deprecated
-public class ShapePathModel extends ShapeAppearanceModel {
+public class ShapePathModel extends ShapeAppearanceModel
+{
 
   /**
    * Set all corner treatments.
@@ -32,7 +33,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setAllCorners(CornerTreatment cornerTreatment) {
+  public void setAllCorners(CornerTreatment cornerTreatment)
+  {
     topLeftCorner = cornerTreatment;
     topRightCorner = cornerTreatment;
     bottomRightCorner = cornerTreatment;
@@ -46,7 +48,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setAllEdges(EdgeTreatment edgeTreatment) {
+  public void setAllEdges(EdgeTreatment edgeTreatment)
+  {
     leftEdge = edgeTreatment;
     topEdge = edgeTreatment;
     rightEdge = edgeTreatment;
@@ -56,10 +59,10 @@ public class ShapePathModel extends ShapeAppearanceModel {
   /**
    * Set corner treatments.
    *
-   * @param topLeftCorner the corner treatment to use in the top-left corner.
-   * @param topRightCorner the corner treatment to use in the top-right corner.
+   * @param topLeftCorner     the corner treatment to use in the top-left corner.
+   * @param topRightCorner    the corner treatment to use in the top-right corner.
    * @param bottomRightCorner the corner treatment to use in the bottom-right corner.
-   * @param bottomLeftCorner the corner treatment to use in the bottom-left corner.
+   * @param bottomLeftCorner  the corner treatment to use in the bottom-left corner.
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
@@ -67,7 +70,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
       CornerTreatment topLeftCorner,
       CornerTreatment topRightCorner,
       CornerTreatment bottomRightCorner,
-      CornerTreatment bottomLeftCorner) {
+      CornerTreatment bottomLeftCorner)
+  {
     this.topLeftCorner = topLeftCorner;
     this.topRightCorner = topRightCorner;
     this.bottomRightCorner = bottomRightCorner;
@@ -77,9 +81,9 @@ public class ShapePathModel extends ShapeAppearanceModel {
   /**
    * Set edge treatments.
    *
-   * @param leftEdge the edge treatment to use on the left edge.
-   * @param topEdge the edge treatment to use on the top edge.
-   * @param rightEdge the edge treatment to use on the right edge.
+   * @param leftEdge   the edge treatment to use on the left edge.
+   * @param topEdge    the edge treatment to use on the top edge.
+   * @param rightEdge  the edge treatment to use on the right edge.
    * @param bottomEdge the edge treatment to use on the bottom edge.
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
@@ -88,7 +92,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
       EdgeTreatment leftEdge,
       EdgeTreatment topEdge,
       EdgeTreatment rightEdge,
-      EdgeTreatment bottomEdge) {
+      EdgeTreatment bottomEdge)
+  {
     this.leftEdge = leftEdge;
     this.topEdge = topEdge;
     this.rightEdge = rightEdge;
@@ -102,7 +107,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setTopLeftCorner(CornerTreatment topLeftCorner) {
+  public void setTopLeftCorner(CornerTreatment topLeftCorner)
+  {
     this.topLeftCorner = topLeftCorner;
   }
 
@@ -113,7 +119,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setTopRightCorner(CornerTreatment topRightCorner) {
+  public void setTopRightCorner(CornerTreatment topRightCorner)
+  {
     this.topRightCorner = topRightCorner;
   }
 
@@ -124,7 +131,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setBottomRightCorner(CornerTreatment bottomRightCorner) {
+  public void setBottomRightCorner(CornerTreatment bottomRightCorner)
+  {
     this.bottomRightCorner = bottomRightCorner;
   }
 
@@ -135,7 +143,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setBottomLeftCorner(CornerTreatment bottomLeftCorner) {
+  public void setBottomLeftCorner(CornerTreatment bottomLeftCorner)
+  {
     this.bottomLeftCorner = bottomLeftCorner;
   }
 
@@ -146,7 +155,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setTopEdge(EdgeTreatment topEdge) {
+  public void setTopEdge(EdgeTreatment topEdge)
+  {
     this.topEdge = topEdge;
   }
 
@@ -157,7 +167,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setRightEdge(EdgeTreatment rightEdge) {
+  public void setRightEdge(EdgeTreatment rightEdge)
+  {
     this.rightEdge = rightEdge;
   }
 
@@ -168,7 +179,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setBottomEdge(EdgeTreatment bottomEdge) {
+  public void setBottomEdge(EdgeTreatment bottomEdge)
+  {
     this.bottomEdge = bottomEdge;
   }
 
@@ -179,7 +191,8 @@ public class ShapePathModel extends ShapeAppearanceModel {
    * @deprecated Use {@link ShapeAppearanceModel} instead.
    */
   @Deprecated
-  public void setLeftEdge(EdgeTreatment leftEdge) {
+  public void setLeftEdge(EdgeTreatment leftEdge)
+  {
     this.leftEdge = leftEdge;
   }
 }

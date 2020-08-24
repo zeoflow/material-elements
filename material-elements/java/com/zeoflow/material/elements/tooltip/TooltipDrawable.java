@@ -16,10 +16,6 @@
 
 package com.zeoflow.material.elements.tooltip;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -28,6 +24,11 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.View.OnLayoutChangeListener;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,10 +37,8 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.graphics.ColorUtils;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.View.OnLayoutChangeListener;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.TextDrawableHelper;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
@@ -49,6 +48,8 @@ import com.zeoflow.material.elements.shape.EdgeTreatment;
 import com.zeoflow.material.elements.shape.MarkerEdgeTreatment;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.OffsetEdgeTreatment;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * A Tooltip that supports shape theming and draws a pointer on the bottom in the center of the
@@ -62,20 +63,31 @@ import com.zeoflow.material.elements.shape.OffsetEdgeTreatment;
 public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawableHelper.TextDrawableDelegate
 {
 
-  @StyleRes private static final int DEFAULT_STYLE = R.style.Widget_MaterialComponents_Tooltip;
-  @AttrRes private static final int DEFAULT_THEME_ATTR = R.attr.tooltipStyle;
-
-  @Nullable private CharSequence text;
-  @NonNull private final Context context;
-  @Nullable private final FontMetrics fontMetrics = new FontMetrics();
-
+  @StyleRes
+  private static final int DEFAULT_STYLE = R.style.Widget_MaterialComponents_Tooltip;
+  @AttrRes
+  private static final int DEFAULT_THEME_ATTR = R.attr.tooltipStyle;
+  @NonNull
+  private final Context context;
+  @Nullable
+  private final FontMetrics fontMetrics = new FontMetrics();
   @NonNull
   private final TextDrawableHelper textDrawableHelper =
       new TextDrawableHelper(/* delegate= */ this);
-
+  @NonNull
+  private final Rect displayFrame = new Rect();
+  @Nullable
+  private CharSequence text;
+  private int padding;
+  private int minWidth;
+  private int minHeight;
+  private int layoutMargin;
+  private int arrowSize;
+  private int locationOnScreenX;
   @NonNull
   private final OnLayoutChangeListener attachedViewLayoutChangeListener =
-      new OnLayoutChangeListener() {
+      new OnLayoutChangeListener()
+      {
         @Override
         public void onLayoutChange(
             View v,
@@ -86,58 +98,59 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
             int oldLeft,
             int oldTop,
             int oldRight,
-            int oldBottom) {
+            int oldBottom)
+        {
           updateLocationOnScreen(v);
         }
       };
-
-  @NonNull private final Rect displayFrame = new Rect();
-
-  private int padding;
-  private int minWidth;
-  private int minHeight;
-  private int layoutMargin;
-  private int arrowSize;
-  private int locationOnScreenX;
-
-  /** Returns a TooltipDrawable from the given attributes. */
-  @NonNull
-  public static TooltipDrawable createFromAttributes(
-      @NonNull Context context,
-      @Nullable AttributeSet attrs,
-      @AttrRes int defStyleAttr,
-      @StyleRes int defStyleRes) {
-    TooltipDrawable tooltip = new TooltipDrawable(context, attrs, defStyleAttr, defStyleRes);
-    tooltip.loadFromAttributes(attrs, defStyleAttr, defStyleRes);
-
-    return tooltip;
-  }
-
-  /** Returns a TooltipDrawable from the given attributes. */
-  @NonNull
-  public static TooltipDrawable createFromAttributes(
-      @NonNull Context context, @Nullable AttributeSet attrs) {
-    return createFromAttributes(context, attrs, DEFAULT_THEME_ATTR, DEFAULT_STYLE);
-  }
-
-  @NonNull
-  public static TooltipDrawable create(@NonNull Context context) {
-    return createFromAttributes(context, null, DEFAULT_THEME_ATTR, DEFAULT_STYLE);
-  }
 
   private TooltipDrawable(
       @NonNull Context context,
       AttributeSet attrs,
       @AttrRes int defStyleAttr,
-      @StyleRes int defStyleRes) {
+      @StyleRes int defStyleRes)
+  {
     super(context, attrs, defStyleAttr, defStyleRes);
     this.context = context;
     textDrawableHelper.getTextPaint().density = context.getResources().getDisplayMetrics().density;
     textDrawableHelper.getTextPaint().setTextAlign(Align.CENTER);
   }
 
+  /**
+   * Returns a TooltipDrawable from the given attributes.
+   */
+  @NonNull
+  public static TooltipDrawable createFromAttributes(
+      @NonNull Context context,
+      @Nullable AttributeSet attrs,
+      @AttrRes int defStyleAttr,
+      @StyleRes int defStyleRes)
+  {
+    TooltipDrawable tooltip = new TooltipDrawable(context, attrs, defStyleAttr, defStyleRes);
+    tooltip.loadFromAttributes(attrs, defStyleAttr, defStyleRes);
+
+    return tooltip;
+  }
+
+  /**
+   * Returns a TooltipDrawable from the given attributes.
+   */
+  @NonNull
+  public static TooltipDrawable createFromAttributes(
+      @NonNull Context context, @Nullable AttributeSet attrs)
+  {
+    return createFromAttributes(context, attrs, DEFAULT_THEME_ATTR, DEFAULT_STYLE);
+  }
+
+  @NonNull
+  public static TooltipDrawable create(@NonNull Context context)
+  {
+    return createFromAttributes(context, null, DEFAULT_THEME_ATTR, DEFAULT_STYLE);
+  }
+
   private void loadFromAttributes(
-      @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+      @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes)
+  {
     TypedArray a =
         ThemeEnforcement.obtainStyledAttributes(
             context, attrs, R.styleable.Tooltip, defStyleAttr, defStyleRes);
@@ -185,34 +198,38 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_text
    */
   @Nullable
-  public CharSequence getText() {
+  public CharSequence getText()
+  {
     return text;
-  }
-
-  /**
-   * Sets the text to be displayed using a string resource identifier.
-   *
-   * @param id the resource identifier of the string resource to be displayed
-   * @see #setText(CharSequence)
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_text
-   */
-  public void setTextResource(@StringRes int id) {
-    setText(context.getResources().getString(id));
   }
 
   /**
    * Sets the text to be displayed.
    *
    * @param text text to be displayed
-   * @see #setTextResource(int)
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_text
+   * @see #setTextResource(int)
    */
-  public void setText(@Nullable CharSequence text) {
-    if (!TextUtils.equals(this.text, text)) {
+  public void setText(@Nullable CharSequence text)
+  {
+    if (!TextUtils.equals(this.text, text))
+    {
       this.text = text;
       textDrawableHelper.setTextWidthDirty(true);
       invalidateSelf();
     }
+  }
+
+  /**
+   * Sets the text to be displayed using a string resource identifier.
+   *
+   * @param id the resource identifier of the string resource to be displayed
+   * @attr ref com.google.android.material.R.styleable#Tooltip_android_text
+   * @see #setText(CharSequence)
+   */
+  public void setTextResource(@StringRes int id)
+  {
+    setText(context.getResources().getString(id));
   }
 
   /**
@@ -221,18 +238,9 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_textAppearance
    */
   @Nullable
-  public TextAppearance getTextAppearance() {
+  public TextAppearance getTextAppearance()
+  {
     return textDrawableHelper.getTextAppearance();
-  }
-
-  /**
-   * Sets this tooltip's text appearance using a resource id.
-   *
-   * @param id The resource id of this tooltip's text appearance.
-   * @attr ref com.google.android.material.R.styleable#Tooltip_android_textAppearance
-   */
-  public void setTextAppearanceResource(@StyleRes int id) {
-    setTextAppearance(new TextAppearance(context, id));
   }
 
   /**
@@ -241,17 +249,30 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * @param textAppearance This tooltip's text appearance.
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_textAppearance
    */
-  public void setTextAppearance(@Nullable TextAppearance textAppearance) {
+  public void setTextAppearance(@Nullable TextAppearance textAppearance)
+  {
     textDrawableHelper.setTextAppearance(textAppearance, context);
+  }
+
+  /**
+   * Sets this tooltip's text appearance using a resource id.
+   *
+   * @param id The resource id of this tooltip's text appearance.
+   * @attr ref com.google.android.material.R.styleable#Tooltip_android_textAppearance
+   */
+  public void setTextAppearanceResource(@StyleRes int id)
+  {
+    setTextAppearance(new TextAppearance(context, id));
   }
 
   /**
    * Returns the minimum width of TooltipDrawable in terms of pixels.
    *
-   * @see #setMinWidth(int)
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_minWidth
+   * @see #setMinWidth(int)
    */
-  public int getMinWidth() {
+  public int getMinWidth()
+  {
     return minWidth;
   }
 
@@ -259,10 +280,11 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the width of the TooltipDrawable to be at least {@code minWidth} wide.
    *
    * @param minWidth the minimum width of TooltipDrawable in terms of pixels
-   * @see #getMinWidth()
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_minWidth
+   * @see #getMinWidth()
    */
-  public void setMinWidth(@Px int minWidth) {
+  public void setMinWidth(@Px int minWidth)
+  {
     this.minWidth = minWidth;
     invalidateSelf();
   }
@@ -270,10 +292,11 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the minimum height of TooltipDrawable in terms of pixels.
    *
-   * @see #setMinHeight(int)
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_minHeight
+   * @see #setMinHeight(int)
    */
-  public int getMinHeight() {
+  public int getMinHeight()
+  {
     return minHeight;
   }
 
@@ -281,10 +304,11 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the height of the TooltipDrawable to be at least {@code minHeight} wide.
    *
    * @param minHeight the minimum height of TooltipDrawable in terms of pixels
-   * @see #getMinHeight()
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_minHeight
+   * @see #getMinHeight()
    */
-  public void setMinHeight(@Px int minHeight) {
+  public void setMinHeight(@Px int minHeight)
+  {
     this.minHeight = minHeight;
     invalidateSelf();
   }
@@ -292,10 +316,11 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the padding between the text of TooltipDrawable and the sides in terms of pixels.
    *
-   * @see #setTextPadding(int)
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_padding
+   * @see #setTextPadding(int)
    */
-  public int getTextPadding() {
+  public int getTextPadding()
+  {
     return padding;
   }
 
@@ -303,10 +328,11 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the padding between the text of the TooltipDrawable and the sides to be {@code padding}.
    *
    * @param padding the padding to use around the text
-   * @see #getTextPadding()
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_padding
+   * @see #getTextPadding()
    */
-  public void setTextPadding(@Px int padding) {
+  public void setTextPadding(@Px int padding)
+  {
     this.padding = padding;
     invalidateSelf();
   }
@@ -314,10 +340,11 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   /**
    * Returns the margin around the TooltipDrawable.
    *
-   * @see #setLayoutMargin(int)
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_layout_margin
+   * @see #setLayoutMargin(int)
    */
-  public int getLayoutMargin() {
+  public int getLayoutMargin()
+  {
     return layoutMargin;
   }
 
@@ -325,10 +352,11 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Sets the margin around the TooltipDrawable to be {@code margin}.
    *
    * @param layoutMargin the margin to use around the TooltipDrawable
-   * @see #getLayoutMargin()
    * @attr ref com.google.android.material.R.styleable#Tooltip_android_layout_margin
+   * @see #getLayoutMargin()
    */
-  public void setLayoutMargin(@Px int layoutMargin) {
+  public void setLayoutMargin(@Px int layoutMargin)
+  {
     this.layoutMargin = layoutMargin;
     invalidateSelf();
   }
@@ -339,8 +367,10 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    *
    * @see #detachView(View)
    */
-  public void setRelativeToView(@Nullable View view) {
-    if (view == null) {
+  public void setRelativeToView(@Nullable View view)
+  {
+    if (view == null)
+    {
       return;
     }
     updateLocationOnScreen(view);
@@ -353,25 +383,30 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    *
    * @see #setRelativeToView(View)
    */
-  public void detachView(@Nullable View view) {
-    if (view == null) {
+  public void detachView(@Nullable View view)
+  {
+    if (view == null)
+    {
       return;
     }
     view.removeOnLayoutChangeListener(attachedViewLayoutChangeListener);
   }
 
   @Override
-  public int getIntrinsicWidth() {
+  public int getIntrinsicWidth()
+  {
     return (int) Math.max(2 * padding + getTextWidth(), minWidth);
   }
 
   @Override
-  public int getIntrinsicHeight() {
+  public int getIntrinsicHeight()
+  {
     return (int) Math.max(textDrawableHelper.getTextPaint().getTextSize(), minHeight);
   }
 
   @Override
-  public void draw(@NonNull Canvas canvas) {
+  public void draw(@NonNull Canvas canvas)
+  {
     canvas.save();
 
     // Translate the canvas by the same about that the pointer is offset to keep it pointing at the
@@ -394,7 +429,8 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   }
 
   @Override
-  protected void onBoundsChange(Rect bounds) {
+  protected void onBoundsChange(Rect bounds)
+  {
     super.onBoundsChange(bounds);
 
     // Update the marker edge since the location of the marker arrow can move depending on the the
@@ -404,34 +440,41 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
   }
 
   @Override
-  public boolean onStateChange(int[] state) {
+  public boolean onStateChange(int[] state)
+  {
     // Exposed for TextDrawableDelegate.
     return super.onStateChange(state);
   }
 
   @Override
-  public void onTextSizeChange() {
+  public void onTextSizeChange()
+  {
     invalidateSelf();
   }
 
-  private void updateLocationOnScreen(@NonNull View v) {
+  private void updateLocationOnScreen(@NonNull View v)
+  {
     int[] locationOnScreen = new int[2];
     v.getLocationOnScreen(locationOnScreen);
     locationOnScreenX = locationOnScreen[0];
     v.getWindowVisibleDisplayFrame(displayFrame);
   }
 
-  private float calculatePointerOffset() {
+  private float calculatePointerOffset()
+  {
     float pointerOffset = 0;
-    if (displayFrame.right - getBounds().right - locationOnScreenX - layoutMargin < 0) {
+    if (displayFrame.right - getBounds().right - locationOnScreenX - layoutMargin < 0)
+    {
       pointerOffset = displayFrame.right - getBounds().right - locationOnScreenX - layoutMargin;
-    } else if (displayFrame.left - getBounds().left - locationOnScreenX + layoutMargin > 0) {
+    } else if (displayFrame.left - getBounds().left - locationOnScreenX + layoutMargin > 0)
+    {
       pointerOffset = displayFrame.left - getBounds().left - locationOnScreenX + layoutMargin;
     }
     return pointerOffset;
   }
 
-  private EdgeTreatment createMarkerEdge() {
+  private EdgeTreatment createMarkerEdge()
+  {
     float offset = -calculatePointerOffset();
     // The maximum distance the arrow can be offset before extends outside the bounds.
     float maxArrowOffset = (float) (getBounds().width() - arrowSize * Math.sqrt(2)) / 2.0f;
@@ -440,8 +483,10 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
     return new OffsetEdgeTreatment(new MarkerEdgeTreatment(arrowSize), offset);
   }
 
-  private void drawText(@NonNull Canvas canvas) {
-    if (text == null) {
+  private void drawText(@NonNull Canvas canvas)
+  {
+    if (text == null)
+    {
       // If text is null there's nothing to draw.
       return;
     }
@@ -449,7 +494,8 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
     Rect bounds = getBounds();
     int y = (int) calculateTextOriginAndAlignment(bounds);
 
-    if (textDrawableHelper.getTextAppearance() != null) {
+    if (textDrawableHelper.getTextAppearance() != null)
+    {
       textDrawableHelper.getTextPaint().drawableState = getState();
       textDrawableHelper.updateTextPaintDrawState(context);
     }
@@ -457,15 +503,20 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
     canvas.drawText(text, 0, text.length(), bounds.centerX(), y, textDrawableHelper.getTextPaint());
   }
 
-  private float getTextWidth() {
-    if (text == null) {
+  private float getTextWidth()
+  {
+    if (text == null)
+    {
       return 0;
     }
     return textDrawableHelper.getTextWidth(text.toString());
   }
 
-  /** Calculates the text origin and alignment based on the bounds. */
-  private float calculateTextOriginAndAlignment(@NonNull Rect bounds) {
+  /**
+   * Calculates the text origin and alignment based on the bounds.
+   */
+  private float calculateTextOriginAndAlignment(@NonNull Rect bounds)
+  {
     return bounds.centerY() - calculateTextCenterFromBaseline();
   }
 
@@ -481,7 +532,8 @@ public class TooltipDrawable extends MaterialShapeDrawable implements TextDrawab
    * Paint#getFontMetrics(FontMetrics)} rather than {@link Paint#getTextBounds(String, int, int,
    * Rect)}.
    */
-  private float calculateTextCenterFromBaseline() {
+  private float calculateTextCenterFromBaseline()
+  {
     textDrawableHelper.getTextPaint().getFontMetrics(fontMetrics);
     return (fontMetrics.descent + fontMetrics.ascent) / 2f;
   }

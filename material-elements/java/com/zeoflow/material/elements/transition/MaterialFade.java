@@ -20,22 +20,26 @@ package com.zeoflow.material.elements.transition;
  * A {@link androidx.transition.Visibility} transition that is composed of a fade and scale of
  * incoming content and a simple fade of outgoing content.
  */
-public final class MaterialFade extends MaterialVisibility<FadeProvider> {
+public final class MaterialFade extends MaterialVisibility<FadeProvider>
+{
 
   private static final float DEFAULT_START_SCALE = 0.8f;
   private static final float DEFAULT_FADE_END_THRESHOLD_ENTER = 0.3f;
 
-  public MaterialFade() {
+  public MaterialFade()
+  {
     super(createPrimaryAnimatorProvider(), createSecondaryAnimatorProvider());
   }
 
-  private static FadeProvider createPrimaryAnimatorProvider() {
+  private static FadeProvider createPrimaryAnimatorProvider()
+  {
     FadeProvider fadeProvider = new FadeProvider();
     fadeProvider.setIncomingEndThreshold(DEFAULT_FADE_END_THRESHOLD_ENTER);
     return fadeProvider;
   }
 
-  private static VisibilityAnimatorProvider createSecondaryAnimatorProvider() {
+  private static VisibilityAnimatorProvider createSecondaryAnimatorProvider()
+  {
     ScaleProvider scaleProvider = new ScaleProvider();
     scaleProvider.setScaleOnDisappear(false);
     scaleProvider.setIncomingStartScale(DEFAULT_START_SCALE);

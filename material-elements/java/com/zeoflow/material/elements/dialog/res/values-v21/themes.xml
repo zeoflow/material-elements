@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2020 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +20,8 @@
     (non-AppCompat) alert dialogs, via the android:alertDialogTheme attribute.
     It is recommended to use AppCompat alert dialogs, but Preferences does not.
   -->
-  <style name="ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Dialog.Alert.Framework"/>
+  <style name="ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" />
 
-  <style name="ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework"/>
+  <style name="ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" parent="Base.ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" />
 
 </resources>

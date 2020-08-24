@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +19,9 @@
   android:id="@+id/month_navigation_bar"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:orientation="horizontal"
   android:paddingTop="@dimen/mtrl_calendar_navigation_top_padding"
-  android:paddingBottom="@dimen/mtrl_calendar_navigation_bottom_padding"
-  android:orientation="horizontal">
+  android:paddingBottom="@dimen/mtrl_calendar_navigation_bottom_padding">
 
   <FrameLayout
     android:layout_width="0dp"
@@ -35,11 +34,11 @@
       android:layout_height="@dimen/mtrl_calendar_navigation_height"
       android:layout_gravity="start"
       android:gravity="center_vertical|start"
-      android:insetBottom="0dp"
       android:insetTop="0dp"
+      android:insetBottom="0dp"
       app:icon="@drawable/material_ic_menu_arrow_down_black_24dp"
       app:iconGravity="textEnd"
-      app:iconPadding="4dp"/>
+      app:iconPadding="4dp" />
 
   </FrameLayout>
 
@@ -49,9 +48,9 @@
     android:layout_height="@dimen/mtrl_calendar_navigation_height"
     android:contentDescription="@string/mtrl_picker_a11y_prev_month"
     android:gravity="center"
-    android:insetBottom="0dp"
     android:insetTop="0dp"
-    app:icon="@drawable/material_ic_keyboard_arrow_left_black_24dp"/>
+    android:insetBottom="0dp"
+    app:icon="@drawable/material_ic_keyboard_arrow_left_black_24dp" />
 
   <com.zeoflow.material.elements.button.MaterialButton
     android:id="@+id/month_navigation_next"
@@ -59,8 +58,8 @@
     android:layout_height="@dimen/mtrl_calendar_navigation_height"
     android:contentDescription="@string/mtrl_picker_a11y_next_month"
     android:gravity="center"
-    android:insetBottom="0dp"
     android:insetTop="0dp"
-    app:icon="@drawable/material_ic_keyboard_arrow_right_black_24dp"/>
+    android:insetBottom="0dp"
+    app:icon="@drawable/material_ic_keyboard_arrow_right_black_24dp" />
 
 </LinearLayout>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2018 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +14,8 @@
      limitations under the License.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:color="@color/mtrl_textinput_focused_box_stroke_color" android:state_focused="true"/>
-  <item android:color="@color/mtrl_textinput_hovered_box_stroke_color" android:state_hovered="true"/>
-  <item android:color="@color/mtrl_textinput_disabled_color" android:state_enabled="false"/>
-  <item android:color="@color/mtrl_textinput_default_box_stroke_color"/>
+  <item android:color="@color/mtrl_textinput_focused_box_stroke_color" android:state_focused="true" />
+  <item android:color="@color/mtrl_textinput_hovered_box_stroke_color" android:state_hovered="true" />
+  <item android:color="@color/mtrl_textinput_disabled_color" android:state_enabled="false" />
+  <item android:color="@color/mtrl_textinput_default_box_stroke_color" />
 </selector>

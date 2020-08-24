@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.bottomnavigation;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +28,15 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
 import androidx.annotation.DrawableRes;
@@ -39,22 +46,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StyleRes;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.customview.view.AbsSavedState;
-import androidx.core.view.ViewCompat;
 import androidx.appcompat.view.SupportMenuInflater;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.TintTypedArray;
-import android.util.AttributeSet;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.customview.view.AbsSavedState;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.badge.BadgeDrawable;
 import com.zeoflow.material.elements.behavior.HideBottomViewOnScrollBehavior;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
@@ -110,30 +111,37 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * &lt;/menu&gt;
  * </pre>
  */
-public class BottomNavigationView extends FrameLayout {
+public class BottomNavigationView extends FrameLayout
+{
 
   private static final int DEF_STYLE_RES = R.style.Widget_Design_BottomNavigationView;
   private static final int MENU_PRESENTER_ID = 1;
-
-  @NonNull private final MenuBuilder menu;
-  @NonNull @VisibleForTesting final BottomNavigationMenuView menuView;
+  @NonNull
+  @VisibleForTesting
+  final BottomNavigationMenuView menuView;
+  @NonNull
+  private final MenuBuilder menu;
   private final BottomNavigationPresenter presenter = new BottomNavigationPresenter();
-  @Nullable private ColorStateList itemRippleColor;
+  @Nullable
+  private ColorStateList itemRippleColor;
   private MenuInflater menuInflater;
 
   private OnNavigationItemSelectedListener selectedListener;
   private OnNavigationItemReselectedListener reselectedListener;
 
-  public BottomNavigationView(@NonNull Context context) {
+  public BottomNavigationView(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public BottomNavigationView(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public BottomNavigationView(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.bottomNavigationStyle);
   }
 
   public BottomNavigationView(
-      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -165,9 +173,11 @@ public class BottomNavigationView extends FrameLayout {
             R.styleable.BottomNavigationView_itemTextAppearanceInactive,
             R.styleable.BottomNavigationView_itemTextAppearanceActive);
 
-    if (a.hasValue(R.styleable.BottomNavigationView_itemIconTint)) {
+    if (a.hasValue(R.styleable.BottomNavigationView_itemIconTint))
+    {
       menuView.setIconTintList(a.getColorStateList(R.styleable.BottomNavigationView_itemIconTint));
-    } else {
+    } else
+    {
       menuView.setIconTintList(
           menuView.createDefaultColorStateList(android.R.attr.textColorSecondary));
     }
@@ -176,25 +186,30 @@ public class BottomNavigationView extends FrameLayout {
         a.getDimensionPixelSize(
             R.styleable.BottomNavigationView_itemIconSize,
             getResources().getDimensionPixelSize(R.dimen.design_bottom_navigation_icon_size)));
-    if (a.hasValue(R.styleable.BottomNavigationView_itemTextAppearanceInactive)) {
+    if (a.hasValue(R.styleable.BottomNavigationView_itemTextAppearanceInactive))
+    {
       setItemTextAppearanceInactive(
           a.getResourceId(R.styleable.BottomNavigationView_itemTextAppearanceInactive, 0));
     }
-    if (a.hasValue(R.styleable.BottomNavigationView_itemTextAppearanceActive)) {
+    if (a.hasValue(R.styleable.BottomNavigationView_itemTextAppearanceActive))
+    {
       setItemTextAppearanceActive(
           a.getResourceId(R.styleable.BottomNavigationView_itemTextAppearanceActive, 0));
     }
 
-    if (a.hasValue(R.styleable.BottomNavigationView_itemTextColor)) {
+    if (a.hasValue(R.styleable.BottomNavigationView_itemTextColor))
+    {
       setItemTextColor(a.getColorStateList(R.styleable.BottomNavigationView_itemTextColor));
     }
 
-    if (getBackground() == null || getBackground() instanceof ColorDrawable) {
+    if (getBackground() == null || getBackground() instanceof ColorDrawable)
+    {
       // Add a MaterialShapeDrawable as background that supports tinting in every API level.
       ViewCompat.setBackground(this, createMaterialShapeDrawableBackground(context));
     }
 
-    if (a.hasValue(R.styleable.BottomNavigationView_elevation)) {
+    if (a.hasValue(R.styleable.BottomNavigationView_elevation))
+    {
       ViewCompat.setElevation(
           this, a.getDimensionPixelSize(R.styleable.BottomNavigationView_elevation, 0));
     }
@@ -212,30 +227,37 @@ public class BottomNavigationView extends FrameLayout {
         a.getBoolean(R.styleable.BottomNavigationView_itemHorizontalTranslationEnabled, true));
 
     int itemBackground = a.getResourceId(R.styleable.BottomNavigationView_itemBackground, 0);
-    if (itemBackground != 0) {
+    if (itemBackground != 0)
+    {
       menuView.setItemBackgroundRes(itemBackground);
-    } else {
+    } else
+    {
       ColorStateList itemRippleColor =
           MaterialResources.getColorStateList(
               context, a, R.styleable.BottomNavigationView_itemRippleColor);
       setItemRippleColor(itemRippleColor);
     }
 
-    if (a.hasValue(R.styleable.BottomNavigationView_menu)) {
+    if (a.hasValue(R.styleable.BottomNavigationView_menu))
+    {
       inflateMenu(a.getResourceId(R.styleable.BottomNavigationView_menu, 0));
     }
     a.recycle();
 
     addView(menuView, params);
-    if (Build.VERSION.SDK_INT < 21) {
+    if (Build.VERSION.SDK_INT < 21)
+    {
       addCompatibilityTopDivider(context);
     }
 
     this.menu.setCallback(
-        new MenuBuilder.Callback() {
+        new MenuBuilder.Callback()
+        {
           @Override
-          public boolean onMenuItemSelected(MenuBuilder menu, @NonNull MenuItem item) {
-            if (reselectedListener != null && item.getItemId() == getSelectedItemId()) {
+          public boolean onMenuItemSelected(MenuBuilder menu, @NonNull MenuItem item)
+          {
+            if (reselectedListener != null && item.getItemId() == getSelectedItemId())
+            {
               reselectedListener.onNavigationItemReselected(item);
               return true; // item is already selected
             }
@@ -243,22 +265,27 @@ public class BottomNavigationView extends FrameLayout {
           }
 
           @Override
-          public void onMenuModeChange(MenuBuilder menu) {}
+          public void onMenuModeChange(MenuBuilder menu)
+          {
+          }
         });
 
     applyWindowInsets();
   }
 
-  private void applyWindowInsets() {
+  private void applyWindowInsets()
+  {
     ViewUtils.doOnApplyWindowInsets(
         this,
-        new ViewUtils.OnApplyWindowInsetsListener() {
+        new ViewUtils.OnApplyWindowInsetsListener()
+        {
           @NonNull
           @Override
           public androidx.core.view.WindowInsetsCompat onApplyWindowInsets(
               View view,
               @NonNull androidx.core.view.WindowInsetsCompat insets,
-              @NonNull RelativePadding initialPadding) {
+              @NonNull RelativePadding initialPadding)
+          {
             initialPadding.bottom += insets.getSystemWindowInsetBottom();
             initialPadding.applyToView(view);
             return insets;
@@ -267,10 +294,12 @@ public class BottomNavigationView extends FrameLayout {
   }
 
   @NonNull
-  private MaterialShapeDrawable createMaterialShapeDrawableBackground(Context context) {
+  private MaterialShapeDrawable createMaterialShapeDrawableBackground(Context context)
+  {
     MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
     Drawable originalBackground = getBackground();
-    if (originalBackground instanceof ColorDrawable) {
+    if (originalBackground instanceof ColorDrawable)
+    {
       materialShapeDrawable.setFillColor(
           ColorStateList.valueOf(((ColorDrawable) originalBackground).getColor()));
     }
@@ -279,7 +308,8 @@ public class BottomNavigationView extends FrameLayout {
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
     MaterialShapeUtils.setParentAbsoluteElevation(this);
@@ -292,7 +322,8 @@ public class BottomNavigationView extends FrameLayout {
    */
   @RequiresApi(VERSION_CODES.LOLLIPOP)
   @Override
-  public void setElevation(float elevation) {
+  public void setElevation(float elevation)
+  {
     super.setElevation(elevation);
 
     MaterialShapeUtils.setElevation(this, elevation);
@@ -307,7 +338,8 @@ public class BottomNavigationView extends FrameLayout {
    * @see #setOnNavigationItemReselectedListener(OnNavigationItemReselectedListener)
    */
   public void setOnNavigationItemSelectedListener(
-      @Nullable OnNavigationItemSelectedListener listener) {
+      @Nullable OnNavigationItemSelectedListener listener)
+  {
     selectedListener = listener;
   }
 
@@ -319,13 +351,17 @@ public class BottomNavigationView extends FrameLayout {
    * @see #setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener)
    */
   public void setOnNavigationItemReselectedListener(
-      @Nullable OnNavigationItemReselectedListener listener) {
+      @Nullable OnNavigationItemReselectedListener listener)
+  {
     reselectedListener = listener;
   }
 
-  /** Returns the {@link Menu} instance associated with this bottom navigation bar. */
+  /**
+   * Returns the {@link Menu} instance associated with this bottom navigation bar.
+   */
   @NonNull
-  public Menu getMenu() {
+  public Menu getMenu()
+  {
     return menu;
   }
 
@@ -336,26 +372,31 @@ public class BottomNavigationView extends FrameLayout {
    *
    * @param resId ID of a menu resource to inflate
    */
-  public void inflateMenu(int resId) {
+  public void inflateMenu(int resId)
+  {
     presenter.setUpdateSuspended(true);
     getMenuInflater().inflate(resId, menu);
     presenter.setUpdateSuspended(false);
     presenter.updateMenuView(true);
   }
 
-  /** @return The maximum number of items that can be shown in BottomNavigationView. */
-  public int getMaxItemCount() {
+  /**
+   * @return The maximum number of items that can be shown in BottomNavigationView.
+   */
+  public int getMaxItemCount()
+  {
     return BottomNavigationMenu.MAX_ITEM_COUNT;
   }
 
   /**
    * Returns the tint which is applied to our menu items' icons.
    *
-   * @see #setItemIconTintList(ColorStateList)
    * @attr ref R.styleable#BottomNavigationView_itemIconTint
+   * @see #setItemIconTintList(ColorStateList)
    */
   @Nullable
-  public ColorStateList getItemIconTintList() {
+  public ColorStateList getItemIconTintList()
+  {
     return menuView.getIconTintList();
   }
 
@@ -365,20 +406,9 @@ public class BottomNavigationView extends FrameLayout {
    * @param tint the tint to apply.
    * @attr ref R.styleable#BottomNavigationView_itemIconTint
    */
-  public void setItemIconTintList(@Nullable ColorStateList tint) {
+  public void setItemIconTintList(@Nullable ColorStateList tint)
+  {
     menuView.setIconTintList(tint);
-  }
-
-  /**
-   * Set the size to provide for the menu item icons.
-   *
-   * <p>For best image resolution, use an icon with the same size set in this method.
-   *
-   * @param iconSize the size in pixels to provide for the menu item icons
-   * @attr ref R.styleable#BottomNavigationView_itemIconSize
-   */
-  public void setItemIconSize(@Dimension int iconSize) {
-    menuView.setItemIconSize(iconSize);
   }
 
   /**
@@ -389,31 +419,47 @@ public class BottomNavigationView extends FrameLayout {
    * @param iconSizeRes the resource ID for the size to provide for the menu item icons
    * @attr ref R.styleable#BottomNavigationView_itemIconSize
    */
-  public void setItemIconSizeRes(@DimenRes int iconSizeRes) {
+  public void setItemIconSizeRes(@DimenRes int iconSizeRes)
+  {
     setItemIconSize(getResources().getDimensionPixelSize(iconSizeRes));
   }
 
   /**
    * Returns the size provided for the menu item icons in pixels.
    *
-   * @see #setItemIconSize(int)
    * @attr ref R.styleable#BottomNavigationView_itemIconSize
+   * @see #setItemIconSize(int)
    */
   @Dimension
-  public int getItemIconSize() {
+  public int getItemIconSize()
+  {
     return menuView.getItemIconSize();
+  }
+
+  /**
+   * Set the size to provide for the menu item icons.
+   *
+   * <p>For best image resolution, use an icon with the same size set in this method.
+   *
+   * @param iconSize the size in pixels to provide for the menu item icons
+   * @attr ref R.styleable#BottomNavigationView_itemIconSize
+   */
+  public void setItemIconSize(@Dimension int iconSize)
+  {
+    menuView.setItemIconSize(iconSize);
   }
 
   /**
    * Returns colors used for the different states (normal, selected, focused, etc.) of the menu item
    * text.
    *
-   * @see #setItemTextColor(ColorStateList)
    * @return the ColorStateList of colors used for the different states of the menu items text.
    * @attr ref R.styleable#BottomNavigationView_itemTextColor
+   * @see #setItemTextColor(ColorStateList)
    */
   @Nullable
-  public ColorStateList getItemTextColor() {
+  public ColorStateList getItemTextColor()
+  {
     return menuView.getItemTextColor();
   }
 
@@ -421,23 +467,25 @@ public class BottomNavigationView extends FrameLayout {
    * Set the colors to use for the different states (normal, selected, focused, etc.) of the menu
    * item text.
    *
-   * @see #getItemTextColor()
    * @attr ref R.styleable#BottomNavigationView_itemTextColor
+   * @see #getItemTextColor()
    */
-  public void setItemTextColor(@Nullable ColorStateList textColor) {
+  public void setItemTextColor(@Nullable ColorStateList textColor)
+  {
     menuView.setItemTextColor(textColor);
   }
 
   /**
    * Returns the background resource of the menu items.
    *
-   * @see #setItemBackgroundResource(int)
    * @attr ref R.styleable#BottomNavigationView_itemBackground
+   * @see #setItemBackgroundResource(int)
    * @deprecated Use {@link #getItemBackground()} instead.
    */
   @Deprecated
   @DrawableRes
-  public int getItemBackgroundResource() {
+  public int getItemBackgroundResource()
+  {
     return menuView.getItemBackgroundRes();
   }
 
@@ -450,7 +498,8 @@ public class BottomNavigationView extends FrameLayout {
    * @param resId The identifier of the resource.
    * @attr ref R.styleable#BottomNavigationView_itemBackground
    */
-  public void setItemBackgroundResource(@DrawableRes int resId) {
+  public void setItemBackgroundResource(@DrawableRes int resId)
+  {
     menuView.setItemBackgroundRes(resId);
     itemRippleColor = null;
   }
@@ -458,11 +507,12 @@ public class BottomNavigationView extends FrameLayout {
   /**
    * Returns the background drawable of the menu items.
    *
-   * @see #setItemBackground(Drawable)
    * @attr ref R.styleable#BottomNavigationView_itemBackground
+   * @see #setItemBackground(Drawable)
    */
   @Nullable
-  public Drawable getItemBackground() {
+  public Drawable getItemBackground()
+  {
     return menuView.getItemBackground();
   }
 
@@ -475,7 +525,8 @@ public class BottomNavigationView extends FrameLayout {
    * @param background The drawable for the background.
    * @attr ref R.styleable#BottomNavigationView_itemBackground
    */
-  public void setItemBackground(@Nullable Drawable background) {
+  public void setItemBackground(@Nullable Drawable background)
+  {
     menuView.setItemBackground(background);
     itemRippleColor = null;
   }
@@ -484,11 +535,12 @@ public class BottomNavigationView extends FrameLayout {
    * Returns the color used to create a ripple as the background drawable of the menu items. If a
    * background is set using {@link #setItemBackground(Drawable)}, this will return null.
    *
-   * @see #setItemBackground(Drawable)
    * @attr ref R.styleable#BottomNavigationView_itemRippleColor
+   * @see #setItemBackground(Drawable)
    */
   @Nullable
-  public ColorStateList getItemRippleColor() {
+  public ColorStateList getItemRippleColor()
+  {
     return itemRippleColor;
   }
 
@@ -496,28 +548,35 @@ public class BottomNavigationView extends FrameLayout {
    * Set the background of our menu items to be a ripple with the given colors.
    *
    * @param itemRippleColor The {@link ColorStateList} for the ripple. This will create a ripple
-   *     background for menu items, replacing any background previously set by {@link
-   *     #setItemBackground(Drawable)}.
+   *                        background for menu items, replacing any background previously set by {@link
+   *                        #setItemBackground(Drawable)}.
    * @attr ref R.styleable#BottomNavigationView_itemRippleColor
    */
-  public void setItemRippleColor(@Nullable ColorStateList itemRippleColor) {
-    if (this.itemRippleColor == itemRippleColor) {
+  public void setItemRippleColor(@Nullable ColorStateList itemRippleColor)
+  {
+    if (this.itemRippleColor == itemRippleColor)
+    {
       // Clear the item background when setItemRippleColor(null) is called for consistency.
-      if (itemRippleColor == null && menuView.getItemBackground() != null) {
+      if (itemRippleColor == null && menuView.getItemBackground() != null)
+      {
         menuView.setItemBackground(null);
       }
       return;
     }
 
     this.itemRippleColor = itemRippleColor;
-    if (itemRippleColor == null) {
+    if (itemRippleColor == null)
+    {
       menuView.setItemBackground(null);
-    } else {
+    } else
+    {
       ColorStateList rippleDrawableColor =
           RippleUtils.convertToRippleDrawableColor(itemRippleColor);
-      if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+      {
         menuView.setItemBackground(new RippleDrawable(rippleDrawableColor, null, null));
-      } else {
+      } else
+      {
         GradientDrawable rippleDrawable = new GradientDrawable();
         // TODO: Find a workaround for this. Currently on certain devices/versions, LayerDrawable
         // will draw a black background underneath any layer with a non-opaque color,
@@ -536,7 +595,8 @@ public class BottomNavigationView extends FrameLayout {
    * @see #setSelectedItemId(int)
    */
   @IdRes
-  public int getSelectedItemId() {
+  public int getSelectedItemId()
+  {
     return menuView.getSelectedItemId();
   }
 
@@ -546,33 +606,15 @@ public class BottomNavigationView extends FrameLayout {
    * @param itemId The menu item ID. If no item has this ID, the current selection is unchanged.
    * @see #getSelectedItemId()
    */
-  public void setSelectedItemId(@IdRes int itemId) {
+  public void setSelectedItemId(@IdRes int itemId)
+  {
     MenuItem item = menu.findItem(itemId);
-    if (item != null) {
-      if (!menu.performItemAction(item, presenter, 0)) {
+    if (item != null)
+    {
+      if (!menu.performItemAction(item, presenter, 0))
+      {
         item.setChecked(true);
       }
-    }
-  }
-
-  /**
-   * Sets the navigation items' label visibility mode.
-   *
-   * <p>The label is either always shown, never shown, or only shown when activated. Also supports
-   * "auto" mode, which uses the item count to determine whether to show or hide the label.
-   *
-   * @attr ref com.google.android.material.R.styleable#BottomNavigationView_labelVisibilityMode
-   * @param labelVisibilityMode mode which decides whether or not the label should be shown. Can be
-   *     one of {@link LabelVisibilityMode#LABEL_VISIBILITY_AUTO}, {@link
-   *     LabelVisibilityMode#LABEL_VISIBILITY_SELECTED}, {@link
-   *     LabelVisibilityMode#LABEL_VISIBILITY_LABELED}, or {@link
-   *     LabelVisibilityMode#LABEL_VISIBILITY_UNLABELED}
-   * @see #getLabelVisibilityMode()
-   */
-  public void setLabelVisibilityMode(@LabelVisibilityMode int labelVisibilityMode) {
-    if (menuView.getLabelVisibilityMode() != labelVisibilityMode) {
-      menuView.setLabelVisibilityMode(labelVisibilityMode);
-      presenter.updateMenuView(false);
     }
   }
 
@@ -583,17 +625,32 @@ public class BottomNavigationView extends FrameLayout {
    * @see #setLabelVisibilityMode(int)
    */
   @LabelVisibilityMode
-  public int getLabelVisibilityMode() {
+  public int getLabelVisibilityMode()
+  {
     return menuView.getLabelVisibilityMode();
   }
 
   /**
-   * Sets the text appearance to be used for inactive menu item labels.
+   * Sets the navigation items' label visibility mode.
    *
-   * @param textAppearanceRes the text appearance ID used for inactive menu item labels
+   * <p>The label is either always shown, never shown, or only shown when activated. Also supports
+   * "auto" mode, which uses the item count to determine whether to show or hide the label.
+   *
+   * @param labelVisibilityMode mode which decides whether or not the label should be shown. Can be
+   *                            one of {@link LabelVisibilityMode#LABEL_VISIBILITY_AUTO}, {@link
+   *                            LabelVisibilityMode#LABEL_VISIBILITY_SELECTED}, {@link
+   *                            LabelVisibilityMode#LABEL_VISIBILITY_LABELED}, or {@link
+   *                            LabelVisibilityMode#LABEL_VISIBILITY_UNLABELED}
+   * @attr ref com.google.android.material.R.styleable#BottomNavigationView_labelVisibilityMode
+   * @see #getLabelVisibilityMode()
    */
-  public void setItemTextAppearanceInactive(@StyleRes int textAppearanceRes) {
-    menuView.setItemTextAppearanceInactive(textAppearanceRes);
+  public void setLabelVisibilityMode(@LabelVisibilityMode int labelVisibilityMode)
+  {
+    if (menuView.getLabelVisibilityMode() != labelVisibilityMode)
+    {
+      menuView.setLabelVisibilityMode(labelVisibilityMode);
+      presenter.updateMenuView(false);
+    }
   }
 
   /**
@@ -602,17 +659,19 @@ public class BottomNavigationView extends FrameLayout {
    * @return the text appearance ID used for inactive menu item labels
    */
   @StyleRes
-  public int getItemTextAppearanceInactive() {
+  public int getItemTextAppearanceInactive()
+  {
     return menuView.getItemTextAppearanceInactive();
   }
 
   /**
-   * Sets the text appearance to be used for the menu item labels.
+   * Sets the text appearance to be used for inactive menu item labels.
    *
-   * @param textAppearanceRes the text appearance ID used for menu item labels
+   * @param textAppearanceRes the text appearance ID used for inactive menu item labels
    */
-  public void setItemTextAppearanceActive(@StyleRes int textAppearanceRes) {
-    menuView.setItemTextAppearanceActive(textAppearanceRes);
+  public void setItemTextAppearanceInactive(@StyleRes int textAppearanceRes)
+  {
+    menuView.setItemTextAppearanceInactive(textAppearanceRes);
   }
 
   /**
@@ -621,22 +680,19 @@ public class BottomNavigationView extends FrameLayout {
    * @return the text appearance ID used for the active menu item label
    */
   @StyleRes
-  public int getItemTextAppearanceActive() {
+  public int getItemTextAppearanceActive()
+  {
     return menuView.getItemTextAppearanceActive();
   }
 
   /**
-   * Sets whether the menu items horizontally translate on selection when the combined item widths
-   * fill up the screen.
+   * Sets the text appearance to be used for the menu item labels.
    *
-   * @param itemHorizontalTranslationEnabled whether the items horizontally translate on selection
-   * @see #isItemHorizontalTranslationEnabled()
+   * @param textAppearanceRes the text appearance ID used for menu item labels
    */
-  public void setItemHorizontalTranslationEnabled(boolean itemHorizontalTranslationEnabled) {
-    if (menuView.isItemHorizontalTranslationEnabled() != itemHorizontalTranslationEnabled) {
-      menuView.setItemHorizontalTranslationEnabled(itemHorizontalTranslationEnabled);
-      presenter.updateMenuView(false);
-    }
+  public void setItemTextAppearanceActive(@StyleRes int textAppearanceRes)
+  {
+    menuView.setItemTextAppearanceActive(textAppearanceRes);
   }
 
   /**
@@ -646,8 +702,25 @@ public class BottomNavigationView extends FrameLayout {
    * @return whether the menu items horizontally translate on selection
    * @see #setItemHorizontalTranslationEnabled(boolean)
    */
-  public boolean isItemHorizontalTranslationEnabled() {
+  public boolean isItemHorizontalTranslationEnabled()
+  {
     return menuView.isItemHorizontalTranslationEnabled();
+  }
+
+  /**
+   * Sets whether the menu items horizontally translate on selection when the combined item widths
+   * fill up the screen.
+   *
+   * @param itemHorizontalTranslationEnabled whether the items horizontally translate on selection
+   * @see #isItemHorizontalTranslationEnabled()
+   */
+  public void setItemHorizontalTranslationEnabled(boolean itemHorizontalTranslationEnabled)
+  {
+    if (menuView.isItemHorizontalTranslationEnabled() != itemHorizontalTranslationEnabled)
+    {
+      menuView.setItemHorizontalTranslationEnabled(itemHorizontalTranslationEnabled);
+      presenter.updateMenuView(false);
+    }
   }
 
   /**
@@ -659,7 +732,8 @@ public class BottomNavigationView extends FrameLayout {
    * @see #getOrCreateBadge(int)
    */
   @Nullable
-  public BadgeDrawable getBadge(int menuItemId) {
+  public BadgeDrawable getBadge(int menuItemId)
+  {
     return menuView.getBadge(menuItemId);
   }
 
@@ -671,7 +745,8 @@ public class BottomNavigationView extends FrameLayout {
    * @param menuItemId Id of the menu item.
    * @return an instance of BadgeDrawable associated with {@code menuItemId}.
    */
-  public BadgeDrawable getOrCreateBadge(int menuItemId) {
+  public BadgeDrawable getOrCreateBadge(int menuItemId)
+  {
     return menuView.getOrCreateBadge(menuItemId);
   }
 
@@ -682,36 +757,13 @@ public class BottomNavigationView extends FrameLayout {
    *
    * @param menuItemId Id of the menu item.
    */
-  public void removeBadge(int menuItemId) {
+  public void removeBadge(int menuItemId)
+  {
     menuView.removeBadge(menuItemId);
   }
 
-  /** Listener for handling selection events on bottom navigation items. */
-  public interface OnNavigationItemSelectedListener {
-
-    /**
-     * Called when an item in the bottom navigation menu is selected.
-     *
-     * @param item The selected item
-     * @return true to display the item as the selected item and false if the item should not be
-     *     selected. Consider setting non-selectable items as disabled preemptively to make them
-     *     appear non-interactive.
-     */
-    boolean onNavigationItemSelected(@NonNull MenuItem item);
-  }
-
-  /** Listener for handling reselection events on bottom navigation items. */
-  public interface OnNavigationItemReselectedListener {
-
-    /**
-     * Called when the currently selected item in the bottom navigation menu is selected again.
-     *
-     * @param item The selected item
-     */
-    void onNavigationItemReselected(@NonNull MenuItem item);
-  }
-
-  private void addCompatibilityTopDivider(Context context) {
+  private void addCompatibilityTopDivider(Context context)
+  {
     View divider = new View(context);
     divider.setBackgroundColor(
         ContextCompat.getColor(context, R.color.design_bottom_navigation_shadow_color));
@@ -723,15 +775,18 @@ public class BottomNavigationView extends FrameLayout {
     addView(divider);
   }
 
-  private MenuInflater getMenuInflater() {
-    if (menuInflater == null) {
+  private MenuInflater getMenuInflater()
+  {
+    if (menuInflater == null)
+    {
       menuInflater = new SupportMenuInflater(getContext());
     }
     return menuInflater;
   }
 
   @Override
-  protected Parcelable onSaveInstanceState() {
+  protected Parcelable onSaveInstanceState()
+  {
     Parcelable superState = super.onSaveInstanceState();
     SavedState savedState = new SavedState(superState);
     savedState.menuPresenterState = new Bundle();
@@ -740,8 +795,10 @@ public class BottomNavigationView extends FrameLayout {
   }
 
   @Override
-  protected void onRestoreInstanceState(Parcelable state) {
-    if (!(state instanceof SavedState)) {
+  protected void onRestoreInstanceState(Parcelable state)
+  {
+    if (!(state instanceof SavedState))
+    {
       super.onRestoreInstanceState(state);
       return;
     }
@@ -750,50 +807,91 @@ public class BottomNavigationView extends FrameLayout {
     menu.restorePresenterStates(savedState.menuPresenterState);
   }
 
-  static class SavedState extends AbsSavedState {
-    @Nullable Bundle menuPresenterState;
+  /**
+   * Listener for handling selection events on bottom navigation items.
+   */
+  public interface OnNavigationItemSelectedListener
+  {
 
-    public SavedState(Parcelable superState) {
+    /**
+     * Called when an item in the bottom navigation menu is selected.
+     *
+     * @param item The selected item
+     * @return true to display the item as the selected item and false if the item should not be
+     * selected. Consider setting non-selectable items as disabled preemptively to make them
+     * appear non-interactive.
+     */
+    boolean onNavigationItemSelected(@NonNull MenuItem item);
+  }
+
+  /**
+   * Listener for handling reselection events on bottom navigation items.
+   */
+  public interface OnNavigationItemReselectedListener
+  {
+
+    /**
+     * Called when the currently selected item in the bottom navigation menu is selected again.
+     *
+     * @param item The selected item
+     */
+    void onNavigationItemReselected(@NonNull MenuItem item);
+  }
+
+  static class SavedState extends AbsSavedState
+  {
+    public static final Creator<SavedState> CREATOR =
+        new ClassLoaderCreator<SavedState>()
+        {
+          @NonNull
+          @Override
+          public SavedState createFromParcel(@NonNull Parcel in, ClassLoader loader)
+          {
+            return new SavedState(in, loader);
+          }
+
+          @Nullable
+          @Override
+          public SavedState createFromParcel(@NonNull Parcel in)
+          {
+            return new SavedState(in, null);
+          }
+
+          @NonNull
+          @Override
+          public SavedState[] newArray(int size)
+          {
+            return new SavedState[size];
+          }
+        };
+    @Nullable
+    Bundle menuPresenterState;
+
+    public SavedState(Parcelable superState)
+    {
       super(superState);
     }
 
-    public SavedState(@NonNull Parcel source, ClassLoader loader) {
+    public SavedState(@NonNull Parcel source, ClassLoader loader)
+    {
       super(source, loader);
-      if (loader == null) {
+      if (loader == null)
+      {
         loader = getClass().getClassLoader();
       }
       readFromParcel(source, loader);
     }
 
     @Override
-    public void writeToParcel(@NonNull Parcel out, int flags) {
+    public void writeToParcel(@NonNull Parcel out, int flags)
+    {
       super.writeToParcel(out, flags);
       out.writeBundle(menuPresenterState);
     }
 
-    private void readFromParcel(@NonNull Parcel in, ClassLoader loader) {
+    private void readFromParcel(@NonNull Parcel in, ClassLoader loader)
+    {
       menuPresenterState = in.readBundle(loader);
     }
-
-    public static final Creator<SavedState> CREATOR =
-        new ClassLoaderCreator<SavedState>() {
-          @NonNull
-          @Override
-          public SavedState createFromParcel(@NonNull Parcel in, ClassLoader loader) {
-            return new SavedState(in, loader);
-          }
-
-          @Nullable
-          @Override
-          public SavedState createFromParcel(@NonNull Parcel in) {
-            return new SavedState(in, null);
-          }
-
-          @NonNull
-          @Override
-          public SavedState[] newArray(int size) {
-            return new SavedState[size];
-          }
-        };
   }
 }

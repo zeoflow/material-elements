@@ -16,24 +16,30 @@
 
 package com.zeoflow.material.elements.shape;
 
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnScrollChangedListener;
 import android.widget.ScrollView;
 
-/** Helper class to handle shape interpolation when shaped views enter or exit the window. */
-public class InterpolateOnScrollPositionChangeHelper {
+import androidx.annotation.NonNull;
 
+/**
+ * Helper class to handle shape interpolation when shaped views enter or exit the window.
+ */
+public class InterpolateOnScrollPositionChangeHelper
+{
+
+  private final int[] scrollLocation = new int[2];
+  private final int[] containerLocation = new int[2];
   private View shapedView;
   private MaterialShapeDrawable materialShapeDrawable;
   private ScrollView containingScrollView;
-  private final int[] scrollLocation = new int[2];
-  private final int[] containerLocation = new int[2];
   private final ViewTreeObserver.OnScrollChangedListener scrollChangedListener =
-      new OnScrollChangedListener() {
+      new OnScrollChangedListener()
+      {
         @Override
-        public void onScrollChanged() {
+        public void onScrollChanged()
+        {
           updateInterpolationForScreenPosition();
         }
       };
@@ -41,15 +47,16 @@ public class InterpolateOnScrollPositionChangeHelper {
   /**
    * Instantiate a scroll position helper.
    *
-   * @param shapedView the {@link View} whose background is a {@link MaterialShapeDrawable} and
-   *     which is scrolled in and out of view.
+   * @param shapedView            the {@link View} whose background is a {@link MaterialShapeDrawable} and
+   *                              which is scrolled in and out of view.
    * @param materialShapeDrawable the {@link MaterialShapeDrawable} which will be interpolated.
-   * @param containingScrollView the {@link ScrollView} that contains shapedView.
+   * @param containingScrollView  the {@link ScrollView} that contains shapedView.
    */
   public InterpolateOnScrollPositionChangeHelper(
       View shapedView,
       MaterialShapeDrawable materialShapeDrawable,
-      ScrollView containingScrollView) {
+      ScrollView containingScrollView)
+  {
     this.shapedView = shapedView;
     this.materialShapeDrawable = materialShapeDrawable;
     this.containingScrollView = containingScrollView;
@@ -60,7 +67,8 @@ public class InterpolateOnScrollPositionChangeHelper {
    *
    * @param materialShapeDrawable the desired drawable.
    */
-  public void setMaterialShapeDrawable(MaterialShapeDrawable materialShapeDrawable) {
+  public void setMaterialShapeDrawable(MaterialShapeDrawable materialShapeDrawable)
+  {
     this.materialShapeDrawable = materialShapeDrawable;
   }
 
@@ -69,7 +77,8 @@ public class InterpolateOnScrollPositionChangeHelper {
    *
    * @param containingScrollView
    */
-  public void setContainingScrollView(ScrollView containingScrollView) {
+  public void setContainingScrollView(ScrollView containingScrollView)
+  {
     this.containingScrollView = containingScrollView;
   }
 
@@ -77,9 +86,10 @@ public class InterpolateOnScrollPositionChangeHelper {
    * Start listening for scroll changes and interpolating based on position.
    *
    * @param viewTreeObserver {@link ViewTreeObserver belonging to the {@link View} being
-   * interpolated.
+   *                         interpolated.
    */
-  public void startListeningForScrollChanges(@NonNull ViewTreeObserver viewTreeObserver) {
+  public void startListeningForScrollChanges(@NonNull ViewTreeObserver viewTreeObserver)
+  {
     viewTreeObserver.addOnScrollChangedListener(scrollChangedListener);
   }
 
@@ -87,9 +97,10 @@ public class InterpolateOnScrollPositionChangeHelper {
    * Stop listening for scroll changes and interpolating based on position.
    *
    * @param viewTreeObserver {@link ViewTreeObserver belonging to the {@link View} being
-   * interpolated.
+   *                         interpolated.
    */
-  public void stopListeningForScrollChanges(@NonNull ViewTreeObserver viewTreeObserver) {
+  public void stopListeningForScrollChanges(@NonNull ViewTreeObserver viewTreeObserver)
+  {
     viewTreeObserver.removeOnScrollChangedListener(scrollChangedListener);
   }
 
@@ -97,12 +108,15 @@ public class InterpolateOnScrollPositionChangeHelper {
    * Updates the {@link MaterialShapeDrawable}'s interpolation based on the {@link View}'s position
    * in the containing {@link ScrollView}.
    */
-  public void updateInterpolationForScreenPosition() {
-    if (containingScrollView == null) {
+  public void updateInterpolationForScreenPosition()
+  {
+    if (containingScrollView == null)
+    {
       // No scroll view, no healing/growing.
       return;
     }
-    if (containingScrollView.getChildCount() == 0) {
+    if (containingScrollView.getChildCount() == 0)
+    {
       // No container inside scroll view, no healing/growing.
       throw new IllegalStateException(
           "Scroll bar must contain a child to calculate interpolation.");
@@ -115,16 +129,19 @@ public class InterpolateOnScrollPositionChangeHelper {
     int windowHeight = containingScrollView.getHeight();
 
     // Off the top of the screen.
-    if (y < 0) {
+    if (y < 0)
+    {
       materialShapeDrawable.setInterpolation(
           Math.max(0f, Math.min(1f, 1f + (float) y / (float) viewHeight)));
       shapedView.invalidate();
-    } else if (y + viewHeight > windowHeight) {
+    } else if (y + viewHeight > windowHeight)
+    {
       int distanceOffScreen = y + viewHeight - windowHeight;
       materialShapeDrawable.setInterpolation(
           Math.max(0f, Math.min(1f, 1f - (float) distanceOffScreen / (float) viewHeight)));
       shapedView.invalidate();
-    } else if (materialShapeDrawable.getInterpolation() != 1f) {
+    } else if (materialShapeDrawable.getInterpolation() != 1f)
+    {
       materialShapeDrawable.setInterpolation(1f);
       shapedView.invalidate();
     }

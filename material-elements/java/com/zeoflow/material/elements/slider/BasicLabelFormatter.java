@@ -17,6 +17,7 @@
 package com.zeoflow.material.elements.slider;
 
 import androidx.annotation.NonNull;
+
 import java.util.Locale;
 
 /**
@@ -24,7 +25,8 @@ import java.util.Locale;
  * displayed inside a discrete slider's bubble to three digits, and a single-character suffix that
  * denotes magnitude (e.g.: 1.5K, 2.2M, 1.3B, 2T).
  */
-public final class BasicLabelFormatter implements LabelFormatter {
+public final class BasicLabelFormatter implements LabelFormatter
+{
 
   private static final long TRILLION = 1000000000000L;
   private static final int BILLION = 1000000000;
@@ -33,14 +35,19 @@ public final class BasicLabelFormatter implements LabelFormatter {
 
   @NonNull
   @Override
-  public String getFormattedValue(float value) {
-    if (value >= TRILLION) {
+  public String getFormattedValue(float value)
+  {
+    if (value >= TRILLION)
+    {
       return String.format(Locale.US, "%.1fT", value / TRILLION);
-    } else if (value >= BILLION) {
+    } else if (value >= BILLION)
+    {
       return String.format(Locale.US, "%.1fB", value / BILLION);
-    } else if (value >= MILLION) {
+    } else if (value >= MILLION)
+    {
       return String.format(Locale.US, "%.1fM", value / MILLION);
-    } else if (value >= THOUSAND) {
+    } else if (value >= THOUSAND)
+    {
       return String.format(Locale.US, "%.1fK", value / THOUSAND);
     }
 

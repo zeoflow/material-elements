@@ -20,11 +20,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.AttributeSet;
-import android.view.View;
+
 import com.zeoflow.material.elements.expandable.ExpandableWidget;
 import com.zeoflow.material.elements.transition.MaterialContainerTransform;
 
@@ -37,16 +39,21 @@ import com.zeoflow.material.elements.transition.MaterialContainerTransform;
  * boolean)} to return an animation
  *
  * @deprecated Use {@link MaterialContainerTransform}
- *     instead.
+ * instead.
  */
 @Deprecated
-public abstract class ExpandableTransformationBehavior extends ExpandableBehavior {
+public abstract class ExpandableTransformationBehavior extends ExpandableBehavior
+{
 
-  @Nullable private AnimatorSet currentAnimation;
+  @Nullable
+  private AnimatorSet currentAnimation;
 
-  public ExpandableTransformationBehavior() {}
+  public ExpandableTransformationBehavior()
+  {
+  }
 
-  public ExpandableTransformationBehavior(Context context, AttributeSet attrs) {
+  public ExpandableTransformationBehavior(Context context, AttributeSet attrs)
+  {
     super(context, attrs);
   }
 
@@ -59,10 +66,10 @@ public abstract class ExpandableTransformationBehavior extends ExpandableBehavio
    * <p>If the new {@code expanded} state is false, the {@code dependency} should be shown and the
    * {@code child} should be hidden.
    *
-   * @param dependency the {@link ExpandableWidget}
-   * dependency containing the new expanded state.
-   * @param child the view that should react to the change in expanded state.
-   * @param expanded the new expanded state.
+   * @param dependency  the {@link ExpandableWidget}
+   *                    dependency containing the new expanded state.
+   * @param child       the view that should react to the change in expanded state.
+   * @param expanded    the new expanded state.
    * @param isAnimating whether this state change occurred while a previous state change was still
    */
   @NonNull
@@ -72,24 +79,29 @@ public abstract class ExpandableTransformationBehavior extends ExpandableBehavio
   @CallSuper
   @Override
   protected boolean onExpandedStateChange(
-      View dependency, View child, boolean expanded, boolean animated) {
+      View dependency, View child, boolean expanded, boolean animated)
+  {
     boolean currentlyAnimating = currentAnimation != null;
-    if (currentlyAnimating) {
+    if (currentlyAnimating)
+    {
       currentAnimation.cancel();
     }
 
     currentAnimation =
         onCreateExpandedStateChangeAnimation(dependency, child, expanded, currentlyAnimating);
     currentAnimation.addListener(
-        new AnimatorListenerAdapter() {
+        new AnimatorListenerAdapter()
+        {
           @Override
-          public void onAnimationEnd(Animator animation) {
+          public void onAnimationEnd(Animator animation)
+          {
             currentAnimation = null;
           }
         });
 
     currentAnimation.start();
-    if (!animated) {
+    if (!animated)
+    {
       // Synchronously end the animation, jumping to the end state.
       // AnimatorSet has synchronous listener behavior on all supported APIs.
       currentAnimation.end();

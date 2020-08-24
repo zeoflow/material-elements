@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,23 +13,22 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mtrl_picker_fullscreen"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/mtrl_picker_fullscreen"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:gravity="center_horizontal"
+  android:orientation="vertical">
 
-  <include layout="@layout/mtrl_picker_header_fullscreen"/>
+  <include layout="@layout/mtrl_picker_header_fullscreen" />
 
   <FrameLayout
-      android:id="@+id/mtrl_calendar_frame"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingStart="@dimen/mtrl_calendar_content_padding"
-      android:paddingEnd="@dimen/mtrl_calendar_content_padding"
-      android:paddingLeft="@dimen/mtrl_calendar_content_padding"
-      android:paddingRight="@dimen/mtrl_calendar_content_padding"/>
+    android:id="@+id/mtrl_calendar_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/mtrl_calendar_content_padding"
+    android:paddingLeft="@dimen/mtrl_calendar_content_padding"
+    android:paddingEnd="@dimen/mtrl_calendar_content_padding"
+    android:paddingRight="@dimen/mtrl_calendar_content_padding" />
 
 </LinearLayout>

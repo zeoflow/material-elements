@@ -16,11 +16,12 @@
 
 package com.zeoflow.material.elements.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Backward-compatible implementation of {@link android.view.ViewOverlay}. TODO(b/144937975): Remove
@@ -29,7 +30,8 @@ import androidx.annotation.RestrictTo;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public interface ViewOverlayImpl {
+public interface ViewOverlayImpl
+{
 
   /**
    * Adds a Drawable to the overlay. The bounds of the drawable should be relative to the host view.
@@ -37,7 +39,7 @@ public interface ViewOverlayImpl {
    * visible.
    *
    * @param drawable The Drawable to be added to the overlay. This drawable will be drawn when the
-   *     view redraws its overlay.
+   *                 view redraws its overlay.
    * @see #remove(Drawable)
    */
   void add(@NonNull Drawable drawable);

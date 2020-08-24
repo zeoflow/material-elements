@@ -17,8 +17,11 @@ package com.zeoflow.material.elements.datepicker;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import com.zeoflow.material.elements.datepicker.CalendarConstraints.DateValidator;
+
 import java.util.Arrays;
 
 /**
@@ -27,11 +30,33 @@ import java.util.Arrays;
  * DateValidatorPointForward#now()}, but can be set to any point, as UTC milliseconds, using {@link
  * DateValidatorPointForward#from(long)}.
  */
-public class DateValidatorPointForward implements DateValidator {
+public class DateValidatorPointForward implements DateValidator
+{
 
+  /**
+   * Part of {@link android.os.Parcelable} requirements. Do not use.
+   */
+  public static final Parcelable.Creator<DateValidatorPointForward> CREATOR =
+      new Parcelable.Creator<DateValidatorPointForward>()
+      {
+        @NonNull
+        @Override
+        public DateValidatorPointForward createFromParcel(@NonNull Parcel source)
+        {
+          return new DateValidatorPointForward(source.readLong());
+        }
+
+        @NonNull
+        @Override
+        public DateValidatorPointForward[] newArray(int size)
+        {
+          return new DateValidatorPointForward[size];
+        }
+      };
   private final long point;
 
-  private DateValidatorPointForward(long point) {
+  private DateValidatorPointForward(long point)
+  {
     this.point = point;
   }
 
@@ -40,7 +65,8 @@ public class DateValidatorPointForward implements DateValidator {
    * UTC milliseconds, forward.
    */
   @NonNull
-  public static DateValidatorPointForward from(long point) {
+  public static DateValidatorPointForward from(long point)
+  {
     return new DateValidatorPointForward(point);
   }
 
@@ -49,47 +75,38 @@ public class DateValidatorPointForward implements DateValidator {
    * time forward.
    */
   @NonNull
-  public static DateValidatorPointForward now() {
+  public static DateValidatorPointForward now()
+  {
     return from(UtcDates.getTodayCalendar().getTimeInMillis());
   }
 
-  /** Part of {@link android.os.Parcelable} requirements. Do not use. */
-  public static final Parcelable.Creator<DateValidatorPointForward> CREATOR =
-      new Parcelable.Creator<DateValidatorPointForward>() {
-        @NonNull
-        @Override
-        public DateValidatorPointForward createFromParcel(@NonNull Parcel source) {
-          return new DateValidatorPointForward(source.readLong());
-        }
-
-        @NonNull
-        @Override
-        public DateValidatorPointForward[] newArray(int size) {
-          return new DateValidatorPointForward[size];
-        }
-      };
-
   @Override
-  public boolean isValid(long date) {
+  public boolean isValid(long date)
+  {
     return date >= point;
   }
 
   @Override
-  public int describeContents() {
+  public int describeContents()
+  {
     return 0;
   }
 
   @Override
-  public void writeToParcel(@NonNull Parcel dest, int flags) {
+  public void writeToParcel(@NonNull Parcel dest, int flags)
+  {
     dest.writeLong(point);
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof DateValidatorPointForward)) {
+    if (!(o instanceof DateValidatorPointForward))
+    {
       return false;
     }
     DateValidatorPointForward that = (DateValidatorPointForward) o;
@@ -97,7 +114,8 @@ public class DateValidatorPointForward implements DateValidator {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     Object[] hashedFields = {point};
     return Arrays.hashCode(hashedFields);
   }

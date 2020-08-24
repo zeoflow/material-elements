@@ -22,7 +22,8 @@ import androidx.annotation.NonNull;
  * Interface definition for applying custom formatting to the text displayed inside the bubble
  * shown when a slider is used in discrete mode.
  */
-public interface LabelFormatter {
+public interface LabelFormatter
+{
 
   int LABEL_FLOATING = 0;
   int LABEL_WITHIN_BOUNDS = 1;

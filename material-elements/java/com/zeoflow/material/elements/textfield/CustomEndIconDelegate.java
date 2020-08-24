@@ -21,14 +21,17 @@ import androidx.annotation.NonNull;
 /**
  * Default initialization of a custom {@link TextInputLayout.EndIconMode}.
  */
-class CustomEndIconDelegate extends EndIconDelegate {
+class CustomEndIconDelegate extends EndIconDelegate
+{
 
-  CustomEndIconDelegate(@NonNull TextInputLayout textInputLayout) {
+  CustomEndIconDelegate(@NonNull TextInputLayout textInputLayout)
+  {
     super(textInputLayout);
   }
 
   @Override
-  void initialize() {
+  void initialize()
+  {
     textInputLayout.setEndIconOnClickListener(null);
     textInputLayout.setEndIconOnLongClickListener(null);
   }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,13 +24,13 @@
   -->
 
   <!-- Platform-independent theme providing a full color scheme in a dark-themed activity. -->
-  <style name="Theme.MaterialComponents" parent="Base.Theme.MaterialComponents"/>
+  <style name="Theme.MaterialComponents" parent="Base.Theme.MaterialComponents" />
 
   <!-- Platform-independent theme providing a full color scheme in a light-themed activity. -->
-  <style name="Theme.MaterialComponents.Light" parent="Base.Theme.MaterialComponents.Light"/>
+  <style name="Theme.MaterialComponents.Light" parent="Base.Theme.MaterialComponents.Light" />
 
   <!-- Platform-independent theme providing an action bar in a dark-themed activity. -->
-  <style name="Theme.MaterialComponents.Light.DarkActionBar" parent="Base.Theme.MaterialComponents.Light.DarkActionBar"/>
+  <style name="Theme.MaterialComponents.Light.DarkActionBar" parent="Base.Theme.MaterialComponents.Light.DarkActionBar" />
 
   <style name="Theme.MaterialComponents.NoActionBar">
     <item name="windowActionBar">false</item>
@@ -43,24 +42,18 @@
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="Theme.MaterialComponents.DialogWhenLarge"
-      parent="Base.Theme.MaterialComponents.DialogWhenLarge">
-  </style>
+  <style name="Theme.MaterialComponents.DialogWhenLarge" parent="Base.Theme.MaterialComponents.DialogWhenLarge"></style>
 
-  <style name="Theme.MaterialComponents.Light.DialogWhenLarge"
-      parent="Base.Theme.MaterialComponents.Light.DialogWhenLarge">
-  </style>
+  <style name="Theme.MaterialComponents.Light.DialogWhenLarge" parent="Base.Theme.MaterialComponents.Light.DialogWhenLarge"></style>
 
   <!-- Menu/item attributes -->
-  <style name="Theme.MaterialComponents.CompactMenu" parent="Base.Theme.MaterialComponents.CompactMenu"/>
+  <style name="Theme.MaterialComponents.CompactMenu" parent="Base.Theme.MaterialComponents.CompactMenu" />
 
   <!-- Deprecated. Use Theme.MaterialComponents instead. -->
-  <style name="Theme.Design" parent="Theme.AppCompat">
-  </style>
+  <style name="Theme.Design" parent="Theme.AppCompat"></style>
 
   <!-- Deprecated. Use Theme.MaterialComponents.Light instead. -->
-  <style name="Theme.Design.Light" parent="Theme.AppCompat.Light">
-  </style>
+  <style name="Theme.Design.Light" parent="Theme.AppCompat.Light"></style>
 
   <!-- Deprecated. Use Theme.MaterialComponents.NoActionBar instead. -->
   <style name="Theme.Design.NoActionBar">

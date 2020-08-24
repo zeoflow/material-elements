@@ -25,9 +25,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.view.View;
+
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
@@ -35,55 +37,67 @@ import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
  * A {@link MaterialShapeDrawable} that can draw a cutout for the label in {@link TextInputLayout}'s
  * outline mode.
  */
-class CutoutDrawable extends MaterialShapeDrawable {
-  @NonNull private final Paint cutoutPaint;
-  @NonNull private final RectF cutoutBounds;
+class CutoutDrawable extends MaterialShapeDrawable
+{
+  @NonNull
+  private final Paint cutoutPaint;
+  @NonNull
+  private final RectF cutoutBounds;
   private int savedLayer;
 
-  CutoutDrawable() {
+  CutoutDrawable()
+  {
     this(null);
   }
 
-  CutoutDrawable(@Nullable ShapeAppearanceModel shapeAppearanceModel) {
+  CutoutDrawable(@Nullable ShapeAppearanceModel shapeAppearanceModel)
+  {
     super(shapeAppearanceModel != null ? shapeAppearanceModel : new ShapeAppearanceModel());
     cutoutPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     setPaintStyles();
     cutoutBounds = new RectF();
   }
 
-  private void setPaintStyles() {
+  private void setPaintStyles()
+  {
     cutoutPaint.setStyle(Style.FILL_AND_STROKE);
     cutoutPaint.setColor(Color.WHITE);
     cutoutPaint.setXfermode(new PorterDuffXfermode(Mode.DST_OUT));
   }
 
-  boolean hasCutout() {
+  boolean hasCutout()
+  {
     return !cutoutBounds.isEmpty();
   }
 
-  void setCutout(float left, float top, float right, float bottom) {
+  void setCutout(float left, float top, float right, float bottom)
+  {
     // Avoid expensive redraws by only calling invalidateSelf if one of the cutout's dimensions has
     // changed.
     if (left != cutoutBounds.left
         || top != cutoutBounds.top
         || right != cutoutBounds.right
-        || bottom != cutoutBounds.bottom) {
+        || bottom != cutoutBounds.bottom)
+    {
       cutoutBounds.set(left, top, right, bottom);
       invalidateSelf();
     }
   }
 
-  void setCutout(@NonNull RectF bounds) {
+  void setCutout(@NonNull RectF bounds)
+  {
     setCutout(bounds.left, bounds.top, bounds.right, bounds.bottom);
   }
 
-  void removeCutout() {
+  void removeCutout()
+  {
     // Call setCutout with empty bounds to remove the cutout.
     setCutout(0, 0, 0, 0);
   }
 
   @Override
-  public void draw(@NonNull Canvas canvas) {
+  public void draw(@NonNull Canvas canvas)
+  {
     preDraw(canvas);
     super.draw(canvas);
 
@@ -93,37 +107,47 @@ class CutoutDrawable extends MaterialShapeDrawable {
     postDraw(canvas);
   }
 
-  private void preDraw(@NonNull Canvas canvas) {
+  private void preDraw(@NonNull Canvas canvas)
+  {
     Callback callback = getCallback();
 
-    if (useHardwareLayer(callback)) {
+    if (useHardwareLayer(callback))
+    {
       View viewCallback = (View) callback;
       // Make sure we're using a hardware layer.
-      if (viewCallback.getLayerType() != View.LAYER_TYPE_HARDWARE) {
+      if (viewCallback.getLayerType() != View.LAYER_TYPE_HARDWARE)
+      {
         viewCallback.setLayerType(View.LAYER_TYPE_HARDWARE, null);
       }
-    } else {
+    } else
+    {
       // If we're not using a hardware layer, save the canvas layer.
       saveCanvasLayer(canvas);
     }
   }
 
-  private void saveCanvasLayer(@NonNull Canvas canvas) {
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+  private void saveCanvasLayer(@NonNull Canvas canvas)
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       savedLayer = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), null);
-    } else {
+    } else
+    {
       savedLayer =
           canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), null, Canvas.ALL_SAVE_FLAG);
     }
   }
 
-  private void postDraw(@NonNull Canvas canvas) {
-    if (!useHardwareLayer(getCallback())) {
+  private void postDraw(@NonNull Canvas canvas)
+  {
+    if (!useHardwareLayer(getCallback()))
+    {
       canvas.restoreToCount(savedLayer);
     }
   }
 
-  private boolean useHardwareLayer(Callback callback) {
+  private boolean useHardwareLayer(Callback callback)
+  {
     return callback instanceof View;
   }
 }

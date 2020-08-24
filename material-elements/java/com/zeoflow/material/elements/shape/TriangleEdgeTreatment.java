@@ -25,7 +25,8 @@ import androidx.annotation.NonNull;
  * <p>If you want to draw a triangular shape below a circle (similar to a map marker), use {@link
  * MarkerEdgeTreatment} instead.
  */
-public class TriangleEdgeTreatment extends EdgeTreatment {
+public class TriangleEdgeTreatment extends EdgeTreatment
+{
 
   private final float size;
   private final boolean inside;
@@ -34,19 +35,21 @@ public class TriangleEdgeTreatment extends EdgeTreatment {
    * Instantiates a triangle treatment of the given size, which faces inward or outward relative to
    * the shape.
    *
-   * @param size the length in pixels that the triangle extends into or out of the shape. The length
-   *     of the side of the triangle coincident with the rest of the edge is 2 * size.
+   * @param size   the length in pixels that the triangle extends into or out of the shape. The length
+   *               of the side of the triangle coincident with the rest of the edge is 2 * size.
    * @param inside true if the triangle should be "cut out" of the shape (i.e. inward-facing); false
-   *     if the triangle should extend out of the shape.
+   *               if the triangle should extend out of the shape.
    */
-  public TriangleEdgeTreatment(float size, boolean inside) {
+  public TriangleEdgeTreatment(float size, boolean inside)
+  {
     this.size = size;
     this.inside = inside;
   }
 
   @Override
   public void getEdgePath(
-      float length, float center, float interpolation, @NonNull ShapePath shapePath) {
+      float length, float center, float interpolation, @NonNull ShapePath shapePath)
+  {
     shapePath.lineTo(center - (size * interpolation), 0);
     shapePath.lineTo(center, inside ? size * interpolation : -size * interpolation);
     shapePath.lineTo(center + (size * interpolation), 0);

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,13 +26,13 @@
         Specifies explicit line height for this TextView. This is equivalent to the vertical
         distance between subsequent baselines in the TextView.
     -->
-    <attr name="android:lineHeight"/>
-    <attr name="lineHeight"/>
+    <attr name="android:lineHeight" />
+    <attr name="lineHeight" />
   </declare-styleable>
 
   <declare-styleable name="MaterialTextView" parent="AppCompatTextView">
-    <attr name="android:textAppearance"/>
-    <attr name="android:lineHeight"/>
-    <attr name="lineHeight"/>
+    <attr name="android:textAppearance" />
+    <attr name="android:lineHeight" />
+    <attr name="lineHeight" />
   </declare-styleable>
 </resources>

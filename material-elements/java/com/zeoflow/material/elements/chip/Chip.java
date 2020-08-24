@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.chip;
 
-import com.google.android.material.R;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -35,25 +33,6 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import androidx.annotation.AnimatorRes;
-import androidx.annotation.BoolRes;
-import androidx.annotation.CallSuper;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DimenRes;
-import androidx.annotation.Dimension;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.Px;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.StringRes;
-import androidx.annotation.StyleRes;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat;
-import androidx.customview.widget.ExploreByTouchHelper;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
@@ -68,6 +47,28 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import androidx.annotation.AnimatorRes;
+import androidx.annotation.BoolRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.Dimension;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.Px;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat;
+import androidx.customview.widget.ExploreByTouchHelper;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.animation.MotionSpec;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.internal.ViewUtils;
@@ -136,43 +137,31 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   private static final int CLOSE_ICON_VIRTUAL_ID = 1;
   private static final Rect EMPTY_BOUNDS = new Rect();
 
-  private static final int[] SELECTED_STATE = new int[] {android.R.attr.state_selected};
+  private static final int[] SELECTED_STATE = new int[]{android.R.attr.state_selected};
   private static final int[] CHECKABLE_STATE_SET = {android.R.attr.state_checkable};
 
   private static final String NAMESPACE_ANDROID = "http://schemas.android.com/apk/res/android";
 
-  /** Value taken from Android Accessibility Guide */
+  /**
+   * Value taken from Android Accessibility Guide
+   */
   private static final int MIN_TOUCH_TARGET_DP = 48;
-
-  @Nullable private ChipDrawable chipDrawable;
-  @Nullable private InsetDrawable insetBackgroundDrawable;
-  //noinspection NewApi
-  @Nullable private RippleDrawable ripple;
-
-  @Nullable private OnClickListener onCloseIconClickListener;
-  @Nullable private OnCheckedChangeListener onCheckedChangeListenerInternal;
-  private boolean deferredCheckedValue;
-  private boolean closeIconPressed;
-  private boolean closeIconHovered;
-  private boolean closeIconFocused;
-  private boolean ensureMinTouchTargetSize;
-  private int lastLayoutDirection;
-
-  @Dimension(unit = Dimension.PX)
-  private int minTouchTargetSize;
-
   private static final String BUTTON_ACCESSIBILITY_CLASS_NAME = "android.widget.Button";
   private static final String COMPOUND_BUTTON_ACCESSIBILITY_CLASS_NAME =
       "android.widget.CompoundButton";
   private static final String GENERIC_VIEW_ACCESSIBILITY_CLASS_NAME = "android.view.View";
-
-  @NonNull private final ChipTouchHelper touchHelper;
+  @NonNull
+  private final ChipTouchHelper touchHelper;
   private final Rect rect = new Rect();
   private final RectF rectF = new RectF();
+  @Nullable
+  private ChipDrawable chipDrawable;
   private final TextAppearanceFontCallback fontCallback =
-      new TextAppearanceFontCallback() {
+      new TextAppearanceFontCallback()
+      {
         @Override
-        public void onFontRetrieved(@NonNull Typeface typeface, boolean fontResolvedSynchronously) {
+        public void onFontRetrieved(@NonNull Typeface typeface, boolean fontResolvedSynchronously)
+        {
           // Set text to re-trigger internal ellipsize width calculation.
           setText(chipDrawable.shouldDrawText() ? chipDrawable.getText() : getText());
           requestLayout();
@@ -180,18 +169,40 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
         }
 
         @Override
-        public void onFontRetrievalFailed(int reason) {}
+        public void onFontRetrievalFailed(int reason)
+        {
+        }
       };
+  @Nullable
+  private InsetDrawable insetBackgroundDrawable;
+  //noinspection NewApi
+  @Nullable
+  private RippleDrawable ripple;
+  @Nullable
+  private OnClickListener onCloseIconClickListener;
+  @Nullable
+  private OnCheckedChangeListener onCheckedChangeListenerInternal;
+  private boolean deferredCheckedValue;
+  private boolean closeIconPressed;
+  private boolean closeIconHovered;
+  private boolean closeIconFocused;
+  private boolean ensureMinTouchTargetSize;
+  private int lastLayoutDirection;
+  @Dimension(unit = Dimension.PX)
+  private int minTouchTargetSize;
 
-  public Chip(Context context) {
+  public Chip(Context context)
+  {
     this(context, null);
   }
 
-  public Chip(Context context, AttributeSet attrs) {
+  public Chip(Context context, AttributeSet attrs)
+  {
     this(context, attrs, R.attr.chipStyle);
   }
 
-  public Chip(Context context, AttributeSet attrs, int defStyleAttr) {
+  public Chip(Context context, AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -210,7 +221,8 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
             R.styleable.Chip,
             defStyleAttr,
             DEF_STYLE_RES);
-    if (VERSION.SDK_INT < VERSION_CODES.M) {
+    if (VERSION.SDK_INT < VERSION_CODES.M)
+    {
       // This is necessary to work around a bug that doesn't support themed color referenced in
       // ColorStateList for API level < 23.
       setTextColor(
@@ -221,7 +233,8 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
     touchHelper = new ChipTouchHelper(this);
     updateAccessibilityDelegate();
-    if (!hasShapeAppearanceAttribute) {
+    if (!hasShapeAppearanceAttribute)
+    {
       initOutlineProvider();
     }
     // Set deferred values
@@ -232,7 +245,8 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     updateTextPaintDrawState();
 
     // Chip text should not extend to more than 1 line.
-    if (!chipDrawable.shouldDrawText()) {
+    if (!chipDrawable.shouldDrawText())
+    {
       setLines(1);
       setHorizontallyScrolling(true);
     }
@@ -241,14 +255,16 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
     // Helps TextView calculate the available text width.
     updatePaddingInternal();
-    if (shouldEnsureMinTouchTargetSize()) {
+    if (shouldEnsureMinTouchTargetSize())
+    {
       setMinHeight(minTouchTargetSize);
     }
     lastLayoutDirection = ViewCompat.getLayoutDirection(this);
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
     MaterialShapeUtils.setParentAbsoluteElevation(this, chipDrawable);
@@ -256,28 +272,34 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
   @RequiresApi(VERSION_CODES.LOLLIPOP)
   @Override
-  public void setElevation(float elevation) {
+  public void setElevation(float elevation)
+  {
     super.setElevation(elevation);
-    if (chipDrawable != null) {
+    if (chipDrawable != null)
+    {
       chipDrawable.setElevation(elevation);
     }
   }
 
   @Override
-  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info)
+  {
     super.onInitializeAccessibilityNodeInfo(info);
-    if (isCheckable() || isClickable()) {
+    if (isCheckable() || isClickable())
+    {
       info.setClassName(
           isCheckable()
               ? COMPOUND_BUTTON_ACCESSIBILITY_CLASS_NAME
               : BUTTON_ACCESSIBILITY_CLASS_NAME);
-    } else {
+    } else
+    {
       info.setClassName(GENERIC_VIEW_ACCESSIBILITY_CLASS_NAME);
     }
     info.setCheckable(isCheckable());
     info.setClickable(isClickable());
 
-    if (getParent() instanceof ChipGroup) {
+    if (getParent() instanceof ChipGroup)
+    {
       ChipGroup chipGroup = ((ChipGroup) getParent());
       AccessibilityNodeInfoCompat infoCompat = AccessibilityNodeInfoCompat.wrap(info);
       // -1 for unknown column indices in a reflowing layout
@@ -295,16 +317,20 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
   // TODO(b/80452017): Due to a11y bug, avoid setting custom ExploreByTouchHelper as delegate
   // unless there's a close/trailing icon. Re-evaulate this once bug is fixed.
-  private void updateAccessibilityDelegate() {
-    if (hasCloseIcon() && isCloseIconVisible() && onCloseIconClickListener != null) {
+  private void updateAccessibilityDelegate()
+  {
+    if (hasCloseIcon() && isCloseIconVisible() && onCloseIconClickListener != null)
+    {
       ViewCompat.setAccessibilityDelegate(this, touchHelper);
-    } else {
+    } else
+    {
       // Avoid setting custom ExploreByTouchHelper if the trailing icon is only decorative.
       ViewCompat.setAccessibilityDelegate(this, null);
     }
   }
 
-  private void initMinTouchTarget(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  private void initMinTouchTarget(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     // Checks if the Chip should meet Android's minimum touch target size.
     TypedArray a =
         ThemeEnforcement.obtainStyledAttributes(
@@ -329,8 +355,10 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Updates the paddings to inform {@link android.widget.TextView} how much width the text can
    * occupy.
    */
-  private void updatePaddingInternal() {
-    if (TextUtils.isEmpty(getText()) || chipDrawable == null) {
+  private void updatePaddingInternal()
+  {
+    if (TextUtils.isEmpty(getText()) || chipDrawable == null)
+    {
       return;
     }
     int paddingEnd =
@@ -343,7 +371,8 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
             (chipDrawable.getChipStartPadding()
                 + chipDrawable.getTextStartPadding()
                 + chipDrawable.calculateChipIconWidth());
-    if (insetBackgroundDrawable != null) {
+    if (insetBackgroundDrawable != null)
+    {
       Rect padding = new Rect();
       insetBackgroundDrawable.getPadding(padding);
       paddingStart += padding.left;
@@ -356,60 +385,77 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
   @Override
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-  public void onRtlPropertiesChanged(int layoutDirection) {
+  public void onRtlPropertiesChanged(int layoutDirection)
+  {
     super.onRtlPropertiesChanged(layoutDirection);
 
     // Layout direction can be updated via a parent (or ancestor) View, causing this property change
     // method to be called. Update text padding whenever a layout direction change is detected.
-    if (lastLayoutDirection != layoutDirection) {
+    if (lastLayoutDirection != layoutDirection)
+    {
       lastLayoutDirection = layoutDirection;
       updatePaddingInternal();
     }
   }
 
-  private void validateAttributes(@Nullable AttributeSet attributeSet) {
-    if (attributeSet == null) {
+  private void validateAttributes(@Nullable AttributeSet attributeSet)
+  {
+    if (attributeSet == null)
+    {
       return;
     }
-    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "background") != null) {
+    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "background") != null)
+    {
       Log.w(TAG, "Do not set the background; Chip manages its own background drawable.");
     }
-    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableLeft") != null) {
+    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableLeft") != null)
+    {
       throw new UnsupportedOperationException("Please set left drawable using R.attr#chipIcon.");
     }
-    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableStart") != null) {
+    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableStart") != null)
+    {
       throw new UnsupportedOperationException("Please set start drawable using R.attr#chipIcon.");
     }
-    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableEnd") != null) {
+    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableEnd") != null)
+    {
       throw new UnsupportedOperationException("Please set end drawable using R.attr#closeIcon.");
     }
-    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableRight") != null) {
+    if (attributeSet.getAttributeValue(NAMESPACE_ANDROID, "drawableRight") != null)
+    {
       throw new UnsupportedOperationException("Please set end drawable using R.attr#closeIcon.");
     }
     if (!attributeSet.getAttributeBooleanValue(NAMESPACE_ANDROID, "singleLine", true)
         || (attributeSet.getAttributeIntValue(NAMESPACE_ANDROID, "lines", 1) != 1)
         || (attributeSet.getAttributeIntValue(NAMESPACE_ANDROID, "minLines", 1) != 1)
-        || (attributeSet.getAttributeIntValue(NAMESPACE_ANDROID, "maxLines", 1) != 1)) {
+        || (attributeSet.getAttributeIntValue(NAMESPACE_ANDROID, "maxLines", 1) != 1))
+    {
       throw new UnsupportedOperationException("Chip does not support multi-line text");
     }
 
     if (attributeSet.getAttributeIntValue(
-            NAMESPACE_ANDROID, "gravity", (Gravity.CENTER_VERTICAL | Gravity.START))
-        != (Gravity.CENTER_VERTICAL | Gravity.START)) {
+        NAMESPACE_ANDROID, "gravity", (Gravity.CENTER_VERTICAL | Gravity.START))
+        != (Gravity.CENTER_VERTICAL | Gravity.START))
+    {
       Log.w(TAG, "Chip text must be vertically center and start aligned");
     }
   }
 
-  private void initOutlineProvider() {
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+  private void initOutlineProvider()
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       setOutlineProvider(
-          new ViewOutlineProvider() {
+          new ViewOutlineProvider()
+          {
             @Override
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            public void getOutline(View view, @NonNull Outline outline) {
-              if (chipDrawable != null) {
+            public void getOutline(View view, @NonNull Outline outline)
+            {
+              if (chipDrawable != null)
+              {
                 chipDrawable.getOutline(outline);
-              } else {
+              } else
+              {
                 outline.setAlpha(0.0f);
               }
             }
@@ -417,14 +463,21 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     }
   }
 
-  /** Returns the ChipDrawable backing this chip. */
-  public Drawable getChipDrawable() {
+  /**
+   * Returns the ChipDrawable backing this chip.
+   */
+  public Drawable getChipDrawable()
+  {
     return chipDrawable;
   }
 
-  /** Sets the ChipDrawable backing this chip. */
-  public void setChipDrawable(@NonNull ChipDrawable drawable) {
-    if (chipDrawable != drawable) {
+  /**
+   * Sets the ChipDrawable backing this chip.
+   */
+  public void setChipDrawable(@NonNull ChipDrawable drawable)
+  {
+    if (chipDrawable != drawable)
+    {
       unapplyChipDrawable(chipDrawable);
       chipDrawable = drawable;
       // Defers to TextView to draw the text and ChipDrawable to render the
@@ -435,10 +488,13 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     }
   }
 
-  private void updateBackgroundDrawable() {
-    if (RippleUtils.USE_FRAMEWORK_RIPPLE) {
+  private void updateBackgroundDrawable()
+  {
+    if (RippleUtils.USE_FRAMEWORK_RIPPLE)
+    {
       updateFrameworkRippleBackground();
-    } else {
+    } else
+    {
       chipDrawable.setUseCompatRipple(true);
       ViewCompat.setBackground(this, getBackgroundDrawable());
       updatePaddingInternal();
@@ -446,8 +502,10 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     }
   }
 
-  private void ensureChipDrawableHasCallback() {
-    if (getBackgroundDrawable() == insetBackgroundDrawable && chipDrawable.getCallback() == null) {
+  private void ensureChipDrawableHasCallback()
+  {
+    if (getBackgroundDrawable() == insetBackgroundDrawable && chipDrawable.getCallback() == null)
+    {
       // View#setBackground nulls out the callback of the previous background drawable, so we need
       // to reset it.
       chipDrawable.setCallback(insetBackgroundDrawable);
@@ -455,14 +513,29 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   }
 
   @Nullable
-  public Drawable getBackgroundDrawable() {
-    if (insetBackgroundDrawable == null) {
+  public Drawable getBackgroundDrawable()
+  {
+    if (insetBackgroundDrawable == null)
+    {
       return chipDrawable;
     }
     return insetBackgroundDrawable;
   }
 
-  private void updateFrameworkRippleBackground() {
+  @Override
+  public void setBackgroundDrawable(Drawable background)
+  {
+    if (background != getBackgroundDrawable() && background != ripple)
+    {
+      Log.w(TAG, "Do not set the background drawable; Chip manages its own background drawable.");
+    } else
+    {
+      super.setBackgroundDrawable(background);
+    }
+  }
+
+  private void updateFrameworkRippleBackground()
+  {
     //noinspection NewApi
     ripple =
         new RippleDrawable(
@@ -475,71 +548,78 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     updatePaddingInternal();
   }
 
-  private void unapplyChipDrawable(@Nullable ChipDrawable chipDrawable) {
-    if (chipDrawable != null) {
+  private void unapplyChipDrawable(@Nullable ChipDrawable chipDrawable)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setDelegate(null);
     }
   }
 
-  private void applyChipDrawable(@NonNull ChipDrawable chipDrawable) {
+  private void applyChipDrawable(@NonNull ChipDrawable chipDrawable)
+  {
     chipDrawable.setDelegate(this);
   }
 
   @Override
-  protected int[] onCreateDrawableState(int extraSpace) {
+  protected int[] onCreateDrawableState(int extraSpace)
+  {
     final int[] state = super.onCreateDrawableState(extraSpace + 2);
-    if (isChecked()) {
+    if (isChecked())
+    {
       mergeDrawableStates(state, SELECTED_STATE);
     }
-    if (isCheckable()) {
+    if (isCheckable())
+    {
       mergeDrawableStates(state, CHECKABLE_STATE_SET);
     }
     return state;
   }
 
   @Override
-  public void setGravity(int gravity) {
-    if (gravity != (Gravity.CENTER_VERTICAL | Gravity.START)) {
+  public void setGravity(int gravity)
+  {
+    if (gravity != (Gravity.CENTER_VERTICAL | Gravity.START))
+    {
       Log.w(TAG, "Chip text must be vertically center and start aligned");
-    } else {
+    } else
+    {
       super.setGravity(gravity);
     }
   }
 
-  public void setBackgroundTintList(@Nullable ColorStateList tint) {
+  public void setBackgroundTintList(@Nullable ColorStateList tint)
+  {
     Log.w(TAG, "Do not set the background tint list; Chip manages its own background drawable.");
   }
 
   @Override
-  public void setBackgroundTintMode(@Nullable Mode tintMode) {
+  public void setBackgroundTintMode(@Nullable Mode tintMode)
+  {
     Log.w(TAG, "Do not set the background tint mode; Chip manages its own background drawable.");
   }
 
   @Override
-  public void setBackgroundColor(int color) {
+  public void setBackgroundColor(int color)
+  {
     Log.w(TAG, "Do not set the background color; Chip manages its own background drawable.");
   }
 
   @Override
-  public void setBackgroundResource(int resid) {
+  public void setBackgroundResource(int resid)
+  {
     Log.w(TAG, "Do not set the background resource; Chip manages its own background drawable.");
   }
 
   @Override
-  public void setBackground(Drawable background) {
-    if (background != getBackgroundDrawable() && background != ripple) {
+  public void setBackground(Drawable background)
+  {
+    if (background != getBackgroundDrawable() && background != ripple)
+    {
       Log.w(TAG, "Do not set the background; Chip manages its own background drawable.");
-    } else {
+    } else
+    {
       super.setBackground(background);
-    }
-  }
-
-  @Override
-  public void setBackgroundDrawable(Drawable background) {
-    if (background != getBackgroundDrawable() && background != ripple) {
-      Log.w(TAG, "Do not set the background drawable; Chip manages its own background drawable.");
-    } else {
-      super.setBackgroundDrawable(background);
     }
   }
 
@@ -548,11 +628,14 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
       @Nullable Drawable left,
       @Nullable Drawable top,
       @Nullable Drawable right,
-      @Nullable Drawable bottom) {
-    if (left != null) {
+      @Nullable Drawable bottom)
+  {
+    if (left != null)
+    {
       throw new UnsupportedOperationException("Please set start drawable using R.attr#chipIcon.");
     }
-    if (right != null) {
+    if (right != null)
+    {
       throw new UnsupportedOperationException("Please set end drawable using R.attr#closeIcon.");
     }
 
@@ -560,11 +643,14 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   }
 
   @Override
-  public void setCompoundDrawablesWithIntrinsicBounds(int left, int top, int right, int bottom) {
-    if (left != 0) {
+  public void setCompoundDrawablesWithIntrinsicBounds(int left, int top, int right, int bottom)
+  {
+    if (left != 0)
+    {
       throw new UnsupportedOperationException("Please set start drawable using R.attr#chipIcon.");
     }
-    if (right != 0) {
+    if (right != 0)
+    {
       throw new UnsupportedOperationException("Please set end drawable using R.attr#closeIcon.");
     }
 
@@ -576,11 +662,14 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
       @Nullable Drawable left,
       @Nullable Drawable top,
       @Nullable Drawable right,
-      @Nullable Drawable bottom) {
-    if (left != null) {
+      @Nullable Drawable bottom)
+  {
+    if (left != null)
+    {
       throw new UnsupportedOperationException("Please set left drawable using R.attr#chipIcon.");
     }
-    if (right != null) {
+    if (right != null)
+    {
       throw new UnsupportedOperationException("Please set right drawable using R.attr#closeIcon.");
     }
 
@@ -592,11 +681,14 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
       @Nullable Drawable start,
       @Nullable Drawable top,
       @Nullable Drawable end,
-      @Nullable Drawable bottom) {
-    if (start != null) {
+      @Nullable Drawable bottom)
+  {
+    if (start != null)
+    {
       throw new UnsupportedOperationException("Please set start drawable using R.attr#chipIcon.");
     }
-    if (end != null) {
+    if (end != null)
+    {
       throw new UnsupportedOperationException("Please set end drawable using R.attr#closeIcon.");
     }
 
@@ -605,11 +697,14 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
   @Override
   public void setCompoundDrawablesRelativeWithIntrinsicBounds(
-      int start, int top, int end, int bottom) {
-    if (start != 0) {
+      int start, int top, int end, int bottom)
+  {
+    if (start != 0)
+    {
       throw new UnsupportedOperationException("Please set start drawable using R.attr#chipIcon.");
     }
-    if (end != 0) {
+    if (end != 0)
+    {
       throw new UnsupportedOperationException("Please set end drawable using R.attr#closeIcon.");
     }
 
@@ -621,11 +716,14 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
       @Nullable Drawable start,
       @Nullable Drawable top,
       @Nullable Drawable end,
-      @Nullable Drawable bottom) {
-    if (start != null) {
+      @Nullable Drawable bottom)
+  {
+    if (start != null)
+    {
       throw new UnsupportedOperationException("Please set start drawable using R.attr#chipIcon.");
     }
-    if (end != null) {
+    if (end != null)
+    {
       throw new UnsupportedOperationException("Please set end drawable using R.attr#closeIcon.");
     }
     super.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
@@ -633,84 +731,106 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
 
   @Nullable
   @Override
-  public TruncateAt getEllipsize() {
+  public TruncateAt getEllipsize()
+  {
     return chipDrawable != null ? chipDrawable.getEllipsize() : null;
   }
 
   @Override
-  public void setEllipsize(TruncateAt where) {
-    if (chipDrawable == null) {
+  public void setEllipsize(TruncateAt where)
+  {
+    if (chipDrawable == null)
+    {
       return;
     }
-    if (where == TruncateAt.MARQUEE) {
+    if (where == TruncateAt.MARQUEE)
+    {
       throw new UnsupportedOperationException("Text within a chip are not allowed to scroll.");
     }
     super.setEllipsize(where);
-    if (chipDrawable != null) {
+    if (chipDrawable != null)
+    {
       chipDrawable.setEllipsize(where);
     }
   }
 
   @Override
-  public void setSingleLine(boolean singleLine) {
-    if (!singleLine) {
+  public void setSingleLine(boolean singleLine)
+  {
+    if (!singleLine)
+    {
       throw new UnsupportedOperationException("Chip does not support multi-line text");
     }
     super.setSingleLine(singleLine);
   }
 
   @Override
-  public void setLines(int lines) {
-    if (lines > 1) {
+  public void setLines(int lines)
+  {
+    if (lines > 1)
+    {
       throw new UnsupportedOperationException("Chip does not support multi-line text");
     }
     super.setLines(lines);
   }
 
   @Override
-  public void setMinLines(int minLines) {
-    if (minLines > 1) {
+  public void setMinLines(int minLines)
+  {
+    if (minLines > 1)
+    {
       throw new UnsupportedOperationException("Chip does not support multi-line text");
     }
     super.setMinLines(minLines);
   }
 
   @Override
-  public void setMaxLines(int maxLines) {
-    if (maxLines > 1) {
+  public void setMaxLines(int maxLines)
+  {
+    if (maxLines > 1)
+    {
       throw new UnsupportedOperationException("Chip does not support multi-line text");
     }
     super.setMaxLines(maxLines);
   }
 
   @Override
-  public void setMaxWidth(@Px int maxWidth) {
+  public void setMaxWidth(@Px int maxWidth)
+  {
     super.setMaxWidth(maxWidth);
-    if (chipDrawable != null) {
+    if (chipDrawable != null)
+    {
       chipDrawable.setMaxWidth(maxWidth);
     }
   }
 
   @Override
-  public void onChipDrawableSizeChange() {
+  public void onChipDrawableSizeChange()
+  {
     ensureAccessibleTouchTarget(minTouchTargetSize);
     requestLayout();
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       invalidateOutline();
     }
   }
 
   @Override
-  public void setChecked(boolean checked) {
-    if (chipDrawable == null) {
+  public void setChecked(boolean checked)
+  {
+    if (chipDrawable == null)
+    {
       // Defer the setChecked() call until after initialization.
       deferredCheckedValue = checked;
-    } else if (chipDrawable.isCheckable()) {
+    } else if (chipDrawable.isCheckable())
+    {
       boolean wasChecked = isChecked();
       super.setChecked(checked);
 
-      if (wasChecked != checked) {
-        if (onCheckedChangeListenerInternal != null) {
+      if (wasChecked != checked)
+      {
+        if (onCheckedChangeListenerInternal != null)
+        {
           onCheckedChangeListenerInternal.onCheckedChanged(this, checked);
         }
       }
@@ -721,12 +841,16 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Register a callback to be invoked when the checked state of this chip changes. This callback is
    * used for internal purpose only.
    */
-  void setOnCheckedChangeListenerInternal(OnCheckedChangeListener listener) {
+  void setOnCheckedChangeListenerInternal(OnCheckedChangeListener listener)
+  {
     onCheckedChangeListenerInternal = listener;
   }
 
-  /** Register a callback to be invoked when the close icon is clicked. */
-  public void setOnCloseIconClickListener(OnClickListener listener) {
+  /**
+   * Register a callback to be invoked when the close icon is clicked.
+   */
+  public void setOnCloseIconClickListener(OnClickListener listener)
+  {
     this.onCloseIconClickListener = listener;
     updateAccessibilityDelegate();
   }
@@ -736,18 +860,21 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * associated with clicking: reporting accessibility event, playing a sound, etc.
    *
    * @return True there was an assigned close icon click listener that was called, false otherwise
-   *     is returned.
+   * is returned.
    * @see #setOnCloseIconClickListener(OnClickListener)
    */
   @CallSuper
-  public boolean performCloseIconClick() {
+  public boolean performCloseIconClick()
+  {
     playSoundEffect(SoundEffectConstants.CLICK);
 
     boolean result;
-    if (onCloseIconClickListener != null) {
+    if (onCloseIconClickListener != null)
+    {
       onCloseIconClickListener.onClick(this);
       result = true;
-    } else {
+    } else
+    {
       result = false;
     }
 
@@ -759,28 +886,34 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that will handle
   // interactions with the trailing chip icon.
   @Override
-  public boolean onTouchEvent(@NonNull MotionEvent event) {
+  public boolean onTouchEvent(@NonNull MotionEvent event)
+  {
     boolean handled = false;
 
     int action = event.getActionMasked();
     boolean eventInCloseIcon = getCloseIconTouchBounds().contains(event.getX(), event.getY());
-    switch (action) {
+    switch (action)
+    {
       case MotionEvent.ACTION_DOWN:
-        if (eventInCloseIcon) {
+        if (eventInCloseIcon)
+        {
           setCloseIconPressed(true);
           handled = true;
         }
         break;
       case MotionEvent.ACTION_MOVE:
-        if (closeIconPressed) {
-          if (!eventInCloseIcon) {
+        if (closeIconPressed)
+        {
+          if (!eventInCloseIcon)
+          {
             setCloseIconPressed(false);
           }
           handled = true;
         }
         break;
       case MotionEvent.ACTION_UP:
-        if (closeIconPressed) {
+        if (closeIconPressed)
+        {
           performCloseIconClick();
           handled = true;
         }
@@ -795,9 +928,11 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   }
 
   @Override
-  public boolean onHoverEvent(@NonNull MotionEvent event) {
+  public boolean onHoverEvent(@NonNull MotionEvent event)
+  {
     int action = event.getActionMasked();
-    switch (action) {
+    switch (action)
+    {
       case MotionEvent.ACTION_HOVER_MOVE:
         setCloseIconHovered(getCloseIconTouchBounds().contains(event.getX(), event.getY()));
         break;
@@ -815,30 +950,38 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   // Until the accessibility focus bug is fixed in ExploreByTouchHelper, we simulate the correct
   // behavior here. Once that bug is fixed we can remove this.
   @SuppressLint("PrivateApi")
-  private boolean handleAccessibilityExit(@NonNull MotionEvent event) {
-    if (event.getAction() == MotionEvent.ACTION_HOVER_EXIT) {
-      try {
+  private boolean handleAccessibilityExit(@NonNull MotionEvent event)
+  {
+    if (event.getAction() == MotionEvent.ACTION_HOVER_EXIT)
+    {
+      try
+      {
         Field f = ExploreByTouchHelper.class.getDeclaredField("mHoveredVirtualViewId");
         f.setAccessible(true);
         int mHoveredVirtualViewId = (int) f.get(touchHelper);
 
-        if (mHoveredVirtualViewId != ExploreByTouchHelper.INVALID_ID) {
+        if (mHoveredVirtualViewId != ExploreByTouchHelper.INVALID_ID)
+        {
           Method m =
               ExploreByTouchHelper.class.getDeclaredMethod("updateHoveredVirtualView", int.class);
           m.setAccessible(true);
           m.invoke(touchHelper, ExploreByTouchHelper.INVALID_ID);
           return true;
         }
-      } catch (NoSuchMethodException e) {
+      } catch (NoSuchMethodException e)
+      {
         // Multi-catch for reflection requires API level 19
         Log.e(TAG, "Unable to send Accessibility Exit event", e);
-      } catch (IllegalAccessException e) {
+      } catch (IllegalAccessException e)
+      {
         // Multi-catch for reflection requires API level 19
         Log.e(TAG, "Unable to send Accessibility Exit event", e);
-      } catch (InvocationTargetException e) {
+      } catch (InvocationTargetException e)
+      {
         // Multi-catch for reflection requires API level 19
         Log.e(TAG, "Unable to send Accessibility Exit event", e);
-      } catch (NoSuchFieldException e) {
+      } catch (NoSuchFieldException e)
+      {
         // Multi-catch for reflection requires API level 19
         Log.e(TAG, "Unable to send Accessibility Exit event", e);
       }
@@ -847,14 +990,16 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   }
 
   @Override
-  protected boolean dispatchHoverEvent(@NonNull MotionEvent event) {
+  protected boolean dispatchHoverEvent(@NonNull MotionEvent event)
+  {
     return handleAccessibilityExit(event)
         || touchHelper.dispatchHoverEvent(event)
         || super.dispatchHoverEvent(event);
   }
 
   @Override
-  public boolean dispatchKeyEvent(KeyEvent event) {
+  public boolean dispatchKeyEvent(KeyEvent event)
+  {
     boolean handled = touchHelper.dispatchKeyEvent(event);
     // If the key event moves focus one beyond the end of the virtual view hierarchy in the
     // traversal direction (i.e. beyond the last virtual view while moving forward or before the
@@ -863,111 +1008,137 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     // real view. In order to account for this, call through to super to move focus to the correct
     // real view.
     if (handled
-        && touchHelper.getKeyboardFocusedVirtualViewId() != ExploreByTouchHelper.INVALID_ID) {
+        && touchHelper.getKeyboardFocusedVirtualViewId() != ExploreByTouchHelper.INVALID_ID)
+    {
       return true;
     }
     return super.dispatchKeyEvent(event);
   }
 
   @Override
-  protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+  protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect)
+  {
     super.onFocusChanged(focused, direction, previouslyFocusedRect);
     touchHelper.onFocusChanged(focused, direction, previouslyFocusedRect);
   }
 
   @Override
-  public void getFocusedRect(@NonNull Rect r) {
+  public void getFocusedRect(@NonNull Rect r)
+  {
     if (touchHelper.getKeyboardFocusedVirtualViewId() == CLOSE_ICON_VIRTUAL_ID
-        || touchHelper.getAccessibilityFocusedVirtualViewId() == CLOSE_ICON_VIRTUAL_ID) {
+        || touchHelper.getAccessibilityFocusedVirtualViewId() == CLOSE_ICON_VIRTUAL_ID)
+    {
       r.set(getCloseIconTouchBoundsInt());
-    } else {
+    } else
+    {
       super.getFocusedRect(r);
     }
   }
 
-  private void setCloseIconPressed(boolean pressed) {
-    if (closeIconPressed != pressed) {
+  private void setCloseIconPressed(boolean pressed)
+  {
+    if (closeIconPressed != pressed)
+    {
       closeIconPressed = pressed;
       refreshDrawableState();
     }
   }
 
-  private void setCloseIconHovered(boolean hovered) {
-    if (closeIconHovered != hovered) {
+  private void setCloseIconHovered(boolean hovered)
+  {
+    if (closeIconHovered != hovered)
+    {
       closeIconHovered = hovered;
       refreshDrawableState();
     }
   }
 
   @Override
-  protected void drawableStateChanged() {
+  protected void drawableStateChanged()
+  {
     super.drawableStateChanged();
 
     boolean changed = false;
 
-    if (chipDrawable != null && chipDrawable.isCloseIconStateful()) {
+    if (chipDrawable != null && chipDrawable.isCloseIconStateful())
+    {
       changed = chipDrawable.setCloseIconState(createCloseIconDrawableState());
     }
 
-    if (changed) {
+    if (changed)
+    {
       invalidate();
     }
   }
 
   @NonNull
-  private int[] createCloseIconDrawableState() {
+  private int[] createCloseIconDrawableState()
+  {
     int count = 0;
-    if (isEnabled()) {
+    if (isEnabled())
+    {
       count++;
     }
-    if (closeIconFocused) {
+    if (closeIconFocused)
+    {
       count++;
     }
-    if (closeIconHovered) {
+    if (closeIconHovered)
+    {
       count++;
     }
-    if (closeIconPressed) {
+    if (closeIconPressed)
+    {
       count++;
     }
-    if (isChecked()) {
+    if (isChecked())
+    {
       count++;
     }
 
     int[] stateSet = new int[count];
     int i = 0;
 
-    if (isEnabled()) {
+    if (isEnabled())
+    {
       stateSet[i] = android.R.attr.state_enabled;
       i++;
     }
-    if (closeIconFocused) {
+    if (closeIconFocused)
+    {
       stateSet[i] = android.R.attr.state_focused;
       i++;
     }
-    if (closeIconHovered) {
+    if (closeIconHovered)
+    {
       stateSet[i] = android.R.attr.state_hovered;
       i++;
     }
-    if (closeIconPressed) {
+    if (closeIconPressed)
+    {
       stateSet[i] = android.R.attr.state_pressed;
       i++;
     }
-    if (isChecked()) {
+    if (isChecked())
+    {
       stateSet[i] = android.R.attr.state_selected;
       i++;
     }
     return stateSet;
   }
 
-  private boolean hasCloseIcon() {
+  private boolean hasCloseIcon()
+  {
     return chipDrawable != null && chipDrawable.getCloseIcon() != null;
   }
 
   @NonNull
-  private RectF getCloseIconTouchBounds() {
+  private RectF getCloseIconTouchBounds()
+  {
     rectF.setEmpty();
 
-    if (hasCloseIcon()) {
+    if (hasCloseIcon())
+    {
       // noinspection ConstantConditions
       chipDrawable.getCloseIconTouchBounds(rectF);
     }
@@ -976,7 +1147,8 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   }
 
   @NonNull
-  private Rect getCloseIconTouchBoundsInt() {
+  private Rect getCloseIconTouchBoundsInt()
+  {
     RectF bounds = getCloseIconTouchBounds();
     rect.set((int) bounds.left, (int) bounds.top, (int) bounds.right, (int) bounds.bottom);
     return rect;
@@ -985,115 +1157,41 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   @Nullable
   @Override
   @TargetApi(VERSION_CODES.N)
-  public PointerIcon onResolvePointerIcon(@NonNull MotionEvent event, int pointerIndex) {
-    if (getCloseIconTouchBounds().contains(event.getX(), event.getY()) && isEnabled()) {
+  public PointerIcon onResolvePointerIcon(@NonNull MotionEvent event, int pointerIndex)
+  {
+    if (getCloseIconTouchBounds().contains(event.getX(), event.getY()) && isEnabled())
+    {
       return PointerIcon.getSystemIcon(getContext(), PointerIcon.TYPE_HAND);
     }
     return null;
   }
 
-  /** Provides a virtual view hierarchy for the close icon. */
-  private class ChipTouchHelper extends ExploreByTouchHelper {
-
-    ChipTouchHelper(Chip view) {
-      super(view);
-    }
-
-    @Override
-    protected int getVirtualViewAt(float x, float y) {
-      return (hasCloseIcon() && getCloseIconTouchBounds().contains(x, y))
-          ? CLOSE_ICON_VIRTUAL_ID
-          : CHIP_BODY_VIRTUAL_ID;
-    }
-
-    @Override
-    protected void getVisibleVirtualViews(@NonNull List<Integer> virtualViewIds) {
-      virtualViewIds.add(CHIP_BODY_VIRTUAL_ID);
-      if (hasCloseIcon() && isCloseIconVisible() && onCloseIconClickListener != null) {
-        virtualViewIds.add(CLOSE_ICON_VIRTUAL_ID);
-      }
-    }
-
-    @Override
-    protected void onVirtualViewKeyboardFocusChanged(int virtualViewId, boolean hasFocus) {
-      if (virtualViewId == CLOSE_ICON_VIRTUAL_ID) {
-        closeIconFocused = hasFocus;
-        refreshDrawableState();
-      }
-    }
-
-    @Override
-    protected void onPopulateNodeForVirtualView(
-        int virtualViewId, @NonNull AccessibilityNodeInfoCompat node) {
-      if (virtualViewId == CLOSE_ICON_VIRTUAL_ID) {
-        CharSequence closeIconContentDescription = getCloseIconContentDescription();
-        if (closeIconContentDescription != null) {
-          node.setContentDescription(closeIconContentDescription);
-        } else {
-          CharSequence chipText = getText();
-          node.setContentDescription(
-              getContext()
-                  .getString(
-                      R.string.mtrl_chip_close_icon_content_description,
-                      !TextUtils.isEmpty(chipText) ? chipText : "")
-                  .trim());
-        }
-        node.setBoundsInParent(getCloseIconTouchBoundsInt());
-        node.addAction(AccessibilityActionCompat.ACTION_CLICK);
-        node.setEnabled(isEnabled());
-      } else {
-        node.setContentDescription("");
-        node.setBoundsInParent(EMPTY_BOUNDS);
-      }
-    }
-
-    @Override
-    protected void onPopulateNodeForHost(@NonNull AccessibilityNodeInfoCompat node) {
-      node.setCheckable(isCheckable());
-      node.setClickable(isClickable());
-      if (isCheckable() || isClickable()) {
-        node.setClassName(
-            isCheckable()
-                ? COMPOUND_BUTTON_ACCESSIBILITY_CLASS_NAME
-                : BUTTON_ACCESSIBILITY_CLASS_NAME);
-      } else {
-        node.setClassName(GENERIC_VIEW_ACCESSIBILITY_CLASS_NAME);
-      }
-      CharSequence chipText = getText();
-      if (VERSION.SDK_INT >= VERSION_CODES.M) {
-        node.setText(chipText);
-      } else {
-        // Before M, TalkBack doesn't get the text from setText, so we have to set the content
-        // description instead.
-        node.setContentDescription(chipText);
-      }
-    }
-
-    @Override
-    protected boolean onPerformActionForVirtualView(
-        int virtualViewId, int action, Bundle arguments) {
-      if (action == AccessibilityNodeInfoCompat.ACTION_CLICK) {
-        if (virtualViewId == CHIP_BODY_VIRTUAL_ID) {
-          return performClick();
-        } else if (virtualViewId == CLOSE_ICON_VIRTUAL_ID) {
-          return performCloseIconClick();
-        }
-      }
-      return false;
-    }
+  /**
+   * Returns this chip's background color.
+   *
+   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
+   * @see #setChipBackgroundColor(ColorStateList)
+   */
+  @Nullable
+  public ColorStateList getChipBackgroundColor()
+  {
+    return chipDrawable != null ? chipDrawable.getChipBackgroundColor() : null;
   }
 
   // Getters and setters for attributes.
 
   /**
-   * Returns this chip's background color.
+   * Sets this chip's background color.
    *
-   * @see #setChipBackgroundColor(ColorStateList)
+   * @param chipBackgroundColor This chip's background color.
    * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
    */
-  @Nullable
-  public ColorStateList getChipBackgroundColor() {
-    return chipDrawable != null ? chipDrawable.getChipBackgroundColor() : null;
+  public void setChipBackgroundColor(@Nullable ColorStateList chipBackgroundColor)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipBackgroundColor(chipBackgroundColor);
+    }
   }
 
   /**
@@ -1102,44 +1200,23 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param id The resource id of this chip's background color.
    * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
    */
-  public void setChipBackgroundColorResource(@ColorRes int id) {
-    if (chipDrawable != null) {
+  public void setChipBackgroundColorResource(@ColorRes int id)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipBackgroundColorResource(id);
-    }
-  }
-
-  /**
-   * Sets this chip's background color.
-   *
-   * @param chipBackgroundColor This chip's background color.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipBackgroundColor
-   */
-  public void setChipBackgroundColor(@Nullable ColorStateList chipBackgroundColor) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipBackgroundColor(chipBackgroundColor);
     }
   }
 
   /**
    * Returns this chip's minimum height.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
    * @see #setChipMinHeight(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
    */
-  public float getChipMinHeight() {
+  public float getChipMinHeight()
+  {
     return chipDrawable != null ? chipDrawable.getChipMinHeight() : 0;
-  }
-
-  /**
-   * Sets this chip's minimum height using a resource id.
-   *
-   * @param id The resource id of this chip's mininum height.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
-   */
-  public void setChipMinHeightResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipMinHeightResource(id);
-    }
   }
 
   /**
@@ -1148,80 +1225,92 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param minHeight This chip's mininum height.
    * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
    */
-  public void setChipMinHeight(float minHeight) {
-    if (chipDrawable != null) {
+  public void setChipMinHeight(float minHeight)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipMinHeight(minHeight);
+    }
+  }
+
+  /**
+   * Sets this chip's minimum height using a resource id.
+   *
+   * @param id The resource id of this chip's mininum height.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipMinHeight
+   */
+  public void setChipMinHeightResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipMinHeightResource(id);
     }
   }
 
   /**
    * Returns this chip's corner radius.
    *
-   * @see #setChipCornerRadius(float)
    * @attr ref com.google.android.material.R.styleable#Chip_chipCornerRadius
+   * @see #setChipCornerRadius(float)
    */
-  public float getChipCornerRadius() {
+  public float getChipCornerRadius()
+  {
     return chipDrawable != null ? Math.max(0, chipDrawable.getChipCornerRadius()) : 0;
   }
 
   /**
    * @deprecated call {@link ShapeAppearanceModel#withCornerSize(float)} or call {@link
-   *     ShapeAppearanceModel#toBuilder()} on the {@link #getShapeAppearanceModel()}, modify the
-   *     shape using the builder and then call {@link
-   *     #setShapeAppearanceModel(ShapeAppearanceModel)}.
+   * ShapeAppearanceModel#toBuilder()} on the {@link #getShapeAppearanceModel()}, modify the
+   * shape using the builder and then call {@link
+   * #setShapeAppearanceModel(ShapeAppearanceModel)}.
    */
   @Deprecated
-  public void setChipCornerRadiusResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipCornerRadiusResource(id);
-    }
-  }
-
-  @Override
-  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel) {
-    chipDrawable.setShapeAppearanceModel(shapeAppearanceModel);
-  }
-
-  @NonNull
-  @Override
-  public ShapeAppearanceModel getShapeAppearanceModel() {
-    return chipDrawable.getShapeAppearanceModel();
-  }
-
-  /**
-   * @deprecated call {@link ShapeAppearanceModel#withCornerSize(float)} or call {@link
-   *     ShapeAppearanceModel#toBuilder()} on the {@link #getShapeAppearanceModel()}, modify the
-   *     shape using the builder and then call {@link
-   *     #setShapeAppearanceModel(ShapeAppearanceModel)}.
-   */
-  @Deprecated
-  public void setChipCornerRadius(float chipCornerRadius) {
-    if (chipDrawable != null) {
+  public void setChipCornerRadius(float chipCornerRadius)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipCornerRadius(chipCornerRadius);
     }
   }
 
   /**
-   * Returns this chip's stroke color.
-   *
-   * @see #setChipStrokeColor(ColorStateList)
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @deprecated call {@link ShapeAppearanceModel#withCornerSize(float)} or call {@link
+   * ShapeAppearanceModel#toBuilder()} on the {@link #getShapeAppearanceModel()}, modify the
+   * shape using the builder and then call {@link
+   * #setShapeAppearanceModel(ShapeAppearanceModel)}.
    */
-  @Nullable
-  public ColorStateList getChipStrokeColor() {
-    return chipDrawable != null ? chipDrawable.getChipStrokeColor() : null;
+  @Deprecated
+  public void setChipCornerRadiusResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipCornerRadiusResource(id);
+    }
+  }
+
+  @NonNull
+  @Override
+  public ShapeAppearanceModel getShapeAppearanceModel()
+  {
+    return chipDrawable.getShapeAppearanceModel();
+  }
+
+  @Override
+  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel)
+  {
+    chipDrawable.setShapeAppearanceModel(shapeAppearanceModel);
   }
 
   /**
-   * Sets this chip's stroke color using a resource id.
+   * Returns this chip's stroke color.
    *
-   * @param id The resource id of this chip's stroke color.
    * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   * @see #setChipStrokeColor(ColorStateList)
    */
-  public void setChipStrokeColorResource(@ColorRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipStrokeColorResource(id);
-    }
+  @Nullable
+  public ColorStateList getChipStrokeColor()
+  {
+    return chipDrawable != null ? chipDrawable.getChipStrokeColor() : null;
   }
 
   /**
@@ -1230,32 +1319,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipStrokeColor This chip's stroke color.
    * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
    */
-  public void setChipStrokeColor(@Nullable ColorStateList chipStrokeColor) {
-    if (chipDrawable != null) {
+  public void setChipStrokeColor(@Nullable ColorStateList chipStrokeColor)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipStrokeColor(chipStrokeColor);
+    }
+  }
+
+  /**
+   * Sets this chip's stroke color using a resource id.
+   *
+   * @param id The resource id of this chip's stroke color.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeColor
+   */
+  public void setChipStrokeColorResource(@ColorRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipStrokeColorResource(id);
     }
   }
 
   /**
    * Returns this chip's stroke width.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
    * @see #setChipStrokeWidth(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
    */
-  public float getChipStrokeWidth() {
+  public float getChipStrokeWidth()
+  {
     return chipDrawable != null ? chipDrawable.getChipStrokeWidth() : 0;
-  }
-
-  /**
-   * Sets this chip's stroke width using a resource id.
-   *
-   * @param id The resource id of this chip's stroke width.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
-   */
-  public void setChipStrokeWidthResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipStrokeWidthResource(id);
-    }
   }
 
   /**
@@ -1264,36 +1358,38 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipStrokeWidth This chip's stroke width.
    * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
    */
-  public void setChipStrokeWidth(float chipStrokeWidth) {
-    if (chipDrawable != null) {
+  public void setChipStrokeWidth(float chipStrokeWidth)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipStrokeWidth(chipStrokeWidth);
+    }
+  }
+
+  /**
+   * Sets this chip's stroke width using a resource id.
+   *
+   * @param id The resource id of this chip's stroke width.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipStrokeWidth
+   */
+  public void setChipStrokeWidthResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipStrokeWidthResource(id);
     }
   }
 
   /**
    * Returns this chip's ripple color.
    *
-   * @see #setRippleColor(ColorStateList)
    * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   * @see #setRippleColor(ColorStateList)
    */
   @Nullable
-  public ColorStateList getRippleColor() {
+  public ColorStateList getRippleColor()
+  {
     return chipDrawable != null ? chipDrawable.getRippleColor() : null;
-  }
-
-  /**
-   * Sets this chip's ripple color using a resource id.
-   *
-   * @param id The resource id of this chip's ripple color.
-   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
-   */
-  public void setRippleColorResource(@ColorRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setRippleColorResource(id);
-      if (!chipDrawable.getUseCompatRipple()) {
-        updateFrameworkRippleBackground();
-      }
-    }
   }
 
   /**
@@ -1302,12 +1398,33 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param rippleColor This chip's ripple color.
    * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
    */
-  public void setRippleColor(@Nullable ColorStateList rippleColor) {
-    if (chipDrawable != null) {
+  public void setRippleColor(@Nullable ColorStateList rippleColor)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setRippleColor(rippleColor);
     }
-    if (!chipDrawable.getUseCompatRipple()) {
+    if (!chipDrawable.getUseCompatRipple())
+    {
       updateFrameworkRippleBackground();
+    }
+  }
+
+  /**
+   * Sets this chip's ripple color using a resource id.
+   *
+   * @param id The resource id of this chip's ripple color.
+   * @attr ref com.google.android.material.R.styleable#Chip_rippleColor
+   */
+  public void setRippleColorResource(@ColorRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setRippleColorResource(id);
+      if (!chipDrawable.getUseCompatRipple())
+      {
+        updateFrameworkRippleBackground();
+      }
     }
   }
 
@@ -1317,44 +1434,58 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @deprecated Use {@link Chip#getText()} instead.
    */
   @Deprecated
-  public CharSequence getChipText() {
+  public CharSequence getChipText()
+  {
     return getText();
   }
 
+  /**
+   * @deprecated Use {@link Chip#setText(CharSequence)} instead.
+   */
+  @Deprecated
+  public void setChipText(@Nullable CharSequence chipText)
+  {
+    setText(chipText);
+  }
+
   @Override
-  public void setLayoutDirection(int layoutDirection) {
-    if (chipDrawable == null) {
+  public void setLayoutDirection(int layoutDirection)
+  {
+    if (chipDrawable == null)
+    {
       return;
     }
-    if (Build.VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
+    if (Build.VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1)
+    {
       super.setLayoutDirection(layoutDirection);
     }
   }
 
   @Override
-  public void setText(CharSequence text, BufferType type) {
-    if (chipDrawable == null) {
+  public void setText(CharSequence text, BufferType type)
+  {
+    if (chipDrawable == null)
+    {
       return;
     }
-    if (text == null) {
+    if (text == null)
+    {
       text = "";
     }
     super.setText(chipDrawable.shouldDrawText() ? null : text, type);
-    if (chipDrawable != null) {
+    if (chipDrawable != null)
+    {
       chipDrawable.setText(text);
     }
   }
 
-  /** @deprecated Use {@link Chip#setText(int)} instead. */
+  /**
+   * @deprecated Use {@link Chip#setText(int)} instead.
+   */
   @Deprecated
-  public void setChipTextResource(@StringRes int id) {
+  public void setChipTextResource(@StringRes int id)
+  {
     setText(getResources().getString(id));
-  }
-
-  /** @deprecated Use {@link Chip#setText(CharSequence)} instead. */
-  @Deprecated
-  public void setChipText(@Nullable CharSequence chipText) {
-    setText(chipText);
   }
 
   /**
@@ -1363,8 +1494,40 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param id The resource id of this chip's text appearance.
    * @attr ref com.google.android.material.R.styleable#Chip_android_textAppearance
    */
-  public void setTextAppearanceResource(@StyleRes int id) {
+  public void setTextAppearanceResource(@StyleRes int id)
+  {
     this.setTextAppearance(getContext(), id);
+  }
+
+  @Override
+  public void setTextAppearance(Context context, int resId)
+  {
+    super.setTextAppearance(context, resId);
+    if (chipDrawable != null)
+    {
+      chipDrawable.setTextAppearanceResource(resId);
+    }
+    updateTextPaintDrawState();
+  }
+
+  private void updateTextPaintDrawState()
+  {
+    TextPaint textPaint = getPaint();
+    if (chipDrawable != null)
+    {
+      textPaint.drawableState = chipDrawable.getState();
+    }
+    TextAppearance textAppearance = getTextAppearance();
+    if (textAppearance != null)
+    {
+      textAppearance.updateDrawState(getContext(), textPaint, fontCallback);
+    }
+  }
+
+  @Nullable
+  private TextAppearance getTextAppearance()
+  {
+    return chipDrawable != null ? chipDrawable.getTextAppearance() : null;
   }
 
   /**
@@ -1373,61 +1536,35 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param textAppearance This chip's text appearance.
    * @attr ref com.google.android.material.R.styleable#Chip_android_textAppearance
    */
-  public void setTextAppearance(@Nullable TextAppearance textAppearance) {
-    if (chipDrawable != null) {
+  public void setTextAppearance(@Nullable TextAppearance textAppearance)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setTextAppearance(textAppearance);
     }
     updateTextPaintDrawState();
   }
 
   @Override
-  public void setTextAppearance(Context context, int resId) {
-    super.setTextAppearance(context, resId);
-    if (chipDrawable != null) {
-      chipDrawable.setTextAppearanceResource(resId);
-    }
-    updateTextPaintDrawState();
-  }
-
-  @Override
-  public void setTextAppearance(int resId) {
+  public void setTextAppearance(int resId)
+  {
     super.setTextAppearance(resId);
-    if (chipDrawable != null) {
+    if (chipDrawable != null)
+    {
       chipDrawable.setTextAppearanceResource(resId);
     }
     updateTextPaintDrawState();
-  }
-
-  private void updateTextPaintDrawState() {
-    TextPaint textPaint = getPaint();
-    if (chipDrawable != null) {
-      textPaint.drawableState = chipDrawable.getState();
-    }
-    TextAppearance textAppearance = getTextAppearance();
-    if (textAppearance != null) {
-      textAppearance.updateDrawState(getContext(), textPaint, fontCallback);
-    }
-  }
-
-  @Nullable
-  private TextAppearance getTextAppearance() {
-    return chipDrawable != null ? chipDrawable.getTextAppearance() : null;
   }
 
   /**
    * Returns whether this chip's icon is visible.
    *
-   * @see #setChipIconVisible(boolean)
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconVisible
+   * @see #setChipIconVisible(boolean)
    */
-  public boolean isChipIconVisible() {
+  public boolean isChipIconVisible()
+  {
     return chipDrawable != null && chipDrawable.isChipIconVisible();
-  }
-
-  /** @deprecated Use {@link Chip#isChipIconVisible()} instead. */
-  @Deprecated
-  public boolean isChipIconEnabled() {
-    return isChipIconVisible();
   }
 
   /**
@@ -1436,8 +1573,10 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param id The resource id for the visibility of this chip's icon.
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconVisible
    */
-  public void setChipIconVisible(@BoolRes int id) {
-    if (chipDrawable != null) {
+  public void setChipIconVisible(@BoolRes int id)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipIconVisible(id);
     }
   }
@@ -1448,45 +1587,51 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipIconVisible The visibility of this chip's icon.
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconIsVisible
    */
-  public void setChipIconVisible(boolean chipIconVisible) {
-    if (chipDrawable != null) {
+  public void setChipIconVisible(boolean chipIconVisible)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipIconVisible(chipIconVisible);
     }
   }
 
-  /** @deprecated Use {@link Chip#setChipIconVisible(int)} instead. */
+  /**
+   * @deprecated Use {@link Chip#isChipIconVisible()} instead.
+   */
   @Deprecated
-  public void setChipIconEnabledResource(@BoolRes int id) {
-    setChipIconVisible(id);
+  public boolean isChipIconEnabled()
+  {
+    return isChipIconVisible();
   }
 
-  /** @deprecated Use {@link Chip#setChipIconVisible(boolean)} instead. */
+  /**
+   * @deprecated Use {@link Chip#setChipIconVisible(boolean)} instead.
+   */
   @Deprecated
-  public void setChipIconEnabled(boolean chipIconEnabled) {
+  public void setChipIconEnabled(boolean chipIconEnabled)
+  {
     setChipIconVisible(chipIconEnabled);
+  }
+
+  /**
+   * @deprecated Use {@link Chip#setChipIconVisible(int)} instead.
+   */
+  @Deprecated
+  public void setChipIconEnabledResource(@BoolRes int id)
+  {
+    setChipIconVisible(id);
   }
 
   /**
    * Returns this chip's icon.
    *
-   * @see #setChipIcon(Drawable)
    * @attr ref com.google.android.material.R.styleable#Chip_chipIcon
+   * @see #setChipIcon(Drawable)
    */
   @Nullable
-  public Drawable getChipIcon() {
+  public Drawable getChipIcon()
+  {
     return chipDrawable != null ? chipDrawable.getChipIcon() : null;
-  }
-
-  /**
-   * Sets this chip's icon using a resource id.
-   *
-   * @param id The resource id for this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIcon
-   */
-  public void setChipIconResource(@DrawableRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipIconResource(id);
-    }
   }
 
   /**
@@ -1495,33 +1640,38 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipIcon drawable of this chip's icon.
    * @attr ref com.google.android.material.R.styleable#Chip_chipIcon
    */
-  public void setChipIcon(@Nullable Drawable chipIcon) {
-    if (chipDrawable != null) {
+  public void setChipIcon(@Nullable Drawable chipIcon)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipIcon(chipIcon);
+    }
+  }
+
+  /**
+   * Sets this chip's icon using a resource id.
+   *
+   * @param id The resource id for this chip's icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipIcon
+   */
+  public void setChipIconResource(@DrawableRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipIconResource(id);
     }
   }
 
   /**
    * Returns the {@link android.content.res.ColorStateList} used to tint the chip icon.
    *
-   * @see #setChipIconTint(ColorStateList)
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @see #setChipIconTint(ColorStateList)
    */
   @Nullable
-  public ColorStateList getChipIconTint() {
+  public ColorStateList getChipIconTint()
+  {
     return chipDrawable != null ? chipDrawable.getChipIconTint() : null;
-  }
-
-  /**
-   * Sets this chip icon's color tint using a resource id.
-   *
-   * @param id The resource id for tinting the chip icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
-   */
-  public void setChipIconTintResource(@ColorRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipIconTintResource(id);
-    }
   }
 
   /**
@@ -1531,32 +1681,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipIconTint The tint color of this chip's icon.
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
    */
-  public void setChipIconTint(@Nullable ColorStateList chipIconTint) {
-    if (chipDrawable != null) {
+  public void setChipIconTint(@Nullable ColorStateList chipIconTint)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipIconTint(chipIconTint);
+    }
+  }
+
+  /**
+   * Sets this chip icon's color tint using a resource id.
+   *
+   * @param id The resource id for tinting the chip icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   */
+  public void setChipIconTintResource(@ColorRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipIconTintResource(id);
     }
   }
 
   /**
    * Returns this chip's icon size.
    *
-   * @see #setChipIconSize(float)
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconTint
+   * @see #setChipIconSize(float)
    */
-  public float getChipIconSize() {
+  public float getChipIconSize()
+  {
     return chipDrawable != null ? chipDrawable.getChipIconSize() : 0;
-  }
-
-  /**
-   * Sets this chip icon's size using a resource id.
-   *
-   * @param id The resource id of this chip's icon size.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipIconSize
-   */
-  public void setChipIconSizeResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipIconSizeResource(id);
-    }
   }
 
   /**
@@ -1565,26 +1720,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipIconSize This chip's icon size.
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconSize
    */
-  public void setChipIconSize(float chipIconSize) {
-    if (chipDrawable != null) {
+  public void setChipIconSize(float chipIconSize)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipIconSize(chipIconSize);
+    }
+  }
+
+  /**
+   * Sets this chip icon's size using a resource id.
+   *
+   * @param id The resource id of this chip's icon size.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipIconSize
+   */
+  public void setChipIconSizeResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipIconSizeResource(id);
     }
   }
 
   /**
    * Returns whether this chip's close icon is visible.
    *
-   * @see id #setCloseIconVisible(boolean)
    * @attr ref com.google.android.material.R.styleable#Chip_chipIconSize
+   * @see id #setCloseIconVisible(boolean)
    */
-  public boolean isCloseIconVisible() {
+  public boolean isCloseIconVisible()
+  {
     return chipDrawable != null && chipDrawable.isCloseIconVisible();
-  }
-
-  /** @deprecated Use {@link Chip#isCloseIconVisible()} instead. */
-  @Deprecated
-  public boolean isCloseIconEnabled() {
-    return isCloseIconVisible();
   }
 
   /**
@@ -1593,7 +1759,8 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param id The resource id of this chip's close icon visibility.
    * @attr ref com.google.android.material.R.styleable#Chip_closeIconVisible
    */
-  public void setCloseIconVisible(@BoolRes int id) {
+  public void setCloseIconVisible(@BoolRes int id)
+  {
     setCloseIconVisible(getResources().getBoolean(id));
   }
 
@@ -1603,47 +1770,52 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param closeIconVisible This chip's close icon visibility.
    * @attr ref com.google.android.material.R.styleable#Chip_closeIconVisible
    */
-  public void setCloseIconVisible(boolean closeIconVisible) {
-    if (chipDrawable != null) {
+  public void setCloseIconVisible(boolean closeIconVisible)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCloseIconVisible(closeIconVisible);
     }
     updateAccessibilityDelegate();
   }
 
-  /** @deprecated Use {@link Chip#setCloseIconVisible(int)} instead. */
+  /**
+   * @deprecated Use {@link Chip#isCloseIconVisible()} instead.
+   */
   @Deprecated
-  public void setCloseIconEnabledResource(@BoolRes int id) {
-    setCloseIconVisible(id);
+  public boolean isCloseIconEnabled()
+  {
+    return isCloseIconVisible();
   }
 
-  /** @deprecated Use {@link Chip#setCloseIconVisible(boolean)} instead. */
+  /**
+   * @deprecated Use {@link Chip#setCloseIconVisible(boolean)} instead.
+   */
   @Deprecated
-  public void setCloseIconEnabled(boolean closeIconEnabled) {
+  public void setCloseIconEnabled(boolean closeIconEnabled)
+  {
     setCloseIconVisible(closeIconEnabled);
+  }
+
+  /**
+   * @deprecated Use {@link Chip#setCloseIconVisible(int)} instead.
+   */
+  @Deprecated
+  public void setCloseIconEnabledResource(@BoolRes int id)
+  {
+    setCloseIconVisible(id);
   }
 
   /**
    * Returns this chip's close icon.
    *
-   * @see #setCloseIcon(Drawable).
    * @attr ref com.google.android.material.R.styleable#Chip_closeIcon
+   * @see #setCloseIcon(Drawable).
    */
   @Nullable
-  public Drawable getCloseIcon() {
+  public Drawable getCloseIcon()
+  {
     return chipDrawable != null ? chipDrawable.getCloseIcon() : null;
-  }
-
-  /**
-   * Sets this chip's close icon using a resource id.
-   *
-   * @param id The resource id of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIcon
-   */
-  public void setCloseIconResource(@DrawableRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCloseIconResource(id);
-    }
-    updateAccessibilityDelegate();
   }
 
   /**
@@ -1652,9 +1824,26 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param closeIcon This chip's close icon.
    * @attr ref com.google.android.material.R.styleable#Chip_closeIcon
    */
-  public void setCloseIcon(@Nullable Drawable closeIcon) {
-    if (chipDrawable != null) {
+  public void setCloseIcon(@Nullable Drawable closeIcon)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCloseIcon(closeIcon);
+    }
+    updateAccessibilityDelegate();
+  }
+
+  /**
+   * Sets this chip's close icon using a resource id.
+   *
+   * @param id The resource id of this chip's close icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIcon
+   */
+  public void setCloseIconResource(@DrawableRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCloseIconResource(id);
     }
     updateAccessibilityDelegate();
   }
@@ -1662,24 +1851,13 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   /**
    * Returns the tint color for this chip's close icon.
    *
-   * @see #setCloseIconTint(ColorStateList)
    * @attr ref com.google.android.material.R.styleable#Chip_closeIconTint
+   * @see #setCloseIconTint(ColorStateList)
    */
   @Nullable
-  public ColorStateList getCloseIconTint() {
+  public ColorStateList getCloseIconTint()
+  {
     return chipDrawable != null ? chipDrawable.getCloseIconTint() : null;
-  }
-
-  /**
-   * Sets the tint color for this chip's close icon using a resource id.
-   *
-   * @param id The resource id of this chip's close icon tint.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconTint
-   */
-  public void setCloseIconTintResource(@ColorRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCloseIconTintResource(id);
-    }
   }
 
   /**
@@ -1688,32 +1866,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param closeIconTint This chip's close icon tint.
    * @attr ref com.google.android.material.R.styleable#Chip_closeIconTint
    */
-  public void setCloseIconTint(@Nullable ColorStateList closeIconTint) {
-    if (chipDrawable != null) {
+  public void setCloseIconTint(@Nullable ColorStateList closeIconTint)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCloseIconTint(closeIconTint);
+    }
+  }
+
+  /**
+   * Sets the tint color for this chip's close icon using a resource id.
+   *
+   * @param id The resource id of this chip's close icon tint.
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIconTint
+   */
+  public void setCloseIconTintResource(@ColorRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCloseIconTintResource(id);
     }
   }
 
   /**
    * Returns this chip's close icon size.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
    * @see #setCloseIconSize(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
    */
-  public float getCloseIconSize() {
+  public float getCloseIconSize()
+  {
     return chipDrawable != null ? chipDrawable.getCloseIconSize() : 0;
-  }
-
-  /**
-   * Sets this chip's close icon size using a resource id.
-   *
-   * @param id The resource id of this chip's close icon size.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
-   */
-  public void setCloseIconSizeResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCloseIconSizeResource(id);
-    }
   }
 
   /**
@@ -1722,20 +1905,25 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param closeIconSize This chip's close icon size.
    * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
    */
-  public void setCloseIconSize(float closeIconSize) {
-    if (chipDrawable != null) {
+  public void setCloseIconSize(float closeIconSize)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCloseIconSize(closeIconSize);
     }
   }
 
   /**
-   * Sets the content description for this chip's close icon.
+   * Sets this chip's close icon size using a resource id.
    *
-   * @param closeIconContentDescription The content description for this chip's close icon.
+   * @param id The resource id of this chip's close icon size.
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIconSize
    */
-  public void setCloseIconContentDescription(@Nullable CharSequence closeIconContentDescription) {
-    if (chipDrawable != null) {
-      chipDrawable.setCloseIconContentDescription(closeIconContentDescription);
+  public void setCloseIconSizeResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCloseIconSizeResource(id);
     }
   }
 
@@ -1745,30 +1933,33 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @see #setCloseIconContentDescription(CharSequence)
    */
   @Nullable
-  public CharSequence getCloseIconContentDescription() {
+  public CharSequence getCloseIconContentDescription()
+  {
     return chipDrawable != null ? chipDrawable.getCloseIconContentDescription() : null;
+  }
+
+  /**
+   * Sets the content description for this chip's close icon.
+   *
+   * @param closeIconContentDescription The content description for this chip's close icon.
+   */
+  public void setCloseIconContentDescription(@Nullable CharSequence closeIconContentDescription)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCloseIconContentDescription(closeIconContentDescription);
+    }
   }
 
   /**
    * Returns whether this chip is checkable.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
    * @see #setIsCheckable(boolean)
-   * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
    */
-  public boolean isCheckable() {
+  public boolean isCheckable()
+  {
     return chipDrawable != null && chipDrawable.isCheckable();
-  }
-
-  /**
-   * Sets whether this chip is checkable using a resource id.
-   *
-   * @param id The resource id of this chip is checkable.
-   * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
-   */
-  public void setCheckableResource(@BoolRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCheckableResource(id);
-    }
   }
 
   /**
@@ -1777,26 +1968,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param checkable Whether this chip is checkable.
    * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
    */
-  public void setCheckable(boolean checkable) {
-    if (chipDrawable != null) {
+  public void setCheckable(boolean checkable)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCheckable(checkable);
+    }
+  }
+
+  /**
+   * Sets whether this chip is checkable using a resource id.
+   *
+   * @param id The resource id of this chip is checkable.
+   * @attr ref com.google.android.material.R.styleable#Chip_android_checkable
+   */
+  public void setCheckableResource(@BoolRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCheckableResource(id);
     }
   }
 
   /**
    * Returns whether this chip's checked icon is visible.
    *
-   * @see #setCheckedIconVisible(boolean)
    * @attr ref com.google.android.material.R.styleable#Chip_checkedIconVisible
+   * @see #setCheckedIconVisible(boolean)
    */
-  public boolean isCheckedIconVisible() {
+  public boolean isCheckedIconVisible()
+  {
     return chipDrawable != null && chipDrawable.isCheckedIconVisible();
-  }
-
-  /** @deprecated Use {@link Chip#isCheckedIconVisible()} instead. */
-  @Deprecated
-  public boolean isCheckedIconEnabled() {
-    return isCheckedIconVisible();
   }
 
   /**
@@ -1805,8 +2007,10 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param id The resource id of this chip's check icon visibility.
    * @attr ref com.google.android.material.R.styleable#Chip_checkedIconVisible
    */
-  public void setCheckedIconVisible(@BoolRes int id) {
-    if (chipDrawable != null) {
+  public void setCheckedIconVisible(@BoolRes int id)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCheckedIconVisible(id);
     }
   }
@@ -1817,45 +2021,51 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param checkedIconVisible This chip's checked icon visibility.
    * @attr ref com.google.android.material.R.styleable#Chip_checkedIconVisible
    */
-  public void setCheckedIconVisible(boolean checkedIconVisible) {
-    if (chipDrawable != null) {
+  public void setCheckedIconVisible(boolean checkedIconVisible)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCheckedIconVisible(checkedIconVisible);
     }
   }
 
-  /** @deprecated Use {@link Chip#setCheckedIconVisible(int)} instead. */
+  /**
+   * @deprecated Use {@link Chip#isCheckedIconVisible()} instead.
+   */
   @Deprecated
-  public void setCheckedIconEnabledResource(@BoolRes int id) {
-    setCheckedIconVisible(id);
+  public boolean isCheckedIconEnabled()
+  {
+    return isCheckedIconVisible();
   }
 
-  /** @deprecated Use {@link Chip#setCheckedIconVisible(boolean)} instead. */
+  /**
+   * @deprecated Use {@link Chip#setCheckedIconVisible(boolean)} instead.
+   */
   @Deprecated
-  public void setCheckedIconEnabled(boolean checkedIconEnabled) {
+  public void setCheckedIconEnabled(boolean checkedIconEnabled)
+  {
     setCheckedIconVisible(checkedIconEnabled);
+  }
+
+  /**
+   * @deprecated Use {@link Chip#setCheckedIconVisible(int)} instead.
+   */
+  @Deprecated
+  public void setCheckedIconEnabledResource(@BoolRes int id)
+  {
+    setCheckedIconVisible(id);
   }
 
   /**
    * Returns this chip's checked icon.
    *
-   * @see #setCheckedIcon(Drawable)
    * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   * @see #setCheckedIcon(Drawable)
    */
   @Nullable
-  public Drawable getCheckedIcon() {
+  public Drawable getCheckedIcon()
+  {
     return chipDrawable != null ? chipDrawable.getCheckedIcon() : null;
-  }
-
-  /**
-   * Sets this chip's checked icon using a resource id.
-   *
-   * @param id The resource id of this chip's checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
-   */
-  public void setCheckedIconResource(@DrawableRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCheckedIconResource(id);
-    }
   }
 
   /**
@@ -1864,33 +2074,38 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param checkedIcon This chip's checked icon.
    * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
    */
-  public void setCheckedIcon(@Nullable Drawable checkedIcon) {
-    if (chipDrawable != null) {
+  public void setCheckedIcon(@Nullable Drawable checkedIcon)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCheckedIcon(checkedIcon);
+    }
+  }
+
+  /**
+   * Sets this chip's checked icon using a resource id.
+   *
+   * @param id The resource id of this chip's checked icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_checkedIcon
+   */
+  public void setCheckedIconResource(@DrawableRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCheckedIconResource(id);
     }
   }
 
   /**
    * Returns the {@link android.content.res.ColorStateList} used to tint the checked icon.
    *
-   * @see #setCheckedIconTint(ColorStateList)
    * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
+   * @see #setCheckedIconTint(ColorStateList)
    */
   @Nullable
-  public ColorStateList getCheckedIconTint() {
+  public ColorStateList getCheckedIconTint()
+  {
     return chipDrawable != null ? chipDrawable.getCheckedIconTint() : null;
-  }
-
-  /**
-   * Sets this chip's checked icon's color tint using a resource id.
-   *
-   * @param id The resource id for tinting the checked icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
-   */
-  public void setCheckedIconTintResource(@ColorRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCheckedIconTintResource(id);
-    }
   }
 
   /**
@@ -1900,33 +2115,38 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param checkedIconTint The tint color of this chip's checked icon.
    * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
    */
-  public void setCheckedIconTint(@Nullable ColorStateList checkedIconTint) {
-    if (chipDrawable != null) {
+  public void setCheckedIconTint(@Nullable ColorStateList checkedIconTint)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCheckedIconTint(checkedIconTint);
+    }
+  }
+
+  /**
+   * Sets this chip's checked icon's color tint using a resource id.
+   *
+   * @param id The resource id for tinting the checked icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_checkedIconTint
+   */
+  public void setCheckedIconTintResource(@ColorRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCheckedIconTintResource(id);
     }
   }
 
   /**
    * Returns this chip's show motion spec.
    *
-   * @see #setShowMotionSpec(Drawable)
    * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   * @see #setShowMotionSpec(Drawable)
    */
   @Nullable
-  public MotionSpec getShowMotionSpec() {
+  public MotionSpec getShowMotionSpec()
+  {
     return chipDrawable != null ? chipDrawable.getShowMotionSpec() : null;
-  }
-
-  /**
-   * Sets this chip's show motion spec using a resource id.
-   *
-   * @param id The resource id of this chip's show motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
-   */
-  public void setShowMotionSpecResource(@AnimatorRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setShowMotionSpecResource(id);
-    }
   }
 
   /**
@@ -1935,33 +2155,38 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param showMotionSpec This chip's show motion spec.
    * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
    */
-  public void setShowMotionSpec(@Nullable MotionSpec showMotionSpec) {
-    if (chipDrawable != null) {
+  public void setShowMotionSpec(@Nullable MotionSpec showMotionSpec)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setShowMotionSpec(showMotionSpec);
+    }
+  }
+
+  /**
+   * Sets this chip's show motion spec using a resource id.
+   *
+   * @param id The resource id of this chip's show motion spec.
+   * @attr ref com.google.android.material.R.styleable#Chip_showMotionSpec
+   */
+  public void setShowMotionSpecResource(@AnimatorRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setShowMotionSpecResource(id);
     }
   }
 
   /**
    * Returns this chip's hide motion spec.
    *
-   * @see #setHideMotionSpec(Drawable)
    * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   * @see #setHideMotionSpec(Drawable)
    */
   @Nullable
-  public MotionSpec getHideMotionSpec() {
+  public MotionSpec getHideMotionSpec()
+  {
     return chipDrawable != null ? chipDrawable.getHideMotionSpec() : null;
-  }
-
-  /**
-   * Sets this chip's hide motion spec using a resource id.
-   *
-   * @param id The resource id of this chip's hide motion spec.
-   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
-   */
-  public void setHideMotionSpecResource(@AnimatorRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setHideMotionSpecResource(id);
-    }
   }
 
   /**
@@ -1970,32 +2195,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param hideMotionSpec This chip's hide motion spec.
    * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
    */
-  public void setHideMotionSpec(@Nullable MotionSpec hideMotionSpec) {
-    if (chipDrawable != null) {
+  public void setHideMotionSpec(@Nullable MotionSpec hideMotionSpec)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setHideMotionSpec(hideMotionSpec);
+    }
+  }
+
+  /**
+   * Sets this chip's hide motion spec using a resource id.
+   *
+   * @param id The resource id of this chip's hide motion spec.
+   * @attr ref com.google.android.material.R.styleable#Chip_hideMotionSpec
+   */
+  public void setHideMotionSpecResource(@AnimatorRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setHideMotionSpecResource(id);
     }
   }
 
   /**
    * Returns this chip's start padding.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
    * @see #setChipStartPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
    */
-  public float getChipStartPadding() {
+  public float getChipStartPadding()
+  {
     return chipDrawable != null ? chipDrawable.getChipStartPadding() : 0;
-  }
-
-  /**
-   * Sets this chip's start padding using a resource id.
-   *
-   * @param id The resource id of this chip's start padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
-   */
-  public void setChipStartPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipStartPaddingResource(id);
-    }
   }
 
   /**
@@ -2004,32 +2234,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipStartPadding This chip's start padding.
    * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
    */
-  public void setChipStartPadding(float chipStartPadding) {
-    if (chipDrawable != null) {
+  public void setChipStartPadding(float chipStartPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipStartPadding(chipStartPadding);
+    }
+  }
+
+  /**
+   * Sets this chip's start padding using a resource id.
+   *
+   * @param id The resource id of this chip's start padding.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipStartPadding
+   */
+  public void setChipStartPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipStartPaddingResource(id);
     }
   }
 
   /**
    * Returns the start padding for this chip's icon.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
    * @see #setIconStartPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
    */
-  public float getIconStartPadding() {
+  public float getIconStartPadding()
+  {
     return chipDrawable != null ? chipDrawable.getIconStartPadding() : 0;
-  }
-
-  /**
-   * Sets the start padding for this chip's icon using a resource id.
-   *
-   * @param id The resource id for the start padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
-   */
-  public void setIconStartPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setIconStartPaddingResource(id);
-    }
   }
 
   /**
@@ -2038,32 +2273,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param iconStartPadding The start padding of this chip's icon.
    * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
    */
-  public void setIconStartPadding(float iconStartPadding) {
-    if (chipDrawable != null) {
+  public void setIconStartPadding(float iconStartPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setIconStartPadding(iconStartPadding);
+    }
+  }
+
+  /**
+   * Sets the start padding for this chip's icon using a resource id.
+   *
+   * @param id The resource id for the start padding of this chip's icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_iconStartPadding
+   */
+  public void setIconStartPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setIconStartPaddingResource(id);
     }
   }
 
   /**
    * Returns the end padding for this chip's icon.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
    * @see #setIconEndPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
    */
-  public float getIconEndPadding() {
+  public float getIconEndPadding()
+  {
     return chipDrawable != null ? chipDrawable.getIconEndPadding() : 0;
-  }
-
-  /**
-   * Sets the end padding for this chip's icon using a resource id.
-   *
-   * @param id The resource id for the end padding of this chip's icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
-   */
-  public void setIconEndPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setIconEndPaddingResource(id);
-    }
   }
 
   /**
@@ -2072,32 +2312,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param iconEndPadding The end padding of this chip's icon.
    * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
    */
-  public void setIconEndPadding(float iconEndPadding) {
-    if (chipDrawable != null) {
+  public void setIconEndPadding(float iconEndPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setIconEndPadding(iconEndPadding);
+    }
+  }
+
+  /**
+   * Sets the end padding for this chip's icon using a resource id.
+   *
+   * @param id The resource id for the end padding of this chip's icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_iconEndPadding
+   */
+  public void setIconEndPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setIconEndPaddingResource(id);
     }
   }
 
   /**
    * Returns the start padding for this chip's text.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
    * @see #setTextStartPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
    */
-  public float getTextStartPadding() {
+  public float getTextStartPadding()
+  {
     return chipDrawable != null ? chipDrawable.getTextStartPadding() : 0;
-  }
-
-  /**
-   * Sets the start padding for this chip's text using a resource id.
-   *
-   * @param id The resource id for the start padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
-   */
-  public void setTextStartPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setTextStartPaddingResource(id);
-    }
   }
 
   /**
@@ -2106,32 +2351,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param textStartPadding The start padding of this chip's text.
    * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
    */
-  public void setTextStartPadding(float textStartPadding) {
-    if (chipDrawable != null) {
+  public void setTextStartPadding(float textStartPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setTextStartPadding(textStartPadding);
+    }
+  }
+
+  /**
+   * Sets the start padding for this chip's text using a resource id.
+   *
+   * @param id The resource id for the start padding of this chip's text.
+   * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
+   */
+  public void setTextStartPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setTextStartPaddingResource(id);
     }
   }
 
   /**
    * Returns the end padding for this chip's text.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
    * @see #setTextEndPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
    */
-  public float getTextEndPadding() {
+  public float getTextEndPadding()
+  {
     return chipDrawable != null ? chipDrawable.getTextEndPadding() : 0;
-  }
-
-  /**
-   * Sets the end padding for this chip's text using a resource id.
-   *
-   * @param id The resource id for the end padding of this chip's text.
-   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
-   */
-  public void setTextEndPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setTextEndPaddingResource(id);
-    }
   }
 
   /**
@@ -2140,32 +2390,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param textEndPadding The end padding of this chip's text.
    * @attr ref com.google.android.material.R.styleable#Chip_textStartPadding
    */
-  public void setTextEndPadding(float textEndPadding) {
-    if (chipDrawable != null) {
+  public void setTextEndPadding(float textEndPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setTextEndPadding(textEndPadding);
+    }
+  }
+
+  /**
+   * Sets the end padding for this chip's text using a resource id.
+   *
+   * @param id The resource id for the end padding of this chip's text.
+   * @attr ref com.google.android.material.R.styleable#Chip_textEndPadding
+   */
+  public void setTextEndPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setTextEndPaddingResource(id);
     }
   }
 
   /**
    * Returns the start padding for this chip's close icon.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
    * @see #setCloseIconStartPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
    */
-  public float getCloseIconStartPadding() {
+  public float getCloseIconStartPadding()
+  {
     return chipDrawable != null ? chipDrawable.getCloseIconStartPadding() : 0;
-  }
-
-  /**
-   * Sets the start padding for this chip's close icon using a resource id.
-   *
-   * @param id The resource id for the start padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
-   */
-  public void setCloseIconStartPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCloseIconStartPaddingResource(id);
-    }
   }
 
   /**
@@ -2174,32 +2429,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param closeIconStartPadding The start padding of this chip's close icon.
    * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
    */
-  public void setCloseIconStartPadding(float closeIconStartPadding) {
-    if (chipDrawable != null) {
+  public void setCloseIconStartPadding(float closeIconStartPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCloseIconStartPadding(closeIconStartPadding);
+    }
+  }
+
+  /**
+   * Sets the start padding for this chip's close icon using a resource id.
+   *
+   * @param id The resource id for the start padding of this chip's close icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIconStartPadding
+   */
+  public void setCloseIconStartPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCloseIconStartPaddingResource(id);
     }
   }
 
   /**
    * Returns the end padding for this chip's close icon.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
    * @see #setCloseIconEndPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
    */
-  public float getCloseIconEndPadding() {
+  public float getCloseIconEndPadding()
+  {
     return chipDrawable != null ? chipDrawable.getCloseIconEndPadding() : 0;
-  }
-
-  /**
-   * Sets the end padding for this chip's close icon using a resource id.
-   *
-   * @param id The resource id for the end padding of this chip's close icon.
-   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
-   */
-  public void setCloseIconEndPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setCloseIconEndPaddingResource(id);
-    }
   }
 
   /**
@@ -2208,32 +2468,37 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param closeIconEndPadding The end padding of this chip's close icon.
    * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
    */
-  public void setCloseIconEndPadding(float closeIconEndPadding) {
-    if (chipDrawable != null) {
+  public void setCloseIconEndPadding(float closeIconEndPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setCloseIconEndPadding(closeIconEndPadding);
+    }
+  }
+
+  /**
+   * Sets the end padding for this chip's close icon using a resource id.
+   *
+   * @param id The resource id for the end padding of this chip's close icon.
+   * @attr ref com.google.android.material.R.styleable#Chip_closeIconEndPadding
+   */
+  public void setCloseIconEndPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setCloseIconEndPaddingResource(id);
     }
   }
 
   /**
    * Returns this chip's end padding.
    *
+   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
    * @see #setChipEndPadding(float)
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
    */
-  public float getChipEndPadding() {
+  public float getChipEndPadding()
+  {
     return chipDrawable != null ? chipDrawable.getChipEndPadding() : 0;
-  }
-
-  /**
-   * Sets this chip's end padding using a resource id.
-   *
-   * @param id The resource id for this chip's end padding.
-   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
-   */
-  public void setChipEndPaddingResource(@DimenRes int id) {
-    if (chipDrawable != null) {
-      chipDrawable.setChipEndPaddingResource(id);
-    }
   }
 
   /**
@@ -2242,9 +2507,25 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param chipEndPadding This chip's end padding.
    * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
    */
-  public void setChipEndPadding(float chipEndPadding) {
-    if (chipDrawable != null) {
+  public void setChipEndPadding(float chipEndPadding)
+  {
+    if (chipDrawable != null)
+    {
       chipDrawable.setChipEndPadding(chipEndPadding);
+    }
+  }
+
+  /**
+   * Sets this chip's end padding using a resource id.
+   *
+   * @param id The resource id for this chip's end padding.
+   * @attr ref com.google.android.material.R.styleable#Chip_chipEndPadding
+   */
+  public void setChipEndPaddingResource(@DimenRes int id)
+  {
+    if (chipDrawable != null)
+    {
+      chipDrawable.setChipEndPaddingResource(id);
     }
   }
 
@@ -2252,10 +2533,11 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * Returns whether this chip will expand its bounds (if needed) to meet the minimum touch target
    * size.
    *
-   * @see #setEnsureMinTouchTargetSize(boolean)
    * @attr ref com.google.android.material.R.styleable#Chip_ensureMinTouchTargetSize
+   * @see #setEnsureMinTouchTargetSize(boolean)
    */
-  public boolean shouldEnsureMinTouchTargetSize() {
+  public boolean shouldEnsureMinTouchTargetSize()
+  {
     return ensureMinTouchTargetSize;
   }
 
@@ -2266,7 +2548,8 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param flag Whether this chip should meet the min touch target size.
    * @attr ref com.google.android.material.R.styleable#Chip_ensureMinTouchTargetSize
    */
-  public void setEnsureMinTouchTargetSize(boolean flag) {
+  public void setEnsureMinTouchTargetSize(boolean flag)
+  {
     ensureMinTouchTargetSize = flag;
     ensureAccessibleTouchTarget(minTouchTargetSize);
   }
@@ -2278,12 +2561,16 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
    * @param minTargetPx minimum touch target size in pixel
    * @return whether the background was changed
    */
-  public boolean ensureAccessibleTouchTarget(@Dimension int minTargetPx) {
+  public boolean ensureAccessibleTouchTarget(@Dimension int minTargetPx)
+  {
     minTouchTargetSize = minTargetPx;
-    if (!shouldEnsureMinTouchTargetSize()) {
-      if (insetBackgroundDrawable != null) {
+    if (!shouldEnsureMinTouchTargetSize())
+    {
+      if (insetBackgroundDrawable != null)
+      {
         removeBackgroundInset();
-      } else {
+      } else
+      {
         updateBackgroundDrawable();
       }
       return false;
@@ -2292,10 +2579,13 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     int deltaHeight = Math.max(0, minTargetPx - chipDrawable.getIntrinsicHeight());
     int deltaWidth = Math.max(0, minTargetPx - chipDrawable.getIntrinsicWidth());
 
-    if (deltaWidth <= 0 && deltaHeight <= 0) {
-      if (insetBackgroundDrawable != null) {
+    if (deltaWidth <= 0 && deltaHeight <= 0)
+    {
+      if (insetBackgroundDrawable != null)
+      {
         removeBackgroundInset();
-      } else {
+      } else
+      {
         updateBackgroundDrawable();
       }
       return false;
@@ -2304,25 +2594,31 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     int deltaX = deltaWidth > 0 ? deltaWidth / 2 : 0;
     int deltaY = deltaHeight > 0 ? deltaHeight / 2 : 0;
 
-    if (insetBackgroundDrawable != null) {
+    if (insetBackgroundDrawable != null)
+    {
       Rect padding = new Rect();
       insetBackgroundDrawable.getPadding(padding);
       if (padding.top == deltaY
           && padding.bottom == deltaY
           && padding.left == deltaX
-          && padding.right == deltaX) {
+          && padding.right == deltaX)
+      {
         updateBackgroundDrawable();
         return true;
       }
     }
-    if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
-      if (getMinHeight() != minTargetPx) {
+    if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN)
+    {
+      if (getMinHeight() != minTargetPx)
+      {
         setMinHeight(minTargetPx);
       }
-      if (getMinWidth() != minTargetPx) {
+      if (getMinWidth() != minTargetPx)
+      {
         setMinWidth(minTargetPx);
       }
-    } else {
+    } else
+    {
       setMinHeight(minTargetPx);
       setMinWidth(minTargetPx);
     }
@@ -2331,8 +2627,10 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
     return true;
   }
 
-  private void removeBackgroundInset() {
-    if (insetBackgroundDrawable != null) {
+  private void removeBackgroundInset()
+  {
+    if (insetBackgroundDrawable != null)
+    {
       insetBackgroundDrawable = null;
       setMinWidth(0);
       setMinHeight((int) getChipMinHeight());
@@ -2341,8 +2639,123 @@ public class Chip extends AppCompatCheckBox implements ChipDrawable.Delegate, Sh
   }
 
   private void insetChipBackgroundDrawable(
-      int insetLeft, int insetTop, int insetRight, int insetBottom) {
+      int insetLeft, int insetTop, int insetRight, int insetBottom)
+  {
     insetBackgroundDrawable =
         new InsetDrawable(chipDrawable, insetLeft, insetTop, insetRight, insetBottom);
+  }
+
+  /**
+   * Provides a virtual view hierarchy for the close icon.
+   */
+  private class ChipTouchHelper extends ExploreByTouchHelper
+  {
+
+    ChipTouchHelper(Chip view)
+    {
+      super(view);
+    }
+
+    @Override
+    protected int getVirtualViewAt(float x, float y)
+    {
+      return (hasCloseIcon() && getCloseIconTouchBounds().contains(x, y))
+          ? CLOSE_ICON_VIRTUAL_ID
+          : CHIP_BODY_VIRTUAL_ID;
+    }
+
+    @Override
+    protected void getVisibleVirtualViews(@NonNull List<Integer> virtualViewIds)
+    {
+      virtualViewIds.add(CHIP_BODY_VIRTUAL_ID);
+      if (hasCloseIcon() && isCloseIconVisible() && onCloseIconClickListener != null)
+      {
+        virtualViewIds.add(CLOSE_ICON_VIRTUAL_ID);
+      }
+    }
+
+    @Override
+    protected void onVirtualViewKeyboardFocusChanged(int virtualViewId, boolean hasFocus)
+    {
+      if (virtualViewId == CLOSE_ICON_VIRTUAL_ID)
+      {
+        closeIconFocused = hasFocus;
+        refreshDrawableState();
+      }
+    }
+
+    @Override
+    protected void onPopulateNodeForVirtualView(
+        int virtualViewId, @NonNull AccessibilityNodeInfoCompat node)
+    {
+      if (virtualViewId == CLOSE_ICON_VIRTUAL_ID)
+      {
+        CharSequence closeIconContentDescription = getCloseIconContentDescription();
+        if (closeIconContentDescription != null)
+        {
+          node.setContentDescription(closeIconContentDescription);
+        } else
+        {
+          CharSequence chipText = getText();
+          node.setContentDescription(
+              getContext()
+                  .getString(
+                      R.string.mtrl_chip_close_icon_content_description,
+                      !TextUtils.isEmpty(chipText) ? chipText : "")
+                  .trim());
+        }
+        node.setBoundsInParent(getCloseIconTouchBoundsInt());
+        node.addAction(AccessibilityActionCompat.ACTION_CLICK);
+        node.setEnabled(isEnabled());
+      } else
+      {
+        node.setContentDescription("");
+        node.setBoundsInParent(EMPTY_BOUNDS);
+      }
+    }
+
+    @Override
+    protected void onPopulateNodeForHost(@NonNull AccessibilityNodeInfoCompat node)
+    {
+      node.setCheckable(isCheckable());
+      node.setClickable(isClickable());
+      if (isCheckable() || isClickable())
+      {
+        node.setClassName(
+            isCheckable()
+                ? COMPOUND_BUTTON_ACCESSIBILITY_CLASS_NAME
+                : BUTTON_ACCESSIBILITY_CLASS_NAME);
+      } else
+      {
+        node.setClassName(GENERIC_VIEW_ACCESSIBILITY_CLASS_NAME);
+      }
+      CharSequence chipText = getText();
+      if (VERSION.SDK_INT >= VERSION_CODES.M)
+      {
+        node.setText(chipText);
+      } else
+      {
+        // Before M, TalkBack doesn't get the text from setText, so we have to set the content
+        // description instead.
+        node.setContentDescription(chipText);
+      }
+    }
+
+    @Override
+    protected boolean onPerformActionForVirtualView(
+        int virtualViewId, int action, Bundle arguments)
+    {
+      if (action == AccessibilityNodeInfoCompat.ACTION_CLICK)
+      {
+        if (virtualViewId == CHIP_BODY_VIRTUAL_ID)
+        {
+          return performClick();
+        } else if (virtualViewId == CLOSE_ICON_VIRTUAL_ID)
+        {
+          return performCloseIconClick();
+        }
+      }
+      return false;
+    }
   }
 }

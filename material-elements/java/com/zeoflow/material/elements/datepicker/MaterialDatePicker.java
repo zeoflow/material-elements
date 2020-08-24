@@ -16,10 +16,6 @@
 
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,17 +27,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
-import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.StringRes;
-import androidx.annotation.StyleRes;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.util.Pair;
-import androidx.core.view.ViewCompat;
-import androidx.appcompat.content.res.AppCompatResources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,61 +35,54 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.dialog.InsetDialogOnTouchListener;
 import com.zeoflow.material.elements.internal.CheckableImageButton;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.LinkedHashSet;
 
-/** A {@link Dialog} with a header, {@link MaterialCalendar}, and set of actions. */
-public final class MaterialDatePicker<S> extends DialogFragment {
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+/**
+ * A {@link Dialog} with a header, {@link MaterialCalendar}, and set of actions.
+ */
+public final class MaterialDatePicker<S> extends DialogFragment
+{
+
+  /**
+   * Date picker will start with calendar view.
+   */
+  public static final int INPUT_MODE_CALENDAR = 0;
+  /**
+   * Date picker will start with input text view.
+   */
+  public static final int INPUT_MODE_TEXT = 1;
+  static final Object CONFIRM_BUTTON_TAG = "CONFIRM_BUTTON_TAG";
+  static final Object CANCEL_BUTTON_TAG = "CANCEL_BUTTON_TAG";
+  static final Object TOGGLE_BUTTON_TAG = "TOGGLE_BUTTON_TAG";
   private static final String OVERRIDE_THEME_RES_ID = "OVERRIDE_THEME_RES_ID";
   private static final String DATE_SELECTOR_KEY = "DATE_SELECTOR_KEY";
   private static final String CALENDAR_CONSTRAINTS_KEY = "CALENDAR_CONSTRAINTS_KEY";
   private static final String TITLE_TEXT_RES_ID_KEY = "TITLE_TEXT_RES_ID_KEY";
   private static final String TITLE_TEXT_KEY = "TITLE_TEXT_KEY";
   private static final String INPUT_MODE_KEY = "INPUT_MODE_KEY";
-
-  static final Object CONFIRM_BUTTON_TAG = "CONFIRM_BUTTON_TAG";
-  static final Object CANCEL_BUTTON_TAG = "CANCEL_BUTTON_TAG";
-  static final Object TOGGLE_BUTTON_TAG = "TOGGLE_BUTTON_TAG";
-
-  /** Date picker will start with calendar view. */
-  public static final int INPUT_MODE_CALENDAR = 0;
-
-  /** Date picker will start with input text view. */
-  public static final int INPUT_MODE_TEXT = 1;
-
-  /** @hide */
-  @RestrictTo(LIBRARY_GROUP)
-  @IntDef(value = {INPUT_MODE_CALENDAR, INPUT_MODE_TEXT})
-  @Retention(RetentionPolicy.SOURCE)
-  public @interface InputMode {}
-
-  /** Returns the UTC milliseconds representing the first moment of today in local timezone. */
-  public static long todayInUtcMilliseconds() {
-    return UtcDates.getTodayCalendar().getTimeInMillis();
-  }
-
-  /**
-   * Returns the UTC milliseconds representing the first moment in current month in local timezone.
-   */
-  public static long thisMonthInUtcMilliseconds() {
-    return Month.current().timeInMillis;
-  }
-
-  /**
-   * Returns the text to display at the top of the {@link DialogFragment}
-   *
-   * <p>The text is updated when the Dialog launches and on user clicks.
-   */
-  public String getHeaderText() {
-    return dateSelector.getSelectionDisplayString(getContext());
-  }
-
   private final LinkedHashSet<MaterialPickerOnPositiveButtonClickListener<? super S>>
       onPositiveButtonClickListeners = new LinkedHashSet<>();
   private final LinkedHashSet<View.OnClickListener> onNegativeButtonClickListeners =
@@ -113,24 +91,45 @@ public final class MaterialDatePicker<S> extends DialogFragment {
       new LinkedHashSet<>();
   private final LinkedHashSet<DialogInterface.OnDismissListener> onDismissListeners =
       new LinkedHashSet<>();
-
-  @StyleRes private int overrideThemeResId;
-  @Nullable private DateSelector<S> dateSelector;
+  @StyleRes
+  private int overrideThemeResId;
+  @Nullable
+  private DateSelector<S> dateSelector;
   private PickerFragment<S> pickerFragment;
-  @Nullable private CalendarConstraints calendarConstraints;
+  @Nullable
+  private CalendarConstraints calendarConstraints;
   private MaterialCalendar<S> calendar;
-  @StringRes private int titleTextResId;
+  @StringRes
+  private int titleTextResId;
   private CharSequence titleText;
   private boolean fullscreen;
-  @InputMode private int inputMode;
-
+  @InputMode
+  private int inputMode;
   private TextView headerSelectionText;
   private CheckableImageButton headerToggleButton;
-  @Nullable private MaterialShapeDrawable background;
+  @Nullable
+  private MaterialShapeDrawable background;
   private Button confirmButton;
 
+  /**
+   * Returns the UTC milliseconds representing the first moment of today in local timezone.
+   */
+  public static long todayInUtcMilliseconds()
+  {
+    return UtcDates.getTodayCalendar().getTimeInMillis();
+  }
+
+  /**
+   * Returns the UTC milliseconds representing the first moment in current month in local timezone.
+   */
+  public static long thisMonthInUtcMilliseconds()
+  {
+    return Month.current().timeInMillis;
+  }
+
   @NonNull
-  static <S> MaterialDatePicker<S> newInstance(@NonNull Builder<S> options) {
+  static <S> MaterialDatePicker<S> newInstance(@NonNull Builder<S> options)
+  {
     MaterialDatePicker<S> materialDatePickerDialogFragment = new MaterialDatePicker<>();
     Bundle args = new Bundle();
     args.putInt(OVERRIDE_THEME_RES_ID, options.overrideThemeResId);
@@ -143,15 +142,82 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     return materialDatePickerDialogFragment;
   }
 
+  // Create StateListDrawable programmatically for pre-lollipop support
+  @NonNull
+  private static Drawable createHeaderToggleDrawable(Context context)
+  {
+    StateListDrawable toggleDrawable = new StateListDrawable();
+    toggleDrawable.addState(
+        new int[]{android.R.attr.state_checked},
+        AppCompatResources.getDrawable(context, R.drawable.material_ic_calendar_black_24dp));
+    toggleDrawable.addState(
+        new int[]{},
+        AppCompatResources.getDrawable(context, R.drawable.material_ic_edit_black_24dp));
+    return toggleDrawable;
+  }
+
+  static boolean isFullscreen(@NonNull Context context)
+  {
+    int calendarStyle =
+        MaterialAttributes.resolveOrThrow(
+            context, R.attr.materialCalendarStyle, MaterialCalendar.class.getCanonicalName());
+    int[] attrs = {android.R.attr.windowFullscreen};
+    TypedArray a = context.obtainStyledAttributes(calendarStyle, attrs);
+    boolean fullscreen = a.getBoolean(0, false);
+    a.recycle();
+    return fullscreen;
+  }
+
+  private static int getDialogPickerHeight(@NonNull Context context)
+  {
+    Resources resources = context.getResources();
+    int navigationHeight =
+        resources.getDimensionPixelSize(R.dimen.mtrl_calendar_navigation_height)
+            + resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_navigation_top_padding)
+            + resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_navigation_bottom_padding);
+    int daysOfWeekHeight =
+        resources.getDimensionPixelSize(R.dimen.mtrl_calendar_days_of_week_height);
+    int calendarHeight =
+        MonthAdapter.MAXIMUM_WEEKS
+            * resources.getDimensionPixelSize(R.dimen.mtrl_calendar_day_height)
+            + (MonthAdapter.MAXIMUM_WEEKS - 1)
+            * resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_month_vertical_padding);
+    int calendarPadding = resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_bottom_padding);
+    return navigationHeight + daysOfWeekHeight + calendarHeight + calendarPadding;
+  }
+
+  private static int getPaddedPickerWidth(@NonNull Context context)
+  {
+    Resources resources = context.getResources();
+    int padding = resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_content_padding);
+    int daysInWeek = Month.current().daysInWeek;
+    int dayWidth = resources.getDimensionPixelSize(R.dimen.mtrl_calendar_day_width);
+    int horizontalSpace =
+        resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_month_horizontal_padding);
+    return 2 * padding + daysInWeek * dayWidth + (daysInWeek - 1) * horizontalSpace;
+  }
+
+  /**
+   * Returns the text to display at the top of the {@link DialogFragment}
+   *
+   * <p>The text is updated when the Dialog launches and on user clicks.
+   */
+  public String getHeaderText()
+  {
+    return dateSelector.getSelectionDisplayString(getContext());
+  }
+
   @Override
-  public final void onSaveInstanceState(@NonNull Bundle bundle) {
+  public final void onSaveInstanceState(@NonNull Bundle bundle)
+  {
     super.onSaveInstanceState(bundle);
     bundle.putInt(OVERRIDE_THEME_RES_ID, overrideThemeResId);
     bundle.putParcelable(DATE_SELECTOR_KEY, dateSelector);
 
     CalendarConstraints.Builder constraintsBuilder =
         new CalendarConstraints.Builder(calendarConstraints);
-    if (calendar.getCurrentMonth() != null) {
+    if (calendar.getCurrentMonth() != null)
+    {
       constraintsBuilder.setOpenAt(calendar.getCurrentMonth().timeInMillis);
     }
     bundle.putParcelable(CALENDAR_CONSTRAINTS_KEY, constraintsBuilder.build());
@@ -160,7 +226,8 @@ public final class MaterialDatePicker<S> extends DialogFragment {
   }
 
   @Override
-  public final void onCreate(@Nullable Bundle bundle) {
+  public final void onCreate(@Nullable Bundle bundle)
+  {
     super.onCreate(bundle);
     Bundle activeBundle = bundle == null ? getArguments() : bundle;
     overrideThemeResId = activeBundle.getInt(OVERRIDE_THEME_RES_ID);
@@ -171,8 +238,10 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     inputMode = activeBundle.getInt(INPUT_MODE_KEY);
   }
 
-  private int getThemeResId(Context context) {
-    if (overrideThemeResId != 0) {
+  private int getThemeResId(Context context)
+  {
+    if (overrideThemeResId != 0)
+    {
       return overrideThemeResId;
     }
     return dateSelector.getDefaultThemeResId(context);
@@ -180,7 +249,8 @@ public final class MaterialDatePicker<S> extends DialogFragment {
 
   @NonNull
   @Override
-  public final Dialog onCreateDialog(@Nullable Bundle bundle) {
+  public final Dialog onCreateDialog(@Nullable Bundle bundle)
+  {
     Dialog dialog = new Dialog(requireContext(), getThemeResId(requireContext()));
     Context context = dialog.getContext();
     fullscreen = isFullscreen(context);
@@ -204,16 +274,19 @@ public final class MaterialDatePicker<S> extends DialogFragment {
   public final View onCreateView(
       @NonNull LayoutInflater layoutInflater,
       @Nullable ViewGroup viewGroup,
-      @Nullable Bundle bundle) {
+      @Nullable Bundle bundle)
+  {
     int layout = fullscreen ? R.layout.mtrl_picker_fullscreen : R.layout.mtrl_picker_dialog;
     View root = layoutInflater.inflate(layout, viewGroup);
     Context context = root.getContext();
 
-    if (fullscreen) {
+    if (fullscreen)
+    {
       View frame = root.findViewById(R.id.mtrl_calendar_frame);
       frame.setLayoutParams(
           new LayoutParams(getPaddedPickerWidth(context), LayoutParams.WRAP_CONTENT));
-    } else {
+    } else
+    {
       View pane = root.findViewById(R.id.mtrl_calendar_main_pane);
       View frame = root.findViewById(R.id.mtrl_calendar_frame);
       pane.setLayoutParams(
@@ -226,26 +299,33 @@ public final class MaterialDatePicker<S> extends DialogFragment {
         headerSelectionText, ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
     headerToggleButton = root.findViewById(R.id.mtrl_picker_header_toggle);
     TextView titleTextView = root.findViewById(R.id.mtrl_picker_title_text);
-    if (titleText != null) {
+    if (titleText != null)
+    {
       titleTextView.setText(titleText);
-    } else {
+    } else
+    {
       titleTextView.setText(titleTextResId);
     }
     initHeaderToggle(context);
 
     confirmButton = root.findViewById(R.id.confirm_button);
-    if (dateSelector.isSelectionComplete()) {
+    if (dateSelector.isSelectionComplete())
+    {
       confirmButton.setEnabled(true);
-    } else {
+    } else
+    {
       confirmButton.setEnabled(false);
     }
     confirmButton.setTag(CONFIRM_BUTTON_TAG);
     confirmButton.setOnClickListener(
-        new View.OnClickListener() {
+        new View.OnClickListener()
+        {
           @Override
-          public void onClick(View v) {
+          public void onClick(View v)
+          {
             for (MaterialPickerOnPositiveButtonClickListener<? super S> listener :
-                onPositiveButtonClickListeners) {
+                onPositiveButtonClickListeners)
+            {
               listener.onPositiveButtonClick(getSelection());
             }
             dismiss();
@@ -255,10 +335,13 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     Button cancelButton = root.findViewById(R.id.cancel_button);
     cancelButton.setTag(CANCEL_BUTTON_TAG);
     cancelButton.setOnClickListener(
-        new View.OnClickListener() {
+        new View.OnClickListener()
+        {
           @Override
-          public void onClick(View v) {
-            for (View.OnClickListener listener : onNegativeButtonClickListeners) {
+          public void onClick(View v)
+          {
+            for (View.OnClickListener listener : onNegativeButtonClickListeners)
+            {
               listener.onClick(v);
             }
             dismiss();
@@ -268,14 +351,17 @@ public final class MaterialDatePicker<S> extends DialogFragment {
   }
 
   @Override
-  public void onStart() {
+  public void onStart()
+  {
     super.onStart();
     Window window = requireDialog().getWindow();
     // Dialogs use a background with an InsetDrawable by default, so we have to replace it.
-    if (fullscreen) {
+    if (fullscreen)
+    {
       window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
       window.setBackgroundDrawable(background);
-    } else {
+    } else
+    {
       window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
       int inset =
           getResources().getDimensionPixelOffset(R.dimen.mtrl_calendar_dialog_background_inset);
@@ -289,26 +375,32 @@ public final class MaterialDatePicker<S> extends DialogFragment {
   }
 
   @Override
-  public void onStop() {
+  public void onStop()
+  {
     pickerFragment.clearOnSelectionChangedListeners();
     super.onStop();
   }
 
   @Override
-  public final void onCancel(@NonNull DialogInterface dialogInterface) {
-    for (DialogInterface.OnCancelListener listener : onCancelListeners) {
+  public final void onCancel(@NonNull DialogInterface dialogInterface)
+  {
+    for (DialogInterface.OnCancelListener listener : onCancelListeners)
+    {
       listener.onCancel(dialogInterface);
     }
     super.onCancel(dialogInterface);
   }
 
   @Override
-  public final void onDismiss(@NonNull DialogInterface dialogInterface) {
-    for (DialogInterface.OnDismissListener listener : onDismissListeners) {
+  public final void onDismiss(@NonNull DialogInterface dialogInterface)
+  {
+    for (DialogInterface.OnDismissListener listener : onDismissListeners)
+    {
       listener.onDismiss(dialogInterface);
     }
     ViewGroup viewGroup = ((ViewGroup) getView());
-    if (viewGroup != null) {
+    if (viewGroup != null)
+    {
       viewGroup.removeAllViews();
     }
     super.onDismiss(dialogInterface);
@@ -319,18 +411,21 @@ public final class MaterialDatePicker<S> extends DialogFragment {
    * a selection.
    */
   @Nullable
-  public final S getSelection() {
+  public final S getSelection()
+  {
     return dateSelector.getSelection();
   }
 
-  private void updateHeader() {
+  private void updateHeader()
+  {
     String headerText = getHeaderText();
     headerSelectionText.setContentDescription(
         String.format(getString(R.string.mtrl_picker_announce_current_selection), headerText));
     headerSelectionText.setText(headerText);
   }
 
-  private void startPickerFragment() {
+  private void startPickerFragment()
+  {
     calendar =
         MaterialCalendar.newInstance(
             dateSelector, getThemeResId(requireContext()), calendarConstraints);
@@ -345,21 +440,25 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     fragmentTransaction.commitNow();
 
     pickerFragment.addOnSelectionChangedListener(
-        new OnSelectionChangedListener<S>() {
+        new OnSelectionChangedListener<S>()
+        {
           @Override
-          public void onSelectionChanged(S selection) {
+          public void onSelectionChanged(S selection)
+          {
             updateHeader();
             confirmButton.setEnabled(dateSelector.isSelectionComplete());
           }
 
           @Override
-          void onIncompleteSelectionChanged() {
+          void onIncompleteSelectionChanged()
+          {
             confirmButton.setEnabled(false);
           }
         });
   }
 
-  private void initHeaderToggle(Context context) {
+  private void initHeaderToggle(Context context)
+  {
     headerToggleButton.setTag(TOGGLE_BUTTON_TAG);
     headerToggleButton.setImageDrawable(createHeaderToggleDrawable(context));
     headerToggleButton.setChecked(inputMode != INPUT_MODE_CALENDAR);
@@ -369,9 +468,11 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     ViewCompat.setAccessibilityDelegate(headerToggleButton, null);
     updateToggleContentDescription(headerToggleButton);
     headerToggleButton.setOnClickListener(
-        new OnClickListener() {
+        new OnClickListener()
+        {
           @Override
-          public void onClick(View v) {
+          public void onClick(View v)
+          {
             // Update confirm button in case in progress selection has been reset
             confirmButton.setEnabled(dateSelector.isSelectionComplete());
 
@@ -382,7 +483,8 @@ public final class MaterialDatePicker<S> extends DialogFragment {
         });
   }
 
-  private void updateToggleContentDescription(@NonNull CheckableImageButton toggle) {
+  private void updateToggleContentDescription(@NonNull CheckableImageButton toggle)
+  {
     String contentDescription =
         headerToggleButton.isChecked()
             ? toggle.getContext().getString(R.string.mtrl_picker_toggle_to_calendar_input_mode)
@@ -390,60 +492,12 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     headerToggleButton.setContentDescription(contentDescription);
   }
 
-  // Create StateListDrawable programmatically for pre-lollipop support
-  @NonNull
-  private static Drawable createHeaderToggleDrawable(Context context) {
-    StateListDrawable toggleDrawable = new StateListDrawable();
-    toggleDrawable.addState(
-        new int[] {android.R.attr.state_checked},
-        AppCompatResources.getDrawable(context, R.drawable.material_ic_calendar_black_24dp));
-    toggleDrawable.addState(
-        new int[] {},
-        AppCompatResources.getDrawable(context, R.drawable.material_ic_edit_black_24dp));
-    return toggleDrawable;
-  }
-
-  static boolean isFullscreen(@NonNull Context context) {
-    int calendarStyle =
-        MaterialAttributes.resolveOrThrow(
-            context, R.attr.materialCalendarStyle, MaterialCalendar.class.getCanonicalName());
-    int[] attrs = {android.R.attr.windowFullscreen};
-    TypedArray a = context.obtainStyledAttributes(calendarStyle, attrs);
-    boolean fullscreen = a.getBoolean(0, false);
-    a.recycle();
-    return fullscreen;
-  }
-
-  private static int getDialogPickerHeight(@NonNull Context context) {
-    Resources resources = context.getResources();
-    int navigationHeight =
-        resources.getDimensionPixelSize(R.dimen.mtrl_calendar_navigation_height)
-            + resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_navigation_top_padding)
-            + resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_navigation_bottom_padding);
-    int daysOfWeekHeight =
-        resources.getDimensionPixelSize(R.dimen.mtrl_calendar_days_of_week_height);
-    int calendarHeight =
-        MonthAdapter.MAXIMUM_WEEKS
-                * resources.getDimensionPixelSize(R.dimen.mtrl_calendar_day_height)
-            + (MonthAdapter.MAXIMUM_WEEKS - 1)
-                * resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_month_vertical_padding);
-    int calendarPadding = resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_bottom_padding);
-    return navigationHeight + daysOfWeekHeight + calendarHeight + calendarPadding;
-  }
-
-  private static int getPaddedPickerWidth(@NonNull Context context) {
-    Resources resources = context.getResources();
-    int padding = resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_content_padding);
-    int daysInWeek = Month.current().daysInWeek;
-    int dayWidth = resources.getDimensionPixelSize(R.dimen.mtrl_calendar_day_width);
-    int horizontalSpace =
-        resources.getDimensionPixelOffset(R.dimen.mtrl_calendar_month_horizontal_padding);
-    return 2 * padding + daysInWeek * dayWidth + (daysInWeek - 1) * horizontalSpace;
-  }
-
-  /** The supplied listener is called when the user confirms a valid selection. */
+  /**
+   * The supplied listener is called when the user confirms a valid selection.
+   */
   public boolean addOnPositiveButtonClickListener(
-      MaterialPickerOnPositiveButtonClickListener<? super S> onPositiveButtonClickListener) {
+      MaterialPickerOnPositiveButtonClickListener<? super S> onPositiveButtonClickListener)
+  {
     return onPositiveButtonClickListeners.add(onPositiveButtonClickListener);
   }
 
@@ -452,20 +506,25 @@ public final class MaterialDatePicker<S> extends DialogFragment {
    * MaterialDatePicker#addOnPositiveButtonClickListener}.
    */
   public boolean removeOnPositiveButtonClickListener(
-      MaterialPickerOnPositiveButtonClickListener<? super S> onPositiveButtonClickListener) {
+      MaterialPickerOnPositiveButtonClickListener<? super S> onPositiveButtonClickListener)
+  {
     return onPositiveButtonClickListeners.remove(onPositiveButtonClickListener);
   }
 
   /**
    * Removes all listeners added via {@link MaterialDatePicker#addOnPositiveButtonClickListener}.
    */
-  public void clearOnPositiveButtonClickListeners() {
+  public void clearOnPositiveButtonClickListeners()
+  {
     onPositiveButtonClickListeners.clear();
   }
 
-  /** The supplied listener is called when the user clicks the cancel button. */
+  /**
+   * The supplied listener is called when the user clicks the cancel button.
+   */
   public boolean addOnNegativeButtonClickListener(
-      View.OnClickListener onNegativeButtonClickListener) {
+      View.OnClickListener onNegativeButtonClickListener)
+  {
     return onNegativeButtonClickListeners.add(onNegativeButtonClickListener);
   }
 
@@ -474,14 +533,16 @@ public final class MaterialDatePicker<S> extends DialogFragment {
    * MaterialDatePicker#addOnNegativeButtonClickListener}.
    */
   public boolean removeOnNegativeButtonClickListener(
-      View.OnClickListener onNegativeButtonClickListener) {
+      View.OnClickListener onNegativeButtonClickListener)
+  {
     return onNegativeButtonClickListeners.remove(onNegativeButtonClickListener);
   }
 
   /**
    * Removes all listeners added via {@link MaterialDatePicker#addOnNegativeButtonClickListener}.
    */
-  public void clearOnNegativeButtonClickListeners() {
+  public void clearOnNegativeButtonClickListeners()
+  {
     onNegativeButtonClickListeners.clear();
   }
 
@@ -491,17 +552,24 @@ public final class MaterialDatePicker<S> extends DialogFragment {
    * for use when the user clicks the cancel button, use {@link
    * MaterialDatePicker#addOnNegativeButtonClickListener}.
    */
-  public boolean addOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+  public boolean addOnCancelListener(DialogInterface.OnCancelListener onCancelListener)
+  {
     return onCancelListeners.add(onCancelListener);
   }
 
-  /** Removes a listener previously added via {@link MaterialDatePicker#addOnCancelListener}. */
-  public boolean removeOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+  /**
+   * Removes a listener previously added via {@link MaterialDatePicker#addOnCancelListener}.
+   */
+  public boolean removeOnCancelListener(DialogInterface.OnCancelListener onCancelListener)
+  {
     return onCancelListeners.remove(onCancelListener);
   }
 
-  /** Removes all listeners added via {@link MaterialDatePicker#addOnCancelListener}. */
-  public void clearOnCancelListeners() {
+  /**
+   * Removes all listeners added via {@link MaterialDatePicker#addOnCancelListener}.
+   */
+  public void clearOnCancelListeners()
+  {
     onCancelListeners.clear();
   }
 
@@ -509,22 +577,42 @@ public final class MaterialDatePicker<S> extends DialogFragment {
    * The supplied listener is called whenever the DialogFragment is dismissed, no matter how it is
    * dismissed.
    */
-  public boolean addOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+  public boolean addOnDismissListener(DialogInterface.OnDismissListener onDismissListener)
+  {
     return onDismissListeners.add(onDismissListener);
   }
 
-  /** Removes a listener previously added via {@link MaterialDatePicker#addOnDismissListener}. */
-  public boolean removeOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+  /**
+   * Removes a listener previously added via {@link MaterialDatePicker#addOnDismissListener}.
+   */
+  public boolean removeOnDismissListener(DialogInterface.OnDismissListener onDismissListener)
+  {
     return onDismissListeners.remove(onDismissListener);
   }
 
-  /** Removes all listeners added via {@link MaterialDatePicker#addOnDismissListener}. */
-  public void clearOnDismissListeners() {
+  /**
+   * Removes all listeners added via {@link MaterialDatePicker#addOnDismissListener}.
+   */
+  public void clearOnDismissListeners()
+  {
     onDismissListeners.clear();
   }
 
-  /** Used to create MaterialDatePicker instances with default and overridden settings */
-  public static final class Builder<S> {
+  /**
+   * @hide
+   */
+  @RestrictTo(LIBRARY_GROUP)
+  @IntDef(value = {INPUT_MODE_CALENDAR, INPUT_MODE_TEXT})
+  @Retention(RetentionPolicy.SOURCE)
+  public @interface InputMode
+  {
+  }
+
+  /**
+   * Used to create MaterialDatePicker instances with default and overridden settings
+   */
+  public static final class Builder<S>
+  {
 
     final DateSelector<S> dateSelector;
     int overrideThemeResId = 0;
@@ -532,10 +620,13 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     CalendarConstraints calendarConstraints;
     int titleTextResId = 0;
     CharSequence titleText = null;
-    @Nullable S selection = null;
-    @InputMode int inputMode = INPUT_MODE_CALENDAR;
+    @Nullable
+    S selection = null;
+    @InputMode
+    int inputMode = INPUT_MODE_CALENDAR;
 
-    private Builder(DateSelector<S> dateSelector) {
+    private Builder(DateSelector<S> dateSelector)
+    {
       this.dateSelector = dateSelector;
     }
 
@@ -546,7 +637,8 @@ public final class MaterialDatePicker<S> extends DialogFragment {
      */
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
-    public static <S> Builder<S> customDatePicker(@NonNull DateSelector<S> dateSelector) {
+    public static <S> Builder<S> customDatePicker(@NonNull DateSelector<S> dateSelector)
+    {
       return new Builder<>(dateSelector);
     }
 
@@ -555,7 +647,8 @@ public final class MaterialDatePicker<S> extends DialogFragment {
      * MaterialDatePicker}.
      */
     @NonNull
-    public static Builder<Long> datePicker() {
+    public static Builder<Long> datePicker()
+    {
       return new Builder<>(new SingleDateSelector());
     }
 
@@ -564,26 +657,34 @@ public final class MaterialDatePicker<S> extends DialogFragment {
      * MaterialDatePicker}.
      */
     @NonNull
-    public static Builder<Pair<Long, Long>> dateRangePicker() {
+    public static Builder<Pair<Long, Long>> dateRangePicker()
+    {
       return new Builder<>(new RangeDateSelector());
     }
 
     @NonNull
-    public Builder<S> setSelection(S selection) {
+    public Builder<S> setSelection(S selection)
+    {
       this.selection = selection;
       return this;
     }
 
-    /** Sets the theme controlling fullscreen mode as well as other styles. */
+    /**
+     * Sets the theme controlling fullscreen mode as well as other styles.
+     */
     @NonNull
-    public Builder<S> setTheme(@StyleRes int themeResId) {
+    public Builder<S> setTheme(@StyleRes int themeResId)
+    {
       this.overrideThemeResId = themeResId;
       return this;
     }
 
-    /** Sets the first, last, and starting month. */
+    /**
+     * Sets the first, last, and starting month.
+     */
     @NonNull
-    public Builder<S> setCalendarConstraints(CalendarConstraints bounds) {
+    public Builder<S> setCalendarConstraints(CalendarConstraints bounds)
+    {
       this.calendarConstraints = bounds;
       return this;
     }
@@ -593,7 +694,8 @@ public final class MaterialDatePicker<S> extends DialogFragment {
      * based upon the type of selection.
      */
     @NonNull
-    public Builder<S> setTitleText(@StringRes int titleTextResId) {
+    public Builder<S> setTitleText(@StringRes int titleTextResId)
+    {
       this.titleTextResId = titleTextResId;
       this.titleText = null;
       return this;
@@ -604,29 +706,39 @@ public final class MaterialDatePicker<S> extends DialogFragment {
      * default title based upon the type of selection.
      */
     @NonNull
-    public Builder<S> setTitleText(@Nullable CharSequence charSequence) {
+    public Builder<S> setTitleText(@Nullable CharSequence charSequence)
+    {
       this.titleText = charSequence;
       this.titleTextResId = 0;
       return this;
     }
 
-    /** Sets the input mode to start with. */
+    /**
+     * Sets the input mode to start with.
+     */
     @NonNull
-    public Builder<S> setInputMode(@InputMode int inputMode) {
+    public Builder<S> setInputMode(@InputMode int inputMode)
+    {
       this.inputMode = inputMode;
       return this;
     }
 
-    /** Creates a {@link MaterialDatePicker} with the provided options. */
+    /**
+     * Creates a {@link MaterialDatePicker} with the provided options.
+     */
     @NonNull
-    public MaterialDatePicker<S> build() {
-      if (calendarConstraints == null) {
+    public MaterialDatePicker<S> build()
+    {
+      if (calendarConstraints == null)
+      {
         calendarConstraints = new CalendarConstraints.Builder().build();
       }
-      if (titleTextResId == 0) {
+      if (titleTextResId == 0)
+      {
         titleTextResId = dateSelector.getDefaultTitleResId();
       }
-      if (selection != null) {
+      if (selection != null)
+      {
         dateSelector.setSelection(selection);
       }
       return MaterialDatePicker.newInstance(this);

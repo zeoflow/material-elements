@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,25 +16,25 @@
 
 <!-- Definitions of attributes to be exposed as public -->
 <resources>
-  <public name="shapeAppearance" type="attr"/>
-  <public name="shapeAppearanceOverlay" type="attr"/>
+  <public name="shapeAppearance" type="attr" />
+  <public name="shapeAppearanceOverlay" type="attr" />
 
-  <public name="shapeAppearanceSmallComponent" type="attr"/>
-  <public name="shapeAppearanceMediumComponent" type="attr"/>
-  <public name="shapeAppearanceLargeComponent" type="attr"/>
+  <public name="shapeAppearanceSmallComponent" type="attr" />
+  <public name="shapeAppearanceMediumComponent" type="attr" />
+  <public name="shapeAppearanceLargeComponent" type="attr" />
 
-  <public name="cornerSize" type="attr"/>
-  <public name="cornerSizeTopLeft" type="attr"/>
-  <public name="cornerSizeTopRight" type="attr"/>
-  <public name="cornerSizeBottomRight" type="attr"/>
-  <public name="cornerSizeBottomLeft" type="attr"/>
-  <public name="cornerFamily" type="attr"/>
-  <public name="cornerFamilyTopLeft" type="attr"/>
-  <public name="cornerFamilyTopRight" type="attr"/>
-  <public name="cornerFamilyBottomRight" type="attr"/>
-  <public name="cornerFamilyBottomLeft" type="attr"/>
+  <public name="cornerSize" type="attr" />
+  <public name="cornerSizeTopLeft" type="attr" />
+  <public name="cornerSizeTopRight" type="attr" />
+  <public name="cornerSizeBottomRight" type="attr" />
+  <public name="cornerSizeBottomLeft" type="attr" />
+  <public name="cornerFamily" type="attr" />
+  <public name="cornerFamilyTopLeft" type="attr" />
+  <public name="cornerFamilyTopRight" type="attr" />
+  <public name="cornerFamilyBottomRight" type="attr" />
+  <public name="cornerFamilyBottomLeft" type="attr" />
 
-  <public name="ShapeAppearance.MaterialComponents.SmallComponent" type="style"/>
-  <public name="ShapeAppearance.MaterialComponents.MediumComponent" type="style"/>
-  <public name="ShapeAppearance.MaterialComponents.LargeComponent" type="style"/>
+  <public name="ShapeAppearance.MaterialComponents.SmallComponent" type="style" />
+  <public name="ShapeAppearance.MaterialComponents.MediumComponent" type="style" />
+  <public name="ShapeAppearance.MaterialComponents.LargeComponent" type="style" />
 </resources>

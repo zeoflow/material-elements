@@ -16,12 +16,14 @@
 
 package com.zeoflow.material.elements.shape;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.graphics.RectF;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+
 import java.util.Arrays;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Adjusts another {@link CornerSize} by some amount.
@@ -29,14 +31,17 @@ import java.util.Arrays;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public final class AdjustedCornerSize implements CornerSize {
+public final class AdjustedCornerSize implements CornerSize
+{
 
   private final CornerSize other;
   private final float adjustment;
 
-  public AdjustedCornerSize(float adjustment, @NonNull CornerSize other) {
+  public AdjustedCornerSize(float adjustment, @NonNull CornerSize other)
+  {
     // Rollup other Adjustments into this one
-    while (other instanceof AdjustedCornerSize) {
+    while (other instanceof AdjustedCornerSize)
+    {
       other = ((AdjustedCornerSize) other).other;
       adjustment += ((AdjustedCornerSize) other).adjustment;
     }
@@ -46,16 +51,20 @@ public final class AdjustedCornerSize implements CornerSize {
   }
 
   @Override
-  public float getCornerSize(@NonNull RectF bounds) {
+  public float getCornerSize(@NonNull RectF bounds)
+  {
     return Math.max(0, other.getCornerSize(bounds) + adjustment);
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof AdjustedCornerSize)) {
+    if (!(o instanceof AdjustedCornerSize))
+    {
       return false;
     }
     AdjustedCornerSize that = (AdjustedCornerSize) o;
@@ -63,7 +72,8 @@ public final class AdjustedCornerSize implements CornerSize {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     Object[] hashedFields = {other, adjustment};
     return Arrays.hashCode(hashedFields);
   }

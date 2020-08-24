@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2019 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +14,8 @@
     limitations under the License.
 -->
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mtrl_calendar_days_of_week"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/mtrl_calendar_days_of_week_height"
-    android:horizontalSpacing="@dimen/mtrl_calendar_month_horizontal_padding"
-    android:gravity="center_horizontal"/>
+  android:id="@+id/mtrl_calendar_days_of_week"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/mtrl_calendar_days_of_week_height"
+  android:gravity="center_horizontal"
+  android:horizontalSpacing="@dimen/mtrl_calendar_month_horizontal_padding" />

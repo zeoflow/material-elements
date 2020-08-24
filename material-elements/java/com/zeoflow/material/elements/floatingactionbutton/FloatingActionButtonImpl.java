@@ -16,10 +16,6 @@
 
 package com.zeoflow.material.elements.floatingactionbutton;
 
-import com.google.android.material.R;
-
-import static androidx.core.util.Preconditions.checkNotNull;
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
@@ -40,13 +36,16 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
+import android.view.View;
+import android.view.ViewTreeObserver;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.util.Preconditions;
 import androidx.core.view.ViewCompat;
-import android.view.View;
-import android.view.ViewTreeObserver;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.animation.AnimatorSetCompat;
 import com.zeoflow.material.elements.animation.ImageMatrixProperty;
@@ -60,10 +59,14 @@ import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.MaterialShapeUtils;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.Shapeable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class FloatingActionButtonImpl {
+import static androidx.core.util.Preconditions.checkNotNull;
+
+class FloatingActionButtonImpl
+{
 
   static final TimeInterpolator ELEVATION_ANIM_INTERPOLATOR =
       AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR;
@@ -74,57 +77,6 @@ class FloatingActionButtonImpl {
   static final int ANIM_STATE_HIDING = 1;
   static final int ANIM_STATE_SHOWING = 2;
   static final float SHADOW_MULTIPLIER = 1.5f;
-
-  private static final float HIDE_OPACITY = 0f;
-  private static final float HIDE_SCALE = 0f;
-  private static final float HIDE_ICON_SCALE = 0f;
-  private static final float SHOW_OPACITY = 1f;
-  private static final float SHOW_SCALE = 1f;
-  private static final float SHOW_ICON_SCALE = 1f;
-
-  @Nullable ShapeAppearanceModel shapeAppearance;
-  @Nullable MaterialShapeDrawable shapeDrawable;
-  @Nullable Drawable rippleDrawable;
-  @Nullable BorderDrawable borderDrawable;
-  @Nullable Drawable contentBackground;
-
-  boolean ensureMinTouchTargetSize;
-  boolean shadowPaddingEnabled = true;
-  float elevation;
-  float hoveredFocusedTranslationZ;
-  float pressedTranslationZ;
-  int minTouchTargetSize;
-
-  @NonNull private final StateListAnimator stateListAnimator;
-
-  @Nullable private MotionSpec defaultShowMotionSpec;
-  @Nullable private MotionSpec defaultHideMotionSpec;
-  @Nullable private Animator currentAnimator;
-  @Nullable private MotionSpec showMotionSpec;
-  @Nullable private MotionSpec hideMotionSpec;
-
-  private float rotation;
-  private float imageMatrixScale = 1f;
-  private int maxImageSize;
-  private int animState = ANIM_STATE_NONE;
-
-  private ArrayList<AnimatorListener> showListeners;
-  private ArrayList<AnimatorListener> hideListeners;
-  private ArrayList<InternalTransformationCallback> transformationCallbacks;
-
-  interface InternalTransformationCallback {
-
-    void onTranslationChanged();
-
-    void onScaleChanged();
-  }
-
-  interface InternalVisibilityChangedListener {
-    void onShown();
-
-    void onHidden();
-  }
-
   static final int[] PRESSED_ENABLED_STATE_SET = {
       android.R.attr.state_pressed, android.R.attr.state_enabled
   };
@@ -139,20 +91,58 @@ class FloatingActionButtonImpl {
   };
   static final int[] ENABLED_STATE_SET = {android.R.attr.state_enabled};
   static final int[] EMPTY_STATE_SET = new int[0];
-
+  private static final float HIDE_OPACITY = 0f;
+  private static final float HIDE_SCALE = 0f;
+  private static final float HIDE_ICON_SCALE = 0f;
+  private static final float SHOW_OPACITY = 1f;
+  private static final float SHOW_SCALE = 1f;
+  private static final float SHOW_ICON_SCALE = 1f;
   final FloatingActionButton view;
   final ShadowViewDelegate shadowViewDelegate;
-
+  @NonNull
+  private final StateListAnimator stateListAnimator;
   private final Rect tmpRect = new Rect();
   private final RectF tmpRectF1 = new RectF();
   private final RectF tmpRectF2 = new RectF();
   private final Matrix tmpMatrix = new Matrix();
-
+  @Nullable
+  ShapeAppearanceModel shapeAppearance;
+  @Nullable
+  MaterialShapeDrawable shapeDrawable;
+  @Nullable
+  Drawable rippleDrawable;
+  @Nullable
+  BorderDrawable borderDrawable;
+  @Nullable
+  Drawable contentBackground;
+  boolean ensureMinTouchTargetSize;
+  boolean shadowPaddingEnabled = true;
+  float elevation;
+  float hoveredFocusedTranslationZ;
+  float pressedTranslationZ;
+  int minTouchTargetSize;
+  @Nullable
+  private MotionSpec defaultShowMotionSpec;
+  @Nullable
+  private MotionSpec defaultHideMotionSpec;
+  @Nullable
+  private Animator currentAnimator;
+  @Nullable
+  private MotionSpec showMotionSpec;
+  @Nullable
+  private MotionSpec hideMotionSpec;
+  private float rotation;
+  private float imageMatrixScale = 1f;
+  private int maxImageSize;
+  private int animState = ANIM_STATE_NONE;
+  private ArrayList<AnimatorListener> showListeners;
+  private ArrayList<AnimatorListener> hideListeners;
+  private ArrayList<InternalTransformationCallback> transformationCallbacks;
   @Nullable
   private ViewTreeObserver.OnPreDrawListener preDrawListener;
-
   @SuppressWarnings("nullness")
-  FloatingActionButtonImpl(FloatingActionButton view, ShadowViewDelegate shadowViewDelegate) {
+  FloatingActionButtonImpl(FloatingActionButton view, ShadowViewDelegate shadowViewDelegate)
+  {
     this.view = view;
     this.shadowViewDelegate = shadowViewDelegate;
 
@@ -185,12 +175,14 @@ class FloatingActionButtonImpl {
       ColorStateList backgroundTint,
       @Nullable PorterDuff.Mode backgroundTintMode,
       ColorStateList rippleColor,
-      int borderWidth) {
+      int borderWidth)
+  {
     // Now we need to tint the original background with the tint, using
     // an InsetDrawable if we have a border width
     shapeDrawable = createShapeDrawable();
     shapeDrawable.setTintList(backgroundTint);
-    if (backgroundTintMode != null) {
+    if (backgroundTintMode != null)
+    {
       shapeDrawable.setTintMode(backgroundTintMode);
     }
 
@@ -209,79 +201,102 @@ class FloatingActionButtonImpl {
     contentBackground = new LayerDrawable(layers);
   }
 
-  void setBackgroundTintList(@Nullable ColorStateList tint) {
-    if (shapeDrawable != null) {
+  void setBackgroundTintList(@Nullable ColorStateList tint)
+  {
+    if (shapeDrawable != null)
+    {
       shapeDrawable.setTintList(tint);
     }
-    if (borderDrawable != null) {
+    if (borderDrawable != null)
+    {
       borderDrawable.setBorderTint(tint);
     }
   }
 
-  void setBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
-    if (shapeDrawable != null) {
+  void setBackgroundTintMode(@Nullable PorterDuff.Mode tintMode)
+  {
+    if (shapeDrawable != null)
+    {
       shapeDrawable.setTintMode(tintMode);
     }
   }
 
-  void setMinTouchTargetSize(int minTouchTargetSize) {
+  void setMinTouchTargetSize(int minTouchTargetSize)
+  {
     this.minTouchTargetSize = minTouchTargetSize;
   }
 
-  void setRippleColor(@Nullable ColorStateList rippleColor) {
-    if (rippleDrawable != null) {
+  void setRippleColor(@Nullable ColorStateList rippleColor)
+  {
+    if (rippleDrawable != null)
+    {
       DrawableCompat.setTintList(
           rippleDrawable, RippleUtils.sanitizeRippleDrawableColor(rippleColor));
     }
   }
 
-  final void setElevation(float elevation) {
-    if (this.elevation != elevation) {
+  float getElevation()
+  {
+    return elevation;
+  }
+
+  final void setElevation(float elevation)
+  {
+    if (this.elevation != elevation)
+    {
       this.elevation = elevation;
       onElevationsChanged(this.elevation, hoveredFocusedTranslationZ, pressedTranslationZ);
     }
   }
 
-  float getElevation() {
-    return elevation;
-  }
-
-  float getHoveredFocusedTranslationZ() {
+  float getHoveredFocusedTranslationZ()
+  {
     return hoveredFocusedTranslationZ;
   }
 
-  float getPressedTranslationZ() {
-    return pressedTranslationZ;
-  }
-
-  final void setHoveredFocusedTranslationZ(float translationZ) {
-    if (hoveredFocusedTranslationZ != translationZ) {
+  final void setHoveredFocusedTranslationZ(float translationZ)
+  {
+    if (hoveredFocusedTranslationZ != translationZ)
+    {
       hoveredFocusedTranslationZ = translationZ;
       onElevationsChanged(elevation, hoveredFocusedTranslationZ, pressedTranslationZ);
     }
   }
 
-  final void setPressedTranslationZ(float translationZ) {
-    if (pressedTranslationZ != translationZ) {
+  float getPressedTranslationZ()
+  {
+    return pressedTranslationZ;
+  }
+
+  final void setPressedTranslationZ(float translationZ)
+  {
+    if (pressedTranslationZ != translationZ)
+    {
       pressedTranslationZ = translationZ;
       onElevationsChanged(elevation, hoveredFocusedTranslationZ, pressedTranslationZ);
     }
   }
 
-  final void setMaxImageSize(int maxImageSize) {
-    if (this.maxImageSize != maxImageSize) {
+  final void setMaxImageSize(int maxImageSize)
+  {
+    if (this.maxImageSize != maxImageSize)
+    {
       this.maxImageSize = maxImageSize;
       updateImageMatrixScale();
     }
   }
 
-  /** Call this whenever the image drawable changes or the view size changes. */
-  final void updateImageMatrixScale() {
+  /**
+   * Call this whenever the image drawable changes or the view size changes.
+   */
+  final void updateImageMatrixScale()
+  {
     // Recompute the image matrix needed to maintain the same scale.
     setImageMatrixScale(imageMatrixScale);
   }
 
-  final void setImageMatrixScale(float scale) {
+  final void setImageMatrixScale(float scale)
+  {
     this.imageMatrixScale = scale;
 
     Matrix matrix = tmpMatrix;
@@ -289,11 +304,13 @@ class FloatingActionButtonImpl {
     view.setImageMatrix(matrix);
   }
 
-  private void calculateImageMatrixFromScale(float scale, @NonNull Matrix matrix) {
+  private void calculateImageMatrixFromScale(float scale, @NonNull Matrix matrix)
+  {
     matrix.reset();
 
     Drawable drawable = view.getDrawable();
-    if (drawable != null && maxImageSize != 0) {
+    if (drawable != null && maxImageSize != 0)
+    {
       // First make sure our image respects mMaxImageSize.
       RectF drawableBounds = tmpRectF1;
       RectF imageBounds = tmpRectF2;
@@ -306,90 +323,112 @@ class FloatingActionButtonImpl {
     }
   }
 
-  final void setShapeAppearance(@NonNull ShapeAppearanceModel shapeAppearance) {
+  @Nullable
+  final ShapeAppearanceModel getShapeAppearance()
+  {
+    return shapeAppearance;
+  }
+
+  final void setShapeAppearance(@NonNull ShapeAppearanceModel shapeAppearance)
+  {
     this.shapeAppearance = shapeAppearance;
-    if (shapeDrawable != null) {
+    if (shapeDrawable != null)
+    {
       shapeDrawable.setShapeAppearanceModel(shapeAppearance);
     }
 
-    if (rippleDrawable instanceof Shapeable) {
+    if (rippleDrawable instanceof Shapeable)
+    {
       ((Shapeable) rippleDrawable).setShapeAppearanceModel(shapeAppearance);
     }
 
-    if (borderDrawable != null) {
+    if (borderDrawable != null)
+    {
       borderDrawable.setShapeAppearanceModel(shapeAppearance);
     }
   }
 
   @Nullable
-  final ShapeAppearanceModel getShapeAppearance() {
-    return shapeAppearance;
-  }
-
-  @Nullable
-  final MotionSpec getShowMotionSpec() {
+  final MotionSpec getShowMotionSpec()
+  {
     return showMotionSpec;
   }
 
-  final void setShowMotionSpec(@Nullable MotionSpec spec) {
+  final void setShowMotionSpec(@Nullable MotionSpec spec)
+  {
     showMotionSpec = spec;
   }
 
   @Nullable
-  final MotionSpec getHideMotionSpec() {
+  final MotionSpec getHideMotionSpec()
+  {
     return hideMotionSpec;
   }
 
-  final void setHideMotionSpec(@Nullable MotionSpec spec) {
+  final void setHideMotionSpec(@Nullable MotionSpec spec)
+  {
     hideMotionSpec = spec;
   }
 
-  final boolean shouldExpandBoundsForA11y() {
+  final boolean shouldExpandBoundsForA11y()
+  {
     return !ensureMinTouchTargetSize || view.getSizeDimension() >= minTouchTargetSize;
   }
 
-  boolean getEnsureMinTouchTargetSize() {
+  boolean getEnsureMinTouchTargetSize()
+  {
     return ensureMinTouchTargetSize;
   }
 
-  void setEnsureMinTouchTargetSize(boolean flag) {
+  void setEnsureMinTouchTargetSize(boolean flag)
+  {
     ensureMinTouchTargetSize = flag;
   }
 
-  void setShadowPaddingEnabled(boolean shadowPaddingEnabled) {
+  void setShadowPaddingEnabled(boolean shadowPaddingEnabled)
+  {
     this.shadowPaddingEnabled = shadowPaddingEnabled;
     updatePadding();
   }
 
   void onElevationsChanged(
-      float elevation, float hoveredFocusedTranslationZ, float pressedTranslationZ) {
+      float elevation, float hoveredFocusedTranslationZ, float pressedTranslationZ)
+  {
     updatePadding();
     updateShapeElevation(elevation);
   }
 
-  void updateShapeElevation(float elevation) {
-    if (shapeDrawable != null) {
+  void updateShapeElevation(float elevation)
+  {
+    if (shapeDrawable != null)
+    {
       shapeDrawable.setElevation(elevation);
     }
   }
 
-  void onDrawableStateChanged(int[] state) {
+  void onDrawableStateChanged(int[] state)
+  {
     stateListAnimator.setState(state);
   }
 
-  void jumpDrawableToCurrentState() {
+  void jumpDrawableToCurrentState()
+  {
     stateListAnimator.jumpToCurrentState();
   }
 
-  void addOnShowAnimationListener(@NonNull AnimatorListener listener) {
-    if (showListeners == null) {
+  void addOnShowAnimationListener(@NonNull AnimatorListener listener)
+  {
+    if (showListeners == null)
+    {
       showListeners = new ArrayList<>();
     }
     showListeners.add(listener);
   }
 
-  void removeOnShowAnimationListener(@NonNull AnimatorListener listener) {
-    if (showListeners == null) {
+  void removeOnShowAnimationListener(@NonNull AnimatorListener listener)
+  {
+    if (showListeners == null)
+    {
       // This can happen if this method is called before the first call to
       // addOnShowAnimationListener.
       return;
@@ -397,15 +436,19 @@ class FloatingActionButtonImpl {
     showListeners.remove(listener);
   }
 
-  public void addOnHideAnimationListener(@NonNull AnimatorListener listener) {
-    if (hideListeners == null) {
+  public void addOnHideAnimationListener(@NonNull AnimatorListener listener)
+  {
+    if (hideListeners == null)
+    {
       hideListeners = new ArrayList<>();
     }
     hideListeners.add(listener);
   }
 
-  public void removeOnHideAnimationListener(@NonNull AnimatorListener listener) {
-    if (hideListeners == null) {
+  public void removeOnHideAnimationListener(@NonNull AnimatorListener listener)
+  {
+    if (hideListeners == null)
+    {
       // This can happen if this method is called before the first call to
       // addOnHideAnimationListener.
       return;
@@ -413,17 +456,21 @@ class FloatingActionButtonImpl {
     hideListeners.remove(listener);
   }
 
-  void hide(@Nullable final InternalVisibilityChangedListener listener, final boolean fromUser) {
-    if (isOrWillBeHidden()) {
+  void hide(@Nullable final InternalVisibilityChangedListener listener, final boolean fromUser)
+  {
+    if (isOrWillBeHidden())
+    {
       // We either are or will soon be hidden, skip the call
       return;
     }
 
-    if (currentAnimator != null) {
+    if (currentAnimator != null)
+    {
       currentAnimator.cancel();
     }
 
-    if (shouldAnimateVisibilityChange()) {
+    if (shouldAnimateVisibilityChange())
+    {
       AnimatorSet set =
           createAnimator(
               hideMotionSpec != null ? hideMotionSpec : getDefaultHideMotionSpec(),
@@ -431,11 +478,13 @@ class FloatingActionButtonImpl {
               HIDE_SCALE,
               HIDE_ICON_SCALE);
       set.addListener(
-          new AnimatorListenerAdapter() {
+          new AnimatorListenerAdapter()
+          {
             private boolean cancelled;
 
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(Animator animation)
+            {
               view.internalSetVisibility(View.VISIBLE, fromUser);
 
               animState = ANIM_STATE_HIDING;
@@ -444,50 +493,63 @@ class FloatingActionButtonImpl {
             }
 
             @Override
-            public void onAnimationCancel(Animator animation) {
+            public void onAnimationCancel(Animator animation)
+            {
               cancelled = true;
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(Animator animation)
+            {
               animState = ANIM_STATE_NONE;
               currentAnimator = null;
 
-              if (!cancelled) {
+              if (!cancelled)
+              {
                 view.internalSetVisibility(fromUser ? View.GONE : View.INVISIBLE, fromUser);
-                if (listener != null) {
+                if (listener != null)
+                {
                   listener.onHidden();
                 }
               }
             }
           });
-      if (hideListeners != null) {
-        for (AnimatorListener l : hideListeners) {
+      if (hideListeners != null)
+      {
+        for (AnimatorListener l : hideListeners)
+        {
           set.addListener(l);
         }
       }
       set.start();
-    } else {
+    } else
+    {
       // If the view isn't laid out, or we're in the editor, don't run the animation
       view.internalSetVisibility(fromUser ? View.GONE : View.INVISIBLE, fromUser);
-      if (listener != null) {
+      if (listener != null)
+      {
         listener.onHidden();
       }
     }
   }
 
-  void show(@Nullable final InternalVisibilityChangedListener listener, final boolean fromUser) {
-    if (isOrWillBeShown()) {
+  void show(@Nullable final InternalVisibilityChangedListener listener, final boolean fromUser)
+  {
+    if (isOrWillBeShown())
+    {
       // We either are or will soon be visible, skip the call
       return;
     }
 
-    if (currentAnimator != null) {
+    if (currentAnimator != null)
+    {
       currentAnimator.cancel();
     }
 
-    if (shouldAnimateVisibilityChange()) {
-      if (view.getVisibility() != View.VISIBLE) {
+    if (shouldAnimateVisibilityChange())
+    {
+      if (view.getVisibility() != View.VISIBLE)
+      {
         // If the view isn't visible currently, we'll animate it from a single pixel
         view.setAlpha(0f);
         view.setScaleY(0f);
@@ -502,9 +564,11 @@ class FloatingActionButtonImpl {
               SHOW_SCALE,
               SHOW_ICON_SCALE);
       set.addListener(
-          new AnimatorListenerAdapter() {
+          new AnimatorListenerAdapter()
+          {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(Animator animation)
+            {
               view.internalSetVisibility(View.VISIBLE, fromUser);
 
               animState = ANIM_STATE_SHOWING;
@@ -512,35 +576,43 @@ class FloatingActionButtonImpl {
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(Animator animation)
+            {
               animState = ANIM_STATE_NONE;
               currentAnimator = null;
 
-              if (listener != null) {
+              if (listener != null)
+              {
                 listener.onShown();
               }
             }
           });
-      if (showListeners != null) {
-        for (AnimatorListener l : showListeners) {
+      if (showListeners != null)
+      {
+        for (AnimatorListener l : showListeners)
+        {
           set.addListener(l);
         }
       }
       set.start();
-    } else {
+    } else
+    {
       view.internalSetVisibility(View.VISIBLE, fromUser);
       view.setAlpha(1f);
       view.setScaleY(1f);
       view.setScaleX(1f);
       setImageMatrixScale(1f);
-      if (listener != null) {
+      if (listener != null)
+      {
         listener.onShown();
       }
     }
   }
 
-  private MotionSpec getDefaultShowMotionSpec() {
-    if (defaultShowMotionSpec == null) {
+  private MotionSpec getDefaultShowMotionSpec()
+  {
+    if (defaultShowMotionSpec == null)
+    {
       defaultShowMotionSpec =
           MotionSpec.createFromResource(view.getContext(), R.animator.design_fab_show_motion_spec);
     }
@@ -548,8 +620,10 @@ class FloatingActionButtonImpl {
     return checkNotNull(defaultShowMotionSpec);
   }
 
-  private MotionSpec getDefaultHideMotionSpec() {
-    if (defaultHideMotionSpec == null) {
+  private MotionSpec getDefaultHideMotionSpec()
+  {
+    if (defaultHideMotionSpec == null)
+    {
       defaultHideMotionSpec =
           MotionSpec.createFromResource(view.getContext(), R.animator.design_fab_hide_motion_spec);
     }
@@ -559,7 +633,8 @@ class FloatingActionButtonImpl {
 
   @NonNull
   private AnimatorSet createAnimator(
-      @NonNull MotionSpec spec, float opacity, float scale, float iconScale) {
+      @NonNull MotionSpec spec, float opacity, float scale, float iconScale)
+  {
     List<Animator> animators = new ArrayList<>();
 
     ObjectAnimator animatorOpacity = ObjectAnimator.ofFloat(view, View.ALPHA, opacity);
@@ -581,10 +656,12 @@ class FloatingActionButtonImpl {
         ObjectAnimator.ofObject(
             view,
             new ImageMatrixProperty(),
-            new MatrixEvaluator() {
+            new MatrixEvaluator()
+            {
               @Override
               public Matrix evaluate(
-                  float fraction, @NonNull Matrix startValue, @NonNull Matrix endValue) {
+                  float fraction, @NonNull Matrix startValue, @NonNull Matrix endValue)
+              {
                 // Also set the current imageMatrixScale fraction so it can be used to correctly
                 // calculate the image matrix at any given point.
                 imageMatrixScale = fraction;
@@ -604,30 +681,39 @@ class FloatingActionButtonImpl {
    * There appears to be a bug in the OpenGL shadow rendering code on API 26. We can work around it
    * by preventing any scaling close to 0.
    */
-  private void workAroundOreoBug(final ObjectAnimator animator) {
-    if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+  private void workAroundOreoBug(final ObjectAnimator animator)
+  {
+    if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O)
+    {
       return;
     }
 
-    animator.setEvaluator(new TypeEvaluator<Float>() {
+    animator.setEvaluator(new TypeEvaluator<Float>()
+    {
       FloatEvaluator floatEvaluator = new FloatEvaluator();
+
       @Override
-      public Float evaluate(float fraction, Float startValue, Float endValue) {
+      public Float evaluate(float fraction, Float startValue, Float endValue)
+      {
         float evaluated = floatEvaluator.evaluate(fraction, startValue, endValue);
         return evaluated < 0.1f ? 0.0f : evaluated;
       }
     });
   }
 
-  void addTransformationCallback(@NonNull InternalTransformationCallback listener) {
-    if (transformationCallbacks == null) {
+  void addTransformationCallback(@NonNull InternalTransformationCallback listener)
+  {
+    if (transformationCallbacks == null)
+    {
       transformationCallbacks = new ArrayList<>();
     }
     transformationCallbacks.add(listener);
   }
 
-  void removeTransformationCallback(@NonNull InternalTransformationCallback listener) {
-    if (transformationCallbacks == null) {
+  void removeTransformationCallback(@NonNull InternalTransformationCallback listener)
+  {
+    if (transformationCallbacks == null)
+    {
       // This can happen if this method is called before the first call to
       // addTransformationCallback.
       return;
@@ -635,39 +721,49 @@ class FloatingActionButtonImpl {
     transformationCallbacks.remove(listener);
   }
 
-  void onTranslationChanged() {
-    if (transformationCallbacks != null) {
-      for (InternalTransformationCallback l : transformationCallbacks) {
+  void onTranslationChanged()
+  {
+    if (transformationCallbacks != null)
+    {
+      for (InternalTransformationCallback l : transformationCallbacks)
+      {
         l.onTranslationChanged();
       }
     }
   }
 
-  void onScaleChanged() {
-    if (transformationCallbacks != null) {
-      for (InternalTransformationCallback l : transformationCallbacks) {
+  void onScaleChanged()
+  {
+    if (transformationCallbacks != null)
+    {
+      for (InternalTransformationCallback l : transformationCallbacks)
+      {
         l.onScaleChanged();
       }
     }
   }
 
   @Nullable
-  final Drawable getContentBackground() {
+  final Drawable getContentBackground()
+  {
     return contentBackground;
   }
 
-  void onCompatShadowChanged() {
+  void onCompatShadowChanged()
+  {
     // Ignore pre-v21
   }
 
-  final void updatePadding() {
+  final void updatePadding()
+  {
     Rect rect = tmpRect;
     getPadding(rect);
     onPaddingUpdated(rect);
     shadowViewDelegate.setShadowPadding(rect.left, rect.top, rect.right, rect.bottom);
   }
 
-  void getPadding(@NonNull Rect rect) {
+  void getPadding(@NonNull Rect rect)
+  {
     final int minPadding = ensureMinTouchTargetSize
         ? (minTouchTargetSize - view.getSizeDimension()) / 2
         : 0;
@@ -678,58 +774,74 @@ class FloatingActionButtonImpl {
     rect.set(hPadding, vPadding, hPadding, vPadding);
   }
 
-  void onPaddingUpdated(@NonNull Rect padding) {
+  void onPaddingUpdated(@NonNull Rect padding)
+  {
     Preconditions.checkNotNull(contentBackground, "Didn't initialize content background");
-    if (shouldAddPadding()) {
+    if (shouldAddPadding())
+    {
       InsetDrawable insetDrawable = new InsetDrawable(
           contentBackground, padding.left, padding.top, padding.right, padding.bottom);
       shadowViewDelegate.setBackgroundDrawable(insetDrawable);
-    } else {
+    } else
+    {
       shadowViewDelegate.setBackgroundDrawable(contentBackground);
     }
   }
 
-  boolean shouldAddPadding() {
+  boolean shouldAddPadding()
+  {
     return true;
   }
 
-  void onAttachedToWindow() {
-    if (shapeDrawable != null) {
+  void onAttachedToWindow()
+  {
+    if (shapeDrawable != null)
+    {
       MaterialShapeUtils.setParentAbsoluteElevation(view, shapeDrawable);
     }
 
-    if (requirePreDrawListener()) {
+    if (requirePreDrawListener())
+    {
       view.getViewTreeObserver().addOnPreDrawListener(getOrCreatePreDrawListener());
     }
   }
 
-  void onDetachedFromWindow() {
+  void onDetachedFromWindow()
+  {
     ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
-    if (preDrawListener != null) {
+    if (preDrawListener != null)
+    {
       viewTreeObserver.removeOnPreDrawListener(preDrawListener);
       preDrawListener = null;
     }
   }
 
-  boolean requirePreDrawListener() {
+  boolean requirePreDrawListener()
+  {
     return true;
   }
 
-  void onPreDraw() {
+  void onPreDraw()
+  {
     final float rotation = view.getRotation();
-    if (this.rotation != rotation) {
+    if (this.rotation != rotation)
+    {
       this.rotation = rotation;
       updateFromViewRotation();
     }
   }
 
   @NonNull
-  private ViewTreeObserver.OnPreDrawListener getOrCreatePreDrawListener() {
-    if (preDrawListener == null) {
+  private ViewTreeObserver.OnPreDrawListener getOrCreatePreDrawListener()
+  {
+    if (preDrawListener == null)
+    {
       preDrawListener =
-          new ViewTreeObserver.OnPreDrawListener() {
+          new ViewTreeObserver.OnPreDrawListener()
+          {
             @Override
-            public boolean onPreDraw() {
+            public boolean onPreDraw()
+            {
               FloatingActionButtonImpl.this.onPreDraw();
               return true;
             }
@@ -739,33 +851,41 @@ class FloatingActionButtonImpl {
     return preDrawListener;
   }
 
-  MaterialShapeDrawable createShapeDrawable() {
+  MaterialShapeDrawable createShapeDrawable()
+  {
     ShapeAppearanceModel shapeAppearance = checkNotNull(this.shapeAppearance);
     return new MaterialShapeDrawable(shapeAppearance);
   }
 
-  boolean isOrWillBeShown() {
-    if (view.getVisibility() != View.VISIBLE) {
+  boolean isOrWillBeShown()
+  {
+    if (view.getVisibility() != View.VISIBLE)
+    {
       // If we not currently visible, return true if we're animating to be shown
       return animState == ANIM_STATE_SHOWING;
-    } else {
+    } else
+    {
       // Otherwise if we're visible, return true if we're not animating to be hidden
       return animState != ANIM_STATE_HIDING;
     }
   }
 
-  boolean isOrWillBeHidden() {
-    if (view.getVisibility() == View.VISIBLE) {
+  boolean isOrWillBeHidden()
+  {
+    if (view.getVisibility() == View.VISIBLE)
+    {
       // If we currently visible, return true if we're animating to be hidden
       return animState == ANIM_STATE_HIDING;
-    } else {
+    } else
+    {
       // Otherwise if we're not visible, return true if we're not animating to be shown
       return animState != ANIM_STATE_SHOWING;
     }
   }
 
   @NonNull
-  private ValueAnimator createElevationAnimator(@NonNull ShadowAnimatorImpl impl) {
+  private ValueAnimator createElevationAnimator(@NonNull ShadowAnimatorImpl impl)
+  {
     final ValueAnimator animator = new ValueAnimator();
     animator.setInterpolator(ELEVATION_ANIM_INTERPOLATOR);
     animator.setDuration(ELEVATION_ANIM_DURATION);
@@ -775,16 +895,67 @@ class FloatingActionButtonImpl {
     return animator;
   }
 
+  private boolean shouldAnimateVisibilityChange()
+  {
+    return ViewCompat.isLaidOut(view) && !view.isInEditMode();
+  }
+
+  void updateFromViewRotation()
+  {
+    if (Build.VERSION.SDK_INT == 19)
+    {
+      // KitKat seems to have an issue with views which are rotated with angles which are
+      // not divisible by 90. Worked around by moving to software rendering in these cases.
+      if ((rotation % 90) != 0)
+      {
+        if (view.getLayerType() != View.LAYER_TYPE_SOFTWARE)
+        {
+          view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+      } else
+      {
+        if (view.getLayerType() != View.LAYER_TYPE_NONE)
+        {
+          view.setLayerType(View.LAYER_TYPE_NONE, null);
+        }
+      }
+    }
+
+    // Offset any View rotation
+    if (shapeDrawable != null)
+    {
+      shapeDrawable.setShadowCompatRotation((int) rotation);
+    }
+  }
+
+  interface InternalTransformationCallback
+  {
+
+    void onTranslationChanged();
+
+    void onScaleChanged();
+  }
+
+  interface InternalVisibilityChangedListener
+  {
+    void onShown();
+
+    void onHidden();
+  }
+
   private abstract class ShadowAnimatorImpl extends AnimatorListenerAdapter
-      implements ValueAnimator.AnimatorUpdateListener {
+      implements ValueAnimator.AnimatorUpdateListener
+  {
 
     private boolean validValues;
     private float shadowSizeStart;
     private float shadowSizeEnd;
 
     @Override
-    public void onAnimationUpdate(@NonNull ValueAnimator animator) {
-      if (!validValues) {
+    public void onAnimationUpdate(@NonNull ValueAnimator animator)
+    {
+      if (!validValues)
+      {
         shadowSizeStart = shapeDrawable == null ? 0 : shapeDrawable.getElevation();
         shadowSizeEnd = getTargetShadowSize();
         validValues = true;
@@ -797,73 +968,67 @@ class FloatingActionButtonImpl {
     }
 
     @Override
-    public void onAnimationEnd(Animator animator) {
+    public void onAnimationEnd(Animator animator)
+    {
       updateShapeElevation((int) shadowSizeEnd);
       validValues = false;
     }
 
-    /** Returns the shadow size we want to animate to. */
+    /**
+     * Returns the shadow size we want to animate to.
+     */
     protected abstract float getTargetShadowSize();
   }
 
-  private class ResetElevationAnimation extends ShadowAnimatorImpl {
-    ResetElevationAnimation() {}
+  private class ResetElevationAnimation extends ShadowAnimatorImpl
+  {
+    ResetElevationAnimation()
+    {
+    }
 
     @Override
-    protected float getTargetShadowSize() {
+    protected float getTargetShadowSize()
+    {
       return elevation;
     }
   }
 
-  private class ElevateToHoveredFocusedTranslationZAnimation extends ShadowAnimatorImpl {
-    ElevateToHoveredFocusedTranslationZAnimation() {}
+  private class ElevateToHoveredFocusedTranslationZAnimation extends ShadowAnimatorImpl
+  {
+    ElevateToHoveredFocusedTranslationZAnimation()
+    {
+    }
 
     @Override
-    protected float getTargetShadowSize() {
+    protected float getTargetShadowSize()
+    {
       return elevation + hoveredFocusedTranslationZ;
     }
   }
 
-  private class ElevateToPressedTranslationZAnimation extends ShadowAnimatorImpl {
-    ElevateToPressedTranslationZAnimation() {}
+  private class ElevateToPressedTranslationZAnimation extends ShadowAnimatorImpl
+  {
+    ElevateToPressedTranslationZAnimation()
+    {
+    }
 
     @Override
-    protected float getTargetShadowSize() {
+    protected float getTargetShadowSize()
+    {
       return elevation + pressedTranslationZ;
     }
   }
 
-  private class DisabledElevationAnimation extends ShadowAnimatorImpl {
-    DisabledElevationAnimation() {}
+  private class DisabledElevationAnimation extends ShadowAnimatorImpl
+  {
+    DisabledElevationAnimation()
+    {
+    }
 
     @Override
-    protected float getTargetShadowSize() {
+    protected float getTargetShadowSize()
+    {
       return 0f;
-    }
-  }
-
-  private boolean shouldAnimateVisibilityChange() {
-    return ViewCompat.isLaidOut(view) && !view.isInEditMode();
-  }
-
-  void updateFromViewRotation() {
-    if (Build.VERSION.SDK_INT == 19) {
-      // KitKat seems to have an issue with views which are rotated with angles which are
-      // not divisible by 90. Worked around by moving to software rendering in these cases.
-      if ((rotation % 90) != 0) {
-        if (view.getLayerType() != View.LAYER_TYPE_SOFTWARE) {
-          view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
-      } else {
-        if (view.getLayerType() != View.LAYER_TYPE_NONE) {
-          view.setLayerType(View.LAYER_TYPE_NONE, null);
-        }
-      }
-    }
-
-    // Offset any View rotation
-    if (shapeDrawable != null) {
-      shapeDrawable.setShadowCompatRotation((int) rotation);
     }
   }
 }

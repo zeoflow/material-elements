@@ -20,13 +20,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.RestrictTo.Scope;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
 
 /**
  * Ensures that touches within the transparent region of the inset drawable used for Dialogs are
@@ -35,14 +36,17 @@ import android.view.ViewConfiguration;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-public class InsetDialogOnTouchListener implements OnTouchListener {
+public class InsetDialogOnTouchListener implements OnTouchListener
+{
 
-  @NonNull private final Dialog dialog;
+  @NonNull
+  private final Dialog dialog;
   private final int leftInset;
   private final int topInset;
   private final int prePieSlop;
 
-  public InsetDialogOnTouchListener(@NonNull Dialog dialog, @NonNull Rect insets) {
+  public InsetDialogOnTouchListener(@NonNull Dialog dialog, @NonNull Rect insets)
+  {
     this.dialog = dialog;
     this.leftInset = insets.left;
     this.topInset = insets.top;
@@ -50,7 +54,8 @@ public class InsetDialogOnTouchListener implements OnTouchListener {
   }
 
   @Override
-  public boolean onTouch(@NonNull View view, @NonNull MotionEvent event) {
+  public boolean onTouch(@NonNull View view, @NonNull MotionEvent event)
+  {
     View insetView = view.findViewById(android.R.id.content);
 
     int insetLeft = leftInset + insetView.getLeft();
@@ -59,16 +64,19 @@ public class InsetDialogOnTouchListener implements OnTouchListener {
     int insetBottom = insetTop + insetView.getHeight();
 
     RectF dialogWindow = new RectF(insetLeft, insetTop, insetRight, insetBottom);
-    if (dialogWindow.contains(event.getX(), event.getY())) {
+    if (dialogWindow.contains(event.getX(), event.getY()))
+    {
       return false;
     }
     MotionEvent outsideEvent = MotionEvent.obtain(event);
-    if (event.getAction() == MotionEvent.ACTION_UP) {
+    if (event.getAction() == MotionEvent.ACTION_UP)
+    {
       outsideEvent.setAction(MotionEvent.ACTION_OUTSIDE);
     }
     // Window.shouldCloseOnTouch does not respect MotionEvent.ACTION_OUTSIDE until Pie, so we fix
     // the coordinates outside the view and use MotionEvent.ACTION_DOWN
-    if (VERSION.SDK_INT < VERSION_CODES.P) {
+    if (VERSION.SDK_INT < VERSION_CODES.P)
+    {
       outsideEvent.setAction(MotionEvent.ACTION_DOWN);
       outsideEvent.setLocation(-prePieSlop - 1, -prePieSlop - 1);
     }

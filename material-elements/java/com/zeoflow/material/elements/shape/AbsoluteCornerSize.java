@@ -17,36 +17,47 @@
 package com.zeoflow.material.elements.shape;
 
 import android.graphics.RectF;
+
 import androidx.annotation.NonNull;
+
 import java.util.Arrays;
 
-/** A {@link CornerSize} that always uses the provided size and ignores the bounds. */
-public final class AbsoluteCornerSize implements CornerSize {
+/**
+ * A {@link CornerSize} that always uses the provided size and ignores the bounds.
+ */
+public final class AbsoluteCornerSize implements CornerSize
+{
 
   private final float size;
 
-  public AbsoluteCornerSize(float size) {
+  public AbsoluteCornerSize(float size)
+  {
     this.size = size;
   }
 
   @Override
-  public float getCornerSize(@NonNull RectF bounds) {
+  public float getCornerSize(@NonNull RectF bounds)
+  {
     return size;
   }
 
   /**
    * Returns the size of this corner. Bounds aren't required since the result is always the same.
    */
-  public float getCornerSize() {
+  public float getCornerSize()
+  {
     return size;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof AbsoluteCornerSize)) {
+    if (!(o instanceof AbsoluteCornerSize))
+    {
       return false;
     }
     AbsoluteCornerSize that = (AbsoluteCornerSize) o;
@@ -54,7 +65,8 @@ public final class AbsoluteCornerSize implements CornerSize {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     Object[] hashedFields = {size};
     return Arrays.hashCode(hashedFields);
   }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2019 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +14,7 @@
     limitations under the License.
 -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
   <style name="MaterialAlertDialog.MaterialComponents.Picker.Date.Spinner" parent="android:Widget.DeviceDefault.DatePicker">
     <item name="backgroundInsetTop">@dimen/mtrl_alert_dialog_picker_background_inset</item>
@@ -31,9 +30,15 @@
     <item name="android:datePickerMode">calendar</item>
     <item name="android:calendarTextColor">?attr/colorOnSurface</item>
     <item name="android:headerBackground">?attr/colorPrimary</item>
-    <item name="android:headerMonthTextAppearance">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.Picker.Date.Header.Text</item>
-    <item name="android:headerDayOfMonthTextAppearance">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.Picker.Date.Header.Text.Day</item>
-    <item name="android:headerYearTextAppearance">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.Picker.Date.Header.Text</item>
+    <item name="android:headerMonthTextAppearance">
+      @style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.Picker.Date.Header.Text
+    </item>
+    <item name="android:headerDayOfMonthTextAppearance">
+      @style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.Picker.Date.Header.Text.Day
+    </item>
+    <item name="android:headerYearTextAppearance">
+      @style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.Picker.Date.Header.Text
+    </item>
   </style>
 
   <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.Picker.Date.Header.Text" parent="TextAppearance.MaterialComponents.Headline6">

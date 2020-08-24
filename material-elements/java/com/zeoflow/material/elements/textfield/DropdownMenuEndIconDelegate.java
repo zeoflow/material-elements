@@ -16,11 +16,6 @@
 
 package com.zeoflow.material.elements.textfield;
 
-import com.google.android.material.R;
-
-import static androidx.core.view.ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO;
-import static android.view.accessibility.AccessibilityEvent.TYPE_VIEW_CLICKED;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -35,11 +30,6 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.appcompat.content.res.AppCompatResources;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -53,34 +43,89 @@ import android.widget.AutoCompleteTextView;
 import android.widget.AutoCompleteTextView.OnDismissListener;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
-/** Default initialization of the exposed dropdown menu {@link TextInputLayout.EndIconMode}. */
-class DropdownMenuEndIconDelegate extends EndIconDelegate {
+import static android.view.accessibility.AccessibilityEvent.TYPE_VIEW_CLICKED;
+import static androidx.core.view.ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO;
+
+/**
+ * Default initialization of the exposed dropdown menu {@link TextInputLayout.EndIconMode}.
+ */
+class DropdownMenuEndIconDelegate extends EndIconDelegate
+{
 
   private static final boolean IS_LOLLIPOP = VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP;
   private static final int ANIMATION_FADE_OUT_DURATION = 50;
   private static final int ANIMATION_FADE_IN_DURATION = 67;
-
+  @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that handles
+  // interactions with the dropdown menu.
+  private final TextInputLayout.OnEndIconChangedListener endIconChangedListener =
+      new TextInputLayout.OnEndIconChangedListener()
+      {
+        @Override
+        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon)
+        {
+          AutoCompleteTextView editText = (AutoCompleteTextView) textInputLayout.getEditText();
+          if (editText != null && previousIcon == TextInputLayout.END_ICON_DROPDOWN_MENU)
+          {
+            // Remove any listeners set on the edit text.
+            editText.removeTextChangedListener(exposedDropdownEndIconTextWatcher);
+            if (editText.getOnFocusChangeListener() == onFocusChangeListener)
+            {
+              editText.setOnFocusChangeListener(null);
+            }
+            editText.setOnTouchListener(null);
+            if (IS_LOLLIPOP)
+            {
+              editText.setOnDismissListener(null);
+            }
+          }
+        }
+      };
+  private boolean dropdownPopupDirty = false;
+  private boolean isEndIconChecked = false;
+  private long dropdownPopupActivatedAt = Long.MAX_VALUE;
+  private StateListDrawable filledPopupBackground;
+  private MaterialShapeDrawable outlinedPopupBackground;
+  @Nullable
+  private AccessibilityManager accessibilityManager;
+  private ValueAnimator fadeOutAnim;
+  private ValueAnimator fadeInAnim;
   private final TextWatcher exposedDropdownEndIconTextWatcher =
-      new TextWatcher() {
+      new TextWatcher()
+      {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after)
+        {
+        }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {
+        }
 
         @Override
-        public void afterTextChanged(Editable s) {
+        public void afterTextChanged(Editable s)
+        {
           final AutoCompleteTextView editText =
               castAutoCompleteTextViewOrThrow(textInputLayout.getEditText());
           editText.post(
-              new Runnable() {
+              new Runnable()
+              {
                 @Override
-                public void run() {
+                public void run()
+                {
                   boolean isPopupShowing = editText.isPopupShowing();
                   setEndIconChecked(isPopupShowing);
                   dropdownPopupDirty = isPopupShowing;
@@ -89,27 +134,34 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
         }
       };
   private final OnFocusChangeListener onFocusChangeListener =
-      new OnFocusChangeListener() {
+      new OnFocusChangeListener()
+      {
         @Override
-        public void onFocusChange(View v, boolean hasFocus) {
+        public void onFocusChange(View v, boolean hasFocus)
+        {
           textInputLayout.setEndIconActivated(hasFocus);
-          if (!hasFocus) {
+          if (!hasFocus)
+          {
             setEndIconChecked(false);
             dropdownPopupDirty = false;
           }
         }
       };
   private final TextInputLayout.AccessibilityDelegate accessibilityDelegate =
-      new TextInputLayout.AccessibilityDelegate(textInputLayout) {
+      new TextInputLayout.AccessibilityDelegate(textInputLayout)
+      {
         @Override
         public void onInitializeAccessibilityNodeInfo(
-            View host, @NonNull AccessibilityNodeInfoCompat info) {
+            View host, @NonNull AccessibilityNodeInfoCompat info)
+        {
           super.onInitializeAccessibilityNodeInfo(host, info);
           // The non-editable exposed dropdown menu behaves like a Spinner.
-          if (textInputLayout.getEditText().getKeyListener() == null) {
+          if (textInputLayout.getEditText().getKeyListener() == null)
+          {
             info.setClassName(Spinner.class.getName());
           }
-          if (info.isShowingHintText()) {
+          if (info.isShowingHintText())
+          {
             // Set hint text to null so TalkBack doesn't announce the label twice when there is no
             // item selected.
             info.setHintText(null);
@@ -117,21 +169,25 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
         }
 
         @Override
-        public void onPopulateAccessibilityEvent(View host, @NonNull AccessibilityEvent event) {
+        public void onPopulateAccessibilityEvent(View host, @NonNull AccessibilityEvent event)
+        {
           super.onPopulateAccessibilityEvent(host, event);
           AutoCompleteTextView editText =
               castAutoCompleteTextViewOrThrow(textInputLayout.getEditText());
 
           if (event.getEventType() == TYPE_VIEW_CLICKED
-              && accessibilityManager.isTouchExplorationEnabled()) {
+              && accessibilityManager.isTouchExplorationEnabled())
+          {
             showHideDropdown(editText);
           }
         }
       };
   private final TextInputLayout.OnEditTextAttachedListener dropdownMenuOnEditTextAttachedListener =
-      new TextInputLayout.OnEditTextAttachedListener() {
+      new TextInputLayout.OnEditTextAttachedListener()
+      {
         @Override
-        public void onEditTextAttached(@NonNull TextInputLayout textInputLayout) {
+        public void onEditTextAttached(@NonNull TextInputLayout textInputLayout)
+        {
           AutoCompleteTextView autoCompleteTextView =
               castAutoCompleteTextViewOrThrow(textInputLayout.getEditText());
 
@@ -148,42 +204,15 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
           textInputLayout.setEndIconVisible(true);
         }
       };
-  @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that handles
-  // interactions with the dropdown menu.
-  private final TextInputLayout.OnEndIconChangedListener endIconChangedListener =
-      new TextInputLayout.OnEndIconChangedListener() {
-        @Override
-        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon) {
-          AutoCompleteTextView editText = (AutoCompleteTextView) textInputLayout.getEditText();
-          if (editText != null && previousIcon == TextInputLayout.END_ICON_DROPDOWN_MENU) {
-            // Remove any listeners set on the edit text.
-            editText.removeTextChangedListener(exposedDropdownEndIconTextWatcher);
-            if (editText.getOnFocusChangeListener() == onFocusChangeListener) {
-              editText.setOnFocusChangeListener(null);
-            }
-            editText.setOnTouchListener(null);
-            if (IS_LOLLIPOP) {
-              editText.setOnDismissListener(null);
-            }
-          }
-        }
-      };
 
-  private boolean dropdownPopupDirty = false;
-  private boolean isEndIconChecked = false;
-  private long dropdownPopupActivatedAt = Long.MAX_VALUE;
-  private StateListDrawable filledPopupBackground;
-  private MaterialShapeDrawable outlinedPopupBackground;
-  @Nullable private AccessibilityManager accessibilityManager;
-  private ValueAnimator fadeOutAnim;
-  private ValueAnimator fadeInAnim;
-
-  DropdownMenuEndIconDelegate(@NonNull TextInputLayout textInputLayout) {
+  DropdownMenuEndIconDelegate(@NonNull TextInputLayout textInputLayout)
+  {
     super(textInputLayout);
   }
 
   @Override
-  void initialize() {
+  void initialize()
+  {
     float popupCornerRadius =
         context
             .getResources()
@@ -215,8 +244,8 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
     outlinedPopupBackground = roundedCornersPopupBackground;
     filledPopupBackground = new StateListDrawable();
     filledPopupBackground.addState(
-        new int[] {android.R.attr.state_above_anchor}, roundedCornersPopupBackground);
-    filledPopupBackground.addState(new int[] {}, roundedBottomCornersPopupBackground);
+        new int[]{android.R.attr.state_above_anchor}, roundedCornersPopupBackground);
+    filledPopupBackground.addState(new int[]{}, roundedBottomCornersPopupBackground);
 
     // For lollipop+, the arrow icon changes orientation based on dropdown popup, otherwise it
     // always points down.
@@ -226,9 +255,11 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
     textInputLayout.setEndIconContentDescription(
         textInputLayout.getResources().getText(R.string.exposed_dropdown_menu_content_description));
     textInputLayout.setEndIconOnClickListener(
-        new OnClickListener() {
+        new OnClickListener()
+        {
           @Override
-          public void onClick(View v) {
+          public void onClick(View v)
+          {
             AutoCompleteTextView editText = (AutoCompleteTextView) textInputLayout.getEditText();
             showHideDropdown(editText);
           }
@@ -242,54 +273,71 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
   }
 
   @Override
-  boolean shouldTintIconOnError() {
+  boolean shouldTintIconOnError()
+  {
     return true;
   }
 
   @Override
-  boolean isBoxBackgroundModeSupported(@TextInputLayout.BoxBackgroundMode int boxBackgroundMode) {
+  boolean isBoxBackgroundModeSupported(@TextInputLayout.BoxBackgroundMode int boxBackgroundMode)
+  {
     return boxBackgroundMode != TextInputLayout.BOX_BACKGROUND_NONE;
   }
 
-  private void showHideDropdown(@Nullable AutoCompleteTextView editText) {
-    if (editText == null) {
+  private void showHideDropdown(@Nullable AutoCompleteTextView editText)
+  {
+    if (editText == null)
+    {
       return;
     }
-    if (isDropdownPopupActive()) {
+    if (isDropdownPopupActive())
+    {
       dropdownPopupDirty = false;
     }
-    if (!dropdownPopupDirty) {
-      if (IS_LOLLIPOP) {
+    if (!dropdownPopupDirty)
+    {
+      if (IS_LOLLIPOP)
+      {
         setEndIconChecked(!isEndIconChecked);
-      } else {
+      } else
+      {
         isEndIconChecked = !isEndIconChecked;
         endIconView.toggle();
       }
-      if (isEndIconChecked) {
+      if (isEndIconChecked)
+      {
         editText.requestFocus();
         editText.showDropDown();
-      } else {
+      } else
+      {
         editText.dismissDropDown();
       }
-    } else {
+    } else
+    {
       dropdownPopupDirty = false;
     }
   }
 
-  private void setPopupBackground(@NonNull AutoCompleteTextView editText) {
-    if (IS_LOLLIPOP) {
+  private void setPopupBackground(@NonNull AutoCompleteTextView editText)
+  {
+    if (IS_LOLLIPOP)
+    {
       int boxBackgroundMode = textInputLayout.getBoxBackgroundMode();
-      if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_OUTLINE) {
+      if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_OUTLINE)
+      {
         editText.setDropDownBackgroundDrawable(outlinedPopupBackground);
-      } else if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_FILLED) {
+      } else if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_FILLED)
+      {
         editText.setDropDownBackgroundDrawable(filledPopupBackground);
       }
     }
   }
 
   /* Add ripple effect to non editable layouts. */
-  private void addRippleEffect(@NonNull AutoCompleteTextView editText) {
-    if (editText.getKeyListener() != null) {
+  private void addRippleEffect(@NonNull AutoCompleteTextView editText)
+  {
+    if (editText.getKeyListener() != null)
+    {
       return;
     }
 
@@ -297,13 +345,15 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
     MaterialShapeDrawable boxBackground = textInputLayout.getBoxBackground();
     int rippleColor = MaterialColors.getColor(editText, R.attr.colorControlHighlight);
     int[][] states =
-        new int[][] {
-            new int[] {android.R.attr.state_pressed}, new int[] {},
+        new int[][]{
+            new int[]{android.R.attr.state_pressed}, new int[]{},
         };
 
-    if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_OUTLINE) {
+    if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_OUTLINE)
+    {
       addRippleEffectOnOutlinedLayout(editText, rippleColor, states, boxBackground);
-    } else if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_FILLED) {
+    } else if (boxBackgroundMode == TextInputLayout.BOX_BACKGROUND_FILLED)
+    {
       addRippleEffectOnFilledLayout(editText, rippleColor, states, boxBackground);
     }
   }
@@ -312,18 +362,20 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
       @NonNull AutoCompleteTextView editText,
       int rippleColor,
       int[][] states,
-      @NonNull MaterialShapeDrawable boxBackground) {
+      @NonNull MaterialShapeDrawable boxBackground)
+  {
     LayerDrawable editTextBackground;
     int surfaceColor = MaterialColors.getColor(editText, R.attr.colorSurface);
     MaterialShapeDrawable rippleBackground =
         new MaterialShapeDrawable(boxBackground.getShapeAppearanceModel());
     int pressedBackgroundColor = MaterialColors.layer(rippleColor, surfaceColor, 0.1f);
-    int[] rippleBackgroundColors = new int[] {pressedBackgroundColor, Color.TRANSPARENT};
+    int[] rippleBackgroundColors = new int[]{pressedBackgroundColor, Color.TRANSPARENT};
     rippleBackground.setFillColor(new ColorStateList(states, rippleBackgroundColors));
 
-    if (IS_LOLLIPOP) {
+    if (IS_LOLLIPOP)
+    {
       rippleBackground.setTint(surfaceColor);
-      int[] colors = new int[] {pressedBackgroundColor, surfaceColor};
+      int[] colors = new int[]{pressedBackgroundColor, surfaceColor};
       ColorStateList rippleColorStateList = new ColorStateList(states, colors);
       MaterialShapeDrawable mask =
           new MaterialShapeDrawable(boxBackground.getShapeAppearanceModel());
@@ -331,7 +383,8 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
       Drawable rippleDrawable = new RippleDrawable(rippleColorStateList, rippleBackground, mask);
       Drawable[] layers = {rippleDrawable, boxBackground};
       editTextBackground = new LayerDrawable(layers);
-    } else {
+    } else
+    {
       Drawable[] layers = {rippleBackground, boxBackground};
       editTextBackground = new LayerDrawable(layers);
     }
@@ -343,17 +396,20 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
       @NonNull AutoCompleteTextView editText,
       int rippleColor,
       int[][] states,
-      @NonNull MaterialShapeDrawable boxBackground) {
+      @NonNull MaterialShapeDrawable boxBackground)
+  {
     int boxBackgroundColor = textInputLayout.getBoxBackgroundColor();
     int pressedBackgroundColor = MaterialColors.layer(rippleColor, boxBackgroundColor, 0.1f);
-    int[] colors = new int[] {pressedBackgroundColor, boxBackgroundColor};
+    int[] colors = new int[]{pressedBackgroundColor, boxBackgroundColor};
 
-    if (IS_LOLLIPOP) {
+    if (IS_LOLLIPOP)
+    {
       ColorStateList rippleColorStateList = new ColorStateList(states, colors);
       Drawable editTextBackground =
           new RippleDrawable(rippleColorStateList, boxBackground, boxBackground);
       ViewCompat.setBackground(editText, editTextBackground);
-    } else {
+    } else
+    {
       MaterialShapeDrawable rippleBackground =
           new MaterialShapeDrawable(boxBackground.getShapeAppearanceModel());
       rippleBackground.setFillColor(new ColorStateList(states, colors));
@@ -370,14 +426,19 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
 
   @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that handles
   // interactions with the dropdown menu.
-  private void setUpDropdownShowHideBehavior(@NonNull final AutoCompleteTextView editText) {
+  private void setUpDropdownShowHideBehavior(@NonNull final AutoCompleteTextView editText)
+  {
     // Set whole layout clickable.
     editText.setOnTouchListener(
-        new OnTouchListener() {
+        new OnTouchListener()
+        {
           @Override
-          public boolean onTouch(@NonNull View v, @NonNull MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-              if (isDropdownPopupActive()) {
+          public boolean onTouch(@NonNull View v, @NonNull MotionEvent event)
+          {
+            if (event.getAction() == MotionEvent.ACTION_UP)
+            {
+              if (isDropdownPopupActive())
+              {
                 dropdownPopupDirty = false;
               }
               showHideDropdown(editText);
@@ -386,11 +447,14 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
           }
         });
     editText.setOnFocusChangeListener(onFocusChangeListener);
-    if (IS_LOLLIPOP) {
+    if (IS_LOLLIPOP)
+    {
       editText.setOnDismissListener(
-          new OnDismissListener() {
+          new OnDismissListener()
+          {
             @Override
-            public void onDismiss() {
+            public void onDismiss()
+            {
               dropdownPopupDirty = true;
               dropdownPopupActivatedAt = System.currentTimeMillis();
               setEndIconChecked(false);
@@ -400,7 +464,8 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
   }
 
   private MaterialShapeDrawable getPopUpMaterialShapeDrawable(
-      float topCornerRadius, float bottomCornerRadius, float elevation, int verticalPadding) {
+      float topCornerRadius, float bottomCornerRadius, float elevation, int verticalPadding)
+  {
     ShapeAppearanceModel shapeAppearanceModel =
         ShapeAppearanceModel.builder()
             .setTopLeftCornerSize(topCornerRadius)
@@ -415,14 +480,17 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
     return popupDrawable;
   }
 
-  private boolean isDropdownPopupActive() {
+  private boolean isDropdownPopupActive()
+  {
     long activeFor = System.currentTimeMillis() - dropdownPopupActivatedAt;
     return activeFor < 0 || activeFor > 300;
   }
 
   @NonNull
-  private AutoCompleteTextView castAutoCompleteTextViewOrThrow(EditText editText) {
-    if (!(editText instanceof AutoCompleteTextView)) {
+  private AutoCompleteTextView castAutoCompleteTextViewOrThrow(EditText editText)
+  {
+    if (!(editText instanceof AutoCompleteTextView))
+    {
       throw new RuntimeException(
           "EditText needs to be an AutoCompleteTextView if an Exposed Dropdown Menu is being"
               + " used.");
@@ -431,35 +499,43 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate {
     return (AutoCompleteTextView) editText;
   }
 
-  private void setEndIconChecked(boolean checked) {
-    if (isEndIconChecked != checked) {
+  private void setEndIconChecked(boolean checked)
+  {
+    if (isEndIconChecked != checked)
+    {
       isEndIconChecked = checked;
       fadeInAnim.cancel();
       fadeOutAnim.start();
     }
   }
 
-  private void initAnimators() {
+  private void initAnimators()
+  {
     fadeInAnim = getAlphaAnimator(ANIMATION_FADE_IN_DURATION, 0, 1);
     fadeOutAnim = getAlphaAnimator(ANIMATION_FADE_OUT_DURATION, 1, 0);
     fadeOutAnim.addListener(
-        new AnimatorListenerAdapter() {
+        new AnimatorListenerAdapter()
+        {
           @Override
-          public void onAnimationEnd(Animator animation) {
+          public void onAnimationEnd(Animator animation)
+          {
             endIconView.setChecked(isEndIconChecked);
             fadeInAnim.start();
           }
         });
   }
 
-  private ValueAnimator getAlphaAnimator(int duration, float... values) {
+  private ValueAnimator getAlphaAnimator(int duration, float... values)
+  {
     ValueAnimator animator = ValueAnimator.ofFloat(values);
     animator.setInterpolator(AnimationUtils.LINEAR_INTERPOLATOR);
     animator.setDuration(duration);
     animator.addUpdateListener(
-        new AnimatorUpdateListener() {
+        new AnimatorUpdateListener()
+        {
           @Override
-          public void onAnimationUpdate(@NonNull ValueAnimator animation) {
+          public void onAnimationUpdate(@NonNull ValueAnimator animation)
+          {
             float alpha = (float) animation.getAnimatedValue();
             endIconView.setAlpha(alpha);
           }

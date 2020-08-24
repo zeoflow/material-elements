@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2019 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +13,9 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-  <style name="Base.Widget.MaterialComponents.CheckedTextView" parent="android:Widget.Material.CheckedTextView"/>
+  <style name="Base.Widget.MaterialComponents.CheckedTextView" parent="android:Widget.Material.CheckedTextView" />
 
   <style name="Base.ThemeOverlay.MaterialComponents.Dialog" parent="Base.V14.ThemeOverlay.MaterialComponents.Dialog">
     <item name="android:windowBackground">@drawable/mtrl_dialog_background</item>

@@ -16,20 +16,24 @@
 
 package com.zeoflow.material.elements.elevation;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.ColorUtils;
-import android.view.View;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 
-/** Utility for calculating elevation overlay alpha values and colors. */
-public class ElevationOverlayProvider {
+/**
+ * Utility for calculating elevation overlay alpha values and colors.
+ */
+public class ElevationOverlayProvider
+{
 
   private static final float FORMULA_MULTIPLIER = 4.5f;
   private static final float FORMULA_OFFSET = 2f;
@@ -39,7 +43,8 @@ public class ElevationOverlayProvider {
   private final int colorSurface;
   private final float displayDensity;
 
-  public ElevationOverlayProvider(@NonNull Context context) {
+  public ElevationOverlayProvider(@NonNull Context context)
+  {
     this.elevationOverlayEnabled =
         MaterialAttributes.resolveBoolean(context, R.attr.elevationOverlayEnabled, false);
     this.elevationOverlayColor =
@@ -56,7 +61,8 @@ public class ElevationOverlayProvider {
    */
   @ColorInt
   public int compositeOverlayWithThemeSurfaceColorIfNeeded(
-      float elevation, @NonNull View overlayView) {
+      float elevation, @NonNull View overlayView)
+  {
     elevation += getParentAbsoluteElevation(overlayView);
     return compositeOverlayWithThemeSurfaceColorIfNeeded(elevation);
   }
@@ -66,7 +72,8 @@ public class ElevationOverlayProvider {
    * the current theme's color int value for {@code R.attr.colorSurface} if needed.
    */
   @ColorInt
-  public int compositeOverlayWithThemeSurfaceColorIfNeeded(float elevation) {
+  public int compositeOverlayWithThemeSurfaceColorIfNeeded(float elevation)
+  {
     return compositeOverlayIfNeeded(colorSurface, elevation);
   }
 
@@ -78,7 +85,8 @@ public class ElevationOverlayProvider {
    */
   @ColorInt
   public int compositeOverlayIfNeeded(
-      @ColorInt int backgroundColor, float elevation, @NonNull View overlayView) {
+      @ColorInt int backgroundColor, float elevation, @NonNull View overlayView)
+  {
     elevation += getParentAbsoluteElevation(overlayView);
     return compositeOverlayIfNeeded(backgroundColor, elevation);
   }
@@ -90,18 +98,24 @@ public class ElevationOverlayProvider {
    * R.attr.colorSurface}); otherwise returns the {@code backgroundColor}.
    */
   @ColorInt
-  public int compositeOverlayIfNeeded(@ColorInt int backgroundColor, float elevation) {
-    if (elevationOverlayEnabled && isThemeSurfaceColor(backgroundColor)) {
+  public int compositeOverlayIfNeeded(@ColorInt int backgroundColor, float elevation)
+  {
+    if (elevationOverlayEnabled && isThemeSurfaceColor(backgroundColor))
+    {
       return compositeOverlay(backgroundColor, elevation);
-    } else {
+    } else
+    {
       return backgroundColor;
     }
   }
 
-  /** See {@link #compositeOverlay(int, float)}. */
+  /**
+   * See {@link #compositeOverlay(int, float)}.
+   */
   @ColorInt
   public int compositeOverlay(
-      @ColorInt int backgroundColor, float elevation, @NonNull View overlayView) {
+      @ColorInt int backgroundColor, float elevation, @NonNull View overlayView)
+  {
     elevation += getParentAbsoluteElevation(overlayView);
     return compositeOverlay(backgroundColor, elevation);
   }
@@ -113,7 +127,8 @@ public class ElevationOverlayProvider {
    * formula that is based on the provided {@code elevation} value.
    */
   @ColorInt
-  public int compositeOverlay(@ColorInt int backgroundColor, float elevation) {
+  public int compositeOverlay(@ColorInt int backgroundColor, float elevation)
+  {
     float overlayAlphaFraction = calculateOverlayAlphaFraction(elevation);
     int backgroundAlpha = Color.alpha(backgroundColor);
     int backgroundColorOpaque = ColorUtils.setAlphaComponent(backgroundColor, 255);
@@ -126,7 +141,8 @@ public class ElevationOverlayProvider {
    * Calculates the alpha value, between 0 and 255, that should be used with the elevation overlay
    * color, based on the provided {@code elevation} value.
    */
-  public int calculateOverlayAlpha(float elevation) {
+  public int calculateOverlayAlpha(float elevation)
+  {
     return Math.round(calculateOverlayAlphaFraction(elevation) * 255);
   }
 
@@ -134,8 +150,10 @@ public class ElevationOverlayProvider {
    * Calculates the alpha fraction, between 0 and 1, that should be used with the elevation overlay
    * color, based on the provided {@code elevation} value.
    */
-  public float calculateOverlayAlphaFraction(float elevation) {
-    if (displayDensity <= 0 || elevation <= 0) {
+  public float calculateOverlayAlphaFraction(float elevation)
+  {
+    if (displayDensity <= 0 || elevation <= 0)
+    {
       return 0;
     }
     float elevationDp = elevation / displayDensity;
@@ -144,20 +162,29 @@ public class ElevationOverlayProvider {
     return Math.min(alphaFraction, 1);
   }
 
-  /** Returns the current theme's boolean value for {@code R.attr.elevationOverlayEnabled}. */
-  public boolean isThemeElevationOverlayEnabled() {
+  /**
+   * Returns the current theme's boolean value for {@code R.attr.elevationOverlayEnabled}.
+   */
+  public boolean isThemeElevationOverlayEnabled()
+  {
     return elevationOverlayEnabled;
   }
 
-  /** Returns the current theme's color int value for {@code R.attr.elevationOverlayColor}. */
+  /**
+   * Returns the current theme's color int value for {@code R.attr.elevationOverlayColor}.
+   */
   @ColorInt
-  public int getThemeElevationOverlayColor() {
+  public int getThemeElevationOverlayColor()
+  {
     return elevationOverlayColor;
   }
 
-  /** Returns the current theme's color int value for {@code R.attr.colorSurface}. */
+  /**
+   * Returns the current theme's color int value for {@code R.attr.colorSurface}.
+   */
   @ColorInt
-  public int getThemeSurfaceColor() {
+  public int getThemeSurfaceColor()
+  {
     return colorSurface;
   }
 
@@ -165,11 +192,13 @@ public class ElevationOverlayProvider {
    * Returns the absolute elevation of the parent of the provided {@code overlayView}, or in other
    * words, the sum of the elevations of all ancestors of the {@code overlayView}.
    */
-  public float getParentAbsoluteElevation(@NonNull View overlayView) {
+  public float getParentAbsoluteElevation(@NonNull View overlayView)
+  {
     return ViewUtils.getParentAbsoluteElevation(overlayView);
   }
 
-  private boolean isThemeSurfaceColor(@ColorInt int color) {
+  private boolean isThemeSurfaceColor(@ColorInt int color)
+  {
     return ColorUtils.setAlphaComponent(color, 255) == colorSurface;
   }
 }

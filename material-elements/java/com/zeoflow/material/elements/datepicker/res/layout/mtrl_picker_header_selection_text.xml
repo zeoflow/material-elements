@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<TextView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/mtrl_picker_header_selection_text"
   style="?attr/materialCalendarHeaderSelection"
@@ -23,6 +21,6 @@
   android:layout_height="wrap_content"
   android:layout_gravity="top|start"
   android:gravity="start|bottom"
+  android:paddingBottom="@dimen/mtrl_calendar_pre_l_text_clip_padding"
   app:firstBaselineToTopHeight="@dimen/mtrl_calendar_selection_text_baseline_to_top"
-  app:lineHeight="@dimen/mtrl_calendar_header_selection_line_height"
-  android:paddingBottom="@dimen/mtrl_calendar_pre_l_text_clip_padding"/>
+  app:lineHeight="@dimen/mtrl_calendar_header_selection_line_height" />

@@ -20,16 +20,17 @@
  */
 package com.zeoflow.material.elements.transition.platform;
 
-import static com.zeoflow.material.elements.transition.platform.TransitionUtils.lerp;
-
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-class FadeModeEvaluators {
+class FadeModeEvaluators
+{
 
   private static final FadeModeEvaluator IN =
-      new FadeModeEvaluator() {
+      new FadeModeEvaluator()
+      {
         @Override
         public FadeModeResult evaluate(
-            float progress, float fadeStartFraction, float fadeEndFraction) {
+            float progress, float fadeStartFraction, float fadeEndFraction)
+        {
           int startAlpha = 255;
           int endAlpha = TransitionUtils.lerp(0, 255, fadeStartFraction, fadeEndFraction, progress);
           return FadeModeResult.endOnTop(startAlpha, endAlpha);
@@ -37,10 +38,12 @@ class FadeModeEvaluators {
       };
 
   private static final FadeModeEvaluator OUT =
-      new FadeModeEvaluator() {
+      new FadeModeEvaluator()
+      {
         @Override
         public FadeModeResult evaluate(
-            float progress, float fadeStartFraction, float fadeEndFraction) {
+            float progress, float fadeStartFraction, float fadeEndFraction)
+        {
           int startAlpha = TransitionUtils.lerp(255, 0, fadeStartFraction, fadeEndFraction, progress);
           int endAlpha = 255;
           return FadeModeResult.startOnTop(startAlpha, endAlpha);
@@ -48,10 +51,12 @@ class FadeModeEvaluators {
       };
 
   private static final FadeModeEvaluator CROSS =
-      new FadeModeEvaluator() {
+      new FadeModeEvaluator()
+      {
         @Override
         public FadeModeResult evaluate(
-            float progress, float fadeStartFraction, float fadeEndFraction) {
+            float progress, float fadeStartFraction, float fadeEndFraction)
+        {
           int startAlpha = TransitionUtils.lerp(255, 0, fadeStartFraction, fadeEndFraction, progress);
           int endAlpha = TransitionUtils.lerp(0, 255, fadeStartFraction, fadeEndFraction, progress);
           return FadeModeResult.startOnTop(startAlpha, endAlpha);
@@ -59,10 +64,12 @@ class FadeModeEvaluators {
       };
 
   private static final FadeModeEvaluator THROUGH =
-      new FadeModeEvaluator() {
+      new FadeModeEvaluator()
+      {
         @Override
         public FadeModeResult evaluate(
-            float progress, float fadeStartFraction, float fadeEndFraction) {
+            float progress, float fadeStartFraction, float fadeEndFraction)
+        {
           float fadeFractionDiff = fadeEndFraction - fadeStartFraction;
           float fadeFractionThreshold =
               fadeStartFraction + fadeFractionDiff * FadeThroughProvider.PROGRESS_THRESHOLD;
@@ -72,8 +79,14 @@ class FadeModeEvaluators {
         }
       };
 
-  static FadeModeEvaluator get(@MaterialContainerTransform.FadeMode int fadeMode, boolean entering) {
-    switch (fadeMode) {
+  private FadeModeEvaluators()
+  {
+  }
+
+  static FadeModeEvaluator get(@MaterialContainerTransform.FadeMode int fadeMode, boolean entering)
+  {
+    switch (fadeMode)
+    {
       case MaterialContainerTransform.FADE_MODE_IN:
         return entering ? IN : OUT;
       case MaterialContainerTransform.FADE_MODE_OUT:
@@ -86,6 +99,4 @@ class FadeModeEvaluators {
         throw new IllegalArgumentException("Invalid fade mode: " + fadeMode);
     }
   }
-
-  private FadeModeEvaluators() {}
 }

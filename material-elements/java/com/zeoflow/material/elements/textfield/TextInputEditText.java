@@ -16,16 +16,11 @@
 
 package com.zeoflow.material.elements.textfield;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build.VERSION;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -33,6 +28,12 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.internal.ManufacturerUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -44,21 +45,25 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * <p>Using this class allows us to display a hint in the IME when in 'extract' mode and provides
  * accessibility support for {@link TextInputLayout}.
  */
-public class TextInputEditText extends AppCompatEditText {
+public class TextInputEditText extends AppCompatEditText
+{
 
   private final Rect parentRect = new Rect();
   private boolean textInputLayoutFocusedRectEnabled;
 
-  public TextInputEditText(@NonNull Context context) {
+  public TextInputEditText(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public TextInputEditText(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public TextInputEditText(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.editTextStyle);
   }
 
   public TextInputEditText(
-      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, 0), attrs, defStyleAttr);
     TypedArray attributes =
         ThemeEnforcement.obtainStyledAttributes(
@@ -75,7 +80,8 @@ public class TextInputEditText extends AppCompatEditText {
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
     // Meizu devices expect TextView#mHintLayout to be non-null if TextView#getHint() is non-null.
@@ -85,18 +91,21 @@ public class TextInputEditText extends AppCompatEditText {
     if (layout != null
         && layout.isProvidingHint()
         && super.getHint() == null
-        && ManufacturerUtils.isMeizuDevice()) {
+        && ManufacturerUtils.isMeizuDevice())
+    {
       setHint("");
     }
   }
 
   @Nullable
   @Override
-  public CharSequence getHint() {
+  public CharSequence getHint()
+  {
     // Certain test frameworks expect the actionable element to expose its hint as a label. When
     // TextInputLayout is providing our hint, retrieve it from the parent layout.
     TextInputLayout layout = getTextInputLayout();
-    if (layout != null && layout.isProvidingHint()) {
+    if (layout != null && layout.isProvidingHint())
+    {
       return layout.getHint();
     }
     return super.getHint();
@@ -104,9 +113,11 @@ public class TextInputEditText extends AppCompatEditText {
 
   @Nullable
   @Override
-  public InputConnection onCreateInputConnection(@NonNull EditorInfo outAttrs) {
+  public InputConnection onCreateInputConnection(@NonNull EditorInfo outAttrs)
+  {
     final InputConnection ic = super.onCreateInputConnection(outAttrs);
-    if (ic != null && outAttrs.hintText == null) {
+    if (ic != null && outAttrs.hintText == null)
+    {
       // If we don't have a hint and our parent is a TextInputLayout, use its hint for the
       // EditorInfo. This allows us to display a hint in 'extract mode'.
       outAttrs.hintText = getHintFromLayout();
@@ -115,10 +126,13 @@ public class TextInputEditText extends AppCompatEditText {
   }
 
   @Nullable
-  private TextInputLayout getTextInputLayout() {
+  private TextInputLayout getTextInputLayout()
+  {
     ViewParent parent = getParent();
-    while (parent instanceof View) {
-      if (parent instanceof TextInputLayout) {
+    while (parent instanceof View)
+    {
+      if (parent instanceof TextInputLayout)
+      {
         return (TextInputLayout) parent;
       }
       parent = parent.getParent();
@@ -127,44 +141,51 @@ public class TextInputEditText extends AppCompatEditText {
   }
 
   @Nullable
-  private CharSequence getHintFromLayout() {
+  private CharSequence getHintFromLayout()
+  {
     TextInputLayout layout = getTextInputLayout();
     return (layout != null) ? layout.getHint() : null;
   }
 
   /**
-   * Whether the edit text should use the TextInputLayout's focused rectangle.
-   */
-  public void setTextInputLayoutFocusedRectEnabled(boolean textInputLayoutFocusedRectEnabled) {
-    this.textInputLayoutFocusedRectEnabled = textInputLayoutFocusedRectEnabled;
-  }
-
-  /**
    * Whether the edit text is using the TextInputLayout's focused rectangle.
    */
-  public boolean isTextInputLayoutFocusedRectEnabled() {
+  public boolean isTextInputLayoutFocusedRectEnabled()
+  {
     return textInputLayoutFocusedRectEnabled;
   }
 
+  /**
+   * Whether the edit text should use the TextInputLayout's focused rectangle.
+   */
+  public void setTextInputLayoutFocusedRectEnabled(boolean textInputLayoutFocusedRectEnabled)
+  {
+    this.textInputLayoutFocusedRectEnabled = textInputLayoutFocusedRectEnabled;
+  }
+
   @Override
-  public void getFocusedRect(@Nullable Rect r) {
+  public void getFocusedRect(@Nullable Rect r)
+  {
     super.getFocusedRect(r);
     TextInputLayout textInputLayout = getTextInputLayout();
     if (textInputLayout != null
         && textInputLayoutFocusedRectEnabled
-        && r != null) {
+        && r != null)
+    {
       textInputLayout.getFocusedRect(parentRect);
       r.bottom = parentRect.bottom;
     }
   }
 
   @Override
-  public boolean getGlobalVisibleRect(@Nullable Rect r, @Nullable Point globalOffset) {
+  public boolean getGlobalVisibleRect(@Nullable Rect r, @Nullable Point globalOffset)
+  {
     boolean result = super.getGlobalVisibleRect(r, globalOffset);
     TextInputLayout textInputLayout = getTextInputLayout();
     if (textInputLayout != null
         && textInputLayoutFocusedRectEnabled
-        && r != null) {
+        && r != null)
+    {
       textInputLayout.getGlobalVisibleRect(parentRect, globalOffset);
       r.bottom = parentRect.bottom;
     }
@@ -172,10 +193,12 @@ public class TextInputEditText extends AppCompatEditText {
   }
 
   @Override
-  public boolean requestRectangleOnScreen(@Nullable Rect rectangle) {
+  public boolean requestRectangleOnScreen(@Nullable Rect rectangle)
+  {
     boolean result = super.requestRectangleOnScreen(rectangle);
     TextInputLayout textInputLayout = getTextInputLayout();
-    if (textInputLayout != null && textInputLayoutFocusedRectEnabled) {
+    if (textInputLayout != null && textInputLayoutFocusedRectEnabled)
+    {
       parentRect.set(
           0,
           textInputLayout.getHeight()
@@ -184,23 +207,26 @@ public class TextInputEditText extends AppCompatEditText {
           textInputLayout.getHeight());
       textInputLayout.requestRectangleOnScreen(parentRect, true);
     }
-     return result;
+    return result;
   }
 
   @Override
-  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info)
+  {
     super.onInitializeAccessibilityNodeInfo(info);
     TextInputLayout layout = getTextInputLayout();
 
     // In APIs < 23, some things set in the parent TextInputLayout's AccessibilityDelegate get
     // overwritten, so we set them here so that announcements are as expected.
-    if (VERSION.SDK_INT < 23 && layout != null) {
+    if (VERSION.SDK_INT < 23 && layout != null)
+    {
       info.setText(getAccessibilityNodeInfoText(layout));
     }
   }
 
   @NonNull
-  private String getAccessibilityNodeInfoText(@NonNull TextInputLayout layout) {
+  private String getAccessibilityNodeInfoText(@NonNull TextInputLayout layout)
+  {
     CharSequence inputText = getText();
     CharSequence hintText = layout.getHint();
     CharSequence helperText = layout.getHelperText();
@@ -214,11 +240,14 @@ public class TextInputEditText extends AppCompatEditText {
     hint += ((showingError || hasHelperText) && !TextUtils.isEmpty(hint)) ? ", " : "";
     hint += showingError ? errorText : (hasHelperText ? helperText : "");
 
-    if (showingText) {
+    if (showingText)
+    {
       return inputText + (!TextUtils.isEmpty(hint) ? (", " + hint) : "");
-    } else if (!TextUtils.isEmpty(hint)) {
+    } else if (!TextUtils.isEmpty(hint))
+    {
       return hint;
-    } else {
+    } else
+    {
       return "";
     }
   }

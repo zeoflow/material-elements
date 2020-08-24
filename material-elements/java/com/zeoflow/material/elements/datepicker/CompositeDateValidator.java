@@ -15,37 +15,33 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import static androidx.core.util.Preconditions.checkNotNull;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import com.zeoflow.material.elements.datepicker.CalendarConstraints.DateValidator;
+
 import java.util.List;
 
-/** A {@link DateValidator} that accepts a list of Date Validators. */
-public final class CompositeDateValidator implements DateValidator {
+import static androidx.core.util.Preconditions.checkNotNull;
 
-  @NonNull private final List<DateValidator> validators;
-
-  private CompositeDateValidator(@NonNull List<DateValidator> validators) {
-    this.validators = validators;
-  }
+/**
+ * A {@link DateValidator} that accepts a list of Date Validators.
+ */
+public final class CompositeDateValidator implements DateValidator
+{
 
   /**
-   * Returns a {@link DateValidator} that can perform validation for every given validator.
+   * Part of {@link Parcelable} requirements. Do not use.
    */
-  @NonNull
-  public static DateValidator allOf(@NonNull List<DateValidator> validators) {
-    return new CompositeDateValidator(validators);
-  }
-
-  /** Part of {@link Parcelable} requirements. Do not use. */
   public static final Creator<CompositeDateValidator> CREATOR =
-      new Creator<CompositeDateValidator>() {
+      new Creator<CompositeDateValidator>()
+      {
         @NonNull
         @Override
-        public CompositeDateValidator createFromParcel(@NonNull Parcel source) {
+        public CompositeDateValidator createFromParcel(@NonNull Parcel source)
+        {
           @SuppressWarnings("unchecked")
           List<DateValidator> validators =
               source.readArrayList(DateValidator.class.getClassLoader());
@@ -54,10 +50,27 @@ public final class CompositeDateValidator implements DateValidator {
 
         @NonNull
         @Override
-        public CompositeDateValidator[] newArray(int size) {
+        public CompositeDateValidator[] newArray(int size)
+        {
           return new CompositeDateValidator[size];
         }
       };
+  @NonNull
+  private final List<DateValidator> validators;
+
+  private CompositeDateValidator(@NonNull List<DateValidator> validators)
+  {
+    this.validators = validators;
+  }
+
+  /**
+   * Returns a {@link DateValidator} that can perform validation for every given validator.
+   */
+  @NonNull
+  public static DateValidator allOf(@NonNull List<DateValidator> validators)
+  {
+    return new CompositeDateValidator(validators);
+  }
 
   /**
    * Performs the {@link DateValidator#isValid(long)} check as an AND of all validators.
@@ -68,12 +81,16 @@ public final class CompositeDateValidator implements DateValidator {
    * @return True, if the given date is valid for every given validator in this class.
    */
   @Override
-  public boolean isValid(long date) {
-    for (DateValidator validator : validators) {
-      if (validator == null) {
+  public boolean isValid(long date)
+  {
+    for (DateValidator validator : validators)
+    {
+      if (validator == null)
+      {
         continue;
       }
-      if (!validator.isValid(date)) {
+      if (!validator.isValid(date))
+      {
         return false;
       }
     }
@@ -81,22 +98,27 @@ public final class CompositeDateValidator implements DateValidator {
   }
 
   @Override
-  public int describeContents() {
+  public int describeContents()
+  {
     return 0;
   }
 
   @Override
-  public void writeToParcel(@NonNull Parcel dest, int flags) {
+  public void writeToParcel(@NonNull Parcel dest, int flags)
+  {
     dest.writeList(validators);
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
 
-    if (!(o instanceof CompositeDateValidator)) {
+    if (!(o instanceof CompositeDateValidator))
+    {
       return false;
     }
 
@@ -106,7 +128,8 @@ public final class CompositeDateValidator implements DateValidator {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return validators.hashCode();
   }
 }

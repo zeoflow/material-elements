@@ -16,15 +16,8 @@
 
 package com.zeoflow.material.elements.internal;
 
-import static androidx.core.util.Preconditions.checkNotNull;
-
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.RestrictTo.Scope;
 import android.text.Layout;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
@@ -32,7 +25,16 @@ import android.text.TextDirectionHeuristic;
 import android.text.TextDirectionHeuristics;
 import android.text.TextPaint;
 import android.text.TextUtils;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
+
 import java.lang.reflect.Constructor;
+
+import static androidx.core.util.Preconditions.checkNotNull;
 
 /**
  * Class to create StaticLayout using StaticLayout.Builder on API23+ and a hidden StaticLayout
@@ -50,7 +52,8 @@ import java.lang.reflect.Constructor;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-final class StaticLayoutBuilderCompat {
+final class StaticLayoutBuilderCompat
+{
 
   private static final String TEXT_DIR_CLASS = "android.text.TextDirectionHeuristic";
   private static final String TEXT_DIRS_CLASS = "android.text.TextDirectionHeuristics";
@@ -59,12 +62,13 @@ final class StaticLayoutBuilderCompat {
 
   private static boolean initialized;
 
-  @Nullable private static Constructor<StaticLayout> constructor;
-  @Nullable private static Object textDirection;
-
-  private CharSequence source;
+  @Nullable
+  private static Constructor<StaticLayout> constructor;
+  @Nullable
+  private static Object textDirection;
   private final TextPaint paint;
   private final int width;
+  private CharSequence source;
   private int start;
   private int end;
 
@@ -72,9 +76,11 @@ final class StaticLayoutBuilderCompat {
   private int maxLines;
   private boolean includePad;
   private boolean isRtl;
-  @Nullable private TextUtils.TruncateAt ellipsize;
+  @Nullable
+  private TextUtils.TruncateAt ellipsize;
 
-  private StaticLayoutBuilderCompat(CharSequence source, TextPaint paint, int width) {
+  private StaticLayoutBuilderCompat(CharSequence source, TextPaint paint, int width)
+  {
     this.source = source;
     this.paint = paint;
     this.width = width;
@@ -90,13 +96,14 @@ final class StaticLayoutBuilderCompat {
    * Obtain a builder for constructing StaticLayout objects.
    *
    * @param source The text to be laid out, optionally with spans
-   * @param paint The base paint used for layout
-   * @param width The width in pixels
+   * @param paint  The base paint used for layout
+   * @param width  The width in pixels
    * @return a builder object used for constructing the StaticLayout
    */
   @NonNull
   public static StaticLayoutBuilderCompat obtain(
-      @NonNull CharSequence source, @NonNull TextPaint paint, @IntRange(from = 0) int width) {
+      @NonNull CharSequence source, @NonNull TextPaint paint, @IntRange(from = 0) int width)
+  {
     return new StaticLayoutBuilderCompat(source, paint, width);
   }
 
@@ -107,7 +114,8 @@ final class StaticLayoutBuilderCompat {
    * @return this builder, useful for chaining
    */
   @NonNull
-  public StaticLayoutBuilderCompat setAlignment(@NonNull Alignment alignment) {
+  public StaticLayoutBuilderCompat setAlignment(@NonNull Alignment alignment)
+  {
     this.alignment = alignment;
     return this;
   }
@@ -121,7 +129,8 @@ final class StaticLayoutBuilderCompat {
    * @see android.widget.TextView#setIncludeFontPadding
    */
   @NonNull
-  public StaticLayoutBuilderCompat setIncludePad(boolean includePad) {
+  public StaticLayoutBuilderCompat setIncludePad(boolean includePad)
+  {
     this.includePad = includePad;
     return this;
   }
@@ -132,7 +141,8 @@ final class StaticLayoutBuilderCompat {
    * @return this builder, useful for chaining
    */
   @NonNull
-  public StaticLayoutBuilderCompat setStart(@IntRange(from = 0) int start) {
+  public StaticLayoutBuilderCompat setStart(@IntRange(from = 0) int start)
+  {
     this.start = start;
     return this;
   }
@@ -144,7 +154,8 @@ final class StaticLayoutBuilderCompat {
    * @see android.widget.TextView#setIncludeFontPadding
    */
   @NonNull
-  public StaticLayoutBuilderCompat setEnd(@IntRange(from = 0) int end) {
+  public StaticLayoutBuilderCompat setEnd(@IntRange(from = 0) int end)
+  {
     this.end = end;
     return this;
   }
@@ -158,7 +169,8 @@ final class StaticLayoutBuilderCompat {
    * @see android.widget.TextView#setMaxLines
    */
   @NonNull
-  public StaticLayoutBuilderCompat setMaxLines(@IntRange(from = 0) int maxLines) {
+  public StaticLayoutBuilderCompat setMaxLines(@IntRange(from = 0) int maxLines)
+  {
     this.maxLines = maxLines;
     return this;
   }
@@ -172,27 +184,35 @@ final class StaticLayoutBuilderCompat {
    * @see android.widget.TextView#setEllipsize
    */
   @NonNull
-  public StaticLayoutBuilderCompat setEllipsize(@Nullable TextUtils.TruncateAt ellipsize) {
+  public StaticLayoutBuilderCompat setEllipsize(@Nullable TextUtils.TruncateAt ellipsize)
+  {
     this.ellipsize = ellipsize;
     return this;
   }
 
-  /** A method that allows to create a StaticLayout with maxLines on all supported API levels. */
-  public StaticLayout build() throws StaticLayoutBuilderCompatException {
-    if (source == null) {
+  /**
+   * A method that allows to create a StaticLayout with maxLines on all supported API levels.
+   */
+  public StaticLayout build() throws StaticLayoutBuilderCompatException
+  {
+    if (source == null)
+    {
       source = "";
     }
 
 
     int availableWidth = Math.max(0, width);
     CharSequence textToDraw = source;
-    if (maxLines == 1) {
+    if (maxLines == 1)
+    {
       textToDraw = TextUtils.ellipsize(source, paint, availableWidth, ellipsize);
     }
 
     end = Math.min(textToDraw.length(), end);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      if (isRtl) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    {
+      if (isRtl)
+      {
         alignment = Alignment.ALIGN_OPPOSITE;
       }
       // Marshmallow introduced StaticLayout.Builder which allows us not to use
@@ -206,7 +226,8 @@ final class StaticLayoutBuilderCompat {
           ? TextDirectionHeuristics.RTL
           : TextDirectionHeuristics.LTR;
       builder.setTextDirection(textDirectionHeuristic);
-      if (ellipsize != null) {
+      if (ellipsize != null)
+      {
         builder.setEllipsize(ellipsize);
       }
       builder.setMaxLines(maxLines);
@@ -215,7 +236,8 @@ final class StaticLayoutBuilderCompat {
 
     createConstructorWithReflection();
     // Use the hidden constructor on older API levels.
-    try {
+    try
+    {
       return checkNotNull(constructor)
           .newInstance(
               textToDraw,
@@ -231,7 +253,8 @@ final class StaticLayoutBuilderCompat {
               null,
               availableWidth,
               maxLines);
-    } catch (Exception cause) {
+    } catch (Exception cause)
+    {
       throw new StaticLayoutBuilderCompatException(cause);
     }
   }
@@ -256,18 +279,23 @@ final class StaticLayoutBuilderCompat {
    *   int maxLines)
    * }</pre>
    */
-  private void createConstructorWithReflection() throws StaticLayoutBuilderCompatException {
-    if (initialized) {
+  private void createConstructorWithReflection() throws StaticLayoutBuilderCompatException
+  {
+    if (initialized)
+    {
       return;
     }
 
-    try {
+    try
+    {
       final Class<?> textDirClass;
       boolean useRtl = isRtl && Build.VERSION.SDK_INT >= VERSION_CODES.M;
-      if (Build.VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+      if (Build.VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2)
+      {
         textDirClass = TextDirectionHeuristic.class;
         textDirection = useRtl ? TextDirectionHeuristics.RTL : TextDirectionHeuristics.LTR;
-      } else {
+      } else
+      {
         ClassLoader loader = StaticLayoutBuilderCompat.class.getClassLoader();
         String textDirClassName = isRtl ? TEXT_DIR_CLASS_RTL : TEXT_DIR_CLASS_LTR;
         textDirClass = loader.loadClass(TEXT_DIR_CLASS);
@@ -276,38 +304,42 @@ final class StaticLayoutBuilderCompat {
       }
 
       final Class<?>[] signature =
-          new Class<?>[] {
-            CharSequence.class,
-            int.class,
-            int.class,
-            TextPaint.class,
-            int.class,
-            Alignment.class,
-            textDirClass,
-            float.class,
-            float.class,
-            boolean.class,
-            TextUtils.TruncateAt.class,
-            int.class,
-            int.class
+          new Class<?>[]{
+              CharSequence.class,
+              int.class,
+              int.class,
+              TextPaint.class,
+              int.class,
+              Alignment.class,
+              textDirClass,
+              float.class,
+              float.class,
+              boolean.class,
+              TextUtils.TruncateAt.class,
+              int.class,
+              int.class
           };
 
       constructor = StaticLayout.class.getDeclaredConstructor(signature);
       constructor.setAccessible(true);
       initialized = true;
-    } catch (Exception cause) {
+    } catch (Exception cause)
+    {
       throw new StaticLayoutBuilderCompatException(cause);
     }
   }
 
-  public StaticLayoutBuilderCompat setIsRtl(boolean isRtl) {
+  public StaticLayoutBuilderCompat setIsRtl(boolean isRtl)
+  {
     this.isRtl = isRtl;
     return this;
   }
 
-  static class StaticLayoutBuilderCompatException extends Exception {
+  static class StaticLayoutBuilderCompatException extends Exception
+  {
 
-    StaticLayoutBuilderCompatException(Throwable cause) {
+    StaticLayoutBuilderCompatException(Throwable cause)
+    {
       super("Error thrown initializing StaticLayout " + cause.getMessage(), cause);
     }
   }

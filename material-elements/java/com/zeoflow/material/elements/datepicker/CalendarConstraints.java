@@ -18,7 +18,9 @@ package com.zeoflow.material.elements.datepicker;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -28,70 +30,99 @@ import java.util.Calendar;
  * <p>Implements {@link Parcelable} in order to maintain the {@code CalendarConstraints} across
  * device configuration changes. Parcelable breaks when passed between processes.
  */
-public final class CalendarConstraints implements Parcelable {
+public final class CalendarConstraints implements Parcelable
+{
 
-  @NonNull private final Month start;
-  @NonNull private final Month end;
-  @NonNull private final Month openAt;
+  /**
+   * {@link Parcelable.Creator}
+   */
+  public static final Parcelable.Creator<CalendarConstraints> CREATOR =
+      new Parcelable.Creator<CalendarConstraints>()
+      {
+        @NonNull
+        @Override
+        public CalendarConstraints createFromParcel(@NonNull Parcel source)
+        {
+          Month start = source.readParcelable(Month.class.getClassLoader());
+          Month end = source.readParcelable(Month.class.getClassLoader());
+          Month openAt = source.readParcelable(Month.class.getClassLoader());
+          DateValidator validator = source.readParcelable(DateValidator.class.getClassLoader());
+          return new CalendarConstraints(start, end, openAt, validator);
+        }
+
+        @NonNull
+        @Override
+        public CalendarConstraints[] newArray(int size)
+        {
+          return new CalendarConstraints[size];
+        }
+      };
+  @NonNull
+  private final Month start;
+  @NonNull
+  private final Month end;
+  @NonNull
+  private final Month openAt;
   private final DateValidator validator;
-
   private final int yearSpan;
   private final int monthSpan;
 
-  /**
-   * Used to determine whether calendar days are enabled.
-   *
-   * <p>Extends {@link Parcelable} in order to maintain the {@code DateValidator} across device
-   * configuration changes. Parcelable breaks when passed between processes.
-   */
-  public interface DateValidator extends Parcelable {
-
-    /** Returns true if the provided {@code date} is enabled. */
-    boolean isValid(long date);
-  }
-
   private CalendarConstraints(
-      @NonNull Month start, @NonNull Month end, @NonNull Month openAt, DateValidator validator) {
+      @NonNull Month start, @NonNull Month end, @NonNull Month openAt, DateValidator validator)
+  {
     this.start = start;
     this.end = end;
     this.openAt = openAt;
     this.validator = validator;
-    if (start.compareTo(openAt) > 0) {
+    if (start.compareTo(openAt) > 0)
+    {
       throw new IllegalArgumentException("start Month cannot be after current Month");
     }
-    if (openAt.compareTo(end) > 0) {
+    if (openAt.compareTo(end) > 0)
+    {
       throw new IllegalArgumentException("current Month cannot be after end Month");
     }
     monthSpan = start.monthsUntil(end) + 1;
     yearSpan = end.year - start.year + 1;
   }
 
-  boolean isWithinBounds(long date) {
+  boolean isWithinBounds(long date)
+  {
     return start.getDay(1) <= date && date <= end.getDay(end.daysInMonth);
   }
 
   /**
    * Returns the {@link DateValidator} that determines whether a date can be clicked and selected.
    */
-  public DateValidator getDateValidator() {
+  public DateValidator getDateValidator()
+  {
     return validator;
   }
 
-  /** Returns the earliest month allowed by this set of bounds. */
+  /**
+   * Returns the earliest month allowed by this set of bounds.
+   */
   @NonNull
-  Month getStart() {
+  Month getStart()
+  {
     return start;
   }
 
-  /** Returns the latest month allowed by this set of bounds. */
+  /**
+   * Returns the latest month allowed by this set of bounds.
+   */
   @NonNull
-  Month getEnd() {
+  Month getEnd()
+  {
     return end;
   }
 
-  /** Returns the openAt month within this set of bounds. */
+  /**
+   * Returns the openAt month within this set of bounds.
+   */
   @NonNull
-  Month getOpenAt() {
+  Month getOpenAt()
+  {
     return openAt;
   }
 
@@ -99,7 +130,8 @@ public final class CalendarConstraints implements Parcelable {
    * Returns the total number of {@link java.util.Calendar#MONTH} included in {@code start} to
    * {@code end}.
    */
-  int getMonthSpan() {
+  int getMonthSpan()
+  {
     return monthSpan;
   }
 
@@ -107,16 +139,20 @@ public final class CalendarConstraints implements Parcelable {
    * Returns the total number of {@link java.util.Calendar#YEAR} included in {@code start} to {@code
    * end}.
    */
-  int getYearSpan() {
+  int getYearSpan()
+  {
     return yearSpan;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof CalendarConstraints)) {
+    if (!(o instanceof CalendarConstraints))
+    {
       return false;
     }
     CalendarConstraints that = (CalendarConstraints) o;
@@ -127,40 +163,23 @@ public final class CalendarConstraints implements Parcelable {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     Object[] hashedFields = {start, end, openAt, validator};
     return Arrays.hashCode(hashedFields);
   }
 
   /* Parcelable interface */
 
-  /** {@link Parcelable.Creator} */
-  public static final Parcelable.Creator<CalendarConstraints> CREATOR =
-      new Parcelable.Creator<CalendarConstraints>() {
-        @NonNull
-        @Override
-        public CalendarConstraints createFromParcel(@NonNull Parcel source) {
-          Month start = source.readParcelable(Month.class.getClassLoader());
-          Month end = source.readParcelable(Month.class.getClassLoader());
-          Month openAt = source.readParcelable(Month.class.getClassLoader());
-          DateValidator validator = source.readParcelable(DateValidator.class.getClassLoader());
-          return new CalendarConstraints(start, end, openAt, validator);
-        }
-
-        @NonNull
-        @Override
-        public CalendarConstraints[] newArray(int size) {
-          return new CalendarConstraints[size];
-        }
-      };
-
   @Override
-  public int describeContents() {
+  public int describeContents()
+  {
     return 0;
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags) {
+  public void writeToParcel(Parcel dest, int flags)
+  {
     dest.writeParcelable(start, /* parcelableFlags= */ 0);
     dest.writeParcelable(end, /* parcelableFlags= */ 0);
     dest.writeParcelable(openAt, /* parcelableFlags= */ 0);
@@ -170,20 +189,41 @@ public final class CalendarConstraints implements Parcelable {
   /**
    * Returns the given month if it's within the constraints or the closest bound if it's outside.
    */
-  Month clamp(Month month) {
-    if (month.compareTo(start) < 0) {
+  Month clamp(Month month)
+  {
+    if (month.compareTo(start) < 0)
+    {
       return start;
     }
 
-    if (month.compareTo(end) > 0) {
+    if (month.compareTo(end) > 0)
+    {
       return end;
     }
 
     return month;
   }
 
-  /** Builder for {@link CalendarConstraints}. */
-  public static final class Builder {
+  /**
+   * Used to determine whether calendar days are enabled.
+   *
+   * <p>Extends {@link Parcelable} in order to maintain the {@code DateValidator} across device
+   * configuration changes. Parcelable breaks when passed between processes.
+   */
+  public interface DateValidator extends Parcelable
+  {
+
+    /**
+     * Returns true if the provided {@code date} is enabled.
+     */
+    boolean isValid(long date);
+  }
+
+  /**
+   * Builder for {@link CalendarConstraints}.
+   */
+  public static final class Builder
+  {
 
     /**
      * Default UTC timeInMilliseconds for the first selectable month unless {@link Builder#setStart}
@@ -205,9 +245,12 @@ public final class CalendarConstraints implements Parcelable {
     private Long openAt;
     private DateValidator validator = DateValidatorPointForward.from(Long.MIN_VALUE);
 
-    public Builder() {}
+    public Builder()
+    {
+    }
 
-    Builder(@NonNull CalendarConstraints clone) {
+    Builder(@NonNull CalendarConstraints clone)
+    {
       start = clone.start.timeInMillis;
       end = clone.end.timeInMillis;
       openAt = clone.openAt.timeInMillis;
@@ -236,7 +279,8 @@ public final class CalendarConstraints implements Parcelable {
      * }</pre>
      */
     @NonNull
-    public Builder setStart(long month) {
+    public Builder setStart(long month)
+    {
       start = month;
       return this;
     }
@@ -263,7 +307,8 @@ public final class CalendarConstraints implements Parcelable {
      * }</pre>
      */
     @NonNull
-    public Builder setEnd(long month) {
+    public Builder setEnd(long month)
+    {
       end = month;
       return this;
     }
@@ -290,7 +335,8 @@ public final class CalendarConstraints implements Parcelable {
      * }</pre>
      */
     @NonNull
-    public Builder setOpenAt(long month) {
+    public Builder setOpenAt(long month)
+    {
       openAt = month;
       return this;
     }
@@ -300,15 +346,20 @@ public final class CalendarConstraints implements Parcelable {
      * to all dates as valid.
      */
     @NonNull
-    public Builder setValidator(DateValidator validator) {
+    public Builder setValidator(DateValidator validator)
+    {
       this.validator = validator;
       return this;
     }
 
-    /** Builds the {@link CalendarConstraints} object using the set parameters or defaults. */
+    /**
+     * Builds the {@link CalendarConstraints} object using the set parameters or defaults.
+     */
     @NonNull
-    public CalendarConstraints build() {
-      if (openAt == null) {
+    public CalendarConstraints build()
+    {
+      if (openAt == null)
+      {
         long today = MaterialDatePicker.thisMonthInUtcMilliseconds();
         openAt = start <= today && today <= end ? today : start;
       }

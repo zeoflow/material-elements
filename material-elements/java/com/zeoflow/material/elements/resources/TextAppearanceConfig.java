@@ -16,10 +16,11 @@
 
 package com.zeoflow.material.elements.resources;
 
-import com.google.android.material.R;
-
-/** Utility for configuring TextAppearance. */
-public class TextAppearanceConfig {
+/**
+ * Utility for configuring TextAppearance.
+ */
+public class TextAppearanceConfig
+{
 
   private static boolean shouldLoadFontSynchronously;
 
@@ -28,12 +29,16 @@ public class TextAppearanceConfig {
    * asynchronously to avoid ANR. Preload font resources and set this to true in emulator /
    * instrumentation tests to avoid flakiness.
    */
-  public static void setShouldLoadFontSynchronously(boolean flag) {
+  public static void setShouldLoadFontSynchronously(boolean flag)
+  {
     shouldLoadFontSynchronously = flag;
   }
 
-  /** Returns flag indicating whether font resources should be loaded synchronously. */
-  public static boolean shouldLoadFontSynchronously() {
+  /**
+   * Returns flag indicating whether font resources should be loaded synchronously.
+   */
+  public static boolean shouldLoadFontSynchronously()
+  {
     return shouldLoadFontSynchronously;
   }
 }

@@ -16,16 +16,18 @@
 
 package com.zeoflow.material.elements.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.util.StateSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import android.util.StateSet;
+
 import java.util.ArrayList;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Lets you define a number of Animators that will run on the attached View depending on the View's
@@ -34,68 +36,84 @@ import java.util.ArrayList;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public final class StateListAnimator {
+public final class StateListAnimator
+{
 
   private final ArrayList<Tuple> tuples = new ArrayList<>();
-
-  @Nullable private Tuple lastMatch = null;
-  @Nullable ValueAnimator runningAnimator = null;
-
+  @Nullable
+  ValueAnimator runningAnimator = null;
   private final ValueAnimator.AnimatorListener animationListener =
-      new AnimatorListenerAdapter() {
+      new AnimatorListenerAdapter()
+      {
         @Override
-        public void onAnimationEnd(Animator animator) {
-          if (runningAnimator == animator) {
+        public void onAnimationEnd(Animator animator)
+        {
+          if (runningAnimator == animator)
+          {
             runningAnimator = null;
           }
         }
       };
+  @Nullable
+  private Tuple lastMatch = null;
 
   /**
    * Associates the given Animation with the provided drawable state specs so that it will be run
    * when the View's drawable state matches the specs.
    *
-   * @param specs The drawable state specs to match against
+   * @param specs    The drawable state specs to match against
    * @param animator The animator to run when the specs match
    */
-  public void addState(int[] specs, ValueAnimator animator) {
+  public void addState(int[] specs, ValueAnimator animator)
+  {
     Tuple tuple = new Tuple(specs, animator);
     animator.addListener(animationListener);
     tuples.add(tuple);
   }
 
-  /** Called by View */
-  public void setState(int[] state) {
+  /**
+   * Called by View
+   */
+  public void setState(int[] state)
+  {
     Tuple match = null;
     final int count = tuples.size();
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
       final Tuple tuple = tuples.get(i);
-      if (StateSet.stateSetMatches(tuple.specs, state)) {
+      if (StateSet.stateSetMatches(tuple.specs, state))
+      {
         match = tuple;
         break;
       }
     }
-    if (match == lastMatch) {
+    if (match == lastMatch)
+    {
       return;
     }
-    if (lastMatch != null) {
+    if (lastMatch != null)
+    {
       cancel();
     }
 
     lastMatch = match;
 
-    if (match != null) {
+    if (match != null)
+    {
       start(match);
     }
   }
 
-  private void start(@NonNull Tuple match) {
+  private void start(@NonNull Tuple match)
+  {
     runningAnimator = match.animator;
     runningAnimator.start();
   }
 
-  private void cancel() {
-    if (runningAnimator != null) {
+  private void cancel()
+  {
+    if (runningAnimator != null)
+    {
       runningAnimator.cancel();
       runningAnimator = null;
     }
@@ -106,18 +124,22 @@ public final class StateListAnimator {
    *
    * <p>This causes the animation to assign the end value(s) to the View.
    */
-  public void jumpToCurrentState() {
-    if (runningAnimator != null) {
+  public void jumpToCurrentState()
+  {
+    if (runningAnimator != null)
+    {
       runningAnimator.end();
       runningAnimator = null;
     }
   }
 
-  static class Tuple {
+  static class Tuple
+  {
     final int[] specs;
     final ValueAnimator animator;
 
-    Tuple(int[] specs, ValueAnimator animator) {
+    Tuple(int[] specs, ValueAnimator animator)
+    {
       this.specs = specs;
       this.animator = animator;
     }

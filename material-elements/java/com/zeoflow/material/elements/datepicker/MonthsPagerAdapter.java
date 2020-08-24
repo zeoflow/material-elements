@@ -15,13 +15,7 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.LayoutParams;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +23,24 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.LayoutParams;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.datepicker.MaterialCalendar.OnDayClickListener;
 
 /**
  * Manages the instances of {@link MaterialCalendarGridView} that represent each month in a {@link
  * MaterialCalendar}. Caps memory usage via {@link RecyclerView} extension.
  */
-class MonthsPagerAdapter extends RecyclerView.Adapter<MonthsPagerAdapter.ViewHolder> {
+class MonthsPagerAdapter extends RecyclerView.Adapter<MonthsPagerAdapter.ViewHolder>
+{
 
-  @NonNull private final CalendarConstraints calendarConstraints;
+  @NonNull
+  private final CalendarConstraints calendarConstraints;
   private final DateSelector<?> dateSelector;
   private final OnDayClickListener onDayClickListener;
   private final int itemHeight;
@@ -46,15 +49,18 @@ class MonthsPagerAdapter extends RecyclerView.Adapter<MonthsPagerAdapter.ViewHol
       @NonNull Context context,
       DateSelector<?> dateSelector,
       @NonNull CalendarConstraints calendarConstraints,
-      OnDayClickListener onDayClickListener) {
+      OnDayClickListener onDayClickListener)
+  {
     Month firstPage = calendarConstraints.getStart();
     Month lastPage = calendarConstraints.getEnd();
     Month currentPage = calendarConstraints.getOpenAt();
 
-    if (firstPage.compareTo(currentPage) > 0) {
+    if (firstPage.compareTo(currentPage) > 0)
+    {
       throw new IllegalArgumentException("firstPage cannot be after currentPage");
     }
-    if (currentPage.compareTo(lastPage) > 0) {
+    if (currentPage.compareTo(lastPage) > 0)
+    {
       throw new IllegalArgumentException("currentPage cannot be after lastPage");
     }
 
@@ -69,57 +75,50 @@ class MonthsPagerAdapter extends RecyclerView.Adapter<MonthsPagerAdapter.ViewHol
     setHasStableIds(true);
   }
 
-  public static class ViewHolder extends RecyclerView.ViewHolder {
-
-    final TextView monthTitle;
-    final MaterialCalendarGridView monthGrid;
-
-    ViewHolder(@NonNull LinearLayout container, boolean showLabel) {
-      super(container);
-      monthTitle = container.findViewById(R.id.month_title);
-      ViewCompat.setAccessibilityHeading(monthTitle, true);
-      monthGrid = container.findViewById(R.id.month_grid);
-      if (!showLabel) {
-        monthTitle.setVisibility(View.GONE);
-      }
-    }
-  }
-
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType)
+  {
     LinearLayout container =
         (LinearLayout)
             LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.mtrl_calendar_month_labeled, viewGroup, false);
 
-    if (MaterialDatePicker.isFullscreen(viewGroup.getContext())) {
+    if (MaterialDatePicker.isFullscreen(viewGroup.getContext()))
+    {
       container.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, itemHeight));
       return new ViewHolder(container, /* showLabel= */ true);
-    } else {
+    } else
+    {
       return new ViewHolder(container, /* showLabel= */ false);
     }
   }
 
   @Override
-  public void onBindViewHolder(@NonNull MonthsPagerAdapter.ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(@NonNull MonthsPagerAdapter.ViewHolder viewHolder, int position)
+  {
     Month month = calendarConstraints.getStart().monthsLater(position);
     viewHolder.monthTitle.setText(month.getLongName());
     final MaterialCalendarGridView monthGrid = viewHolder.monthGrid.findViewById(R.id.month_grid);
 
-    if (monthGrid.getAdapter() != null && month.equals(monthGrid.getAdapter().month)) {
+    if (monthGrid.getAdapter() != null && month.equals(monthGrid.getAdapter().month))
+    {
       monthGrid.getAdapter().notifyDataSetChanged();
-    } else {
+    } else
+    {
       MonthAdapter monthAdapter = new MonthAdapter(month, dateSelector, calendarConstraints);
       monthGrid.setNumColumns(month.daysInWeek);
       monthGrid.setAdapter(monthAdapter);
     }
 
     monthGrid.setOnItemClickListener(
-        new OnItemClickListener() {
+        new OnItemClickListener()
+        {
           @Override
-          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (monthGrid.getAdapter().withinMonth(position)) {
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+          {
+            if (monthGrid.getAdapter().withinMonth(position))
+            {
               onDayClickListener.onDayClick(monthGrid.getAdapter().getItem(position));
             }
           }
@@ -127,26 +126,50 @@ class MonthsPagerAdapter extends RecyclerView.Adapter<MonthsPagerAdapter.ViewHol
   }
 
   @Override
-  public long getItemId(int position) {
+  public long getItemId(int position)
+  {
     return calendarConstraints.getStart().monthsLater(position).getStableId();
   }
 
   @Override
-  public int getItemCount() {
+  public int getItemCount()
+  {
     return calendarConstraints.getMonthSpan();
   }
 
   @NonNull
-  CharSequence getPageTitle(int position) {
+  CharSequence getPageTitle(int position)
+  {
     return getPageMonth(position).getLongName();
   }
 
   @NonNull
-  Month getPageMonth(int position) {
+  Month getPageMonth(int position)
+  {
     return calendarConstraints.getStart().monthsLater(position);
   }
 
-  int getPosition(@NonNull Month month) {
+  int getPosition(@NonNull Month month)
+  {
     return calendarConstraints.getStart().monthsUntil(month);
+  }
+
+  public static class ViewHolder extends RecyclerView.ViewHolder
+  {
+
+    final TextView monthTitle;
+    final MaterialCalendarGridView monthGrid;
+
+    ViewHolder(@NonNull LinearLayout container, boolean showLabel)
+    {
+      super(container);
+      monthTitle = container.findViewById(R.id.month_title);
+      ViewCompat.setAccessibilityHeading(monthTitle, true);
+      monthGrid = container.findViewById(R.id.month_grid);
+      if (!showLabel)
+      {
+        monthTitle.setVisibility(View.GONE);
+      }
+    }
   }
 }

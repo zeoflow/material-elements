@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2017 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +21,8 @@
     For example, FabTransformationBehavior.createContentFadeAnimation() uses this ID to find the
     view whose children should be faded.
   -->
-  <item name="mtrl_child_content_container" type="id"/>
+  <item name="mtrl_child_content_container" type="id" />
 
-  <item name="mtrl_internal_children_alpha_tag" type="id"/>
+  <item name="mtrl_internal_children_alpha_tag" type="id" />
 
 </resources>

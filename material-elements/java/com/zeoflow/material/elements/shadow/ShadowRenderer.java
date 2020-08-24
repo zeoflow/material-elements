@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.shadow;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -28,10 +26,13 @@ import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Region.Op;
 import android.graphics.Shader;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.graphics.ColorUtils;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * A helper class to draw linear or radial shadows using gradient shaders.
@@ -39,39 +40,48 @@ import androidx.core.graphics.ColorUtils;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class ShadowRenderer {
+public class ShadowRenderer
+{
 
-  /** Gradient start color of 68 which evaluates to approximately 26% opacity. */
+  /**
+   * Gradient start color of 68 which evaluates to approximately 26% opacity.
+   */
   private static final int COLOR_ALPHA_START = 0x44;
-  /** Gradient start color of 20 which evaluates to approximately 8% opacity. */
+  /**
+   * Gradient start color of 20 which evaluates to approximately 8% opacity.
+   */
   private static final int COLOR_ALPHA_MIDDLE = 0x14;
 
   private static final int COLOR_ALPHA_END = 0;
-
-  @NonNull private final Paint shadowPaint;
-  @NonNull private final Paint cornerShadowPaint;
-  @NonNull private final Paint edgeShadowPaint;
-
+  private static final int[] edgeColors = new int[3];
+  /**
+   * Start, middle of shadow, and end of shadow positions
+   */
+  private static final float[] edgePositions = new float[]{0f, .5f, 1f};
+  private static final int[] cornerColors = new int[4];
+  /**
+   * Start, beginning of corner, middle of shadow, and end of shadow positions
+   */
+  private static final float[] cornerPositions = new float[]{0f, 0f, .5f, 1f};
+  @NonNull
+  private final Paint shadowPaint;
+  @NonNull
+  private final Paint cornerShadowPaint;
+  @NonNull
+  private final Paint edgeShadowPaint;
+  private final Path scratch = new Path();
   private int shadowStartColor;
   private int shadowMiddleColor;
   private int shadowEndColor;
-
-  private static final int[] edgeColors = new int[3];
-  /** Start, middle of shadow, and end of shadow positions */
-  private static final float[] edgePositions = new float[] {0f, .5f, 1f};
-
-  private static final int[] cornerColors = new int[4];
-  /** Start, beginning of corner, middle of shadow, and end of shadow positions */
-  private static final float[] cornerPositions = new float[] {0f, 0f, .5f, 1f};
-
-  private final Path scratch = new Path();
   private Paint transparentPaint = new Paint();
 
-  public ShadowRenderer() {
+  public ShadowRenderer()
+  {
     this(Color.BLACK);
   }
 
-  public ShadowRenderer(int color) {
+  public ShadowRenderer(int color)
+  {
     shadowPaint = new Paint();
     setShadowColor(color);
 
@@ -82,16 +92,20 @@ public class ShadowRenderer {
     edgeShadowPaint = new Paint(cornerShadowPaint);
   }
 
-  public void setShadowColor(int color) {
+  public void setShadowColor(int color)
+  {
     shadowStartColor = ColorUtils.setAlphaComponent(color, COLOR_ALPHA_START);
     shadowMiddleColor = ColorUtils.setAlphaComponent(color, COLOR_ALPHA_MIDDLE);
     shadowEndColor = ColorUtils.setAlphaComponent(color, COLOR_ALPHA_END);
     shadowPaint.setColor(shadowStartColor);
   }
 
-  /** Draws an edge shadow on the canvas in the current bounds with the matrix transform applied. */
+  /**
+   * Draws an edge shadow on the canvas in the current bounds with the matrix transform applied.
+   */
   public void drawEdgeShadow(
-      @NonNull Canvas canvas, @Nullable Matrix transform, @NonNull RectF bounds, int elevation) {
+      @NonNull Canvas canvas, @Nullable Matrix transform, @NonNull RectF bounds, int elevation)
+  {
     bounds.bottom += elevation;
     bounds.offset(0, -elevation);
 
@@ -124,18 +138,21 @@ public class ShadowRenderer {
       @NonNull RectF bounds,
       int elevation,
       float startAngle,
-      float sweepAngle) {
+      float sweepAngle)
+  {
 
     boolean drawShadowInsideBounds = sweepAngle < 0;
 
     Path arcBounds = scratch;
 
-    if (drawShadowInsideBounds) {
+    if (drawShadowInsideBounds)
+    {
       cornerColors[0] = 0;
       cornerColors[1] = shadowEndColor;
       cornerColors[2] = shadowMiddleColor;
       cornerColors[3] = shadowStartColor;
-    } else {
+    } else
+    {
       // Calculate the arc bounds to prevent drawing shadow in the same part of the arc.
       arcBounds.rewind();
       arcBounds.moveTo(bounds.centerX(), bounds.centerY());
@@ -151,7 +168,8 @@ public class ShadowRenderer {
 
     float radius = bounds.width() / 2f;
     // The shadow is not big enough to draw.
-    if (radius <= 0) {
+    if (radius <= 0)
+    {
       return;
     }
 
@@ -172,7 +190,8 @@ public class ShadowRenderer {
     canvas.save();
     canvas.concat(matrix);
 
-    if (!drawShadowInsideBounds) {
+    if (!drawShadowInsideBounds)
+    {
       canvas.clipPath(arcBounds, Op.DIFFERENCE);
       // This line is required for the next drawArc to work correctly, I think.
       canvas.drawPath(arcBounds, transparentPaint);
@@ -183,7 +202,8 @@ public class ShadowRenderer {
   }
 
   @NonNull
-  public Paint getShadowPaint() {
+  public Paint getShadowPaint()
+  {
     return shadowPaint;
   }
 }

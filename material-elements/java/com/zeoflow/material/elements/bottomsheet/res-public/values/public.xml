@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,25 +14,25 @@
   ~ limitations under the License.
 -->
 <resources>
-  <public name="bottom_sheet_behavior" type="string"/>
-  <public name="Theme.MaterialComponents.BottomSheetDialog" type="style"/>
-  <public name="Theme.MaterialComponents.Light.BottomSheetDialog" type="style"/>
-  <public name="Theme.Design.BottomSheetDialog" type="style"/>
-  <public name="bottomSheetDialogTheme" type="attr"/>
-  <public name="bottomSheetStyle" type="attr"/>
-  <public name="behavior_peekHeight" type="attr"/>
-  <public name="backgroundTint" type="attr"/>
-  <public name="behavior_fitToContents" type="attr"/>
-  <public name="Animation.Design.BottomSheetDialog" type="style"/>
-  <public name="Widget.Design.BottomSheet.Modal" type="style"/>
-  <public name="Widget.MaterialComponents.BottomSheet" type="style"/>
-  <public name="Widget.MaterialComponents.BottomSheet.Modal" type="style"/>
-  <public name="behavior_draggable" type="attr"/>
-  <public name="behavior_expandedOffset" type="attr"/>
-  <public name="behavior_halfExpandedRatio" type="attr"/>
-  <public name="behavior_hideable" type="attr"/>
-  <public name="behavior_saveFlags" type="attr"/>
-  <public name="behavior_skipCollapsed" type="attr"/>
-  <public name="gestureInsetBottomIgnored" type="attr"/>
+  <public name="bottom_sheet_behavior" type="string" />
+  <public name="Theme.MaterialComponents.BottomSheetDialog" type="style" />
+  <public name="Theme.MaterialComponents.Light.BottomSheetDialog" type="style" />
+  <public name="Theme.Design.BottomSheetDialog" type="style" />
+  <public name="bottomSheetDialogTheme" type="attr" />
+  <public name="bottomSheetStyle" type="attr" />
+  <public name="behavior_peekHeight" type="attr" />
+  <public name="backgroundTint" type="attr" />
+  <public name="behavior_fitToContents" type="attr" />
+  <public name="Animation.Design.BottomSheetDialog" type="style" />
+  <public name="Widget.Design.BottomSheet.Modal" type="style" />
+  <public name="Widget.MaterialComponents.BottomSheet" type="style" />
+  <public name="Widget.MaterialComponents.BottomSheet.Modal" type="style" />
+  <public name="behavior_draggable" type="attr" />
+  <public name="behavior_expandedOffset" type="attr" />
+  <public name="behavior_halfExpandedRatio" type="attr" />
+  <public name="behavior_hideable" type="attr" />
+  <public name="behavior_saveFlags" type="attr" />
+  <public name="behavior_skipCollapsed" type="attr" />
+  <public name="gestureInsetBottomIgnored" type="attr" />
 </resources>
 

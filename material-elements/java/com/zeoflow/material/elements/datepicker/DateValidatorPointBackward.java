@@ -18,8 +18,11 @@ package com.zeoflow.material.elements.datepicker;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import com.zeoflow.material.elements.datepicker.CalendarConstraints.DateValidator;
+
 import java.util.Arrays;
 
 /**
@@ -28,11 +31,33 @@ import java.util.Arrays;
  * DateValidatorPointBackward#now()}, but can be set to any point, as UTC milliseconds, using {@link
  * DateValidatorPointBackward#before(long)}.
  */
-public class DateValidatorPointBackward implements DateValidator {
+public class DateValidatorPointBackward implements DateValidator
+{
 
+  /**
+   * Part of {@link android.os.Parcelable} requirements. Do not use.
+   */
+  public static final Parcelable.Creator<DateValidatorPointBackward> CREATOR =
+      new Parcelable.Creator<DateValidatorPointBackward>()
+      {
+        @NonNull
+        @Override
+        public DateValidatorPointBackward createFromParcel(@NonNull Parcel source)
+        {
+          return new DateValidatorPointBackward(source.readLong());
+        }
+
+        @NonNull
+        @Override
+        public DateValidatorPointBackward[] newArray(int size)
+        {
+          return new DateValidatorPointBackward[size];
+        }
+      };
   private final long point;
 
-  private DateValidatorPointBackward(long point) {
+  private DateValidatorPointBackward(long point)
+  {
     this.point = point;
   }
 
@@ -41,7 +66,8 @@ public class DateValidatorPointBackward implements DateValidator {
    * point}, in UTC milliseconds.
    */
   @NonNull
-  public static DateValidatorPointBackward before(long point) {
+  public static DateValidatorPointBackward before(long point)
+  {
     return new DateValidatorPointBackward(point);
   }
 
@@ -50,47 +76,38 @@ public class DateValidatorPointBackward implements DateValidator {
    * time backwards.
    */
   @NonNull
-  public static DateValidatorPointBackward now() {
+  public static DateValidatorPointBackward now()
+  {
     return before(UtcDates.getTodayCalendar().getTimeInMillis());
   }
 
-  /** Part of {@link android.os.Parcelable} requirements. Do not use. */
-  public static final Parcelable.Creator<DateValidatorPointBackward> CREATOR =
-      new Parcelable.Creator<DateValidatorPointBackward>() {
-        @NonNull
-        @Override
-        public DateValidatorPointBackward createFromParcel(@NonNull Parcel source) {
-          return new DateValidatorPointBackward(source.readLong());
-        }
-
-        @NonNull
-        @Override
-        public DateValidatorPointBackward[] newArray(int size) {
-          return new DateValidatorPointBackward[size];
-        }
-      };
-
   @Override
-  public boolean isValid(long date) {
+  public boolean isValid(long date)
+  {
     return date <= point;
   }
 
   @Override
-  public int describeContents() {
+  public int describeContents()
+  {
     return 0;
   }
 
   @Override
-  public void writeToParcel(@NonNull Parcel dest, int flags) {
+  public void writeToParcel(@NonNull Parcel dest, int flags)
+  {
     dest.writeLong(point);
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof DateValidatorPointBackward)) {
+    if (!(o instanceof DateValidatorPointBackward))
+    {
       return false;
     }
 
@@ -99,7 +116,8 @@ public class DateValidatorPointBackward implements DateValidator {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     Object[] hashedFields = {point};
     return Arrays.hashCode(hashedFields);
   }

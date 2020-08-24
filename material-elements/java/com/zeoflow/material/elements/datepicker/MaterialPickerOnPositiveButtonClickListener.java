@@ -15,9 +15,14 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-/** Listener that provides the current {@code MaterialCalendar<S>} selection. */
-public interface MaterialPickerOnPositiveButtonClickListener<S> {
+/**
+ * Listener that provides the current {@code MaterialCalendar<S>} selection.
+ */
+public interface MaterialPickerOnPositiveButtonClickListener<S>
+{
 
-  /** Called with the current {@code MaterialCalendar<S>} selection. */
+  /**
+   * Called with the current {@code MaterialCalendar<S>} selection.
+   */
   void onPositiveButtonClick(S selection);
 }

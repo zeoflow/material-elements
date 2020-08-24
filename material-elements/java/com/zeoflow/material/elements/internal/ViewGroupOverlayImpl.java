@@ -16,10 +16,12 @@
 
 package com.zeoflow.material.elements.internal;
 
-import androidx.annotation.NonNull;
 import android.view.View;
 
-interface ViewGroupOverlayImpl extends ViewOverlayImpl {
+import androidx.annotation.NonNull;
+
+interface ViewGroupOverlayImpl extends ViewOverlayImpl
+{
 
   /**
    * Adds a View to the overlay. The bounds of the added view should be relative to the host view.
@@ -37,7 +39,7 @@ interface ViewGroupOverlayImpl extends ViewOverlayImpl {
    * the overlay's host view, then the view will be offset by (100, 200).
    *
    * @param view The View to be added to the overlay. The added view will be drawn when the overlay
-   *     is drawn.
+   *             is drawn.
    * @see #remove(View)
    * @see android.view.ViewOverlay#add(android.graphics.drawable.Drawable)
    */

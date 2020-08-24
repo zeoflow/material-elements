@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-  <!--
+<?xml version="1.0" encoding="utf-8"?><!--
       Copyright 2019 The Android Open Source Project
 
       Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +14,7 @@
       limitations under the License.
   -->
 
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <!-- Dragged state -->
@@ -26,11 +24,11 @@
     <set>
       <objectAnimator
         android:duration="@integer/mtrl_card_anim_duration_ms"
-        android:propertyName="translationZ"
-        android:valueTo="@dimen/mtrl_card_dragged_z"
-        android:startDelay="@integer/mtrl_card_anim_delay_ms"
         android:interpolator="@interpolator/mtrl_fast_out_slow_in"
-        android:valueType="floatType"/>
+        android:propertyName="translationZ"
+        android:startDelay="@integer/mtrl_card_anim_delay_ms"
+        android:valueTo="@dimen/mtrl_card_dragged_z"
+        android:valueType="floatType" />
     </set>
   </item>
 
@@ -39,10 +37,10 @@
     <set>
       <objectAnimator
         android:duration="@integer/mtrl_card_anim_duration_ms"
+        android:interpolator="@anim/mtrl_card_lowers_interpolator"
         android:propertyName="translationZ"
         android:valueTo="0dp"
-        android:interpolator="@anim/mtrl_card_lowers_interpolator"
-        android:valueType="floatType"/>
+        android:valueType="floatType" />
     </set>
   </item>
 

@@ -16,15 +16,16 @@
 
 package com.zeoflow.material.elements.checkbox;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import androidx.annotation.Nullable;
-import androidx.core.widget.CompoundButtonCompat;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.widget.CompoundButtonCompat;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.resources.MaterialResources;
@@ -38,29 +39,34 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * ?attr/colorControlActivated}, {@code ?attr/colorSurface}, and {@code ?attr/colorOnSurface} must
  * be set.
  */
-public class MaterialCheckBox extends AppCompatCheckBox {
+public class MaterialCheckBox extends AppCompatCheckBox
+{
 
   private static final int DEF_STYLE_RES =
       R.style.Widget_MaterialComponents_CompoundButton_CheckBox;
   private static final int[][] ENABLED_CHECKED_STATES =
-      new int[][] {
-        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]
-        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, // [1]
-        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, // [2]
-        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} // [3]
+      new int[][]{
+          new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]
+          new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // [1]
+          new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // [2]
+          new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked} // [3]
       };
-  @Nullable private ColorStateList materialThemeColorsTintList;
+  @Nullable
+  private ColorStateList materialThemeColorsTintList;
   private boolean useMaterialThemeColors;
 
-  public MaterialCheckBox(Context context) {
+  public MaterialCheckBox(Context context)
+  {
     this(context, null);
   }
 
-  public MaterialCheckBox(Context context, @Nullable AttributeSet attrs) {
+  public MaterialCheckBox(Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.checkboxStyle);
   }
 
-  public MaterialCheckBox(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public MaterialCheckBox(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -71,7 +77,8 @@ public class MaterialCheckBox extends AppCompatCheckBox {
 
     // If buttonTint is specified, read it using MaterialResources to allow themeable attributes in
     // all API levels.
-    if (attributes.hasValue(R.styleable.MaterialCheckBox_buttonTint)) {
+    if (attributes.hasValue(R.styleable.MaterialCheckBox_buttonTint))
+    {
       CompoundButtonCompat.setButtonTintList(
           this,
           MaterialResources.getColorStateList(
@@ -85,12 +92,22 @@ public class MaterialCheckBox extends AppCompatCheckBox {
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
-    if (useMaterialThemeColors && CompoundButtonCompat.getButtonTintList(this) == null) {
+    if (useMaterialThemeColors && CompoundButtonCompat.getButtonTintList(this) == null)
+    {
       setUseMaterialThemeColors(true);
     }
+  }
+
+  /**
+   * Returns true if this {@link MaterialCheckBox} defaults to colors from a Material Theme.
+   */
+  public boolean isUseMaterialThemeColors()
+  {
+    return useMaterialThemeColors;
   }
 
   /**
@@ -98,22 +115,22 @@ public class MaterialCheckBox extends AppCompatCheckBox {
    * specified ButtonTintList. If set to false, sets the tints to null. Use {@link
    * MaterialCheckBox#setSupportButtonTintList} to change button tints.
    */
-  public void setUseMaterialThemeColors(boolean useMaterialThemeColors) {
+  public void setUseMaterialThemeColors(boolean useMaterialThemeColors)
+  {
     this.useMaterialThemeColors = useMaterialThemeColors;
-    if (useMaterialThemeColors) {
+    if (useMaterialThemeColors)
+    {
       CompoundButtonCompat.setButtonTintList(this, getMaterialThemeColorsTintList());
-    } else {
+    } else
+    {
       CompoundButtonCompat.setButtonTintList(this, null);
     }
   }
 
-  /** Returns true if this {@link MaterialCheckBox} defaults to colors from a Material Theme. */
-  public boolean isUseMaterialThemeColors() {
-    return useMaterialThemeColors;
-  }
-
-  private ColorStateList getMaterialThemeColorsTintList() {
-    if (materialThemeColorsTintList == null) {
+  private ColorStateList getMaterialThemeColorsTintList()
+  {
+    if (materialThemeColorsTintList == null)
+    {
       int[] checkBoxColorsList = new int[ENABLED_CHECKED_STATES.length];
       int colorControlActivated = MaterialColors.getColor(this, R.attr.colorControlActivated);
       int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);

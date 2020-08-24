@@ -25,17 +25,20 @@ import androidx.annotation.NonNull;
  *
  * <p>If you just want a triangle of a specific size use {@link TriangleEdgeTreatment} instead.
  */
-public final class MarkerEdgeTreatment extends EdgeTreatment {
+public final class MarkerEdgeTreatment extends EdgeTreatment
+{
 
   private final float radius;
 
-  public MarkerEdgeTreatment(float radius) {
+  public MarkerEdgeTreatment(float radius)
+  {
     this.radius = radius - 0.001f;
   }
 
   @Override
   public void getEdgePath(
-      float length, float center, float interpolation, @NonNull ShapePath shapePath) {
+      float length, float center, float interpolation, @NonNull ShapePath shapePath)
+  {
     float side = (float) (radius * Math.sqrt(2) / 2);
     float side2 = (float) Math.sqrt(Math.pow(radius, 2) - Math.pow(side, 2));
     shapePath.reset(center - side, (float) -(radius * Math.sqrt(2) - radius) + side2);
@@ -44,7 +47,8 @@ public final class MarkerEdgeTreatment extends EdgeTreatment {
   }
 
   @Override
-  boolean forceIntersection() {
+  boolean forceIntersection()
+  {
     return true;
   }
 }

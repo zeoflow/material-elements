@@ -16,15 +16,17 @@
 
 package com.zeoflow.material.elements.slider;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.AttributeSet;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.slider.RangeSlider.OnChangeListener;
 import com.zeoflow.material.elements.slider.RangeSlider.OnSliderTouchListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,21 +41,26 @@ import java.util.List;
  *
  * @attr ref com.google.android.material.R.styleable#RangeSlider_values
  */
-public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSliderTouchListener> {
+public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSliderTouchListener>
+{
 
-  public RangeSlider(@NonNull Context context) {
+  public RangeSlider(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public RangeSlider(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public RangeSlider(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.sliderStyle);
   }
 
-  public RangeSlider(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public RangeSlider(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(context, attrs, defStyleAttr);
-    TypedArray a = context.obtainStyledAttributes(attrs, new int[] {R.attr.values});
+    TypedArray a = context.obtainStyledAttributes(attrs, new int[]{R.attr.values});
 
-    if (a.hasValue(0)) {
+    if (a.hasValue(0))
+    {
       int valuesId = a.getResourceId(0, 0);
       TypedArray values = a.getResources().obtainTypedArray(valuesId);
       setValues(convertToFloat(values));
@@ -61,47 +68,60 @@ public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSli
     a.recycle();
   }
 
+  private static List<Float> convertToFloat(TypedArray values)
+  {
+    List<Float> ret = new ArrayList<>();
+    for (int i = 0; i < values.length(); ++i)
+    {
+      ret.add(values.getFloat(i, -1));
+    }
+    return ret;
+  }
+
+  /**
+   * Returns current values of the slider thumbs.
+   */
+  @NonNull
+  @Override
+  public List<Float> getValues()
+  {
+    return super.getValues();
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @see #getValues()
+   */
+  @Override
+  public void setValues(@NonNull Float... values)
+  {
+    super.setValues(values);
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @see #getValues()
+   */
+  @Override
+  public void setValues(@NonNull List<Float> values)
+  {
+    super.setValues(values);
+  }
+
   /**
    * Interface definition for a callback invoked when a slider's value is changed. This is called
    * for all existing values to check all the current values use {@see RangeSlider#getValues()}
    */
-  public interface OnChangeListener extends BaseOnChangeListener<RangeSlider> {}
-
-  /** Interface definition for a callback invoked when a slider's value is changed. */
-  public interface OnSliderTouchListener extends BaseOnSliderTouchListener<RangeSlider> {}
-
-  /**
-   * {@inheritDoc}
-   *
-   * @see #getValues()
-   */
-  @Override
-  public void setValues(@NonNull Float... values) {
-    super.setValues(values);
+  public interface OnChangeListener extends BaseOnChangeListener<RangeSlider>
+  {
   }
 
   /**
-   * {@inheritDoc}
-   *
-   * @see #getValues()
+   * Interface definition for a callback invoked when a slider's value is changed.
    */
-  @Override
-  public void setValues(@NonNull List<Float> values) {
-    super.setValues(values);
-  }
-
-  /** Returns current values of the slider thumbs. */
-  @NonNull
-  @Override
-  public List<Float> getValues() {
-    return super.getValues();
-  }
-
-  private static List<Float> convertToFloat(TypedArray values) {
-    List<Float> ret = new ArrayList<>();
-    for (int i = 0; i < values.length(); ++i) {
-      ret.add(values.getFloat(i, -1));
-    }
-    return ret;
+  public interface OnSliderTouchListener extends BaseOnSliderTouchListener<RangeSlider>
+  {
   }
 }

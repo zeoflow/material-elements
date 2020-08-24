@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2018 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,31 +15,31 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/topPanel"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/topPanel"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
 
   <!-- If the client uses a customTitle, it will be added here. -->
 
   <LinearLayout
-      android:id="@+id/title_template"
-      style="?attr/materialAlertDialogTitlePanelStyle">
+    android:id="@+id/title_template"
+    style="?attr/materialAlertDialogTitlePanelStyle">
 
     <ImageView
-        android:id="@android:id/icon"
-        tools:ignore="ContentDescription"
-        style="?attr/materialAlertDialogTitleIconStyle"/>
+      android:id="@android:id/icon"
+      style="?attr/materialAlertDialogTitleIconStyle"
+      tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.DialogTitle
-        android:id="@+id/alertTitle"
-        style="?attr/materialAlertDialogTitleTextStyle"/>
+      android:id="@+id/alertTitle"
+      style="?attr/materialAlertDialogTitleTextStyle" />
   </LinearLayout>
 
   <android.widget.Space
-      android:id="@+id/titleDividerNoCustom"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/abc_dialog_title_divider_material"
-      android:visibility="gone"/>
+    android:id="@+id/titleDividerNoCustom"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/abc_dialog_title_divider_material"
+    android:visibility="gone" />
 </LinearLayout>

@@ -18,12 +18,13 @@ package com.zeoflow.material.elements.circularreveal;
 import android.animation.TypeEvaluator;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.Property;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.zeoflow.material.elements.math.MathUtils;
 
@@ -32,13 +33,13 @@ import com.zeoflow.material.elements.math.MathUtils;
  * pre-L APIs.
  *
  * <h1>Usage</h1>
- *
+ * <p>
  * You should not have to interact with instances of this interface directly. To modify the circular
  * clip, use {@link CircularRevealCompat}. To modify the scrim color, use {@link
  * CircularRevealScrimColorProperty}.
  *
  * <h1>Implementation</h1>
- *
+ * <p>
  * To support circular reveal for an arbitrary view, create a subclass of that view that implements
  * the {@link CircularRevealWidget} interface. The subclass should instantiate a {@link
  * CircularRevealHelper} and pass itself into the helper's constructor.
@@ -51,10 +52,14 @@ import com.zeoflow.material.elements.math.MathUtils;
 public interface CircularRevealWidget extends CircularRevealHelper.Delegate
 {
 
-  /** Implementations should call the corresponding method in {@link CircularRevealHelper}. */
+  /**
+   * Implementations should call the corresponding method in {@link CircularRevealHelper}.
+   */
   void draw(Canvas canvas);
 
-  /** Implementations should call the corresponding method in {@link CircularRevealHelper}. */
+  /**
+   * Implementations should call the corresponding method in {@link CircularRevealHelper}.
+   */
   boolean isOpaque();
 
   /**
@@ -94,7 +99,9 @@ public interface CircularRevealWidget extends CircularRevealHelper.Delegate
    */
   void setRevealInfo(@Nullable RevealInfo revealInfo);
 
-  /** Implementations should call the corresponding method in {@link CircularRevealHelper}. */
+  /**
+   * Implementations should call the corresponding method in {@link CircularRevealHelper}.
+   */
   @ColorInt
   int getCircularRevealScrimColor();
 
@@ -130,37 +137,52 @@ public interface CircularRevealWidget extends CircularRevealHelper.Delegate
    * RevealInfo holds three values for a circular reveal. The circular reveal is represented by two
    * float coordinates for the center, and one float value for the radius.
    */
-  class RevealInfo {
+  class RevealInfo
+  {
 
-    /** Radius value representing a lack of a circular reveal clip. */
+    /**
+     * Radius value representing a lack of a circular reveal clip.
+     */
     public static final float INVALID_RADIUS = Float.MAX_VALUE;
 
-    /** View-local float coordinate for the centerX of the reveal circular reveal. */
+    /**
+     * View-local float coordinate for the centerX of the reveal circular reveal.
+     */
     public float centerX;
-    /** View-local float coordinate for the centerY of the reveal circular reveal. */
+    /**
+     * View-local float coordinate for the centerY of the reveal circular reveal.
+     */
     public float centerY;
-    /** Float value for the radius of the reveal circular reveal, or {@link #INVALID_RADIUS}. */
+    /**
+     * Float value for the radius of the reveal circular reveal, or {@link #INVALID_RADIUS}.
+     */
     public float radius;
 
-    private RevealInfo() {}
+    private RevealInfo()
+    {
+    }
 
-    public RevealInfo(float centerX, float centerY, float radius) {
+    public RevealInfo(float centerX, float centerY, float radius)
+    {
       this.centerX = centerX;
       this.centerY = centerY;
       this.radius = radius;
     }
 
-    public RevealInfo(@NonNull RevealInfo other) {
+    public RevealInfo(@NonNull RevealInfo other)
+    {
       this(other.centerX, other.centerY, other.radius);
     }
 
-    public void set(float centerX, float centerY, float radius) {
+    public void set(float centerX, float centerY, float radius)
+    {
       this.centerX = centerX;
       this.centerY = centerY;
       this.radius = radius;
     }
 
-    public void set(@NonNull RevealInfo other) {
+    public void set(@NonNull RevealInfo other)
+    {
       set(other.centerX, other.centerY, other.radius);
     }
 
@@ -168,7 +190,8 @@ public interface CircularRevealWidget extends CircularRevealHelper.Delegate
      * Returns whether this RevealInfo has an invalid radius, representing a lack of a circular
      * reveal clip.
      */
-    public boolean isInvalid() {
+    public boolean isInvalid()
+    {
       return radius == INVALID_RADIUS;
     }
   }
@@ -177,23 +200,27 @@ public interface CircularRevealWidget extends CircularRevealHelper.Delegate
    * A Property wrapper around the compound <code>circularReveal</code> functionality on a {@link
    * CircularRevealWidget}.
    */
-  class CircularRevealProperty extends Property<CircularRevealWidget, RevealInfo> {
+  class CircularRevealProperty extends Property<CircularRevealWidget, RevealInfo>
+  {
 
     public static final Property<CircularRevealWidget, RevealInfo> CIRCULAR_REVEAL =
         new CircularRevealProperty("circularReveal");
 
-    private CircularRevealProperty(String name) {
+    private CircularRevealProperty(String name)
+    {
       super(RevealInfo.class, name);
     }
 
     @Nullable
     @Override
-    public RevealInfo get(@NonNull CircularRevealWidget object) {
+    public RevealInfo get(@NonNull CircularRevealWidget object)
+    {
       return object.getRevealInfo();
     }
 
     @Override
-    public void set(@NonNull CircularRevealWidget object, @Nullable RevealInfo value) {
+    public void set(@NonNull CircularRevealWidget object, @Nullable RevealInfo value)
+    {
       object.setRevealInfo(value);
     }
   }
@@ -205,7 +232,8 @@ public interface CircularRevealWidget extends CircularRevealHelper.Delegate
    * <p>Each value in the intermediary RevealInfo is simply interpolated from the corresponding
    * values from the start and end RevealInfo.
    */
-  class CircularRevealEvaluator implements TypeEvaluator<RevealInfo> {
+  class CircularRevealEvaluator implements TypeEvaluator<RevealInfo>
+  {
 
     public static final TypeEvaluator<RevealInfo> CIRCULAR_REVEAL = new CircularRevealEvaluator();
     private final RevealInfo revealInfo = new RevealInfo();
@@ -213,7 +241,8 @@ public interface CircularRevealWidget extends CircularRevealHelper.Delegate
     @NonNull
     @Override
     public RevealInfo evaluate(
-        float fraction, @NonNull RevealInfo startValue, @NonNull RevealInfo endValue) {
+        float fraction, @NonNull RevealInfo startValue, @NonNull RevealInfo endValue)
+    {
       revealInfo.set(
           MathUtils.lerp(startValue.centerX, endValue.centerX, fraction),
           MathUtils.lerp(startValue.centerY, endValue.centerY, fraction),
@@ -226,23 +255,27 @@ public interface CircularRevealWidget extends CircularRevealHelper.Delegate
    * A Property wrapper around the <code>circularRevealScrimColor</code> functionality on a {@link
    * CircularRevealWidget}.
    */
-  class CircularRevealScrimColorProperty extends Property<CircularRevealWidget, Integer> {
+  class CircularRevealScrimColorProperty extends Property<CircularRevealWidget, Integer>
+  {
 
     public static final Property<CircularRevealWidget, Integer> CIRCULAR_REVEAL_SCRIM_COLOR =
         new CircularRevealScrimColorProperty("circularRevealScrimColor");
 
-    private CircularRevealScrimColorProperty(String name) {
+    private CircularRevealScrimColorProperty(String name)
+    {
       super(Integer.class, name);
     }
 
     @NonNull
     @Override
-    public Integer get(@NonNull CircularRevealWidget object) {
+    public Integer get(@NonNull CircularRevealWidget object)
+    {
       return object.getCircularRevealScrimColor();
     }
 
     @Override
-    public void set(@NonNull CircularRevealWidget object, @NonNull Integer value) {
+    public void set(@NonNull CircularRevealWidget object, @NonNull Integer value)
+    {
       object.setCircularRevealScrimColor(value);
     }
   }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,10 +18,10 @@
   android:id="@+id/date_picker_actions"
   android:layout_width="match_parent"
   android:layout_height="@dimen/mtrl_calendar_action_height"
-  android:paddingEnd="@dimen/mtrl_calendar_action_padding"
-  android:paddingRight="@dimen/mtrl_calendar_action_padding"
   android:gravity="end"
-  android:orientation="horizontal">
+  android:orientation="horizontal"
+  android:paddingEnd="@dimen/mtrl_calendar_action_padding"
+  android:paddingRight="@dimen/mtrl_calendar_action_padding">
 
   <Button
     android:id="@+id/cancel_button"
@@ -30,7 +29,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:text="@string/mtrl_picker_cancel"/>
+    android:text="@string/mtrl_picker_cancel" />
 
   <Button
     android:id="@+id/confirm_button"
@@ -38,6 +37,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:text="@string/mtrl_picker_confirm"/>
+    android:text="@string/mtrl_picker_confirm" />
 
 </LinearLayout>

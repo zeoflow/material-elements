@@ -16,29 +16,10 @@
 
 package com.zeoflow.material.elements.bottomnavigation;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.StyleRes;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.PointerIconCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat;
-import androidx.core.widget.TextViewCompat;
-import androidx.appcompat.view.menu.MenuItemImpl;
-import androidx.appcompat.view.menu.MenuView;
-import androidx.appcompat.widget.TooltipCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -48,47 +29,76 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.view.menu.MenuItemImpl;
+import androidx.appcompat.view.menu.MenuView;
+import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.PointerIconCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionItemInfoCompat;
+import androidx.core.widget.TextViewCompat;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.badge.BadgeDrawable;
 import com.zeoflow.material.elements.badge.BadgeUtils;
 
-/** @hide */
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
+/**
+ * @hide
+ */
 @RestrictTo(LIBRARY_GROUP)
-public class BottomNavigationItemView extends FrameLayout implements MenuView.ItemView {
+public class BottomNavigationItemView extends FrameLayout implements MenuView.ItemView
+{
   public static final int INVALID_ITEM_POSITION = -1;
 
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
 
   private final int defaultMargin;
+  private final TextView smallLabel;
+  private final TextView largeLabel;
   private float shiftAmount;
   private float scaleUpFactor;
   private float scaleDownFactor;
-
   private int labelVisibilityMode;
   private boolean isShifting;
-
   private ImageView icon;
-  private final TextView smallLabel;
-  private final TextView largeLabel;
   private int itemPosition = INVALID_ITEM_POSITION;
 
-  @Nullable private MenuItemImpl itemData;
+  @Nullable
+  private MenuItemImpl itemData;
 
-  @Nullable private ColorStateList iconTint;
-  @Nullable private Drawable originalIconDrawable;
-  @Nullable private Drawable wrappedIconDrawable;
+  @Nullable
+  private ColorStateList iconTint;
+  @Nullable
+  private Drawable originalIconDrawable;
+  @Nullable
+  private Drawable wrappedIconDrawable;
 
-  @Nullable private BadgeDrawable badgeDrawable;
+  @Nullable
+  private BadgeDrawable badgeDrawable;
 
-  public BottomNavigationItemView(@NonNull Context context) {
+  public BottomNavigationItemView(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public BottomNavigationItemView(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public BottomNavigationItemView(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, 0);
   }
 
   public BottomNavigationItemView(
-      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(context, attrs, defStyleAttr);
     final Resources res = getResources();
 
@@ -107,9 +117,11 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
     calculateTextScaleFactors(smallLabel.getTextSize(), largeLabel.getTextSize());
 
     // TODO(b/138148581): Support displaying a badge on label-only bottom navigation views.
-    if (icon != null) {
+    if (icon != null)
+    {
       icon.addOnLayoutChangeListener(
-          new OnLayoutChangeListener() {
+          new OnLayoutChangeListener()
+          {
             @Override
             public void onLayoutChange(
                 View v,
@@ -120,8 +132,10 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
                 int oldLeft,
                 int oldTop,
                 int oldRight,
-                int oldBottom) {
-              if (icon.getVisibility() == VISIBLE) {
+                int oldBottom)
+            {
+              if (icon.getVisibility() == VISIBLE)
+              {
                 tryUpdateBadgeBounds(icon);
               }
             }
@@ -130,7 +144,8 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
   }
 
   @Override
-  public void initialize(@NonNull MenuItemImpl itemData, int menuType) {
+  public void initialize(@NonNull MenuItemImpl itemData, int menuType)
+  {
     this.itemData = itemData;
     setCheckable(itemData.isCheckable());
     setChecked(itemData.isChecked());
@@ -138,7 +153,8 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
     setIcon(itemData.getIcon());
     setTitle(itemData.getTitle());
     setId(itemData.getItemId());
-    if (!TextUtils.isEmpty(itemData.getContentDescription())) {
+    if (!TextUtils.isEmpty(itemData.getContentDescription()))
+    {
       setContentDescription(itemData.getContentDescription());
     }
 
@@ -149,46 +165,57 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
     setVisibility(itemData.isVisible() ? View.VISIBLE : View.GONE);
   }
 
-  public void setItemPosition(int position) {
-    itemPosition = position;
-  }
-
-  public int getItemPosition() {
+  public int getItemPosition()
+  {
     return itemPosition;
   }
 
-  public void setShifting(boolean shifting) {
-    if (isShifting != shifting) {
+  public void setItemPosition(int position)
+  {
+    itemPosition = position;
+  }
+
+  public void setShifting(boolean shifting)
+  {
+    if (isShifting != shifting)
+    {
       isShifting = shifting;
 
       boolean initialized = itemData != null;
-      if (initialized) {
+      if (initialized)
+      {
         setChecked(itemData.isChecked());
       }
     }
   }
 
-  public void setLabelVisibilityMode(@LabelVisibilityMode int mode) {
-    if (labelVisibilityMode != mode) {
+  public void setLabelVisibilityMode(@LabelVisibilityMode int mode)
+  {
+    if (labelVisibilityMode != mode)
+    {
       labelVisibilityMode = mode;
 
       boolean initialized = itemData != null;
-      if (initialized) {
+      if (initialized)
+      {
         setChecked(itemData.isChecked());
       }
     }
   }
 
   @Override
-  public MenuItemImpl getItemData() {
+  public MenuItemImpl getItemData()
+  {
     return itemData;
   }
 
   @Override
-  public void setTitle(CharSequence title) {
+  public void setTitle(CharSequence title)
+  {
     smallLabel.setText(title);
     largeLabel.setText(title);
-    if (itemData == null || TextUtils.isEmpty(itemData.getContentDescription())) {
+    if (itemData == null || TextUtils.isEmpty(itemData.getContentDescription()))
+    {
       setContentDescription(title);
     }
 
@@ -199,35 +226,44 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
   }
 
   @Override
-  public void setCheckable(boolean checkable) {
+  public void setCheckable(boolean checkable)
+  {
     refreshDrawableState();
   }
 
   @Override
-  public void setChecked(boolean checked) {
+  public void setChecked(boolean checked)
+  {
     largeLabel.setPivotX(largeLabel.getWidth() / 2);
     largeLabel.setPivotY(largeLabel.getBaseline());
     smallLabel.setPivotX(smallLabel.getWidth() / 2);
     smallLabel.setPivotY(smallLabel.getBaseline());
 
-    switch (labelVisibilityMode) {
+    switch (labelVisibilityMode)
+    {
       case LabelVisibilityMode.LABEL_VISIBILITY_AUTO:
-        if (isShifting) {
-          if (checked) {
+        if (isShifting)
+        {
+          if (checked)
+          {
             setViewLayoutParams(icon, defaultMargin, Gravity.CENTER_HORIZONTAL | Gravity.TOP);
             setViewValues(largeLabel, 1f, 1f, VISIBLE);
-          } else {
+          } else
+          {
             setViewLayoutParams(icon, defaultMargin, Gravity.CENTER);
             setViewValues(largeLabel, 0.5f, 0.5f, INVISIBLE);
           }
           smallLabel.setVisibility(INVISIBLE);
-        } else {
-          if (checked) {
+        } else
+        {
+          if (checked)
+          {
             setViewLayoutParams(
                 icon, (int) (defaultMargin + shiftAmount), Gravity.CENTER_HORIZONTAL | Gravity.TOP);
             setViewValues(largeLabel, 1f, 1f, VISIBLE);
             setViewValues(smallLabel, scaleUpFactor, scaleUpFactor, INVISIBLE);
-          } else {
+          } else
+          {
             setViewLayoutParams(icon, defaultMargin, Gravity.CENTER_HORIZONTAL | Gravity.TOP);
             setViewValues(largeLabel, scaleDownFactor, scaleDownFactor, INVISIBLE);
             setViewValues(smallLabel, 1f, 1f, VISIBLE);
@@ -236,10 +272,12 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
         break;
 
       case LabelVisibilityMode.LABEL_VISIBILITY_SELECTED:
-        if (checked) {
+        if (checked)
+        {
           setViewLayoutParams(icon, defaultMargin, Gravity.CENTER_HORIZONTAL | Gravity.TOP);
           setViewValues(largeLabel, 1f, 1f, VISIBLE);
-        } else {
+        } else
+        {
           setViewLayoutParams(icon, defaultMargin, Gravity.CENTER);
           setViewValues(largeLabel, 0.5f, 0.5f, INVISIBLE);
         }
@@ -247,12 +285,14 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
         break;
 
       case LabelVisibilityMode.LABEL_VISIBILITY_LABELED:
-        if (checked) {
+        if (checked)
+        {
           setViewLayoutParams(
               icon, (int) (defaultMargin + shiftAmount), Gravity.CENTER_HORIZONTAL | Gravity.TOP);
           setViewValues(largeLabel, 1f, 1f, VISIBLE);
           setViewValues(smallLabel, scaleUpFactor, scaleUpFactor, INVISIBLE);
-        } else {
+        } else
+        {
           setViewLayoutParams(icon, defaultMargin, Gravity.CENTER_HORIZONTAL | Gravity.TOP);
           setViewValues(largeLabel, scaleDownFactor, scaleDownFactor, INVISIBLE);
           setViewValues(smallLabel, 1f, 1f, VISIBLE);
@@ -277,11 +317,14 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
   }
 
   @Override
-  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info)
+  {
     super.onInitializeAccessibilityNodeInfo(info);
-    if (badgeDrawable != null && badgeDrawable.isVisible()) {
+    if (badgeDrawable != null && badgeDrawable.isVisible())
+    {
       CharSequence customContentDescription = itemData.getTitle();
-      if (!TextUtils.isEmpty(itemData.getContentDescription())) {
+      if (!TextUtils.isEmpty(itemData.getContentDescription()))
+      {
         customContentDescription = itemData.getContentDescription();
       }
       info.setContentDescription(
@@ -296,67 +339,81 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
             /* columnSpan= */ 1,
             /* heading= */ false,
             /* selected= */ isSelected()));
-    if (isSelected()) {
+    if (isSelected())
+    {
       infoCompat.setClickable(false);
       infoCompat.removeAction(AccessibilityActionCompat.ACTION_CLICK);
     }
     infoCompat.setRoleDescription(getResources().getString(R.string.item_view_role_description));
   }
 
-  private void setViewLayoutParams(@NonNull View view, int topMargin, int gravity) {
+  private void setViewLayoutParams(@NonNull View view, int topMargin, int gravity)
+  {
     LayoutParams viewParams = (LayoutParams) view.getLayoutParams();
     viewParams.topMargin = topMargin;
     viewParams.gravity = gravity;
     view.setLayoutParams(viewParams);
   }
 
-  private void setViewValues(@NonNull View view, float scaleX, float scaleY, int visibility) {
+  private void setViewValues(@NonNull View view, float scaleX, float scaleY, int visibility)
+  {
     view.setScaleX(scaleX);
     view.setScaleY(scaleY);
     view.setVisibility(visibility);
   }
 
   @Override
-  public void setEnabled(boolean enabled) {
+  public void setEnabled(boolean enabled)
+  {
     super.setEnabled(enabled);
     smallLabel.setEnabled(enabled);
     largeLabel.setEnabled(enabled);
     icon.setEnabled(enabled);
 
-    if (enabled) {
+    if (enabled)
+    {
       ViewCompat.setPointerIcon(
           this, PointerIconCompat.getSystemIcon(getContext(), PointerIconCompat.TYPE_HAND));
-    } else {
+    } else
+    {
       ViewCompat.setPointerIcon(this, null);
     }
   }
 
   @Override
-  public int[] onCreateDrawableState(final int extraSpace) {
+  public int[] onCreateDrawableState(final int extraSpace)
+  {
     final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
-    if (itemData != null && itemData.isCheckable() && itemData.isChecked()) {
+    if (itemData != null && itemData.isCheckable() && itemData.isChecked())
+    {
       mergeDrawableStates(drawableState, CHECKED_STATE_SET);
     }
     return drawableState;
   }
 
   @Override
-  public void setShortcut(boolean showShortcut, char shortcutKey) {}
+  public void setShortcut(boolean showShortcut, char shortcutKey)
+  {
+  }
 
   @Override
-  public void setIcon(@Nullable Drawable iconDrawable) {
-    if (iconDrawable == originalIconDrawable) {
+  public void setIcon(@Nullable Drawable iconDrawable)
+  {
+    if (iconDrawable == originalIconDrawable)
+    {
       return;
     }
 
     // Save the original icon to check if it has changed in future calls of this method.
     originalIconDrawable = iconDrawable;
-    if (iconDrawable != null) {
+    if (iconDrawable != null)
+    {
       Drawable.ConstantState state = iconDrawable.getConstantState();
       iconDrawable =
           DrawableCompat.wrap(state == null ? iconDrawable : state.newDrawable()).mutate();
       wrappedIconDrawable = iconDrawable;
-      if (iconTint != null) {
+      if (iconTint != null)
+      {
         DrawableCompat.setTintList(wrappedIconDrawable, iconTint);
       }
     }
@@ -364,99 +421,122 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
   }
 
   @Override
-  public boolean prefersCondensedTitle() {
+  public boolean prefersCondensedTitle()
+  {
     return false;
   }
 
   @Override
-  public boolean showsIcon() {
+  public boolean showsIcon()
+  {
     return true;
   }
 
-  public void setIconTintList(ColorStateList tint) {
+  public void setIconTintList(ColorStateList tint)
+  {
     iconTint = tint;
-    if (itemData != null && wrappedIconDrawable != null) {
+    if (itemData != null && wrappedIconDrawable != null)
+    {
       DrawableCompat.setTintList(wrappedIconDrawable, iconTint);
       wrappedIconDrawable.invalidateSelf();
     }
   }
 
-  public void setIconSize(int iconSize) {
+  public void setIconSize(int iconSize)
+  {
     LayoutParams iconParams = (LayoutParams) icon.getLayoutParams();
     iconParams.width = iconSize;
     iconParams.height = iconSize;
     icon.setLayoutParams(iconParams);
   }
 
-  public void setTextAppearanceInactive(@StyleRes int inactiveTextAppearance) {
+  public void setTextAppearanceInactive(@StyleRes int inactiveTextAppearance)
+  {
     TextViewCompat.setTextAppearance(smallLabel, inactiveTextAppearance);
     calculateTextScaleFactors(smallLabel.getTextSize(), largeLabel.getTextSize());
   }
 
-  public void setTextAppearanceActive(@StyleRes int activeTextAppearance) {
+  public void setTextAppearanceActive(@StyleRes int activeTextAppearance)
+  {
     TextViewCompat.setTextAppearance(largeLabel, activeTextAppearance);
     calculateTextScaleFactors(smallLabel.getTextSize(), largeLabel.getTextSize());
   }
 
-  public void setTextColor(@Nullable ColorStateList color) {
-    if (color != null) {
+  public void setTextColor(@Nullable ColorStateList color)
+  {
+    if (color != null)
+    {
       smallLabel.setTextColor(color);
       largeLabel.setTextColor(color);
     }
   }
 
-  private void calculateTextScaleFactors(float smallLabelSize, float largeLabelSize) {
+  private void calculateTextScaleFactors(float smallLabelSize, float largeLabelSize)
+  {
     shiftAmount = smallLabelSize - largeLabelSize;
     scaleUpFactor = 1f * largeLabelSize / smallLabelSize;
     scaleDownFactor = 1f * smallLabelSize / largeLabelSize;
   }
 
-  public void setItemBackground(int background) {
+  public void setItemBackground(int background)
+  {
     Drawable backgroundDrawable =
         background == 0 ? null : ContextCompat.getDrawable(getContext(), background);
     setItemBackground(backgroundDrawable);
   }
 
-  public void setItemBackground(@Nullable Drawable background) {
-    if (background != null && background.getConstantState() != null) {
+  public void setItemBackground(@Nullable Drawable background)
+  {
+    if (background != null && background.getConstantState() != null)
+    {
       background = background.getConstantState().newDrawable().mutate();
     }
     ViewCompat.setBackground(this, background);
   }
 
-  void setBadge(@NonNull BadgeDrawable badgeDrawable) {
+  @Nullable
+  BadgeDrawable getBadge()
+  {
+    return this.badgeDrawable;
+  }
+
+  void setBadge(@NonNull BadgeDrawable badgeDrawable)
+  {
     this.badgeDrawable = badgeDrawable;
-    if (icon != null) {
+    if (icon != null)
+    {
       tryAttachBadgeToAnchor(icon);
     }
   }
 
-  @Nullable
-  BadgeDrawable getBadge() {
-    return this.badgeDrawable;
-  }
-
-  void removeBadge() {
+  void removeBadge()
+  {
     tryRemoveBadgeFromAnchor(icon);
   }
 
-  private boolean hasBadge() {
+  private boolean hasBadge()
+  {
     return badgeDrawable != null;
   }
 
-  private void tryUpdateBadgeBounds(View anchorView) {
-    if (!hasBadge()) {
+  private void tryUpdateBadgeBounds(View anchorView)
+  {
+    if (!hasBadge())
+    {
       return;
     }
     BadgeUtils.setBadgeDrawableBounds(
         badgeDrawable, anchorView, getCustomParentForBadge(anchorView));
   }
 
-  private void tryAttachBadgeToAnchor(@Nullable View anchorView) {
-    if (!hasBadge()) {
+  private void tryAttachBadgeToAnchor(@Nullable View anchorView)
+  {
+    if (!hasBadge())
+    {
       return;
     }
-    if (anchorView != null) {
+    if (anchorView != null)
+    {
       // Avoid clipping a badge if it's displayed.
       setClipChildren(false);
       setClipToPadding(false);
@@ -466,11 +546,14 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
     }
   }
 
-  private void tryRemoveBadgeFromAnchor(@Nullable View anchorView) {
-    if (!hasBadge()) {
+  private void tryRemoveBadgeFromAnchor(@Nullable View anchorView)
+  {
+    if (!hasBadge())
+    {
       return;
     }
-    if (anchorView != null) {
+    if (anchorView != null)
+    {
       // Clip children / view to padding when no badge is displayed.
       setClipChildren(true);
       setClipToPadding(true);
@@ -482,8 +565,10 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
   }
 
   @Nullable
-  private FrameLayout getCustomParentForBadge(View anchorView) {
-    if (anchorView == icon) {
+  private FrameLayout getCustomParentForBadge(View anchorView)
+  {
+    if (anchorView == icon)
+    {
       return BadgeUtils.USE_COMPAT_PARENT ? ((FrameLayout) icon.getParent()) : null;
     }
     // TODO(b/138148581): Support displaying a badge on label-only bottom navigation views.

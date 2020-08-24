@@ -20,29 +20,55 @@
  */
 package com.zeoflow.material.elements.transition.platform;
 
-import static com.zeoflow.material.elements.transition.platform.TransitionUtils.lerp;
-
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
-import androidx.annotation.FloatRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
-/** A class that configures and is able to provide an {@link Animator} that fades a view. */
+import androidx.annotation.FloatRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import static com.zeoflow.material.elements.transition.platform.TransitionUtils.lerp;
+
+/**
+ * A class that configures and is able to provide an {@link Animator} that fades a view.
+ */
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-public final class FadeProvider implements VisibilityAnimatorProvider {
+public final class FadeProvider implements VisibilityAnimatorProvider
+{
 
   private float incomingEndThreshold = 1f;
+
+  private static Animator createFadeAnimator(
+      final View view,
+      final float startValue,
+      final float endValue,
+      final @FloatRange(from = 0.0, to = 1.0) float startFraction,
+      final @FloatRange(from = 0.0, to = 1.0) float endFraction)
+  {
+    ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+    animator.addUpdateListener(
+        new AnimatorUpdateListener()
+        {
+          @Override
+          public void onAnimationUpdate(ValueAnimator animation)
+          {
+            float progress = (float) animation.getAnimatedValue();
+            view.setAlpha(lerp(startValue, endValue, startFraction, endFraction, progress));
+          }
+        });
+    return animator;
+  }
 
   /**
    * Get the fraction at which the appearing fade animation will end between 0 and 1.
    *
    * @see #setIncomingEndThreshold(float)
    */
-  public float getIncomingEndThreshold() {
+  public float getIncomingEndThreshold()
+  {
     return incomingEndThreshold;
   }
 
@@ -54,13 +80,15 @@ public final class FadeProvider implements VisibilityAnimatorProvider {
    * incomingEndThreshold is set to .75f, this class' animator will run and complete (the view will
    * be completely faded in) after the AnimatorSet has run for 75 milliseconds.
    */
-  public void setIncomingEndThreshold(float incomingEndThreshold) {
+  public void setIncomingEndThreshold(float incomingEndThreshold)
+  {
     this.incomingEndThreshold = incomingEndThreshold;
   }
 
   @Nullable
   @Override
-  public Animator createAppear(@NonNull ViewGroup sceneRoot, @NonNull View view) {
+  public Animator createAppear(@NonNull ViewGroup sceneRoot, @NonNull View view)
+  {
     return createFadeAnimator(
         view,
         /* startValue= */ 0f,
@@ -71,30 +99,13 @@ public final class FadeProvider implements VisibilityAnimatorProvider {
 
   @Nullable
   @Override
-  public Animator createDisappear(@NonNull ViewGroup sceneRoot, @NonNull View view) {
+  public Animator createDisappear(@NonNull ViewGroup sceneRoot, @NonNull View view)
+  {
     return createFadeAnimator(
         view,
         /* startValue= */ 1f,
         /* endValue= */ 0f,
         /* startFraction= */ 0F,
         /* endFraction=*/ 1F);
-  }
-
-  private static Animator createFadeAnimator(
-      final View view,
-      final float startValue,
-      final float endValue,
-      final @FloatRange(from = 0.0, to = 1.0) float startFraction,
-      final @FloatRange(from = 0.0, to = 1.0) float endFraction) {
-    ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-    animator.addUpdateListener(
-        new AnimatorUpdateListener() {
-          @Override
-          public void onAnimationUpdate(ValueAnimator animation) {
-            float progress = (float) animation.getAnimatedValue();
-            view.setAlpha(lerp(startValue, endValue, startFraction, endFraction, progress));
-          }
-        });
-    return animator;
   }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,7 +70,7 @@
     <item name="android:letterSpacing">0.0125</item>
   </style>
 
-  <style name="TextAppearance.MaterialComponents.Headline6" parent="Base.TextAppearance.MaterialComponents.Headline6"/>
+  <style name="TextAppearance.MaterialComponents.Headline6" parent="Base.TextAppearance.MaterialComponents.Headline6" />
 
   <style name="TextAppearance.MaterialComponents.Subtitle1" parent="TextAppearance.AppCompat.Subhead">
     <item name="fontFamily">sans-serif</item>
@@ -92,7 +91,7 @@
     <item name="android:letterSpacing">0.00714285714</item>
   </style>
 
-  <style name="TextAppearance.MaterialComponents.Subtitle2" parent="Base.TextAppearance.MaterialComponents.Subtitle2"/>
+  <style name="TextAppearance.MaterialComponents.Subtitle2" parent="Base.TextAppearance.MaterialComponents.Subtitle2" />
 
   <style name="TextAppearance.MaterialComponents.Body1" parent="TextAppearance.AppCompat.Body2">
     <item name="fontFamily">sans-serif</item>
@@ -131,7 +130,7 @@
     <item name="android:letterSpacing">0.0892857143</item>
   </style>
 
-  <style name="TextAppearance.MaterialComponents.Button" parent="Base.TextAppearance.MaterialComponents.Button"/>
+  <style name="TextAppearance.MaterialComponents.Button" parent="Base.TextAppearance.MaterialComponents.Button" />
 
   <style name="TextAppearance.MaterialComponents.Overline" parent="TextAppearance.AppCompat">
     <item name="fontFamily">sans-serif</item>

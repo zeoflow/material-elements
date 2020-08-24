@@ -16,15 +16,16 @@
 
 package com.zeoflow.material.elements.switchmaterial;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
-import android.util.AttributeSet;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.elevation.ElevationOverlayProvider;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
@@ -40,32 +41,39 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * SwitchCompat} does not extend {@link android.widget.Switch}, you must explicitly declare {@link
  * SwitchMaterial} in your layout XML.
  */
-public class SwitchMaterial extends SwitchCompat {
+public class SwitchMaterial extends SwitchCompat
+{
 
   private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_CompoundButton_Switch;
   private static final int[][] ENABLED_CHECKED_STATES =
-      new int[][] {
-        new int[] {android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]
-        new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked}, // [1]
-        new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}, // [2]
-        new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked} // [3]
+      new int[][]{
+          new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, // [0]
+          new int[]{android.R.attr.state_enabled, -android.R.attr.state_checked}, // [1]
+          new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}, // [2]
+          new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked} // [3]
       };
 
-  @NonNull private final ElevationOverlayProvider elevationOverlayProvider;
+  @NonNull
+  private final ElevationOverlayProvider elevationOverlayProvider;
 
-  @Nullable private ColorStateList materialThemeColorsThumbTintList;
-  @Nullable private ColorStateList materialThemeColorsTrackTintList;
+  @Nullable
+  private ColorStateList materialThemeColorsThumbTintList;
+  @Nullable
+  private ColorStateList materialThemeColorsTrackTintList;
   private boolean useMaterialThemeColors;
 
-  public SwitchMaterial(@NonNull Context context) {
+  public SwitchMaterial(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public SwitchMaterial(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public SwitchMaterial(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.switchStyle);
   }
 
-  public SwitchMaterial(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public SwitchMaterial(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -83,15 +91,26 @@ public class SwitchMaterial extends SwitchCompat {
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
-    if (useMaterialThemeColors && getThumbTintList() == null) {
+    if (useMaterialThemeColors && getThumbTintList() == null)
+    {
       setThumbTintList(getMaterialThemeColorsThumbTintList());
     }
-    if (useMaterialThemeColors && getTrackTintList() == null) {
+    if (useMaterialThemeColors && getTrackTintList() == null)
+    {
       setTrackTintList(getMaterialThemeColorsTrackTintList());
     }
+  }
+
+  /**
+   * Returns true if this {@link SwitchMaterial} defaults to colors from a Material Theme.
+   */
+  public boolean isUseMaterialThemeColors()
+  {
+    return useMaterialThemeColors;
   }
 
   /**
@@ -100,28 +119,29 @@ public class SwitchMaterial extends SwitchCompat {
    * SwitchCompat#setTrackTintList(ColorStateList)} and {@link
    * SwitchCompat#setThumbTintList(ColorStateList)} to change tints.
    */
-  public void setUseMaterialThemeColors(boolean useMaterialThemeColors) {
+  public void setUseMaterialThemeColors(boolean useMaterialThemeColors)
+  {
     this.useMaterialThemeColors = useMaterialThemeColors;
-    if (useMaterialThemeColors) {
+    if (useMaterialThemeColors)
+    {
       setThumbTintList(getMaterialThemeColorsThumbTintList());
       setTrackTintList(getMaterialThemeColorsTrackTintList());
-    } else {
+    } else
+    {
       setThumbTintList(null);
       setTrackTintList(null);
     }
   }
 
-  /** Returns true if this {@link SwitchMaterial} defaults to colors from a Material Theme. */
-  public boolean isUseMaterialThemeColors() {
-    return useMaterialThemeColors;
-  }
-
-  private ColorStateList getMaterialThemeColorsThumbTintList() {
-    if (materialThemeColorsThumbTintList == null) {
+  private ColorStateList getMaterialThemeColorsThumbTintList()
+  {
+    if (materialThemeColorsThumbTintList == null)
+    {
       int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);
       int colorControlActivated = MaterialColors.getColor(this, R.attr.colorControlActivated);
       float thumbElevation = getResources().getDimension(R.dimen.mtrl_switch_thumb_elevation);
-      if (elevationOverlayProvider.isThemeElevationOverlayEnabled()) {
+      if (elevationOverlayProvider.isThemeElevationOverlayEnabled())
+      {
         thumbElevation += ViewUtils.getParentAbsoluteElevation(this);
       }
       int colorThumbOff =
@@ -140,8 +160,10 @@ public class SwitchMaterial extends SwitchCompat {
     return materialThemeColorsThumbTintList;
   }
 
-  private ColorStateList getMaterialThemeColorsTrackTintList() {
-    if (materialThemeColorsTrackTintList == null) {
+  private ColorStateList getMaterialThemeColorsTrackTintList()
+  {
+    if (materialThemeColorsTrackTintList == null)
+    {
       int[] switchTrackColorsList = new int[ENABLED_CHECKED_STATES.length];
       int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);
       int colorControlActivated = MaterialColors.getColor(this, R.attr.colorControlActivated);

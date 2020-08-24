@@ -26,7 +26,8 @@ import androidx.annotation.RestrictTo.Scope;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-public interface BaseOnSliderTouchListener<S> {
+public interface BaseOnSliderTouchListener<S>
+{
   void onStartTrackingTouch(@NonNull S slider);
 
   void onStopTrackingTouch(@NonNull S slider);

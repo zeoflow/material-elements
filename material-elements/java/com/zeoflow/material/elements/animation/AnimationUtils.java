@@ -17,10 +17,11 @@
 package com.zeoflow.material.elements.animation;
 
 import android.animation.TimeInterpolator;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.RestrictTo.Scope;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
@@ -31,7 +32,8 @@ import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-public class AnimationUtils {
+public class AnimationUtils
+{
 
   public static final TimeInterpolator LINEAR_INTERPOLATOR = new LinearInterpolator();
   public static final TimeInterpolator FAST_OUT_SLOW_IN_INTERPOLATOR =
@@ -42,13 +44,19 @@ public class AnimationUtils {
       new LinearOutSlowInInterpolator();
   public static final TimeInterpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
 
-  /** Linear interpolation between {@code startValue} and {@code endValue} by {@code fraction}. */
-  public static float lerp(float startValue, float endValue, float fraction) {
+  /**
+   * Linear interpolation between {@code startValue} and {@code endValue} by {@code fraction}.
+   */
+  public static float lerp(float startValue, float endValue, float fraction)
+  {
     return startValue + (fraction * (endValue - startValue));
   }
 
-  /** Linear interpolation between {@code startValue} and {@code endValue} by {@code fraction}. */
-  public static int lerp(int startValue, int endValue, float fraction) {
+  /**
+   * Linear interpolation between {@code startValue} and {@code endValue} by {@code fraction}.
+   */
+  public static int lerp(int startValue, int endValue, float fraction)
+  {
     return startValue + Math.round(fraction * (endValue - startValue));
   }
 }

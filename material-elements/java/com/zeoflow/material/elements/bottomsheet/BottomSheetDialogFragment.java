@@ -18,17 +18,19 @@ package com.zeoflow.material.elements.bottomsheet;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import android.view.View;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Modal bottom sheet. This is a version of {@link DialogFragment} that shows a bottom sheet using
  * {@link BottomSheetDialog} instead of a floating dialog.
  */
-public class BottomSheetDialogFragment extends AppCompatDialogFragment {
+public class BottomSheetDialogFragment extends AppCompatDialogFragment
+{
 
   /**
    * Tracks if we are waiting for a dismissAllowingStateLoss or a regular dismiss once the
@@ -38,20 +40,25 @@ public class BottomSheetDialogFragment extends AppCompatDialogFragment {
 
   @NonNull
   @Override
-  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
+  {
     return new BottomSheetDialog(getContext(), getTheme());
   }
 
   @Override
-  public void dismiss() {
-    if (!tryDismissWithAnimation(false)) {
+  public void dismiss()
+  {
+    if (!tryDismissWithAnimation(false))
+    {
       super.dismiss();
     }
   }
 
   @Override
-  public void dismissAllowingStateLoss() {
-    if (!tryDismissWithAnimation(true)) {
+  public void dismissAllowingStateLoss()
+  {
+    if (!tryDismissWithAnimation(true))
+    {
       super.dismissAllowingStateLoss();
     }
   }
@@ -60,12 +67,15 @@ public class BottomSheetDialogFragment extends AppCompatDialogFragment {
    * Tries to dismiss the dialog fragment with the bottom sheet animation. Returns true if possible,
    * false otherwise.
    */
-  private boolean tryDismissWithAnimation(boolean allowingStateLoss) {
+  private boolean tryDismissWithAnimation(boolean allowingStateLoss)
+  {
     Dialog baseDialog = getDialog();
-    if (baseDialog instanceof BottomSheetDialog) {
+    if (baseDialog instanceof BottomSheetDialog)
+    {
       BottomSheetDialog dialog = (BottomSheetDialog) baseDialog;
       BottomSheetBehavior<?> behavior = dialog.getBehavior();
-      if (behavior.isHideable() && dialog.getDismissWithAnimation()) {
+      if (behavior.isHideable() && dialog.getDismissWithAnimation())
+      {
         dismissWithAnimation(behavior, allowingStateLoss);
         return true;
       }
@@ -75,13 +85,17 @@ public class BottomSheetDialogFragment extends AppCompatDialogFragment {
   }
 
   private void dismissWithAnimation(
-      @NonNull BottomSheetBehavior<?> behavior, boolean allowingStateLoss) {
+      @NonNull BottomSheetBehavior<?> behavior, boolean allowingStateLoss)
+  {
     waitingForDismissAllowingStateLoss = allowingStateLoss;
 
-    if (behavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
+    if (behavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
+    {
       dismissAfterAnimation();
-    } else {
-      if (getDialog() instanceof BottomSheetDialog) {
+    } else
+    {
+      if (getDialog() instanceof BottomSheetDialog)
+      {
         ((BottomSheetDialog) getDialog()).removeDefaultCallback();
       }
       behavior.addBottomSheetCallback(new BottomSheetDismissCallback());
@@ -89,24 +103,32 @@ public class BottomSheetDialogFragment extends AppCompatDialogFragment {
     }
   }
 
-  private void dismissAfterAnimation() {
-    if (waitingForDismissAllowingStateLoss) {
+  private void dismissAfterAnimation()
+  {
+    if (waitingForDismissAllowingStateLoss)
+    {
       super.dismissAllowingStateLoss();
-    } else {
+    } else
+    {
       super.dismiss();
     }
   }
 
-  private class BottomSheetDismissCallback extends BottomSheetBehavior.BottomSheetCallback {
+  private class BottomSheetDismissCallback extends BottomSheetBehavior.BottomSheetCallback
+  {
 
     @Override
-    public void onStateChanged(@NonNull View bottomSheet, int newState) {
-      if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+    public void onStateChanged(@NonNull View bottomSheet, int newState)
+    {
+      if (newState == BottomSheetBehavior.STATE_HIDDEN)
+      {
         dismissAfterAnimation();
       }
     }
 
     @Override
-    public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+    public void onSlide(@NonNull View bottomSheet, float slideOffset)
+    {
+    }
   }
 }

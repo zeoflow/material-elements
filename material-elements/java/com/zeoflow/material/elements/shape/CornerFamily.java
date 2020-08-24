@@ -17,6 +17,7 @@
 package com.zeoflow.material.elements.shape;
 
 import androidx.annotation.IntDef;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -30,9 +31,14 @@ import java.lang.annotation.RetentionPolicy;
  */
 @IntDef({CornerFamily.ROUNDED, CornerFamily.CUT})
 @Retention(RetentionPolicy.SOURCE)
-public @interface CornerFamily {
-  /** Corresponds to a {@link RoundedCornerTreatment}. */
+public @interface CornerFamily
+{
+  /**
+   * Corresponds to a {@link RoundedCornerTreatment}.
+   */
   int ROUNDED = 0;
-  /** Corresponds to a {@link CutCornerTreatment}. */
+  /**
+   * Corresponds to a {@link CutCornerTreatment}.
+   */
   int CUT = 1;
 }

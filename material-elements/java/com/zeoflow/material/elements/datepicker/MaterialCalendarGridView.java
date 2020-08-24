@@ -15,50 +15,59 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
-import static java.lang.Math.min;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.GridView;
+import android.widget.ListAdapter;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import android.util.AttributeSet;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.GridView;
-import android.widget.ListAdapter;
+
+import com.google.android.material.R;
+
 import java.util.Calendar;
 
-final class MaterialCalendarGridView extends GridView {
+import static java.lang.Math.min;
+
+final class MaterialCalendarGridView extends GridView
+{
 
   private final Calendar dayCompute = UtcDates.getUtcCalendar();
 
-  public MaterialCalendarGridView(Context context) {
+  public MaterialCalendarGridView(Context context)
+  {
     this(context, null);
   }
 
-  public MaterialCalendarGridView(Context context, AttributeSet attrs) {
+  public MaterialCalendarGridView(Context context, AttributeSet attrs)
+  {
     this(context, attrs, 0);
   }
 
-  public MaterialCalendarGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+  public MaterialCalendarGridView(Context context, AttributeSet attrs, int defStyleAttr)
+  {
     super(context, attrs, defStyleAttr);
-    if (MaterialDatePicker.isFullscreen(getContext())) {
+    if (MaterialDatePicker.isFullscreen(getContext()))
+    {
       setNextFocusLeftId(R.id.cancel_button);
       setNextFocusRightId(R.id.confirm_button);
     }
     ViewCompat.setAccessibilityDelegate(
         this,
-        new AccessibilityDelegateCompat() {
+        new AccessibilityDelegateCompat()
+        {
           @Override
           public void onInitializeAccessibilityNodeInfo(
-              View view, @NonNull AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
+              View view, @NonNull AccessibilityNodeInfoCompat accessibilityNodeInfoCompat)
+          {
             super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
             // Stop announcing of row/col information in favor of internationalized day information.
             accessibilityNodeInfoCompat.setCollectionInfo(null);
@@ -66,32 +75,58 @@ final class MaterialCalendarGridView extends GridView {
         });
   }
 
+  private static boolean skipMonth(
+      @Nullable Long firstOfMonth,
+      @Nullable Long lastOfMonth,
+      @Nullable Long startDay,
+      @Nullable Long endDay)
+  {
+    if (firstOfMonth == null || lastOfMonth == null || startDay == null || endDay == null)
+    {
+      return true;
+    }
+    return startDay > lastOfMonth || endDay < firstOfMonth;
+  }
+
+  private static int horizontalMidPoint(@NonNull View view)
+  {
+    return view.getLeft() + view.getWidth() / 2;
+  }
+
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
     getAdapter().notifyDataSetChanged();
   }
 
   @Override
-  public void setSelection(int position) {
-    if (position < getAdapter().firstPositionInMonth()) {
+  public void setSelection(int position)
+  {
+    if (position < getAdapter().firstPositionInMonth())
+    {
       super.setSelection(getAdapter().firstPositionInMonth());
-    } else {
+    } else
+    {
       super.setSelection(position);
     }
   }
 
   @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
+  public boolean onKeyDown(int keyCode, KeyEvent event)
+  {
     boolean result = super.onKeyDown(keyCode, event);
-    if (!result) {
+    if (!result)
+    {
       return false;
     }
     if (getSelectedItemPosition() == INVALID_POSITION
-        || getSelectedItemPosition() >= getAdapter().firstPositionInMonth()) {
+        || getSelectedItemPosition() >= getAdapter().firstPositionInMonth())
+    {
       return true;
     }
-    if (KeyEvent.KEYCODE_DPAD_UP == keyCode) {
+    if (KeyEvent.KEYCODE_DPAD_UP == keyCode)
+    {
       setSelection(getAdapter().firstPositionInMonth());
       return true;
     }
@@ -100,13 +135,16 @@ final class MaterialCalendarGridView extends GridView {
 
   @NonNull
   @Override
-  public MonthAdapter getAdapter() {
+  public MonthAdapter getAdapter()
+  {
     return (MonthAdapter) super.getAdapter();
   }
 
   @Override
-  public final void setAdapter(ListAdapter adapter) {
-    if (!(adapter instanceof MonthAdapter)) {
+  public final void setAdapter(ListAdapter adapter)
+  {
+    if (!(adapter instanceof MonthAdapter))
+    {
       throw new IllegalArgumentException(
           String.format(
               "%1$s must have its Adapter set to a %2$s",
@@ -117,7 +155,8 @@ final class MaterialCalendarGridView extends GridView {
   }
 
   @Override
-  protected final void onDraw(@NonNull Canvas canvas) {
+  protected final void onDraw(@NonNull Canvas canvas)
+  {
     super.onDraw(canvas);
     MonthAdapter monthAdapter = getAdapter();
     DateSelector<?> dateSelector = monthAdapter.dateSelector;
@@ -125,26 +164,31 @@ final class MaterialCalendarGridView extends GridView {
     Long firstOfMonth = monthAdapter.getItem(monthAdapter.firstPositionInMonth());
     Long lastOfMonth = monthAdapter.getItem(monthAdapter.lastPositionInMonth());
 
-    for (Pair<Long, Long> range : dateSelector.getSelectedRanges()) {
-      if (range.first == null || range.second == null) {
+    for (Pair<Long, Long> range : dateSelector.getSelectedRanges())
+    {
+      if (range.first == null || range.second == null)
+      {
         continue;
       }
       long startItem = range.first;
       long endItem = range.second;
 
-      if (skipMonth(firstOfMonth, lastOfMonth, startItem, endItem)) {
+      if (skipMonth(firstOfMonth, lastOfMonth, startItem, endItem))
+      {
         return;
       }
 
       int firstHighlightPosition;
       int rangeHighlightStart;
-      if (startItem < firstOfMonth) {
+      if (startItem < firstOfMonth)
+      {
         firstHighlightPosition = monthAdapter.firstPositionInMonth();
         rangeHighlightStart =
             monthAdapter.isFirstInRow(firstHighlightPosition)
                 ? 0
                 : getChildAt(firstHighlightPosition - 1).getRight();
-      } else {
+      } else
+      {
         dayCompute.setTimeInMillis(startItem);
         firstHighlightPosition = monthAdapter.dayToPosition(dayCompute.get(Calendar.DAY_OF_MONTH));
         rangeHighlightStart = horizontalMidPoint(getChildAt(firstHighlightPosition));
@@ -152,13 +196,15 @@ final class MaterialCalendarGridView extends GridView {
 
       int lastHighlightPosition;
       int rangeHighlightEnd;
-      if (endItem > lastOfMonth) {
+      if (endItem > lastOfMonth)
+      {
         lastHighlightPosition = min(monthAdapter.lastPositionInMonth(), getChildCount() - 1);
         rangeHighlightEnd =
             monthAdapter.isLastInRow(lastHighlightPosition)
                 ? getWidth()
                 : getChildAt(lastHighlightPosition).getRight();
-      } else {
+      } else
+      {
         dayCompute.setTimeInMillis(endItem);
         lastHighlightPosition = monthAdapter.dayToPosition(dayCompute.get(Calendar.DAY_OF_MONTH));
         rangeHighlightEnd = horizontalMidPoint(getChildAt(lastHighlightPosition));
@@ -166,7 +212,8 @@ final class MaterialCalendarGridView extends GridView {
 
       int firstRow = (int) monthAdapter.getItemId(firstHighlightPosition);
       int lastRow = (int) monthAdapter.getItemId(lastHighlightPosition);
-      for (int row = firstRow; row <= lastRow; row++) {
+      for (int row = firstRow; row <= lastRow; row++)
+      {
         int firstPositionInRow = row * getNumColumns();
         int lastPositionInRow = firstPositionInRow + getNumColumns() - 1;
         View firstView = getChildAt(firstPositionInRow);
@@ -180,36 +227,28 @@ final class MaterialCalendarGridView extends GridView {
   }
 
   @Override
-  protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
-    if (gainFocus) {
+  protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect)
+  {
+    if (gainFocus)
+    {
       gainFocus(direction, previouslyFocusedRect);
-    } else {
+    } else
+    {
       super.onFocusChanged(false, direction, previouslyFocusedRect);
     }
   }
 
-  private void gainFocus(int direction, Rect previouslyFocusedRect) {
-    if (direction == FOCUS_UP) {
+  private void gainFocus(int direction, Rect previouslyFocusedRect)
+  {
+    if (direction == FOCUS_UP)
+    {
       setSelection(getAdapter().lastPositionInMonth());
-    } else if (direction == FOCUS_DOWN) {
+    } else if (direction == FOCUS_DOWN)
+    {
       setSelection(getAdapter().firstPositionInMonth());
-    } else {
+    } else
+    {
       super.onFocusChanged(true, direction, previouslyFocusedRect);
     }
-  }
-
-  private static boolean skipMonth(
-      @Nullable Long firstOfMonth,
-      @Nullable Long lastOfMonth,
-      @Nullable Long startDay,
-      @Nullable Long endDay) {
-    if (firstOfMonth == null || lastOfMonth == null || startDay == null || endDay == null) {
-      return true;
-    }
-    return startDay > lastOfMonth || endDay < firstOfMonth;
-  }
-
-  private static int horizontalMidPoint(@NonNull View view) {
-    return view.getLeft() + view.getWidth() / 2;
   }
 }

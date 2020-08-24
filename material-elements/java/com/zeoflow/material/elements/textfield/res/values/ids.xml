@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,11 +15,11 @@
   -->
 <resources>
 
-  <item name="textinput_error" type="id"/>
-  <item name="textinput_counter" type="id"/>
-  <item name="textinput_helper_text" type="id"/>
-  <item name="textinput_placeholder" type="id"/>
-  <item name="textinput_prefix_text" type="id"/>
-  <item name="textinput_suffix_text" type="id"/>
+  <item name="textinput_error" type="id" />
+  <item name="textinput_counter" type="id" />
+  <item name="textinput_helper_text" type="id" />
+  <item name="textinput_placeholder" type="id" />
+  <item name="textinput_prefix_text" type="id" />
+  <item name="textinput_suffix_text" type="id" />
 
 </resources>

@@ -17,10 +17,16 @@
 package com.zeoflow.material.elements.shape;
 
 import android.graphics.RectF;
+
 import androidx.annotation.NonNull;
 
-/** Allows clients to describe the size of a corner independently from a {@link CornerTreatment}. */
-public interface CornerSize {
-  /** Returns the corner size that should be used given the full bounds of the shape. */
+/**
+ * Allows clients to describe the size of a corner independently from a {@link CornerTreatment}.
+ */
+public interface CornerSize
+{
+  /**
+   * Returns the corner size that should be used given the full bounds of the shape.
+   */
   float getCornerSize(@NonNull RectF bounds);
 }

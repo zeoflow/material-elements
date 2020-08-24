@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2017 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +16,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
   <!-- All new attributes should be set in the follow four Base.V14 themes. -->
-  <eat-comment/>
+  <eat-comment />
 
   <style name="Base.V14.Theme.MaterialComponents.Dialog" parent="Base.V14.Theme.MaterialComponents.Dialog.Bridge">
-    <item name="viewInflaterClass">com.google.android.material.theme.MaterialComponentsViewInflater</item>
+    <item name="viewInflaterClass">
+      com.google.android.material.theme.MaterialComponentsViewInflater
+    </item>
 
     <item name="colorPrimary">@color/design_dark_default_color_primary</item>
     <item name="colorPrimaryDark">@color/design_dark_default_color_primary_dark</item>
@@ -41,16 +42,23 @@
     <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Surface</item>
     <item name="borderlessButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
     <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
-    <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+    <item name="buttonBarButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush
+    </item>
     <item name="checkboxStyle">@style/Widget.MaterialComponents.CompoundButton.CheckBox</item>
-    <item name="android:contextPopupMenuStyle" tools:targetApi="n">@style/Widget.MaterialComponents.PopupMenu.ContextMenu</item>
-    <item name="floatingActionButtonStyle">@style/Widget.MaterialComponents.FloatingActionButton</item>
-    <item name="listPopupWindowStyle">@style/Widget.MaterialComponents.PopupMenu.ListPopupWindow</item>
+    <item name="android:contextPopupMenuStyle" tools:targetApi="n">
+      @style/Widget.MaterialComponents.PopupMenu.ContextMenu
+    </item>
+    <item name="floatingActionButtonStyle">@style/Widget.MaterialComponents.FloatingActionButton
+    </item>
+    <item name="listPopupWindowStyle">@style/Widget.MaterialComponents.PopupMenu.ListPopupWindow
+    </item>
     <item name="navigationViewStyle">@style/Widget.MaterialComponents.NavigationView</item>
     <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
     <item name="radioButtonStyle">@style/Widget.MaterialComponents.CompoundButton.RadioButton</item>
     <item name="snackbarStyle">@style/Widget.MaterialComponents.Snackbar</item>
-    <item name="snackbarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Snackbar</item>
+    <item name="snackbarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Snackbar
+    </item>
     <item name="snackbarTextViewStyle">@style/Widget.MaterialComponents.Snackbar.TextView</item>
     <item name="switchStyle">@style/Widget.MaterialComponents.CompoundButton.Switch</item>
     <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
@@ -58,7 +66,9 @@
     <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar</item>
 
     <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
-    <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog</item>
+    <item name="materialAlertDialogTheme">
+      @style/ThemeOverlay.MaterialComponents.MaterialAlertDialog
+    </item>
 
     <!-- Type styles -->
     <item name="textAppearanceLargePopupMenu">?attr/textAppearanceSubtitle1</item>
@@ -66,7 +76,9 @@
   </style>
 
   <style name="Base.V14.Theme.MaterialComponents.Light.Dialog" parent="Base.V14.Theme.MaterialComponents.Light.Dialog.Bridge">
-    <item name="viewInflaterClass">com.google.android.material.theme.MaterialComponentsViewInflater</item>
+    <item name="viewInflaterClass">
+      com.google.android.material.theme.MaterialComponentsViewInflater
+    </item>
 
     <!-- Colors -->
     <item name="colorPrimary">@color/design_default_color_primary</item>
@@ -87,16 +99,23 @@
     <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Primary</item>
     <item name="borderlessButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
     <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
-    <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+    <item name="buttonBarButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush
+    </item>
     <item name="checkboxStyle">@style/Widget.MaterialComponents.CompoundButton.CheckBox</item>
-    <item name="android:contextPopupMenuStyle" tools:targetApi="n">@style/Widget.MaterialComponents.PopupMenu.ContextMenu</item>
-    <item name="floatingActionButtonStyle">@style/Widget.MaterialComponents.FloatingActionButton</item>
-    <item name="listPopupWindowStyle">@style/Widget.MaterialComponents.PopupMenu.ListPopupWindow</item>
+    <item name="android:contextPopupMenuStyle" tools:targetApi="n">
+      @style/Widget.MaterialComponents.PopupMenu.ContextMenu
+    </item>
+    <item name="floatingActionButtonStyle">@style/Widget.MaterialComponents.FloatingActionButton
+    </item>
+    <item name="listPopupWindowStyle">@style/Widget.MaterialComponents.PopupMenu.ListPopupWindow
+    </item>
     <item name="navigationViewStyle">@style/Widget.MaterialComponents.NavigationView</item>
     <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
     <item name="radioButtonStyle">@style/Widget.MaterialComponents.CompoundButton.RadioButton</item>
     <item name="snackbarStyle">@style/Widget.MaterialComponents.Snackbar</item>
-    <item name="snackbarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Snackbar</item>
+    <item name="snackbarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Snackbar
+    </item>
     <item name="snackbarTextViewStyle">@style/Widget.MaterialComponents.Snackbar.TextView</item>
     <item name="switchStyle">@style/Widget.MaterialComponents.CompoundButton.Switch</item>
     <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
@@ -104,7 +123,9 @@
     <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar</item>
 
     <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
-    <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog</item>
+    <item name="materialAlertDialogTheme">
+      @style/ThemeOverlay.MaterialComponents.MaterialAlertDialog
+    </item>
 
     <!-- Type styles -->
     <item name="textAppearanceLargePopupMenu">?attr/textAppearanceSubtitle1</item>
@@ -113,24 +134,40 @@
 
   <style name="Base.V14.ThemeOverlay.MaterialComponents.Dialog" parent="ThemeOverlay.AppCompat.Dialog">
     <!-- Widget styles -->
-    <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+    <item name="materialButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush
+    </item>
   </style>
 
   <style name="Base.V14.ThemeOverlay.MaterialComponents.Dialog.Alert" parent="ThemeOverlay.AppCompat.Dialog.Alert">
     <!-- Widget styles -->
-    <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+    <item name="buttonBarButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush
+    </item>
   </style>
+
   <style name="Base.V14.ThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
     <!-- Widget styles -->
     <item name="alertDialogStyle">@style/MaterialAlertDialog.MaterialComponents</item>
-    <item name="android:checkedTextViewStyle" tools:ignore="NewApi">@style/Widget.MaterialComponents.CheckedTextView</item>
+    <item name="android:checkedTextViewStyle" tools:ignore="NewApi">
+      @style/Widget.MaterialComponents.CheckedTextView
+    </item>
     <item name="android:dialogCornerRadius" tools:ignore="newApi">@null</item>
-    <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
-    <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
-    <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
-    <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+    <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog
+    </item>
+    <item name="buttonBarPositiveButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog
+    </item>
+    <item name="buttonBarNegativeButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog
+    </item>
+    <item name="buttonBarNeutralButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush
+    </item>
     <item name="android:backgroundDimAmount">0.32</item>
-    <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.MaterialComponents.Body.Text</item>
+    <item name="materialAlertDialogBodyTextStyle">
+      @style/MaterialAlertDialog.MaterialComponents.Body.Text
+    </item>
   </style>
 
   <!-- Themes in the "Base.Theme" family vary based on the current platform
@@ -139,11 +176,11 @@
 
        Themes in the "Theme.MaterialComponents" family are meant to be extended or used
        directly by apps. -->
-  <eat-comment/>
+  <eat-comment />
 
-  <style name="Base.Theme.MaterialComponents.Dialog" parent="Base.V14.Theme.MaterialComponents.Dialog"/>
+  <style name="Base.Theme.MaterialComponents.Dialog" parent="Base.V14.Theme.MaterialComponents.Dialog" />
 
-  <style name="Base.Theme.MaterialComponents.Light.Dialog" parent="Base.V14.Theme.MaterialComponents.Light.Dialog"/>
+  <style name="Base.Theme.MaterialComponents.Light.Dialog" parent="Base.V14.Theme.MaterialComponents.Light.Dialog" />
 
   <style name="Base.Theme.MaterialComponents.Dialog.Alert">
     <item name="android:windowMinWidthMajor">@dimen/abc_dialog_min_width_major</item>
@@ -179,8 +216,10 @@
     <item name="windowFixedHeightMinor">@dimen/abc_dialog_fixed_height_minor</item>
   </style>
 
-  <style name="Base.ThemeOverlay.MaterialComponents.Dialog" parent="Base.V14.ThemeOverlay.MaterialComponents.Dialog"/>
-  <style name="Base.ThemeOverlay.MaterialComponents.Dialog.Alert" parent="Base.V14.ThemeOverlay.MaterialComponents.Dialog.Alert"/>
-  <style name="Base.ThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="Base.V14.ThemeOverlay.MaterialComponents.MaterialAlertDialog"/>
+  <style name="Base.ThemeOverlay.MaterialComponents.Dialog" parent="Base.V14.ThemeOverlay.MaterialComponents.Dialog" />
+
+  <style name="Base.ThemeOverlay.MaterialComponents.Dialog.Alert" parent="Base.V14.ThemeOverlay.MaterialComponents.Dialog.Alert" />
+
+  <style name="Base.ThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="Base.V14.ThemeOverlay.MaterialComponents.MaterialAlertDialog" />
 
 </resources>

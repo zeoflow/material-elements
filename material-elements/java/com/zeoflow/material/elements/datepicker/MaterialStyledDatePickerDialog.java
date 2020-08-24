@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -27,12 +25,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.StyleRes;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.dialog.InsetDialogOnTouchListener;
 import com.zeoflow.material.elements.dialog.MaterialDialogs;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
@@ -44,22 +45,28 @@ import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
  * @hide
  */
 @RestrictTo({Scope.LIBRARY_GROUP, Scope.TESTS})
-public class MaterialStyledDatePickerDialog extends DatePickerDialog {
+public class MaterialStyledDatePickerDialog extends DatePickerDialog
+{
 
-  @AttrRes private static final int DEF_STYLE_ATTR = android.R.attr.datePickerStyle;
+  @AttrRes
+  private static final int DEF_STYLE_ATTR = android.R.attr.datePickerStyle;
 
   @StyleRes
   private static final int DEF_STYLE_RES =
       R.style.MaterialAlertDialog_MaterialComponents_Picker_Date_Spinner;
 
-  @NonNull private final Drawable background;
-  @NonNull private final Rect backgroundInsets;
+  @NonNull
+  private final Drawable background;
+  @NonNull
+  private final Rect backgroundInsets;
 
-  public MaterialStyledDatePickerDialog(@NonNull Context context) {
+  public MaterialStyledDatePickerDialog(@NonNull Context context)
+  {
     this(context, 0);
   }
 
-  public MaterialStyledDatePickerDialog(@NonNull Context context, int themeResId) {
+  public MaterialStyledDatePickerDialog(@NonNull Context context, int themeResId)
+  {
     this(context, themeResId, null, -1, -1, -1);
   }
 
@@ -68,7 +75,8 @@ public class MaterialStyledDatePickerDialog extends DatePickerDialog {
       @Nullable OnDateSetListener listener,
       int year,
       int month,
-      int dayOfMonth) {
+      int dayOfMonth)
+  {
     this(context, 0, listener, year, month, dayOfMonth);
   }
 
@@ -78,7 +86,8 @@ public class MaterialStyledDatePickerDialog extends DatePickerDialog {
       @Nullable OnDateSetListener listener,
       int year,
       int monthOfYear,
-      int dayOfMonth) {
+      int dayOfMonth)
+  {
 
     super(context, themeResId, listener, year, monthOfYear, dayOfMonth);
     context = getContext();
@@ -90,9 +99,11 @@ public class MaterialStyledDatePickerDialog extends DatePickerDialog {
     MaterialShapeDrawable materialShapeDrawable =
         new MaterialShapeDrawable(context, null, DEF_STYLE_ATTR, DEF_STYLE_RES);
     // Pre-L, windowBackground is a second background behind the Picker Dialog.
-    if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+    if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       materialShapeDrawable.setFillColor(ColorStateList.valueOf(surfaceColor));
-    } else {
+    } else
+    {
       materialShapeDrawable.setFillColor(ColorStateList.valueOf(Color.TRANSPARENT));
     }
 
@@ -102,7 +113,8 @@ public class MaterialStyledDatePickerDialog extends DatePickerDialog {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState)
+  {
     super.onCreate(savedInstanceState);
     getWindow().setBackgroundDrawable(background);
     getWindow()

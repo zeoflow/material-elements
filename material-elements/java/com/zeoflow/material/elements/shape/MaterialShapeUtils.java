@@ -17,18 +17,27 @@
 package com.zeoflow.material.elements.shape;
 
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+
 import com.zeoflow.material.elements.internal.ViewUtils;
 
-/** Utility methods for {@link MaterialShapeDrawable} and related classes. */
-public class MaterialShapeUtils {
+/**
+ * Utility methods for {@link MaterialShapeDrawable} and related classes.
+ */
+public class MaterialShapeUtils
+{
 
-  private MaterialShapeUtils() {}
+  private MaterialShapeUtils()
+  {
+  }
 
   @NonNull
-  static CornerTreatment createCornerTreatment(@CornerFamily int cornerFamily) {
-    switch (cornerFamily) {
+  static CornerTreatment createCornerTreatment(@CornerFamily int cornerFamily)
+  {
+    switch (cornerFamily)
+    {
       case CornerFamily.ROUNDED:
         return new RoundedCornerTreatment();
       case CornerFamily.CUT:
@@ -39,12 +48,14 @@ public class MaterialShapeUtils {
   }
 
   @NonNull
-  static CornerTreatment createDefaultCornerTreatment() {
+  static CornerTreatment createDefaultCornerTreatment()
+  {
     return new RoundedCornerTreatment();
   }
 
   @NonNull
-  static EdgeTreatment createDefaultEdgeTreatment() {
+  static EdgeTreatment createDefaultEdgeTreatment()
+  {
     return new EdgeTreatment();
   }
 
@@ -53,9 +64,11 @@ public class MaterialShapeUtils {
    * drawable's elevation via {@link MaterialShapeDrawable#setElevation(float)}; otherwise does
    * nothing.
    */
-  public static void setElevation(@NonNull View view, float elevation) {
+  public static void setElevation(@NonNull View view, float elevation)
+  {
     Drawable background = view.getBackground();
-    if (background instanceof MaterialShapeDrawable) {
+    if (background instanceof MaterialShapeDrawable)
+    {
       ((MaterialShapeDrawable) background).setElevation(elevation);
     }
   }
@@ -66,9 +79,11 @@ public class MaterialShapeUtils {
    * MaterialShapeUtils#setParentAbsoluteElevation(View, MaterialShapeDrawable)}); otherwise does
    * nothing.
    */
-  public static void setParentAbsoluteElevation(@NonNull View view) {
+  public static void setParentAbsoluteElevation(@NonNull View view)
+  {
     Drawable background = view.getBackground();
-    if (background instanceof MaterialShapeDrawable) {
+    if (background instanceof MaterialShapeDrawable)
+    {
       setParentAbsoluteElevation(view, (MaterialShapeDrawable) background);
     }
   }
@@ -79,8 +94,10 @@ public class MaterialShapeUtils {
    * of the parent of the provided {@code view}.
    */
   public static void setParentAbsoluteElevation(
-      @NonNull View view, @NonNull MaterialShapeDrawable materialShapeDrawable) {
-    if (materialShapeDrawable.isElevationOverlayEnabled()) {
+      @NonNull View view, @NonNull MaterialShapeDrawable materialShapeDrawable)
+  {
+    if (materialShapeDrawable.isElevationOverlayEnabled())
+    {
       materialShapeDrawable.setParentAbsoluteElevation(ViewUtils.getParentAbsoluteElevation(view));
     }
   }

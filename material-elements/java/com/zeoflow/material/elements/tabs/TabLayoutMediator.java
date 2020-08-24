@@ -16,15 +16,16 @@
 
 package com.zeoflow.material.elements.tabs;
 
-import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
-import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
-import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+
 import java.lang.ref.WeakReference;
+
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING;
 
 /**
  * A mediator to link a TabLayout with a ViewPager2. The mediator will synchronize the ViewPager2's
@@ -43,39 +44,31 @@ import java.lang.ref.WeakReference;
  * {@link #attach()} call. Changing the ViewPager2 or TabLayout will require a new instantiation of
  * TabLayoutMediator.
  */
-public final class TabLayoutMediator {
-  @NonNull private final TabLayout tabLayout;
-  @NonNull private final ViewPager2 viewPager;
+public final class TabLayoutMediator
+{
+  @NonNull
+  private final TabLayout tabLayout;
+  @NonNull
+  private final ViewPager2 viewPager;
   private final boolean autoRefresh;
   private final boolean smoothScroll;
   private final TabConfigurationStrategy tabConfigurationStrategy;
-  @Nullable private RecyclerView.Adapter<?> adapter;
+  @Nullable
+  private RecyclerView.Adapter<?> adapter;
   private boolean attached;
 
-  @Nullable private TabLayoutOnPageChangeCallback onPageChangeCallback;
-  @Nullable private TabLayout.OnTabSelectedListener onTabSelectedListener;
-  @Nullable private RecyclerView.AdapterDataObserver pagerAdapterObserver;
-
-  /**
-   * A callback interface that must be implemented to set the text and styling of newly created
-   * tabs.
-   */
-  public interface TabConfigurationStrategy {
-    /**
-     * Called to configure the tab for the page at the specified position. Typically calls {@link
-     * TabLayout.Tab#setText(CharSequence)}, but any form of styling can be applied.
-     *
-     * @param tab The Tab which should be configured to represent the title of the item at the given
-     *     position in the data set.
-     * @param position The position of the item within the adapter's data set.
-     */
-    void onConfigureTab(@NonNull TabLayout.Tab tab, int position);
-  }
+  @Nullable
+  private TabLayoutOnPageChangeCallback onPageChangeCallback;
+  @Nullable
+  private TabLayout.OnTabSelectedListener onTabSelectedListener;
+  @Nullable
+  private RecyclerView.AdapterDataObserver pagerAdapterObserver;
 
   public TabLayoutMediator(
       @NonNull TabLayout tabLayout,
       @NonNull ViewPager2 viewPager,
-      @NonNull TabConfigurationStrategy tabConfigurationStrategy) {
+      @NonNull TabConfigurationStrategy tabConfigurationStrategy)
+  {
     this(tabLayout, viewPager, /* autoRefresh= */ true, tabConfigurationStrategy);
   }
 
@@ -83,7 +76,8 @@ public final class TabLayoutMediator {
       @NonNull TabLayout tabLayout,
       @NonNull ViewPager2 viewPager,
       boolean autoRefresh,
-      @NonNull TabConfigurationStrategy tabConfigurationStrategy) {
+      @NonNull TabConfigurationStrategy tabConfigurationStrategy)
+  {
     this(tabLayout, viewPager, autoRefresh, /* smoothScroll= */ true, tabConfigurationStrategy);
   }
 
@@ -92,7 +86,8 @@ public final class TabLayoutMediator {
       @NonNull ViewPager2 viewPager,
       boolean autoRefresh,
       boolean smoothScroll,
-      @NonNull TabConfigurationStrategy tabConfigurationStrategy) {
+      @NonNull TabConfigurationStrategy tabConfigurationStrategy)
+  {
     this.tabLayout = tabLayout;
     this.viewPager = viewPager;
     this.autoRefresh = autoRefresh;
@@ -106,14 +101,17 @@ public final class TabLayoutMediator {
    * changes.
    *
    * @throws IllegalStateException If the mediator is already attached, or the ViewPager2 has no
-   *     adapter.
+   *                               adapter.
    */
-  public void attach() {
-    if (attached) {
+  public void attach()
+  {
+    if (attached)
+    {
       throw new IllegalStateException("TabLayoutMediator is already attached");
     }
     adapter = viewPager.getAdapter();
-    if (adapter == null) {
+    if (adapter == null)
+    {
       throw new IllegalStateException(
           "TabLayoutMediator attached before ViewPager2 has an " + "adapter");
     }
@@ -129,7 +127,8 @@ public final class TabLayoutMediator {
 
     // Now we'll populate ourselves from the pager adapter, adding an observer if
     // autoRefresh is enabled
-    if (autoRefresh) {
+    if (autoRefresh)
+    {
       // Register our observer on the new adapter
       pagerAdapterObserver = new PagerAdapterObserver();
       adapter.registerAdapterDataObserver(pagerAdapterObserver);
@@ -146,8 +145,10 @@ public final class TabLayoutMediator {
    * is instantiated, to prevent holding on to a view that should be garbage collected. Also to be
    * called before {@link #attach()} when a ViewPager2's adapter is changed.
    */
-  public void detach() {
-    if (autoRefresh && adapter != null) {
+  public void detach()
+  {
+    if (autoRefresh && adapter != null)
+    {
       adapter.unregisterAdapterDataObserver(pagerAdapterObserver);
       pagerAdapterObserver = null;
     }
@@ -160,25 +161,47 @@ public final class TabLayoutMediator {
   }
 
   @SuppressWarnings("WeakerAccess")
-  void populateTabsFromPagerAdapter() {
+  void populateTabsFromPagerAdapter()
+  {
     tabLayout.removeAllTabs();
 
-    if (adapter != null) {
+    if (adapter != null)
+    {
       int adapterCount = adapter.getItemCount();
-      for (int i = 0; i < adapterCount; i++) {
+      for (int i = 0; i < adapterCount; i++)
+      {
         TabLayout.Tab tab = tabLayout.newTab();
         tabConfigurationStrategy.onConfigureTab(tab, i);
         tabLayout.addTab(tab, false);
       }
       // Make sure we reflect the currently set ViewPager item
-      if (adapterCount > 0) {
+      if (adapterCount > 0)
+      {
         int lastItem = tabLayout.getTabCount() - 1;
         int currItem = Math.min(viewPager.getCurrentItem(), lastItem);
-        if (currItem != tabLayout.getSelectedTabPosition()) {
+        if (currItem != tabLayout.getSelectedTabPosition())
+        {
           tabLayout.selectTab(tabLayout.getTabAt(currItem));
         }
       }
     }
+  }
+
+  /**
+   * A callback interface that must be implemented to set the text and styling of newly created
+   * tabs.
+   */
+  public interface TabConfigurationStrategy
+  {
+    /**
+     * Called to configure the tab for the page at the specified position. Typically calls {@link
+     * TabLayout.Tab#setText(CharSequence)}, but any form of styling can be applied.
+     *
+     * @param tab      The Tab which should be configured to represent the title of the item at the given
+     *                 position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
+    void onConfigureTab(@NonNull TabLayout.Tab tab, int position);
   }
 
   /**
@@ -189,26 +212,32 @@ public final class TabLayoutMediator {
    * ViewPager2#registerOnPageChangeCallback(ViewPager2.OnPageChangeCallback)} without removing the
    * callback and not cause a leak.
    */
-  private static class TabLayoutOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
-    @NonNull private final WeakReference<TabLayout> tabLayoutRef;
+  private static class TabLayoutOnPageChangeCallback extends ViewPager2.OnPageChangeCallback
+  {
+    @NonNull
+    private final WeakReference<TabLayout> tabLayoutRef;
     private int previousScrollState;
     private int scrollState;
 
-    TabLayoutOnPageChangeCallback(TabLayout tabLayout) {
+    TabLayoutOnPageChangeCallback(TabLayout tabLayout)
+    {
       tabLayoutRef = new WeakReference<>(tabLayout);
       reset();
     }
 
     @Override
-    public void onPageScrollStateChanged(final int state) {
+    public void onPageScrollStateChanged(final int state)
+    {
       previousScrollState = scrollState;
       scrollState = state;
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+    {
       TabLayout tabLayout = tabLayoutRef.get();
-      if (tabLayout != null) {
+      if (tabLayout != null)
+      {
         // Only update the text selection if we're not settling, or we are settling after
         // being dragged
         boolean updateText =
@@ -223,22 +252,25 @@ public final class TabLayoutMediator {
     }
 
     @Override
-    public void onPageSelected(final int position) {
+    public void onPageSelected(final int position)
+    {
       TabLayout tabLayout = tabLayoutRef.get();
       if (tabLayout != null
           && tabLayout.getSelectedTabPosition() != position
-          && position < tabLayout.getTabCount()) {
+          && position < tabLayout.getTabCount())
+      {
         // Select the tab, only updating the indicator if we're not being dragged/settled
         // (since onPageScrolled will handle that).
         boolean updateIndicator =
             scrollState == SCROLL_STATE_IDLE
                 || (scrollState == SCROLL_STATE_SETTLING
-                    && previousScrollState == SCROLL_STATE_IDLE);
+                && previousScrollState == SCROLL_STATE_IDLE);
         tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
       }
     }
 
-    void reset() {
+    void reset()
+    {
       previousScrollState = scrollState = SCROLL_STATE_IDLE;
     }
   }
@@ -247,61 +279,75 @@ public final class TabLayoutMediator {
    * A {@link TabLayout.OnTabSelectedListener} class which contains the necessary calls back to the
    * provided {@link ViewPager2} so that the tab position is kept in sync.
    */
-  private static class ViewPagerOnTabSelectedListener implements TabLayout.OnTabSelectedListener {
+  private static class ViewPagerOnTabSelectedListener implements TabLayout.OnTabSelectedListener
+  {
     private final ViewPager2 viewPager;
     private final boolean smoothScroll;
 
-    ViewPagerOnTabSelectedListener(ViewPager2 viewPager, boolean smoothScroll) {
+    ViewPagerOnTabSelectedListener(ViewPager2 viewPager, boolean smoothScroll)
+    {
       this.viewPager = viewPager;
       this.smoothScroll = smoothScroll;
     }
 
     @Override
-    public void onTabSelected(@NonNull TabLayout.Tab tab) {
+    public void onTabSelected(@NonNull TabLayout.Tab tab)
+    {
       viewPager.setCurrentItem(tab.getPosition(), smoothScroll);
     }
 
     @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
+    public void onTabUnselected(TabLayout.Tab tab)
+    {
       // No-op
     }
 
     @Override
-    public void onTabReselected(TabLayout.Tab tab) {
+    public void onTabReselected(TabLayout.Tab tab)
+    {
       // No-op
     }
   }
 
-  private class PagerAdapterObserver extends RecyclerView.AdapterDataObserver {
-    PagerAdapterObserver() {}
+  private class PagerAdapterObserver extends RecyclerView.AdapterDataObserver
+  {
+    PagerAdapterObserver()
+    {
+    }
 
     @Override
-    public void onChanged() {
+    public void onChanged()
+    {
       populateTabsFromPagerAdapter();
     }
 
     @Override
-    public void onItemRangeChanged(int positionStart, int itemCount) {
+    public void onItemRangeChanged(int positionStart, int itemCount)
+    {
       populateTabsFromPagerAdapter();
     }
 
     @Override
-    public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
+    public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload)
+    {
       populateTabsFromPagerAdapter();
     }
 
     @Override
-    public void onItemRangeInserted(int positionStart, int itemCount) {
+    public void onItemRangeInserted(int positionStart, int itemCount)
+    {
       populateTabsFromPagerAdapter();
     }
 
     @Override
-    public void onItemRangeRemoved(int positionStart, int itemCount) {
+    public void onItemRangeRemoved(int positionStart, int itemCount)
+    {
       populateTabsFromPagerAdapter();
     }
 
     @Override
-    public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+    public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
+    {
       populateTabsFromPagerAdapter();
     }
   }

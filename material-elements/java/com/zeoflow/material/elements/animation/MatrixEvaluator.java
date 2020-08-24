@@ -17,23 +17,27 @@ package com.zeoflow.material.elements.animation;
 
 import android.animation.TypeEvaluator;
 import android.graphics.Matrix;
+
 import androidx.annotation.NonNull;
 
 /**
  * Type evaluator for {@link Matrix} interpolation. Copied from
  * androidx.transition.TransitionUtils.MatrixEvaluator.
  */
-public class MatrixEvaluator implements TypeEvaluator<Matrix> {
+public class MatrixEvaluator implements TypeEvaluator<Matrix>
+{
   private final float[] tempStartValues = new float[9];
   private final float[] tempEndValues = new float[9];
   private final Matrix tempMatrix = new Matrix();
 
   @NonNull
   @Override
-  public Matrix evaluate(float fraction, @NonNull Matrix startValue, @NonNull Matrix endValue) {
+  public Matrix evaluate(float fraction, @NonNull Matrix startValue, @NonNull Matrix endValue)
+  {
     startValue.getValues(tempStartValues);
     endValue.getValues(tempEndValues);
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; i++)
+    {
       float diff = tempEndValues[i] - tempStartValues[i];
       tempEndValues[i] = tempStartValues[i] + (fraction * diff);
     }

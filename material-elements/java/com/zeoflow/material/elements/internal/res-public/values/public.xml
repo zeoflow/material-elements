@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +14,11 @@
   ~ limitations under the License.
 -->
 <resources>
-  <public name="enforceMaterialTheme" type="attr"/>
-  <public name="enforceTextAppearance" type="attr"/>
-  <public name="insetForeground" type="attr"/>
-  <public name="paddingBottomSystemWindowInsets" type="attr"/>
-  <public name="paddingLeftSystemWindowInsets" type="attr"/>
-  <public name="paddingRightSystemWindowInsets" type="attr"/>
-  <public name="Widget.Design.ScrimInsetsFrameLayout" type="style"/>
+  <public name="enforceMaterialTheme" type="attr" />
+  <public name="enforceTextAppearance" type="attr" />
+  <public name="insetForeground" type="attr" />
+  <public name="paddingBottomSystemWindowInsets" type="attr" />
+  <public name="paddingLeftSystemWindowInsets" type="attr" />
+  <public name="paddingRightSystemWindowInsets" type="attr" />
+  <public name="Widget.Design.ScrimInsetsFrameLayout" type="style" />
 </resources>

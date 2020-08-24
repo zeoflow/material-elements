@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,55 +18,55 @@
 
   <declare-styleable name="MaterialShape">
     <!-- Shape appearance style reference to be used to construct a ShapeAppearanceModel. -->
-    <attr name="shapeAppearance" format="reference"/>
+    <attr name="shapeAppearance" format="reference" />
     <!-- Shape appearance overlay style reference to be used to modify the shapeAppearance. -->
-    <attr name="shapeAppearanceOverlay" format="reference"/>
+    <attr name="shapeAppearanceOverlay" format="reference" />
   </declare-styleable>
 
   <declare-styleable name="ShapeAppearance">
     <!-- Corner size to be used in the ShapeAppearance. All corners default to this value -->
-    <attr name="cornerSize" format="dimension|fraction"/>
+    <attr name="cornerSize" format="dimension|fraction" />
     <!-- Top left corner size to be used in the ShapeAppearance. -->
-    <attr name="cornerSizeTopLeft" format="dimension|fraction"/>
+    <attr name="cornerSizeTopLeft" format="dimension|fraction" />
     <!-- Top right corner size to be used in the ShapeAppearance. -->
-    <attr name="cornerSizeTopRight" format="dimension|fraction"/>
+    <attr name="cornerSizeTopRight" format="dimension|fraction" />
     <!-- Bottom right corner size to be used in the ShapeAppearance. -->
-    <attr name="cornerSizeBottomRight" format="dimension|fraction"/>
+    <attr name="cornerSizeBottomRight" format="dimension|fraction" />
     <!-- Bottom left corner size to be used in the ShapeAppearance. -->
-    <attr name="cornerSizeBottomLeft" format="dimension|fraction"/>
+    <attr name="cornerSizeBottomLeft" format="dimension|fraction" />
 
     <!-- Corner family to be used in the ShapeAppearance. All corners default to this value -->
     <attr name="cornerFamily" format="enum">
-      <enum name="rounded" value="0"/>
-      <enum name="cut" value="1"/>
+      <enum name="rounded" value="0" />
+      <enum name="cut" value="1" />
     </attr>
     <!-- Top left corner family to be used in the ShapeAppearance. -->
     <attr name="cornerFamilyTopLeft" format="enum">
-      <enum name="rounded" value="0"/>
-      <enum name="cut" value="1"/>
+      <enum name="rounded" value="0" />
+      <enum name="cut" value="1" />
     </attr>
     <!-- Top right corner family to be used in the ShapeAppearance. -->
     <attr name="cornerFamilyTopRight" format="enum">
-      <enum name="rounded" value="0"/>
-      <enum name="cut" value="1"/>
+      <enum name="rounded" value="0" />
+      <enum name="cut" value="1" />
     </attr>
     <!-- Bottom right corner family to be used in the ShapeAppearance. -->
     <attr name="cornerFamilyBottomRight" format="enum">
-      <enum name="rounded" value="0"/>
-      <enum name="cut" value="1"/>
+      <enum name="rounded" value="0" />
+      <enum name="cut" value="1" />
     </attr>
     <!-- Bottom left corner family to be used in the ShapeAppearance. -->
     <attr name="cornerFamilyBottomLeft" format="enum">
-      <enum name="rounded" value="0"/>
-      <enum name="cut" value="1"/>
+      <enum name="rounded" value="0" />
+      <enum name="cut" value="1" />
     </attr>
   </declare-styleable>
 
   <!-- Shape appearance style reference for small components. -->
-  <attr name="shapeAppearanceSmallComponent" format="reference"/>
+  <attr name="shapeAppearanceSmallComponent" format="reference" />
   <!-- Shape appearance style reference for medium components. -->
-  <attr name="shapeAppearanceMediumComponent" format="reference"/>
+  <attr name="shapeAppearanceMediumComponent" format="reference" />
   <!-- Shape appearance style reference for large components. -->
-  <attr name="shapeAppearanceLargeComponent" format="reference"/>
+  <attr name="shapeAppearanceLargeComponent" format="reference" />
 
 </resources>

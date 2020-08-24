@@ -16,19 +16,21 @@
 
 package com.zeoflow.material.elements.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.text.TextPaint;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import android.text.TextPaint;
+
 import com.zeoflow.material.elements.resources.TextAppearance;
 import com.zeoflow.material.elements.resources.TextAppearanceFontCallback;
 
 import java.lang.ref.WeakReference;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Class that helps to support drawing text in drawables. It can be used by any drawable that draws
@@ -37,68 +39,86 @@ import java.lang.ref.WeakReference;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class TextDrawableHelper {
+public class TextDrawableHelper
+{
 
   private final TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-
+  private float textWidth;
+  private boolean textWidthDirty = true;
+  @Nullable
+  private WeakReference<TextDrawableDelegate> delegate = new WeakReference<>(null);
   private final TextAppearanceFontCallback fontCallback =
-      new TextAppearanceFontCallback() {
+      new TextAppearanceFontCallback()
+      {
         @Override
-        public void onFontRetrieved(@NonNull Typeface typeface, boolean fontResolvedSynchronously) {
-          if (fontResolvedSynchronously) {
+        public void onFontRetrieved(@NonNull Typeface typeface, boolean fontResolvedSynchronously)
+        {
+          if (fontResolvedSynchronously)
+          {
             return;
           }
           textWidthDirty = true;
           TextDrawableDelegate textDrawableDelegate = delegate.get();
-          if (textDrawableDelegate != null) {
+          if (textDrawableDelegate != null)
+          {
             textDrawableDelegate.onTextSizeChange();
           }
         }
 
         @Override
-        public void onFontRetrievalFailed(int reason) {
+        public void onFontRetrievalFailed(int reason)
+        {
           textWidthDirty = true;
           // Use fallback font.
           TextDrawableDelegate textDrawableDelegate = delegate.get();
-          if (textDrawableDelegate != null) {
+          if (textDrawableDelegate != null)
+          {
             textDrawableDelegate.onTextSizeChange();
           }
         }
       };
-
-  private float textWidth;
-  private boolean textWidthDirty = true;
-  @Nullable private WeakReference<TextDrawableDelegate> delegate = new WeakReference<>(null);
-  @Nullable private TextAppearance textAppearance;
+  @Nullable
+  private TextAppearance textAppearance;
 
   /**
    * Please provide a delegate if your text font may load asynchronously.
    */
-  public TextDrawableHelper(@Nullable TextDrawableDelegate delegate) {
+  public TextDrawableHelper(@Nullable TextDrawableDelegate delegate)
+  {
     setDelegate(delegate);
   }
 
-  /** Sets the delegate that owns this TextDrawableHelper. */
-  public void setDelegate(@Nullable TextDrawableDelegate delegate) {
+  /**
+   * Sets the delegate that owns this TextDrawableHelper.
+   */
+  public void setDelegate(@Nullable TextDrawableDelegate delegate)
+  {
     this.delegate = new WeakReference<>(delegate);
   }
 
   @NonNull
-  public TextPaint getTextPaint() {
+  public TextPaint getTextPaint()
+  {
     return textPaint;
   }
 
-  public void setTextWidthDirty(boolean dirty) {
-    textWidthDirty = dirty;
-  }
-
-  public boolean isTextWidthDirty() {
+  public boolean isTextWidthDirty()
+  {
     return textWidthDirty;
   }
 
-  /** Returns the visual width of the {@code text} based on its current text appearance. */
-  public float getTextWidth(String text) {
-    if (!textWidthDirty) {
+  public void setTextWidthDirty(boolean dirty)
+  {
+    textWidthDirty = dirty;
+  }
+
+  /**
+   * Returns the visual width of the {@code text} based on its current text appearance.
+   */
+  public float getTextWidth(String text)
+  {
+    if (!textWidthDirty)
+    {
       return textWidth;
     }
 
@@ -107,8 +127,10 @@ public class TextDrawableHelper {
     return textWidth;
   }
 
-  private float calculateTextWidth(@Nullable CharSequence charSequence) {
-    if (charSequence == null) {
+  private float calculateTextWidth(@Nullable CharSequence charSequence)
+  {
+    if (charSequence == null)
+    {
       return 0f;
     }
     return textPaint.measureText(charSequence, 0, charSequence.length());
@@ -120,7 +142,8 @@ public class TextDrawableHelper {
    * @see #setTextAppearance(TextAppearance, Context)
    */
   @Nullable
-  public TextAppearance getTextAppearance() {
+  public TextAppearance getTextAppearance()
+  {
     return textAppearance;
   }
 
@@ -131,14 +154,18 @@ public class TextDrawableHelper {
    * @param textAppearance The delegate drawable's text appearance or null to clear it.
    * @see #getTextAppearance()
    */
-  public void setTextAppearance(@Nullable TextAppearance textAppearance, Context context) {
-    if (this.textAppearance != textAppearance) {
+  public void setTextAppearance(@Nullable TextAppearance textAppearance, Context context)
+  {
+    if (this.textAppearance != textAppearance)
+    {
       this.textAppearance = textAppearance;
-      if (textAppearance != null) {
+      if (textAppearance != null)
+      {
         textAppearance.updateMeasureState(context, textPaint, fontCallback);
 
         TextDrawableDelegate textDrawableDelegate = delegate.get();
-        if (textDrawableDelegate != null) {
+        if (textDrawableDelegate != null)
+        {
           textPaint.drawableState = textDrawableDelegate.getState();
         }
         textAppearance.updateDrawState(context, textPaint, fontCallback);
@@ -146,24 +173,31 @@ public class TextDrawableHelper {
       }
 
       TextDrawableDelegate textDrawableDelegate = delegate.get();
-      if (textDrawableDelegate != null) {
+      if (textDrawableDelegate != null)
+      {
         textDrawableDelegate.onTextSizeChange();
         textDrawableDelegate.onStateChange(textDrawableDelegate.getState());
       }
     }
   }
 
-  public void updateTextPaintDrawState(Context context) {
+  public void updateTextPaintDrawState(Context context)
+  {
     textAppearance.updateDrawState(context, textPaint, fontCallback);
   }
 
-  /** Delegate interface to be implemented by Drawables that own a TextDrawableHelper. */
-  public interface TextDrawableDelegate {
+  /**
+   * Delegate interface to be implemented by Drawables that own a TextDrawableHelper.
+   */
+  public interface TextDrawableDelegate
+  {
     // See Drawable#getState()
     @NonNull
     int[] getState();
 
-    /** Handles a change in the text's size. */
+    /**
+     * Handles a change in the text's size.
+     */
     void onTextSizeChange();
 
     // See Drawable#onStateChange();

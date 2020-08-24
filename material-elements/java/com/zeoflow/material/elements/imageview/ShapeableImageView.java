@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.imageview;
 
-import com.google.android.material.R;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -35,6 +33,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewOutlineProvider;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
@@ -42,17 +44,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageView;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewOutlineProvider;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.ShapeAppearancePathProvider;
 import com.zeoflow.material.elements.shape.Shapeable;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-/** An ImageView that draws the bitmap with the provided Shape. */
-public class ShapeableImageView extends AppCompatImageView implements Shapeable {
+/**
+ * An ImageView that draws the bitmap with the provided Shape.
+ */
+public class ShapeableImageView extends AppCompatImageView implements Shapeable
+{
 
   private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_ShapeableImageView;
 
@@ -65,18 +69,22 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
 
   private ColorStateList strokeColor;
   private ShapeAppearanceModel shapeAppearanceModel;
-  @Dimension private float strokeWidth;
+  @Dimension
+  private float strokeWidth;
   private Path maskPath;
 
-  public ShapeableImageView(Context context) {
+  public ShapeableImageView(Context context)
+  {
     this(context, null, 0);
   }
 
-  public ShapeableImageView(Context context, @Nullable AttributeSet attrs) {
+  public ShapeableImageView(Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, 0);
   }
 
-  public ShapeableImageView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+  public ShapeableImageView(Context context, @Nullable AttributeSet attrs, int defStyle)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyle, DEF_STYLE_RES), attrs, defStyle);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -103,50 +111,58 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
     borderPaint.setAntiAlias(true);
     shapeAppearanceModel =
         ShapeAppearanceModel.builder(context, attrs, defStyle, DEF_STYLE_RES).build();
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       setOutlineProvider(new OutlineProvider());
     }
   }
 
   @Override
-  protected void onDetachedFromWindow() {
+  protected void onDetachedFromWindow()
+  {
     setLayerType(LAYER_TYPE_NONE, null);
     super.onDetachedFromWindow();
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
     setLayerType(LAYER_TYPE_HARDWARE, null);
   }
 
   @Override
-  protected void onDraw(Canvas canvas) {
+  protected void onDraw(Canvas canvas)
+  {
     super.onDraw(canvas);
     canvas.drawPath(maskPath, clearPaint);
     drawStroke(canvas);
   }
 
   @Override
-  protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+  protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight)
+  {
     super.onSizeChanged(width, height, oldWidth, oldHeight);
     updateShapeMask(width, height);
   }
 
+  @NonNull
   @Override
-  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel) {
+  public ShapeAppearanceModel getShapeAppearanceModel()
+  {
+    return shapeAppearanceModel;
+  }
+
+  @Override
+  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel)
+  {
     this.shapeAppearanceModel = shapeAppearanceModel;
     updateShapeMask(getWidth(), getHeight());
     invalidate();
   }
 
-  @NonNull
-  @Override
-  public ShapeAppearanceModel getShapeAppearanceModel() {
-    return shapeAppearanceModel;
-  }
-
-  private void updateShapeMask(int width, int height) {
+  private void updateShapeMask(int width, int height)
+  {
     destination.set(
         getPaddingLeft(),
         getPaddingTop(),
@@ -161,8 +177,10 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
     maskPath.addRect(maskRect, Direction.CCW);
   }
 
-  private void drawStroke(Canvas canvas) {
-    if (strokeColor == null) {
+  private void drawStroke(Canvas canvas)
+  {
+    if (strokeColor == null)
+    {
       return;
     }
 
@@ -170,7 +188,8 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
     int colorForState =
         strokeColor.getColorForState(getDrawableState(), strokeColor.getDefaultColor());
 
-    if (strokeWidth > 0 && colorForState != Color.TRANSPARENT) {
+    if (strokeWidth > 0 && colorForState != Color.TRANSPARENT)
+    {
       borderPaint.setColor(colorForState);
       canvas.drawPath(path, borderPaint);
     }
@@ -185,7 +204,8 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
    * @see #setStrokeColor(ColorStateList)
    * @see #getStrokeColor()
    */
-  public void setStrokeColorResource(@ColorRes int strokeColorResourceId) {
+  public void setStrokeColorResource(@ColorRes int strokeColorResourceId)
+  {
     setStrokeColor(AppCompatResources.getColorStateList(getContext(), strokeColorResourceId));
   }
 
@@ -197,24 +217,15 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
    * @see #setStrokeColorResource(int)
    */
   @Nullable
-  public ColorStateList getStrokeColor() {
+  public ColorStateList getStrokeColor()
+  {
     return strokeColor;
   }
 
-  /**
-   * Sets the stroke width for this ImageView. Both stroke color and stroke width must be set for a
-   * stroke to be drawn.
-   *
-   * @param strokeWidth Stroke width for this ImageView.
-   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
-   * @see #setStrokeWidthResource(int)
-   * @see #getStrokeWidth()
-   */
-  public void setStrokeWidth(@Dimension float strokeWidth) {
-    if (this.strokeWidth != strokeWidth) {
-      this.strokeWidth = strokeWidth;
-      invalidate();
-    }
+  public void setStrokeColor(@Nullable ColorStateList strokeColor)
+  {
+    this.strokeColor = strokeColor;
+    invalidate();
   }
 
   /**
@@ -226,7 +237,8 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
    * @see #setStrokeWidth(float)
    * @see #getStrokeWidth()
    */
-  public void setStrokeWidthResource(@DimenRes int strokeWidthResourceId) {
+  public void setStrokeWidthResource(@DimenRes int strokeWidthResourceId)
+  {
     setStrokeWidth(getResources().getDimensionPixelSize(strokeWidthResourceId));
   }
 
@@ -239,23 +251,40 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable 
    * @see #setStrokeWidthResource(int)
    */
   @Dimension
-  public float getStrokeWidth() {
+  public float getStrokeWidth()
+  {
     return strokeWidth;
   }
 
-  public void setStrokeColor(@Nullable ColorStateList strokeColor) {
-    this.strokeColor = strokeColor;
-    invalidate();
+  /**
+   * Sets the stroke width for this ImageView. Both stroke color and stroke width must be set for a
+   * stroke to be drawn.
+   *
+   * @param strokeWidth Stroke width for this ImageView.
+   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
+   * @see #setStrokeWidthResource(int)
+   * @see #getStrokeWidth()
+   */
+  public void setStrokeWidth(@Dimension float strokeWidth)
+  {
+    if (this.strokeWidth != strokeWidth)
+    {
+      this.strokeWidth = strokeWidth;
+      invalidate();
+    }
   }
 
   @TargetApi(VERSION_CODES.LOLLIPOP)
-  class OutlineProvider extends ViewOutlineProvider {
+  class OutlineProvider extends ViewOutlineProvider
+  {
 
     private Rect rect = new Rect();
 
     @Override
-    public void getOutline(View view, Outline outline) {
-      if (shapeAppearanceModel != null && shapeAppearanceModel.isRoundRect(destination)) {
+    public void getOutline(View view, Outline outline)
+    {
+      if (shapeAppearanceModel != null && shapeAppearanceModel.isRoundRect(destination))
+      {
         destination.round(rect);
         float cornerSize =
             shapeAppearanceModel.getBottomLeftCornerSize().getCornerSize(destination);

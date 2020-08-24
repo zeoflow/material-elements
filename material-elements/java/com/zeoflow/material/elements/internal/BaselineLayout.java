@@ -27,23 +27,28 @@ import android.view.ViewGroup;
  *
  * @hide
  */
-public class BaselineLayout extends ViewGroup {
+public class BaselineLayout extends ViewGroup
+{
   private int baseline = -1;
 
-  public BaselineLayout(Context context) {
+  public BaselineLayout(Context context)
+  {
     super(context, null, 0);
   }
 
-  public BaselineLayout(Context context, AttributeSet attrs) {
+  public BaselineLayout(Context context, AttributeSet attrs)
+  {
     super(context, attrs, 0);
   }
 
-  public BaselineLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+  public BaselineLayout(Context context, AttributeSet attrs, int defStyleAttr)
+  {
     super(context, attrs, defStyleAttr);
   }
 
   @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+  {
     final int count = getChildCount();
     int maxWidth = 0;
     int maxHeight = 0;
@@ -51,15 +56,18 @@ public class BaselineLayout extends ViewGroup {
     int maxChildDescent = -1;
     int childState = 0;
 
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
       final View child = getChildAt(i);
-      if (child.getVisibility() == GONE) {
+      if (child.getVisibility() == GONE)
+      {
         continue;
       }
 
       measureChild(child, widthMeasureSpec, heightMeasureSpec);
       final int baseline = child.getBaseline();
-      if (baseline != -1) {
+      if (baseline != -1)
+      {
         maxChildBaseline = Math.max(maxChildBaseline, baseline);
         maxChildDescent = Math.max(maxChildDescent, child.getMeasuredHeight() - baseline);
       }
@@ -67,7 +75,8 @@ public class BaselineLayout extends ViewGroup {
       maxHeight = Math.max(maxHeight, child.getMeasuredHeight());
       childState = View.combineMeasuredStates(childState, child.getMeasuredState());
     }
-    if (maxChildBaseline != -1) {
+    if (maxChildBaseline != -1)
+    {
       maxChildDescent = Math.max(maxChildDescent, getPaddingBottom());
       maxHeight = Math.max(maxHeight, maxChildBaseline + maxChildDescent);
       this.baseline = maxChildBaseline;
@@ -81,16 +90,19 @@ public class BaselineLayout extends ViewGroup {
   }
 
   @Override
-  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+  {
     final int count = getChildCount();
     final int parentLeft = getPaddingLeft();
     final int parentRight = right - left - getPaddingRight();
     final int parentContentWidth = parentRight - parentLeft;
     final int parentTop = getPaddingTop();
 
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
       final View child = getChildAt(i);
-      if (child.getVisibility() == GONE) {
+      if (child.getVisibility() == GONE)
+      {
         continue;
       }
 
@@ -99,9 +111,11 @@ public class BaselineLayout extends ViewGroup {
 
       final int childLeft = parentLeft + (parentContentWidth - width) / 2;
       final int childTop;
-      if (baseline != -1 && child.getBaseline() != -1) {
+      if (baseline != -1 && child.getBaseline() != -1)
+      {
         childTop = parentTop + baseline - child.getBaseline();
-      } else {
+      } else
+      {
         childTop = parentTop;
       }
 
@@ -110,7 +124,8 @@ public class BaselineLayout extends ViewGroup {
   }
 
   @Override
-  public int getBaseline() {
+  public int getBaseline()
+  {
     return baseline;
   }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,5 +15,5 @@
 -->
 <resources>
   <!-- Ripple color for clickable elements. -->
-  <attr name="rippleColor" format="color"/>
+  <attr name="rippleColor" format="color" />
 </resources>

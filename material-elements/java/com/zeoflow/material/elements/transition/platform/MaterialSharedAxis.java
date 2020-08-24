@@ -20,13 +20,15 @@
  */
 package com.zeoflow.material.elements.transition.platform;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import android.view.Gravity;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.RestrictTo;
-import android.view.Gravity;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * A {@link android.transition.Visibility} transition that provides shared motion along an axis.
@@ -46,7 +48,8 @@ import java.lang.annotation.RetentionPolicy;
  * axis. Note that this is independent of whether or not the target is appearing or disappearing.
  */
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-public final class MaterialSharedAxis extends MaterialVisibility<VisibilityAnimatorProvider> {
+public final class MaterialSharedAxis extends MaterialVisibility<VisibilityAnimatorProvider>
+{
 
   /**
    * Indicates that the x-axis should be shared for the transition, meaning a horizontal slide and
@@ -71,34 +74,21 @@ public final class MaterialSharedAxis extends MaterialVisibility<VisibilityAnima
    * <p>In the forward direction, targets of this transition will scale out.
    */
   public static final int Z = 2;
-
-  /** @hide */
-  @RestrictTo(LIBRARY_GROUP)
-  @IntDef({X, Y, Z})
-  @Retention(RetentionPolicy.SOURCE)
-  public @interface Axis {}
-
-  @Axis private final int axis;
+  @Axis
+  private final int axis;
   private final boolean forward;
-
-  public MaterialSharedAxis(@Axis int axis, boolean forward) {
+  public MaterialSharedAxis(@Axis int axis, boolean forward)
+  {
     super(createPrimaryAnimatorProvider(axis, forward), createSecondaryAnimatorProvider());
     this.axis = axis;
     this.forward = forward;
   }
 
-  @Axis
-  public int getAxis() {
-    return axis;
-  }
-
-  public boolean isForward() {
-    return forward;
-  }
-
   private static VisibilityAnimatorProvider createPrimaryAnimatorProvider(
-      @Axis int axis, boolean forward) {
-    switch (axis) {
+      @Axis int axis, boolean forward)
+  {
+    switch (axis)
+    {
       case X:
         return new SlideDistanceProvider(forward ? Gravity.END : Gravity.START);
       case Y:
@@ -110,7 +100,29 @@ public final class MaterialSharedAxis extends MaterialVisibility<VisibilityAnima
     }
   }
 
-  private static VisibilityAnimatorProvider createSecondaryAnimatorProvider() {
+  private static VisibilityAnimatorProvider createSecondaryAnimatorProvider()
+  {
     return new FadeThroughProvider();
+  }
+
+  @Axis
+  public int getAxis()
+  {
+    return axis;
+  }
+
+  public boolean isForward()
+  {
+    return forward;
+  }
+
+  /**
+   * @hide
+   */
+  @RestrictTo(LIBRARY_GROUP)
+  @IntDef({X, Y, Z})
+  @Retention(RetentionPolicy.SOURCE)
+  public @interface Axis
+  {
   }
 }

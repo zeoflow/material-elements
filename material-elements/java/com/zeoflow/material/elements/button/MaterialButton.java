@@ -16,10 +16,6 @@
 
 package com.zeoflow.material.elements.button;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -31,6 +27,14 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Button;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
@@ -41,19 +45,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.customview.view.AbsSavedState;
-import androidx.core.view.ViewCompat;
-import androidx.core.widget.TextViewCompat;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Button;
-import android.widget.Checkable;
-import android.widget.CompoundButton;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.TextViewCompat;
+import androidx.customview.view.AbsSavedState;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.resources.MaterialResources;
@@ -65,6 +64,8 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.LinkedHashSet;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * A convenience class for creating a new Material button.
@@ -108,26 +109,8 @@ import java.util.LinkedHashSet;
  * <p>Specify the radius of all four corners of the button using the {@link R.attr#cornerRadius
  * app:cornerRadius} attribute.
  */
-public class MaterialButton extends AppCompatButton implements Checkable, Shapeable {
-
-  /** Interface definition for a callback to be invoked when the button checked state changes. */
-  public interface OnCheckedChangeListener {
-    /**
-     * Called when the checked state of a MaterialButton has changed.
-     *
-     * @param button The MaterialButton whose state has changed.
-     * @param isChecked The new checked state of MaterialButton.
-     */
-    void onCheckedChanged(MaterialButton button, boolean isChecked);
-  }
-
-  /** Interface to listen for press state changes on this button. Internal use only. */
-  interface OnPressedChangeListener {
-    void onPressedChanged(MaterialButton button, boolean isPressed);
-  }
-
-  private static final int[] CHECKABLE_STATE_SET = {android.R.attr.state_checkable};
-  private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
+public class MaterialButton extends AppCompatButton implements Checkable, Shapeable
+{
 
   /**
    * Gravity used to position the icon at the start of the view.
@@ -136,7 +119,6 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #getIconGravity()
    */
   public static final int ICON_GRAVITY_START = 0x1;
-
   /**
    * Gravity used to position the icon in the center of the view at the start of the text
    *
@@ -144,7 +126,6 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #getIconGravity()
    */
   public static final int ICON_GRAVITY_TEXT_START = 0x2;
-
   /**
    * Gravity used to position the icon at the end of the view.
    *
@@ -152,7 +133,6 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #getIconGravity()
    */
   public static final int ICON_GRAVITY_END = 0x3;
-
   /**
    * Gravity used to position the icon in the center of the view at the end of the text
    *
@@ -160,42 +140,44 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #getIconGravity()
    */
   public static final int ICON_GRAVITY_TEXT_END = 0x4;
-
-  /** Positions the icon can be set to. */
-  @IntDef({ICON_GRAVITY_START, ICON_GRAVITY_TEXT_START, ICON_GRAVITY_END, ICON_GRAVITY_TEXT_END})
-  @Retention(RetentionPolicy.SOURCE)
-  public @interface IconGravity {}
-
+  private static final int[] CHECKABLE_STATE_SET = {android.R.attr.state_checkable};
+  private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
   private static final String LOG_TAG = "MaterialButton";
-
   private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_Button;
-
-  @NonNull private final MaterialButtonHelper materialButtonHelper;
-  @NonNull private final LinkedHashSet<OnCheckedChangeListener> onCheckedChangeListeners =
+  @NonNull
+  private final MaterialButtonHelper materialButtonHelper;
+  @NonNull
+  private final LinkedHashSet<OnCheckedChangeListener> onCheckedChangeListeners =
       new LinkedHashSet<>();
-
-  @Nullable private OnPressedChangeListener onPressedChangeListenerInternal;
-  @Nullable private Mode iconTintMode;
-  @Nullable private ColorStateList iconTint;
-  @Nullable private Drawable icon;
-
-  @Px private int iconSize;
-  @Px private int iconLeft;
-  @Px private int iconPadding;
-
+  @Nullable
+  private OnPressedChangeListener onPressedChangeListenerInternal;
+  @Nullable
+  private Mode iconTintMode;
+  @Nullable
+  private ColorStateList iconTint;
+  @Nullable
+  private Drawable icon;
+  @Px
+  private int iconSize;
+  @Px
+  private int iconLeft;
+  @Px
+  private int iconPadding;
   private boolean checked = false;
   private boolean broadcasting = false;
-  @IconGravity private int iconGravity;
+  @IconGravity
+  private int iconGravity;
 
-  public MaterialButton(@NonNull Context context) {
+  public MaterialButton(@NonNull Context context)
+  {
     this(context, null /* attrs */);
   }
-
-  public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.materialButtonStyle);
   }
-
-  public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -230,13 +212,15 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   }
 
   @NonNull
-  private String getA11yClassName() {
+  private String getA11yClassName()
+  {
     // Use the platform widget classes so Talkback can recognize this as a button.
     return (isCheckable() ? CompoundButton.class : Button.class).getName();
   }
 
   @Override
-  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info)
+  {
     super.onInitializeAccessibilityNodeInfo(info);
     info.setClassName(getA11yClassName());
     info.setCheckable(isCheckable());
@@ -245,7 +229,8 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   }
 
   @Override
-  public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent accessibilityEvent) {
+  public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent accessibilityEvent)
+  {
     super.onInitializeAccessibilityEvent(accessibilityEvent);
     accessibilityEvent.setClassName(getA11yClassName());
     accessibilityEvent.setChecked(isChecked());
@@ -253,7 +238,8 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
 
   @NonNull
   @Override
-  public Parcelable onSaveInstanceState() {
+  public Parcelable onSaveInstanceState()
+  {
     Parcelable superState = super.onSaveInstanceState();
     SavedState savedState = new SavedState(superState);
     savedState.checked = checked;
@@ -261,32 +247,16 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   }
 
   @Override
-  public void onRestoreInstanceState(@Nullable Parcelable state) {
-    if (!(state instanceof SavedState)) {
+  public void onRestoreInstanceState(@Nullable Parcelable state)
+  {
+    if (!(state instanceof SavedState))
+    {
       super.onRestoreInstanceState(state);
       return;
     }
     SavedState savedState = (SavedState) state;
     super.onRestoreInstanceState(savedState.getSuperState());
     setChecked(savedState.checked);
-  }
-
-  /**
-   * This should be accessed via {@link
-   * androidx.core.view.ViewCompat#setBackgroundTintList(android.view.View, ColorStateList)}
-   *
-   * @hide
-   */
-  @RestrictTo(LIBRARY_GROUP)
-  @Override
-  public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
-    if (isUsingOriginalBackground()) {
-      materialButtonHelper.setSupportBackgroundTintList(tint);
-    } else {
-      // If default MaterialButton background has been overwritten, we will let AppCompatButton
-      // handle the tinting
-      super.setSupportBackgroundTintList(tint);
-    }
   }
 
   /**
@@ -298,10 +268,13 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   @RestrictTo(LIBRARY_GROUP)
   @Override
   @Nullable
-  public ColorStateList getSupportBackgroundTintList() {
-    if (isUsingOriginalBackground()) {
+  public ColorStateList getSupportBackgroundTintList()
+  {
+    if (isUsingOriginalBackground())
+    {
       return materialButtonHelper.getSupportBackgroundTintList();
-    } else {
+    } else
+    {
       // If default MaterialButton background has been overwritten, we will let AppCompatButton
       // handle the tinting
       // return null;
@@ -311,19 +284,22 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
 
   /**
    * This should be accessed via {@link
-   * androidx.core.view.ViewCompat#setBackgroundTintMode(android.view.View, PorterDuff.Mode)}
+   * androidx.core.view.ViewCompat#setBackgroundTintList(android.view.View, ColorStateList)}
    *
    * @hide
    */
   @RestrictTo(LIBRARY_GROUP)
   @Override
-  public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
-    if (isUsingOriginalBackground()) {
-      materialButtonHelper.setSupportBackgroundTintMode(tintMode);
-    } else {
+  public void setSupportBackgroundTintList(@Nullable ColorStateList tint)
+  {
+    if (isUsingOriginalBackground())
+    {
+      materialButtonHelper.setSupportBackgroundTintList(tint);
+    } else
+    {
       // If default MaterialButton background has been overwritten, we will let AppCompatButton
-      // handle the tint Mode
-      super.setSupportBackgroundTintMode(tintMode);
+      // handle the tinting
+      super.setSupportBackgroundTintList(tint);
     }
   }
 
@@ -336,43 +312,74 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   @RestrictTo(LIBRARY_GROUP)
   @Override
   @Nullable
-  public PorterDuff.Mode getSupportBackgroundTintMode() {
-    if (isUsingOriginalBackground()) {
+  public PorterDuff.Mode getSupportBackgroundTintMode()
+  {
+    if (isUsingOriginalBackground())
+    {
       return materialButtonHelper.getSupportBackgroundTintMode();
-    } else {
+    } else
+    {
       // If default MaterialButton background has been overwritten, we will let AppCompatButton
       // handle the tint mode
       return super.getSupportBackgroundTintMode();
     }
   }
 
+  /**
+   * This should be accessed via {@link
+   * androidx.core.view.ViewCompat#setBackgroundTintMode(android.view.View, PorterDuff.Mode)}
+   *
+   * @hide
+   */
+  @RestrictTo(LIBRARY_GROUP)
   @Override
-  public void setBackgroundTintList(@Nullable ColorStateList tintList) {
+  public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode)
+  {
+    if (isUsingOriginalBackground())
+    {
+      materialButtonHelper.setSupportBackgroundTintMode(tintMode);
+    } else
+    {
+      // If default MaterialButton background has been overwritten, we will let AppCompatButton
+      // handle the tint Mode
+      super.setSupportBackgroundTintMode(tintMode);
+    }
+  }
+
+  @Nullable
+  @Override
+  public ColorStateList getBackgroundTintList()
+  {
+    return getSupportBackgroundTintList();
+  }
+
+  @Override
+  public void setBackgroundTintList(@Nullable ColorStateList tintList)
+  {
     setSupportBackgroundTintList(tintList);
   }
 
   @Nullable
   @Override
-  public ColorStateList getBackgroundTintList() {
-    return getSupportBackgroundTintList();
-  }
-
-  @Override
-  public void setBackgroundTintMode(@Nullable Mode tintMode) {
-    setSupportBackgroundTintMode(tintMode);
-  }
-
-  @Nullable
-  @Override
-  public Mode getBackgroundTintMode() {
+  public Mode getBackgroundTintMode()
+  {
     return getSupportBackgroundTintMode();
   }
 
   @Override
-  public void setBackgroundColor(@ColorInt int color) {
-    if (isUsingOriginalBackground()) {
+  public void setBackgroundTintMode(@Nullable Mode tintMode)
+  {
+    setSupportBackgroundTintMode(tintMode);
+  }
+
+  @Override
+  public void setBackgroundColor(@ColorInt int color)
+  {
+    if (isUsingOriginalBackground())
+    {
       materialButtonHelper.setBackgroundColor(color);
-    } else {
+    } else
+    {
       // If default MaterialButton background has been overwritten, we will let View handle
       // setting the background color.
       super.setBackgroundColor(color);
@@ -380,65 +387,79 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   }
 
   @Override
-  public void setBackground(@NonNull Drawable background) {
+  public void setBackground(@NonNull Drawable background)
+  {
     setBackgroundDrawable(background);
   }
 
   @Override
-  public void setBackgroundResource(@DrawableRes int backgroundResourceId) {
+  public void setBackgroundResource(@DrawableRes int backgroundResourceId)
+  {
     Drawable background = null;
-    if (backgroundResourceId != 0) {
+    if (backgroundResourceId != 0)
+    {
       background = AppCompatResources.getDrawable(getContext(), backgroundResourceId);
     }
     setBackgroundDrawable(background);
   }
 
   @Override
-  public void setBackgroundDrawable(@NonNull Drawable background) {
-    if (isUsingOriginalBackground()) {
-      if (background != this.getBackground()) {
+  public void setBackgroundDrawable(@NonNull Drawable background)
+  {
+    if (isUsingOriginalBackground())
+    {
+      if (background != this.getBackground())
+      {
         Log.w(
             LOG_TAG,
             "Do not set the background; MaterialButton manages its own background drawable.");
         materialButtonHelper.setBackgroundOverwritten();
         super.setBackgroundDrawable(background);
-      } else {
+      } else
+      {
         // ViewCompat.setBackgroundTintList() and setBackgroundTintMode() call setBackground() on
         // the view in API 21, since background state doesn't automatically update in API 21. We
         // capture this case here, and update our background without replacing it or re-tinting it.
         getBackground().setState(background.getState());
       }
-    } else {
+    } else
+    {
       super.setBackgroundDrawable(background);
     }
   }
 
   @Override
-  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+  {
     super.onLayout(changed, left, top, right, bottom);
     // Workaround for API 21 ripple bug (possibly internal in GradientDrawable)
-    if (VERSION.SDK_INT == VERSION_CODES.LOLLIPOP && materialButtonHelper != null) {
+    if (VERSION.SDK_INT == VERSION_CODES.LOLLIPOP && materialButtonHelper != null)
+    {
       materialButtonHelper.updateMaskBounds(bottom - top, right - left);
     }
   }
 
   @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+  {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     updateIconPosition();
   }
 
   @Override
-  protected void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+  protected void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+  {
     super.onTextChanged(charSequence, i, i1, i2);
     updateIconPosition();
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
-    if (isUsingOriginalBackground()) {
+    if (isUsingOriginalBackground())
+    {
       MaterialShapeUtils.setParentAbsoluteElevation(
           this, materialButtonHelper.getMaterialShapeDrawable());
     }
@@ -446,19 +467,24 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
 
   @RequiresApi(VERSION_CODES.LOLLIPOP)
   @Override
-  public void setElevation(float elevation) {
+  public void setElevation(float elevation)
+  {
     super.setElevation(elevation);
-    if (isUsingOriginalBackground()) {
+    if (isUsingOriginalBackground())
+    {
       materialButtonHelper.getMaterialShapeDrawable().setElevation(elevation);
     }
   }
 
-  private void updateIconPosition() {
-    if (icon == null || getLayout() == null) {
+  private void updateIconPosition()
+  {
+    if (icon == null || getLayout() == null)
+    {
       return;
     }
 
-    if (iconGravity == ICON_GRAVITY_START || iconGravity == ICON_GRAVITY_END) {
+    if (iconGravity == ICON_GRAVITY_START || iconGravity == ICON_GRAVITY_END)
+    {
       iconLeft = 0;
       updateIcon(/* needsIconUpdate = */ false);
       return;
@@ -466,7 +492,8 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
 
     Paint textPaint = getPaint();
     String buttonText = getText().toString();
-    if (getTransformationMethod() != null) {
+    if (getTransformationMethod() != null)
+    {
       // if text is transformed, add that transformation to to ensure correct calculation
       // of icon padding.
       buttonText = getTransformationMethod().getTransformation(buttonText, this).toString();
@@ -478,25 +505,28 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     int localIconSize = iconSize == 0 ? icon.getIntrinsicWidth() : iconSize;
     int newIconLeft =
         (getMeasuredWidth()
-                - textWidth
-                - ViewCompat.getPaddingEnd(this)
-                - localIconSize
-                - iconPadding
-                - ViewCompat.getPaddingStart(this))
+            - textWidth
+            - ViewCompat.getPaddingEnd(this)
+            - localIconSize
+            - iconPadding
+            - ViewCompat.getPaddingStart(this))
             / 2;
 
     // Only flip the bound value if either isLayoutRTL() or iconGravity is textEnd, but not both
-    if (isLayoutRTL() != (iconGravity == ICON_GRAVITY_TEXT_END)) {
+    if (isLayoutRTL() != (iconGravity == ICON_GRAVITY_TEXT_END))
+    {
       newIconLeft = -newIconLeft;
     }
 
-    if (iconLeft != newIconLeft) {
+    if (iconLeft != newIconLeft)
+    {
       iconLeft = newIconLeft;
       updateIcon(/* needsIconUpdate = */ false);
     }
   }
 
-  private boolean isLayoutRTL() {
+  private boolean isLayoutRTL()
+  {
     return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
   }
 
@@ -507,22 +537,9 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    *
    * @param background Background to set on this button
    */
-  void setInternalBackground(Drawable background) {
+  void setInternalBackground(Drawable background)
+  {
     super.setBackgroundDrawable(background);
-  }
-
-  /**
-   * Sets the padding between the button icon and the button text, if icon is present.
-   *
-   * @param iconPadding Padding between the button icon and the button text, if icon is present.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconPadding
-   * @see #getIconPadding()
-   */
-  public void setIconPadding(@Px int iconPadding) {
-    if (this.iconPadding != iconPadding) {
-      this.iconPadding = iconPadding;
-      setCompoundDrawablePadding(iconPadding);
-    }
   }
 
   /**
@@ -533,25 +550,24 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setIconPadding(int)
    */
   @Px
-  public int getIconPadding() {
+  public int getIconPadding()
+  {
     return iconPadding;
   }
 
   /**
-   * Sets the width and height of the icon. Use 0 to use source Drawable size.
+   * Sets the padding between the button icon and the button text, if icon is present.
    *
-   * @param iconSize new dimension for width and height of the icon in pixels.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconSize
-   * @see #getIconSize()
+   * @param iconPadding Padding between the button icon and the button text, if icon is present.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconPadding
+   * @see #getIconPadding()
    */
-  public void setIconSize(@Px int iconSize) {
-    if (iconSize < 0) {
-      throw new IllegalArgumentException("iconSize cannot be less than 0");
-    }
-
-    if (this.iconSize != iconSize) {
-      this.iconSize = iconSize;
-      updateIcon(/* needsIconUpdate = */ true);
+  public void setIconPadding(@Px int iconPadding)
+  {
+    if (this.iconPadding != iconPadding)
+    {
+      this.iconPadding = iconPadding;
+      setCompoundDrawablePadding(iconPadding);
     }
   }
 
@@ -563,25 +579,32 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setIconSize(int)
    */
   @Px
-  public int getIconSize() {
+  public int getIconSize()
+  {
     return iconSize;
   }
 
   /**
-   * Sets the icon to show for this button. By default, this icon will be shown on the left side of
-   * the button.
+   * Sets the width and height of the icon. Use 0 to use source Drawable size.
    *
-   * @param icon Drawable to use for the button's icon.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_icon
-   * @see #setIconResource(int)
-   * @see #getIcon()
+   * @param iconSize new dimension for width and height of the icon in pixels.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconSize
+   * @see #getIconSize()
    */
-  public void setIcon(@Nullable Drawable icon) {
-    if (this.icon != icon) {
-      this.icon = icon;
+  public void setIconSize(@Px int iconSize)
+  {
+    if (iconSize < 0)
+    {
+      throw new IllegalArgumentException("iconSize cannot be less than 0");
+    }
+
+    if (this.iconSize != iconSize)
+    {
+      this.iconSize = iconSize;
       updateIcon(/* needsIconUpdate = */ true);
     }
   }
+
   /**
    * Sets the icon drawable resource to show for this button. By default, this icon will be shown on
    * the left side of the button.
@@ -591,9 +614,11 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setIcon(Drawable)
    * @see #getIcon()
    */
-  public void setIconResource(@DrawableRes int iconResourceId) {
+  public void setIconResource(@DrawableRes int iconResourceId)
+  {
     Drawable icon = null;
-    if (iconResourceId != 0) {
+    if (iconResourceId != 0)
+    {
       icon = AppCompatResources.getDrawable(getContext(), iconResourceId);
     }
     setIcon(icon);
@@ -607,22 +632,26 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setIcon(Drawable)
    * @see #setIconResource(int)
    */
-  public Drawable getIcon() {
+  public Drawable getIcon()
+  {
     return icon;
   }
 
   /**
-   * Sets the tint list for the icon shown for this button.
+   * Sets the icon to show for this button. By default, this icon will be shown on the left side of
+   * the button.
    *
-   * @param iconTint Tint list for the icon shown for this button.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconTint
-   * @see #setIconTintResource(int)
-   * @see #getIconTint()
+   * @param icon Drawable to use for the button's icon.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_icon
+   * @see #setIconResource(int)
+   * @see #getIcon()
    */
-  public void setIconTint(@Nullable ColorStateList iconTint) {
-    if (this.iconTint != iconTint) {
-      this.iconTint = iconTint;
-      updateIcon(/* needsIconUpdate = */ false);
+  public void setIcon(@Nullable Drawable icon)
+  {
+    if (this.icon != icon)
+    {
+      this.icon = icon;
+      updateIcon(/* needsIconUpdate = */ true);
     }
   }
 
@@ -634,7 +663,8 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setIconTint(ColorStateList)
    * @see #getIconTint()
    */
-  public void setIconTintResource(@ColorRes int iconTintResourceId) {
+  public void setIconTintResource(@ColorRes int iconTintResourceId)
+  {
     setIconTint(AppCompatResources.getColorStateList(getContext(), iconTintResourceId));
   }
 
@@ -646,20 +676,24 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setIconTint(ColorStateList)
    * @see #setIconTintResource(int)
    */
-  public ColorStateList getIconTint() {
+  public ColorStateList getIconTint()
+  {
     return iconTint;
   }
 
   /**
-   * Sets the tint mode for the icon shown for this button.
+   * Sets the tint list for the icon shown for this button.
    *
-   * @param iconTintMode Tint mode for the icon shown for this button.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconTintMode
-   * @see #getIconTintMode()
+   * @param iconTint Tint list for the icon shown for this button.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconTint
+   * @see #setIconTintResource(int)
+   * @see #getIconTint()
    */
-  public void setIconTintMode(Mode iconTintMode) {
-    if (this.iconTintMode != iconTintMode) {
-      this.iconTintMode = iconTintMode;
+  public void setIconTint(@Nullable ColorStateList iconTint)
+  {
+    if (this.iconTint != iconTint)
+    {
+      this.iconTint = iconTint;
       updateIcon(/* needsIconUpdate = */ false);
     }
   }
@@ -671,19 +705,40 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @attr ref com.google.android.material.R.styleable#MaterialButton_iconTintMode
    * @see #setIconTintMode(Mode)
    */
-  public Mode getIconTintMode() {
+  public Mode getIconTintMode()
+  {
     return iconTintMode;
   }
 
   /**
+   * Sets the tint mode for the icon shown for this button.
+   *
+   * @param iconTintMode Tint mode for the icon shown for this button.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconTintMode
+   * @see #getIconTintMode()
+   */
+  public void setIconTintMode(Mode iconTintMode)
+  {
+    if (this.iconTintMode != iconTintMode)
+    {
+      this.iconTintMode = iconTintMode;
+      updateIcon(/* needsIconUpdate = */ false);
+    }
+  }
+
+  /**
    * Updates the icon, icon tint, and icon tint mode for this button.
+   *
    * @param needsIconUpdate Whether to force the drawable to be set
    */
-  private void updateIcon(boolean needsIconUpdate) {
-    if (icon != null) {
+  private void updateIcon(boolean needsIconUpdate)
+  {
+    if (icon != null)
+    {
       icon = DrawableCompat.wrap(icon).mutate();
       DrawableCompat.setTintList(icon, iconTint);
-      if (iconTintMode != null) {
+      if (iconTintMode != null)
+      {
         DrawableCompat.setTintMode(icon, iconTintMode);
       }
 
@@ -696,42 +751,33 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     boolean isIconStart =
         iconGravity == ICON_GRAVITY_START || iconGravity == ICON_GRAVITY_TEXT_START;
     // Forced icon update
-    if (needsIconUpdate) {
+    if (needsIconUpdate)
+    {
       resetIconDrawable(isIconStart);
       return;
     }
 
     // Otherwise only update if the icon or the position has changed
-    Drawable[] existingDrawables  = TextViewCompat.getCompoundDrawablesRelative(this);
+    Drawable[] existingDrawables = TextViewCompat.getCompoundDrawablesRelative(this);
     Drawable drawableStart = existingDrawables[0];
     Drawable drawableEnd = existingDrawables[2];
     boolean hasIconChanged =
         (isIconStart && drawableStart != icon) || (!isIconStart && drawableEnd != icon);
 
-    if (hasIconChanged) {
+    if (hasIconChanged)
+    {
       resetIconDrawable(isIconStart);
     }
   }
 
-  private void resetIconDrawable(boolean isIconStart) {
-    if (isIconStart) {
+  private void resetIconDrawable(boolean isIconStart)
+  {
+    if (isIconStart)
+    {
       TextViewCompat.setCompoundDrawablesRelative(this, icon, null, null, null);
-    } else {
+    } else
+    {
       TextViewCompat.setCompoundDrawablesRelative(this, null, null, icon, null);
-    }
-  }
-
-  /**
-   * Sets the ripple color for this button.
-   *
-   * @param rippleColor Color to use for the ripple.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_rippleColor
-   * @see #setRippleColorResource(int)
-   * @see #getRippleColor()
-   */
-  public void setRippleColor(@Nullable ColorStateList rippleColor) {
-    if (isUsingOriginalBackground()) {
-      materialButtonHelper.setRippleColor(rippleColor);
     }
   }
 
@@ -743,8 +789,10 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setRippleColor(ColorStateList)
    * @see #getRippleColor()
    */
-  public void setRippleColorResource(@ColorRes int rippleColorResourceId) {
-    if (isUsingOriginalBackground()) {
+  public void setRippleColorResource(@ColorRes int rippleColorResourceId)
+  {
+    if (isUsingOriginalBackground())
+    {
       setRippleColor(AppCompatResources.getColorStateList(getContext(), rippleColorResourceId));
     }
   }
@@ -758,22 +806,24 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setRippleColorResource(int)
    */
   @Nullable
-  public ColorStateList getRippleColor() {
+  public ColorStateList getRippleColor()
+  {
     return isUsingOriginalBackground() ? materialButtonHelper.getRippleColor() : null;
   }
 
   /**
-   * Sets the stroke color for this button. Both stroke color and stroke width must be set for a
-   * stroke to be drawn.
+   * Sets the ripple color for this button.
    *
-   * @param strokeColor Color to use for the stroke.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_strokeColor
-   * @see #setStrokeColorResource(int)
-   * @see #getStrokeColor()
+   * @param rippleColor Color to use for the ripple.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_rippleColor
+   * @see #setRippleColorResource(int)
+   * @see #getRippleColor()
    */
-  public void setStrokeColor(@Nullable ColorStateList strokeColor) {
-    if (isUsingOriginalBackground()) {
-      materialButtonHelper.setStrokeColor(strokeColor);
+  public void setRippleColor(@Nullable ColorStateList rippleColor)
+  {
+    if (isUsingOriginalBackground())
+    {
+      materialButtonHelper.setRippleColor(rippleColor);
     }
   }
 
@@ -786,8 +836,10 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setStrokeColor(ColorStateList)
    * @see #getStrokeColor()
    */
-  public void setStrokeColorResource(@ColorRes int strokeColorResourceId) {
-    if (isUsingOriginalBackground()) {
+  public void setStrokeColorResource(@ColorRes int strokeColorResourceId)
+  {
+    if (isUsingOriginalBackground())
+    {
       setStrokeColor(AppCompatResources.getColorStateList(getContext(), strokeColorResourceId));
     }
   }
@@ -800,22 +852,25 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setStrokeColor(ColorStateList)
    * @see #setStrokeColorResource(int)
    */
-  public ColorStateList getStrokeColor() {
+  public ColorStateList getStrokeColor()
+  {
     return isUsingOriginalBackground() ? materialButtonHelper.getStrokeColor() : null;
   }
 
   /**
-   * Sets the stroke width for this button. Both stroke color and stroke width must be set for a
+   * Sets the stroke color for this button. Both stroke color and stroke width must be set for a
    * stroke to be drawn.
    *
-   * @param strokeWidth Stroke width for this button.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_strokeWidth
-   * @see #setStrokeWidthResource(int)
-   * @see #getStrokeWidth()
+   * @param strokeColor Color to use for the stroke.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_strokeColor
+   * @see #setStrokeColorResource(int)
+   * @see #getStrokeColor()
    */
-  public void setStrokeWidth(@Px int strokeWidth) {
-    if (isUsingOriginalBackground()) {
-      materialButtonHelper.setStrokeWidth(strokeWidth);
+  public void setStrokeColor(@Nullable ColorStateList strokeColor)
+  {
+    if (isUsingOriginalBackground())
+    {
+      materialButtonHelper.setStrokeColor(strokeColor);
     }
   }
 
@@ -828,8 +883,10 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setStrokeWidth(int)
    * @see #getStrokeWidth()
    */
-  public void setStrokeWidthResource(@DimenRes int strokeWidthResourceId) {
-    if (isUsingOriginalBackground()) {
+  public void setStrokeWidthResource(@DimenRes int strokeWidthResourceId)
+  {
+    if (isUsingOriginalBackground())
+    {
       setStrokeWidth(getResources().getDimensionPixelSize(strokeWidthResourceId));
     }
   }
@@ -843,21 +900,25 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setStrokeWidthResource(int)
    */
   @Px
-  public int getStrokeWidth() {
+  public int getStrokeWidth()
+  {
     return isUsingOriginalBackground() ? materialButtonHelper.getStrokeWidth() : 0;
   }
 
   /**
-   * Sets the corner radius for this button.
+   * Sets the stroke width for this button. Both stroke color and stroke width must be set for a
+   * stroke to be drawn.
    *
-   * @param cornerRadius Corner radius for this button.
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_cornerRadius
-   * @see #setCornerRadiusResource(int)
-   * @see #getCornerRadius()
+   * @param strokeWidth Stroke width for this button.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_strokeWidth
+   * @see #setStrokeWidthResource(int)
+   * @see #getStrokeWidth()
    */
-  public void setCornerRadius(@Px int cornerRadius) {
-    if (isUsingOriginalBackground()) {
-      materialButtonHelper.setCornerRadius(cornerRadius);
+  public void setStrokeWidth(@Px int strokeWidth)
+  {
+    if (isUsingOriginalBackground())
+    {
+      materialButtonHelper.setStrokeWidth(strokeWidth);
     }
   }
 
@@ -869,8 +930,10 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setCornerRadius(int)
    * @see #getCornerRadius()
    */
-  public void setCornerRadiusResource(@DimenRes int cornerRadiusResourceId) {
-    if (isUsingOriginalBackground()) {
+  public void setCornerRadiusResource(@DimenRes int cornerRadiusResourceId)
+  {
+    if (isUsingOriginalBackground())
+    {
       setCornerRadius(getResources().getDimensionPixelSize(cornerRadiusResourceId));
     }
   }
@@ -884,8 +947,25 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setCornerRadiusResource(int)
    */
   @Px
-  public int getCornerRadius() {
+  public int getCornerRadius()
+  {
     return isUsingOriginalBackground() ? materialButtonHelper.getCornerRadius() : 0;
+  }
+
+  /**
+   * Sets the corner radius for this button.
+   *
+   * @param cornerRadius Corner radius for this button.
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_cornerRadius
+   * @see #setCornerRadiusResource(int)
+   * @see #getCornerRadius()
+   */
+  public void setCornerRadius(@Px int cornerRadius)
+  {
+    if (isUsingOriginalBackground())
+    {
+      materialButtonHelper.setCornerRadius(cornerRadius);
+    }
   }
 
   /**
@@ -896,33 +976,39 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @see #setIconGravity(int)
    */
   @IconGravity
-  public int getIconGravity() {
+  public int getIconGravity()
+  {
     return iconGravity;
   }
 
   /**
    * Sets the icon gravity for this button
    *
-   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconGravity
    * @param iconGravity icon gravity for this button
+   * @attr ref com.google.android.material.R.styleable#MaterialButton_iconGravity
    * @see #getIconGravity()
    */
-  public void setIconGravity(@IconGravity int iconGravity) {
-    if (this.iconGravity != iconGravity) {
+  public void setIconGravity(@IconGravity int iconGravity)
+  {
+    if (this.iconGravity != iconGravity)
+    {
       this.iconGravity = iconGravity;
       updateIconPosition();
     }
   }
 
   @Override
-  protected int[] onCreateDrawableState(int extraSpace) {
+  protected int[] onCreateDrawableState(int extraSpace)
+  {
     final int[] drawableState = super.onCreateDrawableState(extraSpace + 2);
 
-    if (isCheckable()) {
+    if (isCheckable())
+    {
       mergeDrawableStates(drawableState, CHECKABLE_STATE_SET);
     }
 
-    if (isChecked()) {
+    if (isChecked())
+    {
       mergeDrawableStates(drawableState, CHECKED_STATE_SET);
     }
 
@@ -938,7 +1024,8 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    *
    * @param listener listener to add
    */
-  public void addOnCheckedChangeListener(@NonNull OnCheckedChangeListener listener) {
+  public void addOnCheckedChangeListener(@NonNull OnCheckedChangeListener listener)
+  {
     onCheckedChangeListeners.add(listener);
   }
 
@@ -948,28 +1035,42 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    *
    * @param listener listener to remove
    */
-  public void removeOnCheckedChangeListener(@NonNull OnCheckedChangeListener listener) {
+  public void removeOnCheckedChangeListener(@NonNull OnCheckedChangeListener listener)
+  {
     onCheckedChangeListeners.remove(listener);
   }
 
-  /** Remove all previously added {@link OnCheckedChangeListener}s. */
-  public void clearOnCheckedChangeListeners() {
+  /**
+   * Remove all previously added {@link OnCheckedChangeListener}s.
+   */
+  public void clearOnCheckedChangeListeners()
+  {
     onCheckedChangeListeners.clear();
   }
 
   @Override
-  public void setChecked(boolean checked) {
-    if (isCheckable() && isEnabled() && this.checked != checked) {
+  public boolean isChecked()
+  {
+    return checked;
+  }
+
+  @Override
+  public void setChecked(boolean checked)
+  {
+    if (isCheckable() && isEnabled() && this.checked != checked)
+    {
       this.checked = checked;
       refreshDrawableState();
 
       // Avoid infinite recursions if setChecked() is called from a listener
-      if (broadcasting) {
+      if (broadcasting)
+      {
         return;
       }
 
       broadcasting = true;
-      for (OnCheckedChangeListener listener : onCheckedChangeListeners) {
+      for (OnCheckedChangeListener listener : onCheckedChangeListeners)
+      {
         listener.onCheckedChanged(this, this.checked);
       }
       broadcasting = false;
@@ -977,17 +1078,14 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   }
 
   @Override
-  public boolean isChecked() {
-    return checked;
-  }
-
-  @Override
-  public void toggle() {
+  public void toggle()
+  {
     setChecked(!checked);
   }
 
   @Override
-  public boolean performClick() {
+  public boolean performClick()
+  {
     toggle();
 
     return super.performClick();
@@ -996,10 +1094,11 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   /**
    * Returns whether this MaterialButton is checkable.
    *
-   * @see #setCheckable(boolean)
    * @attr ref com.google.android.material.R.styleable#MaterialButton_android_checkable
+   * @see #setCheckable(boolean)
    */
-  public boolean isCheckable() {
+  public boolean isCheckable()
+  {
     return materialButtonHelper != null && materialButtonHelper.isCheckable();
   }
 
@@ -1009,25 +1108,11 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * @param checkable Whether this button is checkable.
    * @attr ref com.google.android.material.R.styleable#MaterialButton_android_checkable
    */
-  public void setCheckable(boolean checkable) {
-    if (isUsingOriginalBackground()) {
+  public void setCheckable(boolean checkable)
+  {
+    if (isUsingOriginalBackground())
+    {
       materialButtonHelper.setCheckable(checkable);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @throws IllegalStateException if the MaterialButton's background has been overwritten.
-   */
-  @Override
-  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel) {
-    if (isUsingOriginalBackground()) {
-      materialButtonHelper.setShapeAppearanceModel(shapeAppearanceModel);
-    } else {
-      throw new IllegalStateException(
-          "Attempted to set ShapeAppearanceModel on a MaterialButton which has an overwritten"
-              + " background.");
     }
   }
 
@@ -1040,12 +1125,34 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    */
   @NonNull
   @Override
-  public ShapeAppearanceModel getShapeAppearanceModel() {
-    if (isUsingOriginalBackground()) {
+  public ShapeAppearanceModel getShapeAppearanceModel()
+  {
+    if (isUsingOriginalBackground())
+    {
       return materialButtonHelper.getShapeAppearanceModel();
-    } else {
+    } else
+    {
       throw new IllegalStateException(
           "Attempted to get ShapeAppearanceModel from a MaterialButton which has an overwritten"
+              + " background.");
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IllegalStateException if the MaterialButton's background has been overwritten.
+   */
+  @Override
+  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel)
+  {
+    if (isUsingOriginalBackground())
+    {
+      materialButtonHelper.setShapeAppearanceModel(shapeAppearanceModel);
+    } else
+    {
+      throw new IllegalStateException(
+          "Attempted to set ShapeAppearanceModel on a MaterialButton which has an overwritten"
               + " background.");
     }
   }
@@ -1054,73 +1161,119 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    * Register a callback to be invoked when the pressed state of this button changes. This callback
    * is used for internal purpose only.
    */
-  void setOnPressedChangeListenerInternal(@Nullable OnPressedChangeListener listener) {
+  void setOnPressedChangeListenerInternal(@Nullable OnPressedChangeListener listener)
+  {
     onPressedChangeListenerInternal = listener;
   }
 
   @Override
-  public void setPressed(boolean pressed) {
-    if (onPressedChangeListenerInternal != null) {
+  public void setPressed(boolean pressed)
+  {
+    if (onPressedChangeListenerInternal != null)
+    {
       onPressedChangeListenerInternal.onPressedChanged(this, pressed);
     }
     super.setPressed(pressed);
   }
 
-  private boolean isUsingOriginalBackground() {
+  private boolean isUsingOriginalBackground()
+  {
     return materialButtonHelper != null && !materialButtonHelper.isBackgroundOverwritten();
   }
 
-  void setShouldDrawSurfaceColorStroke(boolean shouldDrawSurfaceColorStroke) {
-    if (isUsingOriginalBackground()) {
+  void setShouldDrawSurfaceColorStroke(boolean shouldDrawSurfaceColorStroke)
+  {
+    if (isUsingOriginalBackground())
+    {
       materialButtonHelper.setShouldDrawSurfaceColorStroke(shouldDrawSurfaceColorStroke);
     }
   }
 
-  static class SavedState extends AbsSavedState {
+  /**
+   * Interface definition for a callback to be invoked when the button checked state changes.
+   */
+  public interface OnCheckedChangeListener
+  {
+    /**
+     * Called when the checked state of a MaterialButton has changed.
+     *
+     * @param button    The MaterialButton whose state has changed.
+     * @param isChecked The new checked state of MaterialButton.
+     */
+    void onCheckedChanged(MaterialButton button, boolean isChecked);
+  }
 
+  /**
+   * Interface to listen for press state changes on this button. Internal use only.
+   */
+  interface OnPressedChangeListener
+  {
+    void onPressedChanged(MaterialButton button, boolean isPressed);
+  }
+
+  /**
+   * Positions the icon can be set to.
+   */
+  @IntDef({ICON_GRAVITY_START, ICON_GRAVITY_TEXT_START, ICON_GRAVITY_END, ICON_GRAVITY_TEXT_END})
+  @Retention(RetentionPolicy.SOURCE)
+  public @interface IconGravity
+  {
+  }
+
+  static class SavedState extends AbsSavedState
+  {
+
+    public static final Creator<SavedState> CREATOR =
+        new ClassLoaderCreator<SavedState>()
+        {
+          @NonNull
+          @Override
+          public SavedState createFromParcel(@NonNull Parcel in, ClassLoader loader)
+          {
+            return new SavedState(in, loader);
+          }
+
+          @NonNull
+          @Override
+          public SavedState createFromParcel(@NonNull Parcel in)
+          {
+            return new SavedState(in, null);
+          }
+
+          @NonNull
+          @Override
+          public SavedState[] newArray(int size)
+          {
+            return new SavedState[size];
+          }
+        };
     boolean checked;
 
-    public SavedState(Parcelable superState) {
+    public SavedState(Parcelable superState)
+    {
       super(superState);
     }
 
-    public SavedState(@NonNull Parcel source, ClassLoader loader) {
+    public SavedState(@NonNull Parcel source, ClassLoader loader)
+    {
       super(source, loader);
-      if (loader == null) {
+      if (loader == null)
+      {
         loader = getClass().getClassLoader();
       }
       readFromParcel(source);
     }
 
     @Override
-    public void writeToParcel(@NonNull Parcel out, int flags) {
+    public void writeToParcel(@NonNull Parcel out, int flags)
+    {
       super.writeToParcel(out, flags);
       out.writeInt(checked ? 1 : 0);
     }
 
-    private void readFromParcel(@NonNull Parcel in) {
+    private void readFromParcel(@NonNull Parcel in)
+    {
       checked = in.readInt() == 1;
     }
-
-    public static final Creator<SavedState> CREATOR =
-        new ClassLoaderCreator<SavedState>() {
-          @NonNull
-          @Override
-          public SavedState createFromParcel(@NonNull Parcel in, ClassLoader loader) {
-            return new SavedState(in, loader);
-          }
-
-          @NonNull
-          @Override
-          public SavedState createFromParcel(@NonNull Parcel in) {
-            return new SavedState(in, null);
-          }
-
-          @NonNull
-          @Override
-          public SavedState[] newArray(int size) {
-            return new SavedState[size];
-          }
-        };
   }
 }

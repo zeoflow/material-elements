@@ -22,19 +22,21 @@ package com.zeoflow.material.elements.transition.platform;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import android.view.View;
-import android.view.ViewGroup;
 import android.transition.TransitionValues;
 import android.transition.Visibility;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A {@link Visibility} {@link android.transition.Transition} that does nothing to the target
  * views, which can be useful for preserving a scene on screen during a Fragment transition.
  */
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-public final class Hold extends Visibility {
+public final class Hold extends Visibility
+{
 
   @NonNull
   @Override
@@ -42,7 +44,8 @@ public final class Hold extends Visibility {
       @NonNull ViewGroup sceneRoot,
       @NonNull View view,
       @Nullable TransitionValues startValues,
-      @Nullable TransitionValues endValues) {
+      @Nullable TransitionValues endValues)
+  {
     return ValueAnimator.ofFloat(0);
   }
 
@@ -52,7 +55,8 @@ public final class Hold extends Visibility {
       @NonNull ViewGroup sceneRoot,
       @NonNull View view,
       @Nullable TransitionValues startValues,
-      @Nullable TransitionValues endValues) {
+      @Nullable TransitionValues endValues)
+  {
     return ValueAnimator.ofFloat(0);
   }
 }

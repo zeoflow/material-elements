@@ -16,34 +16,42 @@
 
 package com.zeoflow.material.elements.bottomnavigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
+import android.view.MenuItem;
+import android.view.SubMenu;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuItemImpl;
-import android.view.MenuItem;
-import android.view.SubMenu;
 
-/** @hide */
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
+/**
+ * @hide
+ */
 @RestrictTo(LIBRARY_GROUP)
-public final class BottomNavigationMenu extends MenuBuilder {
+public final class BottomNavigationMenu extends MenuBuilder
+{
   public static final int MAX_ITEM_COUNT = 5;
 
-  public BottomNavigationMenu(Context context) {
+  public BottomNavigationMenu(Context context)
+  {
     super(context);
   }
 
   @NonNull
   @Override
-  public SubMenu addSubMenu(int group, int id, int categoryOrder, CharSequence title) {
+  public SubMenu addSubMenu(int group, int id, int categoryOrder, CharSequence title)
+  {
     throw new UnsupportedOperationException("BottomNavigationView does not support submenus");
   }
 
   @Override
-  protected MenuItem addInternal(int group, int id, int categoryOrder, CharSequence title) {
-    if (size() + 1 > MAX_ITEM_COUNT) {
+  protected MenuItem addInternal(int group, int id, int categoryOrder, CharSequence title)
+  {
+    if (size() + 1 > MAX_ITEM_COUNT)
+    {
       throw new IllegalArgumentException(
           "Maximum number of items supported by BottomNavigationView is "
               + MAX_ITEM_COUNT
@@ -51,7 +59,8 @@ public final class BottomNavigationMenu extends MenuBuilder {
     }
     stopDispatchingItemsChanged();
     final MenuItem item = super.addInternal(group, id, categoryOrder, title);
-    if (item instanceof MenuItemImpl) {
+    if (item instanceof MenuItemImpl)
+    {
       ((MenuItemImpl) item).setExclusiveCheckable(true);
     }
     startDispatchingItemsChanged();

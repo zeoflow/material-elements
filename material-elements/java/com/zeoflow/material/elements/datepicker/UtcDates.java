@@ -15,13 +15,15 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Build.VERSION_CODES;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.material.R;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,36 +35,44 @@ import java.util.concurrent.atomic.AtomicReference;
  * Utility class for common operations on timezones, calendars, dateformats, and longs representing
  * time in milliseconds.
  */
-class UtcDates {
+class UtcDates
+{
 
   static final String UTC = "UTC";
 
   static AtomicReference<TimeSource> timeSourceRef = new AtomicReference<>();
 
-  static void setTimeSource(@Nullable TimeSource timeSource) {
-    timeSourceRef.set(timeSource);
+  private UtcDates()
+  {
   }
 
-  static TimeSource getTimeSource() {
+  static TimeSource getTimeSource()
+  {
     TimeSource timeSource = timeSourceRef.get();
     return timeSource == null ? TimeSource.system() : timeSource;
   }
 
-  private UtcDates() {}
+  static void setTimeSource(@Nullable TimeSource timeSource)
+  {
+    timeSourceRef.set(timeSource);
+  }
 
-  private static TimeZone getTimeZone() {
+  private static TimeZone getTimeZone()
+  {
     return TimeZone.getTimeZone(UTC);
   }
 
   @TargetApi(VERSION_CODES.N)
-  private static android.icu.util.TimeZone getUtcAndroidTimeZone() {
+  private static android.icu.util.TimeZone getUtcAndroidTimeZone()
+  {
     return android.icu.util.TimeZone.getTimeZone(UTC);
   }
 
   /**
    * Returns a Calendar object in UTC time zone representing the first moment of current date.
    */
-  static Calendar getTodayCalendar() {
+  static Calendar getTodayCalendar()
+  {
     Calendar today = getTimeSource().now();
     today.set(Calendar.HOUR_OF_DAY, 0);
     today.set(Calendar.MINUTE, 0);
@@ -79,7 +89,8 @@ class UtcDates {
    * @see {@link #getUtcCalendarOf(Calendar)}
    * @see Calendar#clear()
    */
-  static Calendar getUtcCalendar() {
+  static Calendar getUtcCalendar()
+  {
     return getUtcCalendarOf(null);
   }
 
@@ -91,11 +102,14 @@ class UtcDates {
    * @return A Calendar object in UTC time zone.
    * @see @see Calendar#clear()
    */
-  static Calendar getUtcCalendarOf(@Nullable Calendar rawCalendar) {
+  static Calendar getUtcCalendarOf(@Nullable Calendar rawCalendar)
+  {
     Calendar utc = Calendar.getInstance(getTimeZone());
-    if (rawCalendar == null) {
+    if (rawCalendar == null)
+    {
       utc.clear();
-    } else {
+    } else
+    {
       utc.setTimeInMillis(rawCalendar.getTimeInMillis());
     }
     return utc;
@@ -109,7 +123,8 @@ class UtcDates {
    * @param rawCalendar the Calendar object representing the moment to process.
    * @return A Calendar object representing the start of day in UTC time zone.
    */
-  static Calendar getDayCopy(Calendar rawCalendar) {
+  static Calendar getDayCopy(Calendar rawCalendar)
+  {
     Calendar rawCalendarInUtc = getUtcCalendarOf(rawCalendar);
     Calendar utcCalendar = getUtcCalendar();
     utcCalendar.set(
@@ -126,7 +141,8 @@ class UtcDates {
    * @param rawDate A long representing the time as UTC milliseconds from the epoch
    * @return A canonical long representing the time as UTC milliseconds for the represented day.
    */
-  static long canonicalYearMonthDay(long rawDate) {
+  static long canonicalYearMonthDay(long rawDate)
+  {
     Calendar rawCalendar = getUtcCalendar();
     rawCalendar.setTimeInMillis(rawDate);
     Calendar sanitizedStartItem = getDayCopy(rawCalendar);
@@ -134,20 +150,23 @@ class UtcDates {
   }
 
   @TargetApi(VERSION_CODES.N)
-  private static android.icu.text.DateFormat getAndroidFormat(String pattern, Locale locale) {
+  private static android.icu.text.DateFormat getAndroidFormat(String pattern, Locale locale)
+  {
     android.icu.text.DateFormat format =
         android.icu.text.DateFormat.getInstanceForSkeleton(pattern, locale);
     format.setTimeZone(getUtcAndroidTimeZone());
     return format;
   }
 
-  private static DateFormat getFormat(int style, Locale locale) {
+  private static DateFormat getFormat(int style, Locale locale)
+  {
     DateFormat format = DateFormat.getDateInstance(style, locale);
     format.setTimeZone(getTimeZone());
     return format;
   }
 
-  static SimpleDateFormat getTextInputFormat() {
+  static SimpleDateFormat getTextInputFormat()
+  {
     String pattern =
         ((SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()))
             .toLocalizedPattern()
@@ -158,7 +177,8 @@ class UtcDates {
     return format;
   }
 
-  static String getTextInputHint(Resources res, SimpleDateFormat format) {
+  static String getTextInputHint(Resources res, SimpleDateFormat format)
+  {
     String formatHint = format.toLocalizedPattern();
     String yearChar = res.getString(R.string.mtrl_picker_text_input_year_abbr);
     String monthChar = res.getString(R.string.mtrl_picker_text_input_month_abbr);
@@ -167,77 +187,93 @@ class UtcDates {
     return formatHint.replaceAll("d", dayChar).replaceAll("M", monthChar).replaceAll("y", yearChar);
   }
 
-  static SimpleDateFormat getSimpleFormat(String pattern) {
+  static SimpleDateFormat getSimpleFormat(String pattern)
+  {
     return getSimpleFormat(pattern, Locale.getDefault());
   }
 
-  private static SimpleDateFormat getSimpleFormat(String pattern, Locale locale) {
+  private static SimpleDateFormat getSimpleFormat(String pattern, Locale locale)
+  {
     SimpleDateFormat format = new SimpleDateFormat(pattern, locale);
     format.setTimeZone(getTimeZone());
     return format;
   }
 
   @TargetApi(VERSION_CODES.N)
-  static android.icu.text.DateFormat getYearAbbrMonthDayFormat(Locale locale) {
+  static android.icu.text.DateFormat getYearAbbrMonthDayFormat(Locale locale)
+  {
     return getAndroidFormat(android.icu.text.DateFormat.YEAR_ABBR_MONTH_DAY, locale);
   }
 
   @TargetApi(VERSION_CODES.N)
-  static android.icu.text.DateFormat getAbbrMonthDayFormat(Locale locale) {
+  static android.icu.text.DateFormat getAbbrMonthDayFormat(Locale locale)
+  {
     return getAndroidFormat(android.icu.text.DateFormat.ABBR_MONTH_DAY, locale);
   }
 
   @TargetApi(VERSION_CODES.N)
-  static android.icu.text.DateFormat getAbbrMonthWeekdayDayFormat(Locale locale) {
+  static android.icu.text.DateFormat getAbbrMonthWeekdayDayFormat(Locale locale)
+  {
     return getAndroidFormat(android.icu.text.DateFormat.ABBR_MONTH_WEEKDAY_DAY, locale);
   }
 
   @TargetApi(VERSION_CODES.N)
-  static android.icu.text.DateFormat getYearAbbrMonthWeekdayDayFormat(Locale locale) {
+  static android.icu.text.DateFormat getYearAbbrMonthWeekdayDayFormat(Locale locale)
+  {
     return getAndroidFormat(android.icu.text.DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY, locale);
   }
 
-  static DateFormat getMediumFormat() {
+  static DateFormat getMediumFormat()
+  {
     return getMediumFormat(Locale.getDefault());
   }
 
-  static DateFormat getMediumFormat(Locale locale) {
+  static DateFormat getMediumFormat(Locale locale)
+  {
     return getFormat(DateFormat.MEDIUM, locale);
   }
 
-  static DateFormat getMediumNoYear() {
+  static DateFormat getMediumNoYear()
+  {
     return getMediumNoYear(Locale.getDefault());
   }
 
-  static DateFormat getMediumNoYear(Locale locale) {
+  static DateFormat getMediumNoYear(Locale locale)
+  {
     SimpleDateFormat format = (SimpleDateFormat) getMediumFormat(locale);
     format.applyPattern(removeYearFromDateFormatPattern(format.toPattern()));
     return format;
   }
 
-  static DateFormat getFullFormat() {
+  static DateFormat getFullFormat()
+  {
     return getFullFormat(Locale.getDefault());
   }
 
-  static DateFormat getFullFormat(Locale locale) {
+  static DateFormat getFullFormat(Locale locale)
+  {
     return getFormat(DateFormat.FULL, locale);
   }
 
-  static SimpleDateFormat getYearMonthFormat() {
+  static SimpleDateFormat getYearMonthFormat()
+  {
     return getYearMonthFormat(Locale.getDefault());
   }
 
-  private static SimpleDateFormat getYearMonthFormat(Locale locale) {
+  private static SimpleDateFormat getYearMonthFormat(Locale locale)
+  {
     return getSimpleFormat("LLLL, yyyy", locale);
   }
 
   @NonNull
-  private static String removeYearFromDateFormatPattern(@NonNull String pattern) {
+  private static String removeYearFromDateFormatPattern(@NonNull String pattern)
+  {
     String yearCharacters = "yY";
 
     int yearPosition = findCharactersInDateFormatPattern(pattern, yearCharacters, 1, 0);
 
-    if (yearPosition >= pattern.length()) {
+    if (yearPosition >= pattern.length())
+    {
       // No year character was found in this pattern, return as-is
       return pattern;
     }
@@ -246,7 +282,8 @@ class UtcDates {
     int yearEndPosition =
         findCharactersInDateFormatPattern(pattern, monthDayCharacters, 1, yearPosition);
 
-    if (yearEndPosition < pattern.length()) {
+    if (yearEndPosition < pattern.length())
+    {
       monthDayCharacters += ",";
     }
 
@@ -262,17 +299,21 @@ class UtcDates {
       @NonNull String pattern,
       @NonNull String characterSequence,
       int increment,
-      int initialPosition) {
+      int initialPosition)
+  {
     int position = initialPosition;
 
     // Increment while we haven't found the characters we're looking for in the date pattern
     while ((position >= 0 && position < pattern.length())
-        && characterSequence.indexOf(pattern.charAt(position)) == -1) {
+        && characterSequence.indexOf(pattern.charAt(position)) == -1)
+    {
 
       // If an open string is found, increment until we close the string
-      if (pattern.charAt(position) == '\'') {
+      if (pattern.charAt(position) == '\'')
+      {
         position += increment;
-        while ((position >= 0 && position < pattern.length()) && pattern.charAt(position) != '\'') {
+        while ((position >= 0 && position < pattern.length()) && pattern.charAt(position) != '\'')
+        {
           position += increment;
         }
       }

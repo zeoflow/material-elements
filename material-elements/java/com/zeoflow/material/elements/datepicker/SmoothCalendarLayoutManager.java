@@ -16,32 +16,40 @@
 package com.zeoflow.material.elements.datepicker;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.DisplayMetrics;
 
 /**
  * Layout manager for {@link MaterialCalendar} that slows the scroll down to appear smoother for
  * months.
  */
-class SmoothCalendarLayoutManager extends LinearLayoutManager {
+class SmoothCalendarLayoutManager extends LinearLayoutManager
+{
 
-  /** Default value in {@link LinearSmoothScroller} is 25f */
+  /**
+   * Default value in {@link LinearSmoothScroller} is 25f
+   */
   private static final float MILLISECONDS_PER_INCH = 100f;
 
-  SmoothCalendarLayoutManager(Context context, int orientation, boolean reverseLayout) {
+  SmoothCalendarLayoutManager(Context context, int orientation, boolean reverseLayout)
+  {
     super(context, orientation, reverseLayout);
   }
 
   @Override
   public void smoothScrollToPosition(
-      RecyclerView recyclerView, RecyclerView.State state, int position) {
+      RecyclerView recyclerView, RecyclerView.State state, int position)
+  {
     final LinearSmoothScroller linearSmoothScroller =
-        new LinearSmoothScroller(recyclerView.getContext()) {
+        new LinearSmoothScroller(recyclerView.getContext())
+        {
 
           @Override
-          protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+          protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics)
+          {
             return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
           }
         };

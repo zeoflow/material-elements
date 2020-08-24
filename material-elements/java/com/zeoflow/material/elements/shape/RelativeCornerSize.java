@@ -17,43 +17,54 @@
 package com.zeoflow.material.elements.shape;
 
 import android.graphics.RectF;
+
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
+
 import java.util.Arrays;
 
 /**
  * A {@link CornerSize} that takes a percent and computes the size used based on the height of the
  * shape.
  */
-public final class RelativeCornerSize implements CornerSize {
+public final class RelativeCornerSize implements CornerSize
+{
 
   private final float percent;
 
   /**
    * @param percent The relative size of the corner in range [0,1] where 0 is no size and 1 is the
-   *     full bounds height.
+   *                full bounds height.
    */
-  public RelativeCornerSize(@FloatRange(from = 0.0f, to = 1.0f) float percent) {
+  public RelativeCornerSize(@FloatRange(from = 0.0f, to = 1.0f) float percent)
+  {
     this.percent = percent;
   }
 
-  /** Returns the relative percent used for this {@link CornerSize} in range [0,1]. */
+  /**
+   * Returns the relative percent used for this {@link CornerSize} in range [0,1].
+   */
   @FloatRange(from = 0.0f, to = 1.0f)
-  public float getRelativePercent() {
+  public float getRelativePercent()
+  {
     return percent;
   }
 
   @Override
-  public float getCornerSize(@NonNull RectF bounds) {
+  public float getCornerSize(@NonNull RectF bounds)
+  {
     return percent * bounds.height();
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof RelativeCornerSize)) {
+    if (!(o instanceof RelativeCornerSize))
+    {
       return false;
     }
     RelativeCornerSize that = (RelativeCornerSize) o;
@@ -61,7 +72,8 @@ public final class RelativeCornerSize implements CornerSize {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     Object[] hashedFields = {percent};
     return Arrays.hashCode(hashedFields);
   }

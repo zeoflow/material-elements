@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2018 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,17 +19,17 @@
        in your App Theme to ThemeOverlay.MaterialComponents.MaterialAlertDialog or
        ThemeOverlay.MaterialComponents.MaterialAlertDialog.Centered. -->
   <declare-styleable name="MaterialAlertDialogTheme">
-    <attr name="materialAlertDialogTheme" format="reference"/>
-    <attr name="materialAlertDialogTitlePanelStyle" format="reference"/>
-    <attr name="materialAlertDialogTitleIconStyle" format="reference"/>
-    <attr name="materialAlertDialogTitleTextStyle" format="reference"/>
-    <attr name="materialAlertDialogBodyTextStyle" format="reference"/>
+    <attr name="materialAlertDialogTheme" format="reference" />
+    <attr name="materialAlertDialogTitlePanelStyle" format="reference" />
+    <attr name="materialAlertDialogTitleIconStyle" format="reference" />
+    <attr name="materialAlertDialogTitleTextStyle" format="reference" />
+    <attr name="materialAlertDialogBodyTextStyle" format="reference" />
   </declare-styleable>
 
   <declare-styleable name="MaterialAlertDialog">
-    <attr name="backgroundInsetStart" format="dimension"/>
-    <attr name="backgroundInsetTop" format="dimension"/>
-    <attr name="backgroundInsetEnd" format="dimension"/>
-    <attr name="backgroundInsetBottom" format="dimension"/>
+    <attr name="backgroundInsetStart" format="dimension" />
+    <attr name="backgroundInsetTop" format="dimension" />
+    <attr name="backgroundInsetEnd" format="dimension" />
+    <attr name="backgroundInsetBottom" format="dimension" />
   </declare-styleable>
 </resources>

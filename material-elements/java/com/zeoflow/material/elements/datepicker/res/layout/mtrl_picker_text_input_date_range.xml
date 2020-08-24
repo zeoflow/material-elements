@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2019 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,44 +14,44 @@
     limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:paddingLeft="@dimen/mtrl_calendar_content_padding"
-    android:paddingRight="@dimen/mtrl_calendar_content_padding"
-    android:orientation="horizontal">
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal"
+  android:paddingLeft="@dimen/mtrl_calendar_content_padding"
+  android:paddingTop="16dp"
+  android:paddingRight="@dimen/mtrl_calendar_content_padding"
+  android:paddingBottom="16dp">
 
   <com.zeoflow.material.elements.textfield.TextInputLayout
-      android:id="@+id/mtrl_picker_text_input_range_start"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_weight="1">
+    android:id="@+id/mtrl_picker_text_input_range_start"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
 
     <com.zeoflow.material.elements.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/mtrl_picker_text_input_date_range_start_hint"
-        android:inputType="date"
-        android:imeOptions="flagNoExtractUi"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/mtrl_picker_text_input_date_range_start_hint"
+      android:imeOptions="flagNoExtractUi"
+      android:inputType="date" />
   </com.zeoflow.material.elements.textfield.TextInputLayout>
 
   <Space
-      android:layout_width="8dp"
-      android:layout_height="0dp"/>
+    android:layout_width="8dp"
+    android:layout_height="0dp" />
 
   <com.zeoflow.material.elements.textfield.TextInputLayout
-      android:id="@+id/mtrl_picker_text_input_range_end"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_weight="1">
+    android:id="@+id/mtrl_picker_text_input_range_end"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
 
     <com.zeoflow.material.elements.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/mtrl_picker_text_input_date_range_end_hint"
-        android:inputType="date"
-        android:imeOptions="flagNoExtractUi"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/mtrl_picker_text_input_date_range_end_hint"
+      android:imeOptions="flagNoExtractUi"
+      android:inputType="date" />
   </com.zeoflow.material.elements.textfield.TextInputLayout>
 
 </LinearLayout>

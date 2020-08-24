@@ -15,40 +15,35 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.datepicker.MaterialCalendar.CalendarSelector;
+
 import java.util.Calendar;
 import java.util.Locale;
 
-class YearGridAdapter extends RecyclerView.Adapter<YearGridAdapter.ViewHolder> {
+class YearGridAdapter extends RecyclerView.Adapter<YearGridAdapter.ViewHolder>
+{
 
   private final MaterialCalendar<?> materialCalendar;
 
-  public static class ViewHolder extends RecyclerView.ViewHolder {
-
-    final TextView textView;
-
-    ViewHolder(TextView view) {
-      super(view);
-      this.textView = view;
-    }
-  }
-
-  YearGridAdapter(MaterialCalendar<?> materialCalendar) {
+  YearGridAdapter(MaterialCalendar<?> materialCalendar)
+  {
     this.materialCalendar = materialCalendar;
   }
 
   @NonNull
   @Override
-  public YearGridAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+  public YearGridAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType)
+  {
     TextView yearTextView =
         (TextView)
             LayoutInflater.from(viewGroup.getContext())
@@ -57,7 +52,8 @@ class YearGridAdapter extends RecyclerView.Adapter<YearGridAdapter.ViewHolder> {
   }
 
   @Override
-  public void onBindViewHolder(@NonNull YearGridAdapter.ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(@NonNull YearGridAdapter.ViewHolder viewHolder, int position)
+  {
     int year = getYearForPosition(position);
     String navigateYear =
         viewHolder
@@ -69,9 +65,11 @@ class YearGridAdapter extends RecyclerView.Adapter<YearGridAdapter.ViewHolder> {
     CalendarStyle styles = materialCalendar.getCalendarStyle();
     Calendar calendar = UtcDates.getTodayCalendar();
     CalendarItemStyle style = calendar.get(Calendar.YEAR) == year ? styles.todayYear : styles.year;
-    for (Long day : materialCalendar.getDateSelector().getSelectedDays()) {
+    for (Long day : materialCalendar.getDateSelector().getSelectedDays())
+    {
       calendar.setTimeInMillis(day);
-      if (calendar.get(Calendar.YEAR) == year) {
+      if (calendar.get(Calendar.YEAR) == year)
+      {
         style = styles.selectedYear;
       }
     }
@@ -80,10 +78,13 @@ class YearGridAdapter extends RecyclerView.Adapter<YearGridAdapter.ViewHolder> {
   }
 
   @NonNull
-  private OnClickListener createYearClickListener(final int year) {
-    return new OnClickListener() {
+  private OnClickListener createYearClickListener(final int year)
+  {
+    return new OnClickListener()
+    {
       @Override
-      public void onClick(View view) {
+      public void onClick(View view)
+      {
         Month current = Month.create(year, materialCalendar.getCurrentMonth().month);
         CalendarConstraints calendarConstraints = materialCalendar.getCalendarConstraints();
         Month moveTo = calendarConstraints.clamp(current);
@@ -94,15 +95,30 @@ class YearGridAdapter extends RecyclerView.Adapter<YearGridAdapter.ViewHolder> {
   }
 
   @Override
-  public int getItemCount() {
+  public int getItemCount()
+  {
     return materialCalendar.getCalendarConstraints().getYearSpan();
   }
 
-  int getPositionForYear(int year) {
+  int getPositionForYear(int year)
+  {
     return year - materialCalendar.getCalendarConstraints().getStart().year;
   }
 
-  int getYearForPosition(int position) {
+  int getYearForPosition(int position)
+  {
     return materialCalendar.getCalendarConstraints().getStart().year + position;
+  }
+
+  public static class ViewHolder extends RecyclerView.ViewHolder
+  {
+
+    final TextView textView;
+
+    ViewHolder(TextView view)
+    {
+      super(view);
+      this.textView = view;
+    }
   }
 }

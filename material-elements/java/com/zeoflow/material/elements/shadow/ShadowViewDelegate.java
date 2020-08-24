@@ -17,10 +17,14 @@
 package com.zeoflow.material.elements.shadow;
 
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.Nullable;
 
-/** Delegate interface that can be used to facilitate rendering of shadows pre-lollipop. */
-public interface ShadowViewDelegate {
+/**
+ * Delegate interface that can be used to facilitate rendering of shadows pre-lollipop.
+ */
+public interface ShadowViewDelegate
+{
   float getRadius();
 
   void setShadowPadding(int left, int top, int right, int bottom);

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2019 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +14,7 @@
     limitations under the License.
 -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
   <style name="MaterialAlertDialog.MaterialComponents.Picker.Date.Spinner" parent="android:Widget.DeviceDefault.DatePicker">
     <item name="backgroundInsetTop">@dimen/mtrl_alert_dialog_picker_background_inset</item>
@@ -33,18 +32,23 @@
     <item name="android:windowFullscreen">false</item>
     <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
     <item name="dayStyle">@style/Widget.MaterialComponents.MaterialCalendar.Day</item>
-    <item name="dayInvalidStyle">@style/Widget.MaterialComponents.MaterialCalendar.Day.Invalid</item>
-    <item name="daySelectedStyle">@style/Widget.MaterialComponents.MaterialCalendar.Day.Selected</item>
+    <item name="dayInvalidStyle">@style/Widget.MaterialComponents.MaterialCalendar.Day.Invalid
+    </item>
+    <item name="daySelectedStyle">@style/Widget.MaterialComponents.MaterialCalendar.Day.Selected
+    </item>
     <item name="dayTodayStyle">@style/Widget.MaterialComponents.MaterialCalendar.Day.Today</item>
     <item name="yearStyle">@style/Widget.MaterialComponents.MaterialCalendar.Year</item>
-    <item name="yearSelectedStyle">@style/Widget.MaterialComponents.MaterialCalendar.Year.Selected</item>
+    <item name="yearSelectedStyle">@style/Widget.MaterialComponents.MaterialCalendar.Year.Selected
+    </item>
     <item name="yearTodayStyle">@style/Widget.MaterialComponents.MaterialCalendar.Year.Today</item>
     <item name="rangeFillColor">@color/mtrl_calendar_selected_range</item>
   </style>
 
   <style name="Widget.MaterialComponents.MaterialCalendar.Fullscreen" parent="Widget.MaterialComponents.MaterialCalendar">
     <item name="android:windowFullscreen">true</item>
-    <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Window.Fullscreen</item>
+    <item name="shapeAppearanceOverlay">
+      @style/ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Window.Fullscreen
+    </item>
   </style>
 
   <style name="Widget.MaterialComponents.MaterialCalendar.HeaderLayout" parent="android:Widget">
@@ -106,7 +110,9 @@
   </style>
 
   <style name="Widget.MaterialComponents.MaterialCalendar.Day" parent="Widget.MaterialComponents.MaterialCalendar.Item">
-    <item name="itemShapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Day</item>
+    <item name="itemShapeAppearanceOverlay">
+      @style/ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Day
+    </item>
     <item name="android:width">@dimen/mtrl_calendar_day_width</item>
     <item name="android:height">@dimen/mtrl_calendar_day_height</item>
     <item name="android:insetTop">@dimen/mtrl_calendar_day_vertical_padding</item>
@@ -136,7 +142,9 @@
   </style>
 
   <style name="Widget.MaterialComponents.MaterialCalendar.Year" parent="Widget.MaterialComponents.MaterialCalendar.Item">
-    <item name="itemShapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Year</item>
+    <item name="itemShapeAppearanceOverlay">
+      @style/ShapeAppearanceOverlay.MaterialComponents.MaterialCalendar.Year
+    </item>
     <item name="android:width">@dimen/mtrl_calendar_year_width</item>
     <item name="android:height">@dimen/mtrl_calendar_year_height</item>
     <item name="android:insetTop">@dimen/mtrl_calendar_year_vertical_padding</item>

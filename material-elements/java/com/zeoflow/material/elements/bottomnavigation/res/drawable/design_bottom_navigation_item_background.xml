@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2016 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,12 +17,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="true">
     <shape android:shape="rectangle">
-      <solid android:color="#ff0000"/>
+      <solid android:color="#ff0000" />
     </shape>
   </item>
   <item>
     <shape android:shape="rectangle">
-      <solid android:color="#ffffff"/>
+      <solid android:color="#ffffff" />
     </shape>
   </item>
 </selector>

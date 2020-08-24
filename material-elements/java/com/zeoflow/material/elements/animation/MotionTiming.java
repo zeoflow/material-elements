@@ -18,68 +18,51 @@ package com.zeoflow.material.elements.animation;
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
-/** A representation of timing for an animation. */
-public class MotionTiming {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+/**
+ * A representation of timing for an animation.
+ */
+public class MotionTiming
+{
 
   private long delay = 0;
   private long duration = 300;
-  /** Set to an instance, or null for {@link AnimationUtils#FAST_OUT_SLOW_IN_INTERPOLATOR}. */
-  @Nullable private TimeInterpolator interpolator = null;
-  /** Set to 0, greater than 0, or {@link ValueAnimator#INFINITE}. */
+  /**
+   * Set to an instance, or null for {@link AnimationUtils#FAST_OUT_SLOW_IN_INTERPOLATOR}.
+   */
+  @Nullable
+  private TimeInterpolator interpolator = null;
+  /**
+   * Set to 0, greater than 0, or {@link ValueAnimator#INFINITE}.
+   */
   private int repeatCount = 0;
-  /** Set to {@link ValueAnimator#RESTART} or {@link ValueAnimator#REVERSE}. */
+  /**
+   * Set to {@link ValueAnimator#RESTART} or {@link ValueAnimator#REVERSE}.
+   */
   private int repeatMode = ValueAnimator.RESTART;
 
-  public MotionTiming(long delay, long duration) {
+  public MotionTiming(long delay, long duration)
+  {
     this.delay = delay;
     this.duration = duration;
   }
 
-  public MotionTiming(long delay, long duration, @NonNull TimeInterpolator interpolator) {
+  public MotionTiming(long delay, long duration, @NonNull TimeInterpolator interpolator)
+  {
     this.delay = delay;
     this.duration = duration;
     this.interpolator = interpolator;
   }
 
-  public void apply(@NonNull Animator animator) {
-    animator.setStartDelay(getDelay());
-    animator.setDuration(getDuration());
-    animator.setInterpolator(getInterpolator());
-    if (animator instanceof ValueAnimator) {
-      ((ValueAnimator) animator).setRepeatCount(getRepeatCount());
-      ((ValueAnimator) animator).setRepeatMode(getRepeatMode());
-    }
-  }
-
-  public long getDelay() {
-    return delay;
-  }
-
-  public long getDuration() {
-    return duration;
-  }
-
-  @Nullable
-  public TimeInterpolator getInterpolator() {
-    return interpolator != null ? interpolator : AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR;
-  }
-
-  public int getRepeatCount() {
-    return repeatCount;
-  }
-
-  public int getRepeatMode() {
-    return repeatMode;
-  }
-
   @NonNull
-  static MotionTiming createFromAnimator(@NonNull ValueAnimator animator) {
+  static MotionTiming createFromAnimator(@NonNull ValueAnimator animator)
+  {
     MotionTiming timing =
         new MotionTiming(
             animator.getStartDelay(), animator.getDuration(), getInterpolatorCompat(animator));
@@ -98,47 +81,98 @@ public class MotionTiming {
    * {@code @android:interpolator/decelerate_quad} respectively. This method maps those compat
    * interpolators back to Material interpolators, which can be instantiated dynamically.
    */
-  private static TimeInterpolator getInterpolatorCompat(@NonNull ValueAnimator animator) {
+  private static TimeInterpolator getInterpolatorCompat(@NonNull ValueAnimator animator)
+  {
     @Nullable TimeInterpolator interpolator = animator.getInterpolator();
-    if (interpolator instanceof AccelerateDecelerateInterpolator || interpolator == null) {
+    if (interpolator instanceof AccelerateDecelerateInterpolator || interpolator == null)
+    {
       return AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR;
-    } else if (interpolator instanceof AccelerateInterpolator) {
+    } else if (interpolator instanceof AccelerateInterpolator)
+    {
       return AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR;
-    } else if (interpolator instanceof DecelerateInterpolator) {
+    } else if (interpolator instanceof DecelerateInterpolator)
+    {
       return AnimationUtils.LINEAR_OUT_SLOW_IN_INTERPOLATOR;
-    } else {
+    } else
+    {
       return interpolator;
     }
   }
 
+  public void apply(@NonNull Animator animator)
+  {
+    animator.setStartDelay(getDelay());
+    animator.setDuration(getDuration());
+    animator.setInterpolator(getInterpolator());
+    if (animator instanceof ValueAnimator)
+    {
+      ((ValueAnimator) animator).setRepeatCount(getRepeatCount());
+      ((ValueAnimator) animator).setRepeatMode(getRepeatMode());
+    }
+  }
+
+  public long getDelay()
+  {
+    return delay;
+  }
+
+  public long getDuration()
+  {
+    return duration;
+  }
+
+  @Nullable
+  public TimeInterpolator getInterpolator()
+  {
+    return interpolator != null ? interpolator : AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR;
+  }
+
+  public int getRepeatCount()
+  {
+    return repeatCount;
+  }
+
+  public int getRepeatMode()
+  {
+    return repeatMode;
+  }
+
   @Override
-  public boolean equals(@Nullable Object o) {
-    if (this == o) {
+  public boolean equals(@Nullable Object o)
+  {
+    if (this == o)
+    {
       return true;
     }
-    if (!(o instanceof MotionTiming)) {
+    if (!(o instanceof MotionTiming))
+    {
       return false;
     }
 
     MotionTiming that = (MotionTiming) o;
 
-    if (getDelay() != that.getDelay()) {
+    if (getDelay() != that.getDelay())
+    {
       return false;
     }
-    if (getDuration() != that.getDuration()) {
+    if (getDuration() != that.getDuration())
+    {
       return false;
     }
-    if (getRepeatCount() != that.getRepeatCount()) {
+    if (getRepeatCount() != that.getRepeatCount())
+    {
       return false;
     }
-    if (getRepeatMode() != that.getRepeatMode()) {
+    if (getRepeatMode() != that.getRepeatMode())
+    {
       return false;
     }
     return getInterpolator().getClass().equals(that.getInterpolator().getClass());
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     int result = (int) (getDelay() ^ (getDelay() >>> 32));
     result = 31 * result + (int) (getDuration() ^ (getDuration() >>> 32));
     result = 31 * result + getInterpolator().getClass().hashCode();
@@ -149,7 +183,8 @@ public class MotionTiming {
 
   @NonNull
   @Override
-  public String toString() {
+  public String toString()
+  {
     StringBuilder out = new StringBuilder();
     out.append('\n');
     out.append(getClass().getName());

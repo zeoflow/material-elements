@@ -16,13 +16,14 @@
 
 package com.zeoflow.material.elements.slider;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.AttributeSet;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.slider.Slider.OnChangeListener;
 import com.zeoflow.material.elements.slider.Slider.OnSliderTouchListener;
 
@@ -37,29 +38,25 @@ import com.zeoflow.material.elements.slider.Slider.OnSliderTouchListener;
  *
  * @attr ref com.google.android.material.R.styleable#SingleSlider_android_value
  */
-public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchListener> {
+public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchListener>
+{
 
-  /** Interface definition for a callback invoked when a slider's value is changed. */
-  public interface OnChangeListener extends BaseOnChangeListener<Slider> {}
-
-  /**
-   * Interface definition for callbacks invoked when a slider's touch event is being
-   * started/stopped.
-   */
-  public interface OnSliderTouchListener extends BaseOnSliderTouchListener<Slider> {}
-
-  public Slider(@NonNull Context context) {
+  public Slider(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public Slider(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public Slider(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.sliderStyle);
   }
 
-  public Slider(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public Slider(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(context, attrs, defStyleAttr);
-    TypedArray a = context.obtainStyledAttributes(attrs, new int[] {android.R.attr.value});
-    if (a.hasValue(0)) {
+    TypedArray a = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.value});
+    if (a.hasValue(0))
+    {
       setValue(a.getFloat(0, 0f));
     }
     a.recycle();
@@ -68,10 +65,11 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
   /**
    * Returns the value of the slider.
    *
-   * @see #setValue(float)
    * @attr ref com.google.android.material.R.styleable#Slider_android_value
+   * @see #setValue(float)
    */
-  public float getValue() {
+  public float getValue()
+  {
     return getValues().get(0);
   }
 
@@ -88,20 +86,38 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
    * an {@link IllegalStateException} will be thrown when the view is laid out.
    *
    * @param value The value to which to set the slider
-   * @see #getValue()
    * @attr ref com.google.android.material.R.styleable#Slider_android_value
+   * @see #getValue()
    */
-  public void setValue(float value) {
+  public void setValue(float value)
+  {
     setValues(value);
   }
 
   @Override
-  protected boolean pickActiveThumb() {
-    if (getActiveThumbIndex() != -1) {
+  protected boolean pickActiveThumb()
+  {
+    if (getActiveThumbIndex() != -1)
+    {
       return true;
     }
     // Only one thumb to focus
     setActiveThumbIndex(0);
     return true;
+  }
+
+  /**
+   * Interface definition for a callback invoked when a slider's value is changed.
+   */
+  public interface OnChangeListener extends BaseOnChangeListener<Slider>
+  {
+  }
+
+  /**
+   * Interface definition for callbacks invoked when a slider's touch event is being
+   * started/stopped.
+   */
+  public interface OnSliderTouchListener extends BaseOnSliderTouchListener<Slider>
+  {
   }
 }

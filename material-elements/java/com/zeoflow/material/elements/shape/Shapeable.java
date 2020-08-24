@@ -22,12 +22,8 @@ import androidx.annotation.NonNull;
  * Provides a mechanism to uniformly modify the {@link ShapeAppearanceModel} that backs a
  * component or {@link android.graphics.drawable.Drawable}'s shape.
  */
-public interface Shapeable {
-
-  /**
-   * Sets the {@link ShapeAppearanceModel} that defines the shape.
-   */
-  void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel);
+public interface Shapeable
+{
 
   /**
    * Returns the {@link ShapeAppearanceModel} used for the shape definition.
@@ -36,4 +32,9 @@ public interface Shapeable {
    */
   @NonNull
   ShapeAppearanceModel getShapeAppearanceModel();
+
+  /**
+   * Sets the {@link ShapeAppearanceModel} that defines the shape.
+   */
+  void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel);
 }

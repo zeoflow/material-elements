@@ -22,11 +22,13 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.zeoflow.material.elements.animation.AnimatorSetCompat;
 import com.zeoflow.material.elements.animation.MotionTiming;
 import com.zeoflow.material.elements.floatingactionbutton.FloatingActionButton;
@@ -40,10 +42,11 @@ import java.util.List;
  * FloatingActionButton} is {@link FloatingActionButton#setExpanded(boolean)} expanded}.
  *
  * @deprecated Use {@link MaterialContainerTransform}
- *     instead.
+ * instead.
  */
 @Deprecated
-public class FabTransformationScrimBehavior extends ExpandableTransformationBehavior {
+public class FabTransformationScrimBehavior extends ExpandableTransformationBehavior
+{
 
   public static final long EXPAND_DELAY = 75;
   public static final long EXPAND_DURATION = 150;
@@ -54,20 +57,25 @@ public class FabTransformationScrimBehavior extends ExpandableTransformationBeha
   private final MotionTiming expandTiming = new MotionTiming(EXPAND_DELAY, EXPAND_DURATION);
   private final MotionTiming collapseTiming = new MotionTiming(COLLAPSE_DELAY, COLLAPSE_DURATION);
 
-  public FabTransformationScrimBehavior() {}
+  public FabTransformationScrimBehavior()
+  {
+  }
 
-  public FabTransformationScrimBehavior(Context context, AttributeSet attrs) {
+  public FabTransformationScrimBehavior(Context context, AttributeSet attrs)
+  {
     super(context, attrs);
   }
 
   @Override
-  public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
+  public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency)
+  {
     return dependency instanceof FloatingActionButton;
   }
 
   @Override
   public boolean onTouchEvent(
-      @NonNull CoordinatorLayout parent, @NonNull View child, @NonNull MotionEvent ev) {
+      @NonNull CoordinatorLayout parent, @NonNull View child, @NonNull MotionEvent ev)
+  {
     // TODO: Implement click detection so clients don't have to manually set a listener.
     return super.onTouchEvent(parent, child, ev);
   }
@@ -78,7 +86,8 @@ public class FabTransformationScrimBehavior extends ExpandableTransformationBeha
       @NonNull View dependency,
       @NonNull final View child,
       final boolean expanded,
-      boolean isAnimating) {
+      boolean isAnimating)
+  {
     List<Animator> animations = new ArrayList<>();
     List<AnimatorListener> listeners = new ArrayList<>();
 
@@ -87,17 +96,22 @@ public class FabTransformationScrimBehavior extends ExpandableTransformationBeha
     AnimatorSet set = new AnimatorSet();
     AnimatorSetCompat.playTogether(set, animations);
     set.addListener(
-        new AnimatorListenerAdapter() {
+        new AnimatorListenerAdapter()
+        {
           @Override
-          public void onAnimationStart(Animator animation) {
-            if (expanded) {
+          public void onAnimationStart(Animator animation)
+          {
+            if (expanded)
+            {
               child.setVisibility(View.VISIBLE);
             }
           }
 
           @Override
-          public void onAnimationEnd(Animator animation) {
-            if (!expanded) {
+          public void onAnimationEnd(Animator animation)
+          {
+            if (!expanded)
+            {
               child.setVisibility(View.INVISIBLE);
             }
           }
@@ -110,16 +124,20 @@ public class FabTransformationScrimBehavior extends ExpandableTransformationBeha
       boolean expanded,
       boolean currentlyAnimating,
       @NonNull List<Animator> animations,
-      List<AnimatorListener> unusedListeners) {
+      List<AnimatorListener> unusedListeners)
+  {
     MotionTiming timing = expanded ? expandTiming : collapseTiming;
 
     Animator animator;
-    if (expanded) {
-      if (!currentlyAnimating) {
+    if (expanded)
+    {
+      if (!currentlyAnimating)
+      {
         child.setAlpha(0f);
       }
       animator = ObjectAnimator.ofFloat(child, View.ALPHA, 1f);
-    } else {
+    } else
+    {
       animator = ObjectAnimator.ofFloat(child, View.ALPHA, 0f);
     }
 

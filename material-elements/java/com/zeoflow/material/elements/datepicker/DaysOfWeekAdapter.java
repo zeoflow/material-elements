@@ -15,18 +15,20 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.annotation.SuppressLint;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.material.R;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -38,18 +40,22 @@ import java.util.Locale;
  *
  * @hide
  */
-class DaysOfWeekAdapter extends BaseAdapter {
+class DaysOfWeekAdapter extends BaseAdapter
+{
 
-  @NonNull private final Calendar calendar;
-  private final int daysInWeek;
-  private final int firstDayOfWeek;
-  /** Style value from Calendar.NARROW_FORMAT unavailable before 1.8 */
+  /**
+   * Style value from Calendar.NARROW_FORMAT unavailable before 1.8
+   */
   private static final int NARROW_FORMAT = 4;
-
   private static final int CALENDAR_DAY_STYLE =
       VERSION.SDK_INT >= VERSION_CODES.O ? NARROW_FORMAT : Calendar.SHORT;
+  @NonNull
+  private final Calendar calendar;
+  private final int daysInWeek;
+  private final int firstDayOfWeek;
 
-  public DaysOfWeekAdapter() {
+  public DaysOfWeekAdapter()
+  {
     calendar = UtcDates.getUtcCalendar();
     daysInWeek = calendar.getMaximum(Calendar.DAY_OF_WEEK);
     firstDayOfWeek = calendar.getFirstDayOfWeek();
@@ -57,30 +63,36 @@ class DaysOfWeekAdapter extends BaseAdapter {
 
   @Nullable
   @Override
-  public Integer getItem(int position) {
-    if (position >= daysInWeek) {
+  public Integer getItem(int position)
+  {
+    if (position >= daysInWeek)
+    {
       return null;
     }
     return positionToDayOfWeek(position);
   }
 
   @Override
-  public long getItemId(int position) {
+  public long getItemId(int position)
+  {
     // There is only 1 row
     return 0;
   }
 
   @Override
-  public int getCount() {
+  public int getCount()
+  {
     return daysInWeek;
   }
 
   @Nullable
   @SuppressLint("WrongConstant")
   @Override
-  public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+  public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+  {
     TextView dayOfWeek = (TextView) convertView;
-    if (convertView == null) {
+    if (convertView == null)
+    {
       LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
       dayOfWeek =
           (TextView) layoutInflater.inflate(R.layout.mtrl_calendar_day_of_week, parent, false);
@@ -95,10 +107,12 @@ class DaysOfWeekAdapter extends BaseAdapter {
     return dayOfWeek;
   }
 
-  private int positionToDayOfWeek(int position) {
+  private int positionToDayOfWeek(int position)
+  {
     // Day Constants start at 1
     int dayConstant = position + firstDayOfWeek;
-    if (dayConstant > daysInWeek) {
+    if (dayConstant > daysInWeek)
+    {
       dayConstant = dayConstant - daysInWeek;
     }
     return dayConstant;

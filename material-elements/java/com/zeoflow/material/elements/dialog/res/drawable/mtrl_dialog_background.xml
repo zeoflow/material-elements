@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2019 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,10 +14,10 @@
 -->
 
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetLeft="@dimen/appcompat_dialog_background_inset"
-    android:insetTop="@dimen/appcompat_dialog_background_inset"
-    android:insetRight="@dimen/appcompat_dialog_background_inset"
-    android:insetBottom="@dimen/appcompat_dialog_background_inset">
+  android:insetLeft="@dimen/appcompat_dialog_background_inset"
+  android:insetTop="@dimen/appcompat_dialog_background_inset"
+  android:insetRight="@dimen/appcompat_dialog_background_inset"
+  android:insetBottom="@dimen/appcompat_dialog_background_inset">
   <shape android:shape="rectangle">
     <corners android:radius="@dimen/mtrl_shape_corner_size_medium_component" />
     <solid android:color="?attr/colorSurface" />

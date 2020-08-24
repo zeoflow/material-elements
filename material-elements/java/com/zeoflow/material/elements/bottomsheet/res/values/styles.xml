@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2017 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +43,9 @@
     <item name="enforceMaterialTheme">true</item>
     <item name="android:background">@null</item>
     <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
-    <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialComponents.BottomSheet</item>
+    <item name="shapeAppearanceOverlay">
+      @style/ShapeAppearanceOverlay.MaterialComponents.BottomSheet
+    </item>
     <item name="backgroundTint">?attr/colorSurface</item>
     <item name="android:elevation" tools:ignore="NewApi">
       @dimen/design_bottom_sheet_elevation
@@ -62,4 +63,4 @@
     <item name="cornerSizeBottomLeft">0dp</item>
   </style>
 
- </resources>
+</resources>

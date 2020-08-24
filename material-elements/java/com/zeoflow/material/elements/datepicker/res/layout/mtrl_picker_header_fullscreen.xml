@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +45,7 @@
       android:padding="12dp"
       app:icon="@drawable/material_ic_clear_black_24dp"
       app:iconTint="?attr/colorOnPrimary"
-      app:rippleColor="@color/mtrl_btn_ripple_color"/>
+      app:rippleColor="@color/mtrl_btn_ripple_color" />
 
     <FrameLayout
       android:id="@+id/mtrl_picker_header_title_and_selection"
@@ -63,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
         android:gravity="start|bottom"
-        app:firstBaselineToTopHeight="@dimen/mtrl_calendar_title_baseline_to_top_fullscreen"/>
+        app:firstBaselineToTopHeight="@dimen/mtrl_calendar_title_baseline_to_top_fullscreen" />
 
       <TextView
         android:id="@+id/mtrl_picker_header_selection_text"
@@ -74,7 +73,7 @@
         android:gravity="start|bottom"
         android:paddingBottom="@dimen/mtrl_calendar_pre_l_text_clip_padding"
         app:firstBaselineToTopHeight="@dimen/mtrl_calendar_selection_baseline_to_top_fullscreen"
-        app:lineHeight="@dimen/mtrl_calendar_header_selection_line_height"/>
+        app:lineHeight="@dimen/mtrl_calendar_header_selection_line_height" />
     </FrameLayout>
 
     <LinearLayout
@@ -89,9 +88,9 @@
         android:layout_height="@dimen/mtrl_min_touch_target_size"
         android:layout_gravity="end|top"
         android:contentDescription="@string/mtrl_picker_save"
-        android:text="@string/mtrl_picker_save"/>
+        android:text="@string/mtrl_picker_save" />
 
-      <include layout="@layout/mtrl_picker_header_toggle"/>
+      <include layout="@layout/mtrl_picker_header_toggle" />
     </LinearLayout>
   </LinearLayout>
 
@@ -99,6 +98,6 @@
     style="?attr/materialCalendarHeaderDivider"
     android:layout_width="match_parent"
     android:layout_height="@dimen/mtrl_calendar_header_divider_thickness"
-    android:layout_gravity="bottom"/>
+    android:layout_gravity="bottom" />
 
 </merge>

@@ -17,6 +17,7 @@
 package com.zeoflow.material.elements.resources;
 
 import android.graphics.Typeface;
+
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.core.content.res.ResourcesCompat.FontCallback;
@@ -28,29 +29,27 @@ import androidx.core.content.res.ResourcesCompat.FontCallback;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-public final class CancelableFontCallback extends TextAppearanceFontCallback {
-
-  /** Functional interface for method to call when font is retrieved (or fails with fallback). */
-  public interface ApplyFont {
-    void apply(Typeface font);
-  }
+public final class CancelableFontCallback extends TextAppearanceFontCallback
+{
 
   private final Typeface fallbackFont;
   private final ApplyFont applyFont;
   private boolean cancelled;
-
-  public CancelableFontCallback(ApplyFont applyFont, Typeface fallbackFont) {
+  public CancelableFontCallback(ApplyFont applyFont, Typeface fallbackFont)
+  {
     this.fallbackFont = fallbackFont;
     this.applyFont = applyFont;
   }
 
   @Override
-  public void onFontRetrieved(Typeface font, boolean fontResolvedSynchronously) {
+  public void onFontRetrieved(Typeface font, boolean fontResolvedSynchronously)
+  {
     updateIfNotCancelled(font);
   }
 
   @Override
-  public void onFontRetrievalFailed(int reason) {
+  public void onFontRetrievalFailed(int reason)
+  {
     updateIfNotCancelled(fallbackFont);
   }
 
@@ -60,13 +59,24 @@ public final class CancelableFontCallback extends TextAppearanceFontCallback {
    *
    * <p>Callback cannot be resumed after canceling. New callback has to be created.
    */
-  public void cancel() {
+  public void cancel()
+  {
     cancelled = true;
   }
 
-  private void updateIfNotCancelled(Typeface updatedFont) {
-    if (!cancelled) {
+  private void updateIfNotCancelled(Typeface updatedFont)
+  {
+    if (!cancelled)
+    {
       applyFont.apply(updatedFont);
     }
+  }
+
+  /**
+   * Functional interface for method to call when font is retrieved (or fails with fallback).
+   */
+  public interface ApplyFont
+  {
+    void apply(Typeface font);
   }
 }

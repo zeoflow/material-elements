@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2019 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,8 +25,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/mtrl_calendar_day_height"
     android:focusable="true"
-    android:gravity="center_vertical|start"/>
+    android:gravity="center_vertical|start" />
 
-  <include layout="@layout/mtrl_calendar_month"/>
+  <include layout="@layout/mtrl_calendar_month" />
 
 </LinearLayout>

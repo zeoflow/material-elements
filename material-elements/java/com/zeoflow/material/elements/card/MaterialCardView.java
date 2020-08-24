@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.card;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -25,6 +23,13 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Checkable;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.Dimension;
@@ -33,13 +38,9 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Checkable;
 import androidx.cardview.widget.CardView;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.MaterialShapeUtils;
@@ -74,46 +75,34 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 public class MaterialCardView extends CardView implements Checkable, Shapeable
 {
 
-  /** Interface definition for a callback to be invoked when the card checked state changes. */
-  public interface OnCheckedChangeListener {
-    /**
-     * Called when the checked state of a compound button has changed.
-     *
-     * @param card The Material Card View whose state has changed.
-     * @param isChecked The new checked state of MaterialCardView.
-     */
-    void onCheckedChanged(MaterialCardView card, boolean isChecked);
-  }
-
   private static final int[] CHECKABLE_STATE_SET = {android.R.attr.state_checkable};
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
   private static final int[] DRAGGED_STATE_SET = {R.attr.state_dragged};
-
   private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_CardView;
   private static final String LOG_TAG = "MaterialCardView";
   private static final String ACCESSIBILITY_CLASS_NAME = "androidx.cardview.widget.CardView";
-
-  @NonNull private final MaterialCardViewHelper cardViewHelper;
-
+  @NonNull
+  private final MaterialCardViewHelper cardViewHelper;
   /**
    * Keep track of when {@link CardView} is done initializing because we don't want to use the
    * {@link Drawable} that it passes to {@link #setBackground(Drawable)}.
    */
   private boolean isParentCardViewDoneInitializing;
-
   private boolean checked = false;
   private boolean dragged = false;
   private OnCheckedChangeListener onCheckedChangeListener;
-
-  public MaterialCardView(Context context) {
+  public MaterialCardView(Context context)
+  {
     this(context, null /* attrs */);
   }
 
-  public MaterialCardView(Context context, AttributeSet attrs) {
+  public MaterialCardView(Context context, AttributeSet attrs)
+  {
     this(context, attrs, R.attr.materialCardViewStyle);
   }
 
-  public MaterialCardView(Context context, AttributeSet attrs, int defStyleAttr) {
+  public MaterialCardView(Context context, AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     isParentCardViewDoneInitializing = true;
     // Ensure we are using the correctly themed context rather than the context that was passed in.
@@ -139,7 +128,8 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   }
 
   @Override
-  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+  public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info)
+  {
     super.onInitializeAccessibilityNodeInfo(info);
     info.setClassName(ACCESSIBILITY_CLASS_NAME);
     info.setCheckable(isCheckable());
@@ -148,16 +138,28 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   }
 
   @Override
-  public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent accessibilityEvent) {
+  public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent accessibilityEvent)
+  {
     super.onInitializeAccessibilityEvent(accessibilityEvent);
     accessibilityEvent.setClassName(ACCESSIBILITY_CLASS_NAME);
     accessibilityEvent.setChecked(isChecked());
   }
 
   @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+  {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     cardViewHelper.onMeasure(getMeasuredWidth(), getMeasuredHeight());
+  }
+
+  /**
+   * @deprecated use {@link #getStrokeColorStateList()}
+   */
+  @ColorInt
+  @Deprecated
+  public int getStrokeColor()
+  {
+    return cardViewHelper.getStrokeColor();
   }
 
   /**
@@ -165,7 +167,8 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    *
    * @param strokeColor The color of the stroke.
    */
-  public void setStrokeColor(@ColorInt int strokeColor) {
+  public void setStrokeColor(@ColorInt int strokeColor)
+  {
     cardViewHelper.setStrokeColor(ColorStateList.valueOf(strokeColor));
   }
 
@@ -174,21 +177,27 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    *
    * @param strokeColor The ColorStateList of the stroke.
    */
-  public void setStrokeColor(ColorStateList strokeColor) {
+  public void setStrokeColor(ColorStateList strokeColor)
+  {
     cardViewHelper.setStrokeColor(strokeColor);
   }
 
-  /** @deprecated use {@link #getStrokeColorStateList()} */
-  @ColorInt
-  @Deprecated
-  public int getStrokeColor() {
-    return cardViewHelper.getStrokeColor();
+  /**
+   * Returns the stroke ColorStateList of this card view.
+   */
+  @Nullable
+  public ColorStateList getStrokeColorStateList()
+  {
+    return cardViewHelper.getStrokeColorStateList();
   }
 
-  /** Returns the stroke ColorStateList of this card view. */
-  @Nullable
-  public ColorStateList getStrokeColorStateList() {
-    return cardViewHelper.getStrokeColorStateList();
+  /**
+   * Returns the stroke width of this card view.
+   */
+  @Dimension
+  public int getStrokeWidth()
+  {
+    return cardViewHelper.getStrokeWidth();
   }
 
   /**
@@ -196,106 +205,104 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    *
    * @param strokeWidth The width in pixels of the stroke.
    */
-  public void setStrokeWidth(@Dimension int strokeWidth) {
+  public void setStrokeWidth(@Dimension int strokeWidth)
+  {
     cardViewHelper.setStrokeWidth(strokeWidth);
   }
 
-  /** Returns the stroke width of this card view. */
-  @Dimension
-  public int getStrokeWidth() {
-    return cardViewHelper.getStrokeWidth();
+  @Override
+  public float getRadius()
+  {
+    return cardViewHelper.getCornerRadius();
   }
 
   @Override
-  public void setRadius(float radius) {
+  public void setRadius(float radius)
+  {
     super.setRadius(radius);
     cardViewHelper.setCornerRadius(radius);
   }
 
-  @Override
-  public float getRadius() {
-    return cardViewHelper.getCornerRadius();
-  }
-
-  float getCardViewRadius() {
+  float getCardViewRadius()
+  {
     return MaterialCardView.super.getRadius();
   }
 
-
-  /**
-   * Sets the interpolation on the Shape Path of the card. Useful for animations.
-   * @see MaterialShapeDrawable#setInterpolation(float)
-   * @see ShapeAppearanceModel
-   */
-  public void setProgress(@FloatRange(from = 0f, to = 1f) float progress) {
-    cardViewHelper.setProgress(progress);
-  }
-
-
   /**
    * Returns the interpolation on the Shape Path of the card.
+   *
    * @see MaterialShapeDrawable#getInterpolation()
    * @see ShapeAppearanceModel
    */
   @FloatRange(from = 0f, to = 1f)
-  public float getProgress() {
+  public float getProgress()
+  {
     return cardViewHelper.getProgress();
   }
 
+  /**
+   * Sets the interpolation on the Shape Path of the card. Useful for animations.
+   *
+   * @see MaterialShapeDrawable#setInterpolation(float)
+   * @see ShapeAppearanceModel
+   */
+  public void setProgress(@FloatRange(from = 0f, to = 1f) float progress)
+  {
+    cardViewHelper.setProgress(progress);
+  }
+
   @Override
-  public void setContentPadding(int left, int top, int right, int bottom) {
+  public void setContentPadding(int left, int top, int right, int bottom)
+  {
     cardViewHelper.setUserContentPadding(left, top, right, bottom);
   }
 
-  void setAncestorContentPadding(int left, int top, int right, int bottom) {
+  void setAncestorContentPadding(int left, int top, int right, int bottom)
+  {
     super.setContentPadding(left, top, right, bottom);
   }
 
   @Override
-  public int getContentPaddingLeft() {
+  public int getContentPaddingLeft()
+  {
     return cardViewHelper.getUserContentPadding().left;
   }
 
   @Override
-  public int getContentPaddingTop() {
+  public int getContentPaddingTop()
+  {
     return cardViewHelper.getUserContentPadding().top;
   }
 
   @Override
-  public int getContentPaddingRight() {
+  public int getContentPaddingRight()
+  {
     return cardViewHelper.getUserContentPadding().right;
   }
 
   @Override
-  public int getContentPaddingBottom() {
+  public int getContentPaddingBottom()
+  {
     return cardViewHelper.getUserContentPadding().bottom;
-  }
-
-  @Override
-  public void setCardBackgroundColor(@ColorInt int color) {
-    cardViewHelper.setCardBackgroundColor(ColorStateList.valueOf(color));
-  }
-
-  @Override
-  public void setCardBackgroundColor(@Nullable ColorStateList color) {
-    cardViewHelper.setCardBackgroundColor(color);
   }
 
   @NonNull
   @Override
-  public ColorStateList getCardBackgroundColor() {
+  public ColorStateList getCardBackgroundColor()
+  {
     return cardViewHelper.getCardBackgroundColor();
   }
 
-  /**
-   * Sets the foreground color for this card.
-   *
-   * @param foregroundColor Color to use for the foreground.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_cardForegroundColor
-   * @see #getCardForegroundColor()
-   */
-  public void setCardForegroundColor(@Nullable ColorStateList foregroundColor) {
-    cardViewHelper.setCardForegroundColor(foregroundColor);
+  @Override
+  public void setCardBackgroundColor(@ColorInt int color)
+  {
+    cardViewHelper.setCardBackgroundColor(ColorStateList.valueOf(color));
+  }
+
+  @Override
+  public void setCardBackgroundColor(@Nullable ColorStateList color)
+  {
+    cardViewHelper.setCardBackgroundColor(color);
   }
 
   /**
@@ -305,58 +312,81 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * @see #setCardForegroundColor(ColorStateList)
    */
   @NonNull
-  public ColorStateList getCardForegroundColor() {
+  public ColorStateList getCardForegroundColor()
+  {
     return cardViewHelper.getCardForegroundColor();
   }
 
+  /**
+   * Sets the foreground color for this card.
+   *
+   * @param foregroundColor Color to use for the foreground.
+   * @attr ref com.google.android.material.R.styleable#MaterialCardView_cardForegroundColor
+   * @see #getCardForegroundColor()
+   */
+  public void setCardForegroundColor(@Nullable ColorStateList foregroundColor)
+  {
+    cardViewHelper.setCardForegroundColor(foregroundColor);
+  }
+
   @Override
-  public void setClickable(boolean clickable) {
+  public void setClickable(boolean clickable)
+  {
     super.setClickable(clickable);
     cardViewHelper.updateClickable();
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
     MaterialShapeUtils.setParentAbsoluteElevation(this, cardViewHelper.getBackground());
   }
 
   @Override
-  public void setCardElevation(float elevation) {
+  public void setCardElevation(float elevation)
+  {
     super.setCardElevation(elevation);
     cardViewHelper.updateElevation();
   }
 
   @Override
-  public void setMaxCardElevation(float maxCardElevation) {
+  public void setMaxCardElevation(float maxCardElevation)
+  {
     super.setMaxCardElevation(maxCardElevation);
     cardViewHelper.updateInsets();
   }
 
   @Override
-  public void setUseCompatPadding(boolean useCompatPadding) {
+  public void setUseCompatPadding(boolean useCompatPadding)
+  {
     super.setUseCompatPadding(useCompatPadding);
     cardViewHelper.updateInsets();
     cardViewHelper.updateContentPadding();
   }
 
   @Override
-  public void setPreventCornerOverlap(boolean preventCornerOverlap) {
+  public void setPreventCornerOverlap(boolean preventCornerOverlap)
+  {
     super.setPreventCornerOverlap(preventCornerOverlap);
     cardViewHelper.updateInsets();
     cardViewHelper.updateContentPadding();
   }
 
   @Override
-  public void setBackground(Drawable drawable) {
+  public void setBackground(Drawable drawable)
+  {
     setBackgroundDrawable(drawable);
   }
 
   @Override
-  public void setBackgroundDrawable(Drawable drawable) {
-    if (isParentCardViewDoneInitializing) {
-      if (!cardViewHelper.isBackgroundOverwritten()) {
+  public void setBackgroundDrawable(Drawable drawable)
+  {
+    if (isParentCardViewDoneInitializing)
+    {
+      if (!cardViewHelper.isBackgroundOverwritten())
+      {
         Log.i(LOG_TAG, "Setting a custom background is not supported.");
         cardViewHelper.setBackgroundOverwritten(true);
       }
@@ -365,21 +395,32 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
     // Do nothing if CardView isn't done initializing because we don't want to use its background.
   }
 
-  /** Allows {@link MaterialCardViewHelper} to set the background. */
-  void setBackgroundInternal(Drawable drawable) {
+  /**
+   * Allows {@link MaterialCardViewHelper} to set the background.
+   */
+  void setBackgroundInternal(Drawable drawable)
+  {
     super.setBackgroundDrawable(drawable);
   }
 
   @Override
-  public boolean isChecked() {
+  public boolean isChecked()
+  {
     return checked;
   }
 
   @Override
-  public void setChecked(boolean checked) {
-    if (this.checked != checked) {
+  public void setChecked(boolean checked)
+  {
+    if (this.checked != checked)
+    {
       toggle();
     }
+  }
+
+  public boolean isDragged()
+  {
+    return dragged;
   }
 
   /**
@@ -387,8 +428,10 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    *
    * @param dragged whether the card is currently being dragged or at rest.
    */
-  public void setDragged(boolean dragged) {
-    if (this.dragged != dragged) {
+  public void setDragged(boolean dragged)
+  {
+    if (this.dragged != dragged)
+    {
       this.dragged = dragged;
       refreshDrawableState();
       forceRippleRedrawIfNeeded();
@@ -396,17 +439,14 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
     }
   }
 
-  public boolean isDragged() {
-    return dragged;
-  }
-
   /**
    * Returns whether this Card is checkable.
    *
-   * @see #setCheckable(boolean)
    * @attr ref com.google.android.material.R.styleable#MaterialCardView_android_checkable
+   * @see #setCheckable(boolean)
    */
-  public boolean isCheckable() {
+  public boolean isCheckable()
+  {
     return cardViewHelper != null && cardViewHelper.isCheckable();
   }
 
@@ -416,34 +456,42 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * @param checkable Whether this chip is checkable.
    * @attr ref com.google.android.material.R.styleable#MaterialCardView_android_checkable
    */
-  public void setCheckable(boolean checkable) {
+  public void setCheckable(boolean checkable)
+  {
     cardViewHelper.setCheckable(checkable);
   }
 
   @Override
-  public void toggle() {
-    if (isCheckable() && isEnabled()) {
+  public void toggle()
+  {
+    if (isCheckable() && isEnabled())
+    {
       checked = !checked;
       refreshDrawableState();
       forceRippleRedrawIfNeeded();
-      if (onCheckedChangeListener != null) {
+      if (onCheckedChangeListener != null)
+      {
         onCheckedChangeListener.onCheckedChanged(this, checked);
       }
     }
   }
 
   @Override
-  protected int[] onCreateDrawableState(int extraSpace) {
+  protected int[] onCreateDrawableState(int extraSpace)
+  {
     final int[] drawableState = super.onCreateDrawableState(extraSpace + 3);
-    if (isCheckable()) {
+    if (isCheckable())
+    {
       mergeDrawableStates(drawableState, CHECKABLE_STATE_SET);
     }
 
-    if (isChecked()) {
+    if (isChecked())
+    {
       mergeDrawableStates(drawableState, CHECKED_STATE_SET);
     }
 
-    if (isDragged()) {
+    if (isDragged())
+    {
       mergeDrawableStates(drawableState, DRAGGED_STATE_SET);
     }
 
@@ -455,20 +503,9 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    *
    * @param listener the callback to call on checked state change
    */
-  public void setOnCheckedChangeListener(@Nullable OnCheckedChangeListener listener) {
+  public void setOnCheckedChangeListener(@Nullable OnCheckedChangeListener listener)
+  {
     onCheckedChangeListener = listener;
-  }
-
-  /**
-   * Sets the ripple color for this card.
-   *
-   * @param rippleColor Color to use for the ripple.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_rippleColor
-   * @see #setRippleColorResource(int)
-   * @see #getRippleColor()
-   */
-  public void setRippleColor(@Nullable ColorStateList rippleColor) {
-    cardViewHelper.setRippleColor(rippleColor);
   }
 
   /**
@@ -479,7 +516,8 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * @see #setRippleColor(ColorStateList)
    * @see #getRippleColor()
    */
-  public void setRippleColorResource(@ColorRes int rippleColorResourceId) {
+  public void setRippleColorResource(@ColorRes int rippleColorResourceId)
+  {
     cardViewHelper.setRippleColor(
         AppCompatResources.getColorStateList(getContext(), rippleColorResourceId));
   }
@@ -492,29 +530,34 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * @see #setRippleColor(ColorStateList)
    * @see #setRippleColorResource(int)
    */
-  public ColorStateList getRippleColor() {
+  public ColorStateList getRippleColor()
+  {
     return cardViewHelper.getRippleColor();
+  }
+
+  /**
+   * Sets the ripple color for this card.
+   *
+   * @param rippleColor Color to use for the ripple.
+   * @attr ref com.google.android.material.R.styleable#MaterialCardView_rippleColor
+   * @see #setRippleColorResource(int)
+   * @see #getRippleColor()
+   */
+  public void setRippleColor(@Nullable ColorStateList rippleColor)
+  {
+    cardViewHelper.setRippleColor(rippleColor);
   }
 
   /**
    * Returns this cards's checked icon.
    *
-   * @see #setCheckedIcon(Drawable)
    * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIcon
+   * @see #setCheckedIcon(Drawable)
    */
   @Nullable
-  public Drawable getCheckedIcon() {
+  public Drawable getCheckedIcon()
+  {
     return cardViewHelper.getCheckedIcon();
-  }
-
-  /**
-   * Sets this card's checked icon using a resource id.
-   *
-   * @param id The resource id of this Card's checked icon.
-   * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIcon
-   */
-  public void setCheckedIconResource(@DrawableRes int id) {
-    cardViewHelper.setCheckedIcon(AppCompatResources.getDrawable(getContext(), id));
   }
 
   /**
@@ -523,18 +566,31 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * @param checkedIcon This card's checked icon.
    * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIcon
    */
-  public void setCheckedIcon(@Nullable Drawable checkedIcon) {
+  public void setCheckedIcon(@Nullable Drawable checkedIcon)
+  {
     cardViewHelper.setCheckedIcon(checkedIcon);
+  }
+
+  /**
+   * Sets this card's checked icon using a resource id.
+   *
+   * @param id The resource id of this Card's checked icon.
+   * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIcon
+   */
+  public void setCheckedIconResource(@DrawableRes int id)
+  {
+    cardViewHelper.setCheckedIcon(AppCompatResources.getDrawable(getContext(), id));
   }
 
   /**
    * Returns the {@link android.content.res.ColorStateList} used to tint the checked icon.
    *
-   * @see #setCheckedIconTint(ColorStateList)
    * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIconTint
+   * @see #setCheckedIconTint(ColorStateList)
    */
   @Nullable
-  public ColorStateList getCheckedIconTint() {
+  public ColorStateList getCheckedIconTint()
+  {
     return cardViewHelper.getCheckedIconTint();
   }
 
@@ -545,23 +601,17 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    * @param checkedIconTint The tint color of this chip's icon.
    * @attr ref com.google.android.material.R.styleable#MaterialCardView_checkedIconTint
    */
-  public void setCheckedIconTint(@Nullable ColorStateList checkedIconTint) {
+  public void setCheckedIconTint(@Nullable ColorStateList checkedIconTint)
+  {
     cardViewHelper.setCheckedIconTint(checkedIconTint);
   }
 
   @NonNull
-  private RectF getBoundsAsRectF() {
+  private RectF getBoundsAsRectF()
+  {
     RectF boundsRectF = new RectF();
     boundsRectF.set(cardViewHelper.getBackground().getBounds());
     return boundsRectF;
-  }
-
-  @Override
-  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel) {
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-      setClipToOutline(shapeAppearanceModel.isRoundRect(getBoundsAsRectF()));
-    }
-    cardViewHelper.setShapeAppearanceModel(shapeAppearanceModel);
   }
 
   /**
@@ -571,13 +621,40 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
    */
   @NonNull
   @Override
-  public ShapeAppearanceModel getShapeAppearanceModel() {
+  public ShapeAppearanceModel getShapeAppearanceModel()
+  {
     return cardViewHelper.getShapeAppearanceModel();
   }
 
-  private void forceRippleRedrawIfNeeded() {
-    if (VERSION.SDK_INT > VERSION_CODES.O) {
+  @Override
+  public void setShapeAppearanceModel(@NonNull ShapeAppearanceModel shapeAppearanceModel)
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
+      setClipToOutline(shapeAppearanceModel.isRoundRect(getBoundsAsRectF()));
+    }
+    cardViewHelper.setShapeAppearanceModel(shapeAppearanceModel);
+  }
+
+  private void forceRippleRedrawIfNeeded()
+  {
+    if (VERSION.SDK_INT > VERSION_CODES.O)
+    {
       cardViewHelper.forceRippleRedraw();
     }
+  }
+
+  /**
+   * Interface definition for a callback to be invoked when the card checked state changes.
+   */
+  public interface OnCheckedChangeListener
+  {
+    /**
+     * Called when the checked state of a compound button has changed.
+     *
+     * @param card      The Material Card View whose state has changed.
+     * @param isChecked The new checked state of MaterialCardView.
+     */
+    void onCheckedChanged(MaterialCardView card, boolean isChecked);
   }
 }

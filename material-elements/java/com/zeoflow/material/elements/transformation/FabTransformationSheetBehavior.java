@@ -15,20 +15,21 @@
  */
 package com.zeoflow.material.elements.transformation;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.os.Build;
-import androidx.annotation.AnimatorRes;
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewParent;
+
+import androidx.annotation.AnimatorRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.animation.MotionSpec;
 import com.zeoflow.material.elements.animation.Positioning;
 import com.zeoflow.material.elements.floatingactionbutton.FloatingActionButton;
@@ -45,26 +46,34 @@ import java.util.Map;
  * and may have a scrim underneath.
  *
  * @deprecated Use {@link MaterialContainerTransform}
- *     instead.
+ * instead.
  */
 @Deprecated
-public class FabTransformationSheetBehavior extends FabTransformationBehavior {
+public class FabTransformationSheetBehavior extends FabTransformationBehavior
+{
 
-  @Nullable private Map<View, Integer> importantForAccessibilityMap;
+  @Nullable
+  private Map<View, Integer> importantForAccessibilityMap;
 
-  public FabTransformationSheetBehavior() {}
+  public FabTransformationSheetBehavior()
+  {
+  }
 
-  public FabTransformationSheetBehavior(Context context, AttributeSet attrs) {
+  public FabTransformationSheetBehavior(Context context, AttributeSet attrs)
+  {
     super(context, attrs);
   }
 
   @NonNull
   @Override
-  protected FabTransformationSpec onCreateMotionSpec(Context context, boolean expanded) {
+  protected FabTransformationSpec onCreateMotionSpec(Context context, boolean expanded)
+  {
     @AnimatorRes int specRes;
-    if (expanded) {
+    if (expanded)
+    {
       specRes = R.animator.mtrl_fab_transformation_sheet_expand_spec;
-    } else {
+    } else
+    {
       specRes = R.animator.mtrl_fab_transformation_sheet_collapse_spec;
     }
 
@@ -77,44 +86,54 @@ public class FabTransformationSheetBehavior extends FabTransformationBehavior {
   @CallSuper
   @Override
   protected boolean onExpandedStateChange(
-      @NonNull View dependency, @NonNull View child, boolean expanded, boolean animated) {
+      @NonNull View dependency, @NonNull View child, boolean expanded, boolean animated)
+  {
     updateImportantForAccessibility(child, expanded);
     return super.onExpandedStateChange(dependency, child, expanded, animated);
   }
 
-  private void updateImportantForAccessibility(@NonNull View sheet, boolean expanded) {
+  private void updateImportantForAccessibility(@NonNull View sheet, boolean expanded)
+  {
     ViewParent viewParent = sheet.getParent();
-    if (!(viewParent instanceof CoordinatorLayout)) {
+    if (!(viewParent instanceof CoordinatorLayout))
+    {
       return;
     }
 
     CoordinatorLayout parent = (CoordinatorLayout) viewParent;
     final int childCount = parent.getChildCount();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && expanded) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && expanded)
+    {
       importantForAccessibilityMap = new HashMap<>(childCount);
     }
 
-    for (int i = 0; i < childCount; i++) {
+    for (int i = 0; i < childCount; i++)
+    {
       final View child = parent.getChildAt(i);
 
       // Don't change the accessibility importance of the sheet or the scrim.
       boolean hasScrimBehavior =
           (child.getLayoutParams() instanceof CoordinatorLayout.LayoutParams)
               && (((CoordinatorLayout.LayoutParams) child.getLayoutParams()).getBehavior()
-                  instanceof FabTransformationScrimBehavior);
-      if (child == sheet || hasScrimBehavior) {
+              instanceof FabTransformationScrimBehavior);
+      if (child == sheet || hasScrimBehavior)
+      {
         continue;
       }
 
-      if (!expanded) {
+      if (!expanded)
+      {
         if (importantForAccessibilityMap != null
-            && importantForAccessibilityMap.containsKey(child)) {
+            && importantForAccessibilityMap.containsKey(child))
+        {
           // Restores the original important for accessibility value of the child view.
           ViewCompat.setImportantForAccessibility(child, importantForAccessibilityMap.get(child));
         }
-      } else {
+      } else
+      {
         // Saves the important for accessibility value of the child view.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        {
           importantForAccessibilityMap.put(child, child.getImportantForAccessibility());
         }
 
@@ -123,7 +142,8 @@ public class FabTransformationSheetBehavior extends FabTransformationBehavior {
       }
     }
 
-    if (!expanded) {
+    if (!expanded)
+    {
       importantForAccessibilityMap = null;
     }
   }

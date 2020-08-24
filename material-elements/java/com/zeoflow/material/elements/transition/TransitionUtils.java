@@ -23,32 +23,42 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.view.View;
+import android.view.ViewParent;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.view.View;
-import android.view.ViewParent;
 import androidx.transition.Transition;
 import androidx.transition.TransitionSet;
+
 import com.zeoflow.material.elements.shape.AbsoluteCornerSize;
 import com.zeoflow.material.elements.shape.CornerSize;
 import com.zeoflow.material.elements.shape.RelativeCornerSize;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel.CornerSizeUnaryOperator;
 
-class TransitionUtils {
+class TransitionUtils
+{
 
-  private TransitionUtils() {}
+  private static final RectF transformAlphaRectF = new RectF();
+
+  private TransitionUtils()
+  {
+  }
 
   static ShapeAppearanceModel convertToRelativeCornerSizes(
-      ShapeAppearanceModel shapeAppearanceModel, final RectF bounds) {
+      ShapeAppearanceModel shapeAppearanceModel, final RectF bounds)
+  {
     return shapeAppearanceModel.withTransformedCornerSizes(
-        new CornerSizeUnaryOperator() {
+        new CornerSizeUnaryOperator()
+        {
           @NonNull
           @Override
-          public CornerSize apply(@NonNull CornerSize cornerSize) {
+          public CornerSize apply(@NonNull CornerSize cornerSize)
+          {
             return cornerSize instanceof RelativeCornerSize
                 ? cornerSize
                 : new RelativeCornerSize(cornerSize.getCornerSize(bounds) / bounds.height());
@@ -61,7 +71,8 @@ class TransitionUtils {
       ShapeAppearanceModel shapeAppearanceModel1,
       ShapeAppearanceModel shapeAppearanceModel2,
       RectF shapeAppearanceModel1Bounds,
-      CornerSizeBinaryOperator op) {
+      CornerSizeBinaryOperator op)
+  {
 
     // If all of shapeAppearanceModel's corner sizes are 0, consider the shape appearance
     // insignificant compared to shapeAppearanceModel2 and use shapeAppearanceModel2's
@@ -92,20 +103,17 @@ class TransitionUtils {
   }
 
   private static boolean isShapeAppearanceSignificant(
-      ShapeAppearanceModel shapeAppearanceModel, RectF bounds) {
+      ShapeAppearanceModel shapeAppearanceModel, RectF bounds)
+  {
     return shapeAppearanceModel.getTopLeftCornerSize().getCornerSize(bounds) != 0
         || shapeAppearanceModel.getTopRightCornerSize().getCornerSize(bounds) != 0
         || shapeAppearanceModel.getBottomRightCornerSize().getCornerSize(bounds) != 0
         || shapeAppearanceModel.getBottomLeftCornerSize().getCornerSize(bounds) != 0;
   }
 
-  interface CornerSizeBinaryOperator {
-    @NonNull
-    CornerSize apply(@NonNull CornerSize cornerSize1, @NonNull CornerSize cornerSize2);
-  }
-
   static float lerp(
-      float startValue, float endValue, @FloatRange(from = 0.0, to = 1.0) float fraction) {
+      float startValue, float endValue, @FloatRange(from = 0.0, to = 1.0) float fraction)
+  {
     return startValue + fraction * (endValue - startValue);
   }
 
@@ -114,11 +122,14 @@ class TransitionUtils {
       float endValue,
       @FloatRange(from = 0.0, to = 1.0) float startFraction,
       @FloatRange(from = 0.0, to = 1.0) float endFraction,
-      @FloatRange(from = 0.0, to = 1.0) float fraction) {
-    if (fraction < startFraction) {
+      @FloatRange(from = 0.0, to = 1.0) float fraction)
+  {
+    if (fraction < startFraction)
+    {
       return startValue;
     }
-    if (fraction > endFraction) {
+    if (fraction > endFraction)
+    {
       return endValue;
     }
 
@@ -130,11 +141,14 @@ class TransitionUtils {
       int endValue,
       @FloatRange(from = 0.0, to = 1.0) float startFraction,
       @FloatRange(from = 0.0, to = 1.0) float endFraction,
-      @FloatRange(from = 0.0, to = 1.0) float fraction) {
-    if (fraction < startFraction) {
+      @FloatRange(from = 0.0, to = 1.0) float fraction)
+  {
+    if (fraction < startFraction)
+    {
       return startValue;
     }
-    if (fraction > endFraction) {
+    if (fraction > endFraction)
+    {
       return endValue;
     }
     return (int)
@@ -148,11 +162,14 @@ class TransitionUtils {
       final RectF endBounds,
       final @FloatRange(from = 0.0, to = 1.0) float startFraction,
       final @FloatRange(from = 0.0, to = 1.0) float endFraction,
-      final @FloatRange(from = 0.0, to = 1.0) float fraction) {
-    if (fraction < startFraction) {
+      final @FloatRange(from = 0.0, to = 1.0) float fraction)
+  {
+    if (fraction < startFraction)
+    {
       return startValue;
     }
-    if (fraction > endFraction) {
+    if (fraction > endFraction)
+    {
       return endValue;
     }
 
@@ -160,11 +177,13 @@ class TransitionUtils {
         startValue,
         endValue,
         startBounds,
-        new CornerSizeBinaryOperator() {
+        new CornerSizeBinaryOperator()
+        {
           @NonNull
           @Override
           public CornerSize apply(
-              @NonNull CornerSize cornerSize1, @NonNull CornerSize cornerSize2) {
+              @NonNull CornerSize cornerSize1, @NonNull CornerSize cornerSize2)
+          {
             float startCornerSize = cornerSize1.getCornerSize(startBounds);
             float endCornerSize = cornerSize2.getCornerSize(endBounds);
             float cornerSize =
@@ -175,43 +194,54 @@ class TransitionUtils {
         });
   }
 
-  static Shader createColorShader(@ColorInt int color) {
+  static Shader createColorShader(@ColorInt int color)
+  {
     return new LinearGradient(0, 0, 0, 0, color, color, Shader.TileMode.CLAMP);
   }
 
-  static View findDescendantOrAncestorById(View view, @IdRes int viewId) {
+  static View findDescendantOrAncestorById(View view, @IdRes int viewId)
+  {
     View descendant = view.findViewById(viewId);
-    if (descendant != null) {
+    if (descendant != null)
+    {
       return descendant;
     }
     return findAncestorById(view, viewId);
   }
 
-  static View findAncestorById(View view, @IdRes int ancestorId) {
+  static View findAncestorById(View view, @IdRes int ancestorId)
+  {
     String resourceName = view.getResources().getResourceName(ancestorId);
-    while (view != null) {
-      if (view.getId() == ancestorId) {
+    while (view != null)
+    {
+      if (view.getId() == ancestorId)
+      {
         return view;
       }
       ViewParent parent = view.getParent();
-      if (parent instanceof View) {
+      if (parent instanceof View)
+      {
         view = (View) parent;
-      } else {
+      } else
+      {
         break;
       }
     }
     throw new IllegalArgumentException(resourceName + " is not a valid ancestor");
   }
 
-  static RectF getRelativeBounds(View view) {
+  static RectF getRelativeBounds(View view)
+  {
     return new RectF(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
   }
 
-  static Rect getRelativeBoundsRect(View view) {
+  static Rect getRelativeBoundsRect(View view)
+  {
     return new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
   }
 
-  static RectF getLocationOnScreen(View view) {
+  static RectF getLocationOnScreen(View view)
+  {
     int[] location = new int[2];
     view.getLocationOnScreen(location);
     int left = location[0];
@@ -222,21 +252,24 @@ class TransitionUtils {
   }
 
   @NonNull
-  static <T> T defaultIfNull(@Nullable T value, @NonNull T defaultValue) {
+  static <T> T defaultIfNull(@Nullable T value, @NonNull T defaultValue)
+  {
     return value != null ? value : defaultValue;
   }
 
-  static float calculateArea(@NonNull RectF bounds) {
+  static float calculateArea(@NonNull RectF bounds)
+  {
     return bounds.width() * bounds.height();
   }
 
-  private static final RectF transformAlphaRectF = new RectF();
-
-  private static int saveLayerAlphaCompat(Canvas canvas, Rect bounds, int alpha) {
+  private static int saveLayerAlphaCompat(Canvas canvas, Rect bounds, int alpha)
+  {
     transformAlphaRectF.set(bounds);
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       return canvas.saveLayerAlpha(transformAlphaRectF, alpha);
-    } else {
+    } else
+    {
       return canvas.saveLayerAlpha(
           transformAlphaRectF.left,
           transformAlphaRectF.top,
@@ -252,35 +285,49 @@ class TransitionUtils {
    * transformed canvas and finally, restore the Canvas to it's original state.
    */
   static void transform(
-      Canvas canvas, Rect bounds, float dx, float dy, float scale, int alpha, CanvasOperation op) {
+      Canvas canvas, Rect bounds, float dx, float dy, float scale, int alpha, CanvasOperation op)
+  {
     // Exit early and avoid drawing if what will be drawn is completely transparent.
-    if (alpha <= 0) {
+    if (alpha <= 0)
+    {
       return;
     }
 
     int checkpoint = canvas.save();
     canvas.translate(dx, dy);
     canvas.scale(scale, scale);
-    if (alpha < 255) {
+    if (alpha < 255)
+    {
       saveLayerAlphaCompat(canvas, bounds, alpha);
     }
     op.run(canvas);
     canvas.restoreToCount(checkpoint);
   }
 
-  interface CanvasOperation {
-    void run(Canvas canvas);
-  }
-
-  static void maybeAddTransition(TransitionSet transitionSet, @Nullable Transition transition) {
-    if (transition != null) {
+  static void maybeAddTransition(TransitionSet transitionSet, @Nullable Transition transition)
+  {
+    if (transition != null)
+    {
       transitionSet.addTransition(transition);
     }
   }
 
-  static void maybeRemoveTransition(TransitionSet transitionSet, @Nullable Transition transition) {
-    if (transition != null) {
+  static void maybeRemoveTransition(TransitionSet transitionSet, @Nullable Transition transition)
+  {
+    if (transition != null)
+    {
       transitionSet.removeTransition(transition);
     }
+  }
+
+  interface CornerSizeBinaryOperator
+  {
+    @NonNull
+    CornerSize apply(@NonNull CornerSize cornerSize1, @NonNull CornerSize cornerSize2);
+  }
+
+  interface CanvasOperation
+  {
+    void run(Canvas canvas);
   }
 }

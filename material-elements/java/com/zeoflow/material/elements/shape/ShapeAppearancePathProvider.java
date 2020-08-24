@@ -24,31 +24,23 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 
-/** A class to convert a {@link ShapeAppearanceModel} to a {@link android.graphics.Path}. */
-public class ShapeAppearancePathProvider {
-
-  /**
-   * Listener called every time a {@link ShapePath} is created for a corner or an edge treatment.
-   */
-  @RestrictTo(Scope.LIBRARY_GROUP)
-  public interface PathListener {
-
-    void onCornerPathCreated(ShapePath cornerPath, Matrix transform, int count);
-
-    void onEdgePathCreated(ShapePath edgePath, Matrix transform, int count);
-  }
+/**
+ * A class to convert a {@link ShapeAppearanceModel} to a {@link android.graphics.Path}.
+ */
+public class ShapeAppearancePathProvider
+{
 
   // Inter-method state.
   private final ShapePath[] cornerPaths = new ShapePath[4];
   private final Matrix[] cornerTransforms = new Matrix[4];
   private final Matrix[] edgeTransforms = new Matrix[4];
-
   // Pre-allocated objects that are re-used several times during path computation and rendering.
   private final PointF pointF = new PointF();
   private final Path overlappedEdgePath = new Path();
@@ -56,11 +48,12 @@ public class ShapeAppearancePathProvider {
   private final ShapePath shapePath = new ShapePath();
   private final float[] scratch = new float[2];
   private final float[] scratch2 = new float[2];
-
   private boolean edgeIntersectionCheckEnabled = true;
 
-  public ShapeAppearancePathProvider() {
-    for (int i = 0; i < 4; i++) {
+  public ShapeAppearancePathProvider()
+  {
+    for (int i = 0; i < 4; i++)
+    {
       cornerPaths[i] = new ShapePath();
       cornerTransforms[i] = new Matrix();
       edgeTransforms[i] = new Matrix();
@@ -71,15 +64,16 @@ public class ShapeAppearancePathProvider {
    * Writes the given {@link ShapeAppearanceModel} to {@code path}
    *
    * @param shapeAppearanceModel The shape to be applied in the path.
-   * @param interpolation the desired interpolation.
-   * @param bounds the desired bounds for the path.
-   * @param path the returned path out-var.
+   * @param interpolation        the desired interpolation.
+   * @param bounds               the desired bounds for the path.
+   * @param path                 the returned path out-var.
    */
   public void calculatePath(
       ShapeAppearanceModel shapeAppearanceModel,
       float interpolation,
       RectF bounds,
-      @NonNull Path path) {
+      @NonNull Path path)
+  {
     calculatePath(shapeAppearanceModel, interpolation, bounds, null, path);
   }
 
@@ -87,10 +81,10 @@ public class ShapeAppearancePathProvider {
    * Writes the given {@link ShapeAppearanceModel} to {@code path}
    *
    * @param shapeAppearanceModel The shape to be applied in the path.
-   * @param interpolation the desired interpolation.
-   * @param bounds the desired bounds for the path.
-   * @param pathListener the path
-   * @param path the returned path out-var.
+   * @param interpolation        the desired interpolation.
+   * @param bounds               the desired bounds for the path.
+   * @param pathListener         the path
+   * @param path                 the returned path out-var.
    */
   @RestrictTo(Scope.LIBRARY_GROUP)
   public void calculatePath(
@@ -98,7 +92,8 @@ public class ShapeAppearancePathProvider {
       float interpolation,
       RectF bounds,
       PathListener pathListener,
-      @NonNull Path path) {
+      @NonNull Path path)
+  {
     path.rewind();
     overlappedEdgePath.rewind();
     boundsPath.rewind();
@@ -109,12 +104,14 @@ public class ShapeAppearancePathProvider {
 
     // Calculate the transformations (rotations and translations) necessary for each edge and
     // corner treatment.
-    for (int index = 0; index < 4; index++) {
+    for (int index = 0; index < 4; index++)
+    {
       setCornerPathAndTransform(spec, index);
       setEdgePathAndTransform(index);
     }
 
-    for (int index = 0; index < 4; index++) {
+    for (int index = 0; index < 4; index++)
+    {
       appendCornerPath(spec, index);
       appendEdgePath(spec, index);
     }
@@ -123,12 +120,14 @@ public class ShapeAppearancePathProvider {
     overlappedEdgePath.close();
 
     // Union with the edge paths that had an intersection to handle overlaps.
-    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT && !overlappedEdgePath.isEmpty()) {
+    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT && !overlappedEdgePath.isEmpty())
+    {
       path.op(overlappedEdgePath, Op.UNION);
     }
   }
 
-  private void setCornerPathAndTransform(@NonNull ShapeAppearancePathSpec spec, int index) {
+  private void setCornerPathAndTransform(@NonNull ShapeAppearancePathSpec spec, int index)
+  {
     CornerSize size = getCornerSizeForIndex(index, spec.shapeAppearanceModel);
     getCornerTreatmentForIndex(index, spec.shapeAppearanceModel)
         .getCornerPath(cornerPaths[index], 90, spec.interpolation, spec.bounds, size);
@@ -140,7 +139,8 @@ public class ShapeAppearancePathProvider {
     cornerTransforms[index].preRotate(edgeAngle);
   }
 
-  private void setEdgePathAndTransform(int index) {
+  private void setEdgePathAndTransform(int index)
+  {
     scratch[0] = cornerPaths[index].getEndX();
     scratch[1] = cornerPaths[index].getEndY();
     cornerTransforms[index].mapPoints(scratch);
@@ -150,22 +150,27 @@ public class ShapeAppearancePathProvider {
     edgeTransforms[index].preRotate(edgeAngle);
   }
 
-  private void appendCornerPath(@NonNull ShapeAppearancePathSpec spec, int index) {
+  private void appendCornerPath(@NonNull ShapeAppearancePathSpec spec, int index)
+  {
     scratch[0] = cornerPaths[index].getStartX();
     scratch[1] = cornerPaths[index].getStartY();
     cornerTransforms[index].mapPoints(scratch);
-    if (index == 0) {
+    if (index == 0)
+    {
       spec.path.moveTo(scratch[0], scratch[1]);
-    } else {
+    } else
+    {
       spec.path.lineTo(scratch[0], scratch[1]);
     }
     cornerPaths[index].applyToPath(cornerTransforms[index], spec.path);
-    if (spec.pathListener != null) {
+    if (spec.pathListener != null)
+    {
       spec.pathListener.onCornerPathCreated(cornerPaths[index], cornerTransforms[index], index);
     }
   }
 
-  private void appendEdgePath(@NonNull ShapeAppearancePathSpec spec, int index) {
+  private void appendEdgePath(@NonNull ShapeAppearancePathSpec spec, int index)
+  {
     int nextIndex = (index + 1) % 4;
     scratch[0] = cornerPaths[index].getEndX();
     scratch[1] = cornerPaths[index].getEndY();
@@ -188,8 +193,9 @@ public class ShapeAppearancePathProvider {
     if (edgeIntersectionCheckEnabled
         && VERSION.SDK_INT >= VERSION_CODES.KITKAT
         && (edgeTreatment.forceIntersection()
-            || pathOverlapsCorner(edgePath, index)
-            || pathOverlapsCorner(edgePath, nextIndex))) {
+        || pathOverlapsCorner(edgePath, index)
+        || pathOverlapsCorner(edgePath, nextIndex)))
+    {
 
       // Calculate the difference between the edge and the bounds to calculate the part of the edge
       // outside of the bounds of the shape.
@@ -204,17 +210,20 @@ public class ShapeAppearancePathProvider {
 
       // Add this to the overlappedEdgePath which will be unioned later.
       shapePath.applyToPath(edgeTransforms[index], overlappedEdgePath);
-    } else {
+    } else
+    {
       shapePath.applyToPath(edgeTransforms[index], spec.path);
     }
 
-    if (spec.pathListener != null) {
+    if (spec.pathListener != null)
+    {
       spec.pathListener.onEdgePathCreated(shapePath, edgeTransforms[index], index);
     }
   }
 
   @RequiresApi(VERSION_CODES.KITKAT)
-  private boolean pathOverlapsCorner(Path edgePath, int index) {
+  private boolean pathOverlapsCorner(Path edgePath, int index)
+  {
     Path cornerPath = new Path();
     cornerPaths[index].applyToPath(cornerTransforms[index], cornerPath);
 
@@ -227,11 +236,13 @@ public class ShapeAppearancePathProvider {
     return !bounds.isEmpty() || (bounds.width() > 1 && bounds.height() > 1);
   }
 
-  private float getEdgeCenterForIndex(@NonNull RectF bounds, int index) {
+  private float getEdgeCenterForIndex(@NonNull RectF bounds, int index)
+  {
     scratch[0] = cornerPaths[index].endX;
     scratch[1] = cornerPaths[index].endY;
     cornerTransforms[index].mapPoints(scratch);
-    switch (index) {
+    switch (index)
+    {
       case 1:
       case 3:
         return Math.abs(bounds.centerX() - scratch[0]);
@@ -243,8 +254,10 @@ public class ShapeAppearancePathProvider {
   }
 
   private CornerTreatment getCornerTreatmentForIndex(
-      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
-    switch (index) {
+      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel)
+  {
+    switch (index)
+    {
       case 1:
         return shapeAppearanceModel.getBottomRightCorner();
       case 2:
@@ -258,8 +271,10 @@ public class ShapeAppearancePathProvider {
   }
 
   private CornerSize getCornerSizeForIndex(
-      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
-    switch (index) {
+      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel)
+  {
+    switch (index)
+    {
       case 1:
         return shapeAppearanceModel.getBottomRightCornerSize();
       case 2:
@@ -273,8 +288,10 @@ public class ShapeAppearancePathProvider {
   }
 
   private EdgeTreatment getEdgeTreatmentForIndex(
-      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
-    switch (index) {
+      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel)
+  {
+    switch (index)
+    {
       case 1:
         return shapeAppearanceModel.getBottomEdge();
       case 2:
@@ -287,8 +304,10 @@ public class ShapeAppearancePathProvider {
     }
   }
 
-  private void getCoordinatesOfCorner(int index, @NonNull RectF bounds, @NonNull PointF pointF) {
-    switch (index) {
+  private void getCoordinatesOfCorner(int index, @NonNull RectF bounds, @NonNull PointF pointF)
+  {
+    switch (index)
+    {
       case 1: // bottom-right
         pointF.set(bounds.right, bounds.bottom);
         break;
@@ -305,22 +324,43 @@ public class ShapeAppearancePathProvider {
     }
   }
 
-  private float angleOfEdge(int index) {
+  private float angleOfEdge(int index)
+  {
     return 90 * (index + 1 % 4);
   }
 
-  void setEdgeIntersectionCheckEnable(boolean enable) {
+  void setEdgeIntersectionCheckEnable(boolean enable)
+  {
     edgeIntersectionCheckEnabled = enable;
   }
 
-  /** Necessary information to map a {@link ShapeAppearanceModel} into a Path. */
-  static final class ShapeAppearancePathSpec {
+  /**
+   * Listener called every time a {@link ShapePath} is created for a corner or an edge treatment.
+   */
+  @RestrictTo(Scope.LIBRARY_GROUP)
+  public interface PathListener
+  {
 
-    @NonNull public final ShapeAppearanceModel shapeAppearanceModel;
-    @NonNull public final Path path;
-    @NonNull public final RectF bounds;
+    void onCornerPathCreated(ShapePath cornerPath, Matrix transform, int count);
 
-    @Nullable public final PathListener pathListener;
+    void onEdgePathCreated(ShapePath edgePath, Matrix transform, int count);
+  }
+
+  /**
+   * Necessary information to map a {@link ShapeAppearanceModel} into a Path.
+   */
+  static final class ShapeAppearancePathSpec
+  {
+
+    @NonNull
+    public final ShapeAppearanceModel shapeAppearanceModel;
+    @NonNull
+    public final Path path;
+    @NonNull
+    public final RectF bounds;
+
+    @Nullable
+    public final PathListener pathListener;
 
     public final float interpolation;
 
@@ -329,7 +369,8 @@ public class ShapeAppearancePathProvider {
         float interpolation,
         RectF bounds,
         @Nullable PathListener pathListener,
-        Path path) {
+        Path path)
+    {
       this.pathListener = pathListener;
       this.shapeAppearanceModel = shapeAppearanceModel;
       this.interpolation = interpolation;

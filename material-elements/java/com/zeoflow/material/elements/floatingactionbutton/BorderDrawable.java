@@ -16,8 +16,6 @@
 
 package com.zeoflow.material.elements.floatingactionbutton;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
@@ -32,6 +30,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
 import androidx.annotation.IntRange;
@@ -39,8 +38,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.graphics.ColorUtils;
+
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 import com.zeoflow.material.elements.shape.ShapeAppearancePathProvider;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * A Drawable that draws borders for {@link FloatingActionButton}
@@ -48,7 +50,8 @@ import com.zeoflow.material.elements.shape.ShapeAppearancePathProvider;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-class BorderDrawable extends Drawable {
+class BorderDrawable extends Drawable
+{
 
   /**
    * We actually draw the stroke wider than the border size given. This is to reduce any potential
@@ -59,33 +62,44 @@ class BorderDrawable extends Drawable {
 
   private final ShapeAppearancePathProvider pathProvider = new ShapeAppearancePathProvider();
 
-  @NonNull private final Paint paint;
+  @NonNull
+  private final Paint paint;
   private final Path shapePath = new Path();
   private final Rect rect = new Rect();
   private final RectF rectF = new RectF();
   private final RectF boundsRectF = new RectF();
   private final BorderState state = new BorderState();
 
-  @Dimension float borderWidth;
-  @ColorInt private int topOuterStrokeColor;
-  @ColorInt private int topInnerStrokeColor;
-  @ColorInt private int bottomOuterStrokeColor;
-  @ColorInt private int bottomInnerStrokeColor;
-  @ColorInt private int currentBorderTintColor;
+  @Dimension
+  float borderWidth;
+  @ColorInt
+  private int topOuterStrokeColor;
+  @ColorInt
+  private int topInnerStrokeColor;
+  @ColorInt
+  private int bottomOuterStrokeColor;
+  @ColorInt
+  private int bottomInnerStrokeColor;
+  @ColorInt
+  private int currentBorderTintColor;
 
   private boolean invalidateShader = true;
   private ShapeAppearanceModel shapeAppearanceModel;
 
-  @Nullable private ColorStateList borderTint;
+  @Nullable
+  private ColorStateList borderTint;
 
-  BorderDrawable(ShapeAppearanceModel shapeAppearanceModel) {
+  BorderDrawable(ShapeAppearanceModel shapeAppearanceModel)
+  {
     this.shapeAppearanceModel = shapeAppearanceModel;
     paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     paint.setStyle(Paint.Style.STROKE);
   }
 
-  public void setBorderWidth(@Dimension float width) {
-    if (borderWidth != width) {
+  public void setBorderWidth(@Dimension float width)
+  {
+    if (borderWidth != width)
+    {
       borderWidth = width;
       paint.setStrokeWidth(width * DRAW_STROKE_WIDTH_MULTIPLE);
       invalidateShader = true;
@@ -93,8 +107,10 @@ class BorderDrawable extends Drawable {
     }
   }
 
-  void setBorderTint(@Nullable ColorStateList tint) {
-    if (tint != null) {
+  void setBorderTint(@Nullable ColorStateList tint)
+  {
+    if (tint != null)
+    {
       currentBorderTintColor = tint.getColorForState(getState(), currentBorderTintColor);
     }
     borderTint = tint;
@@ -103,7 +119,8 @@ class BorderDrawable extends Drawable {
   }
 
   @Override
-  public void setColorFilter(@Nullable ColorFilter colorFilter) {
+  public void setColorFilter(@Nullable ColorFilter colorFilter)
+  {
     paint.setColorFilter(colorFilter);
     invalidateSelf();
   }
@@ -112,7 +129,8 @@ class BorderDrawable extends Drawable {
       @ColorInt int topOuterStrokeColor,
       @ColorInt int topInnerStrokeColor,
       @ColorInt int bottomOuterStrokeColor,
-      @ColorInt int bottomInnerStrokeColor) {
+      @ColorInt int bottomInnerStrokeColor)
+  {
     this.topOuterStrokeColor = topOuterStrokeColor;
     this.topInnerStrokeColor = topInnerStrokeColor;
     this.bottomOuterStrokeColor = bottomOuterStrokeColor;
@@ -120,8 +138,10 @@ class BorderDrawable extends Drawable {
   }
 
   @Override
-  public void draw(@NonNull Canvas canvas) {
-    if (invalidateShader) {
+  public void draw(@NonNull Canvas canvas)
+  {
+    if (invalidateShader)
+    {
       paint.setShader(createGradientShader());
       invalidateShader = false;
     }
@@ -135,7 +155,8 @@ class BorderDrawable extends Drawable {
     float cornerSize =
         shapeAppearanceModel.getTopLeftCornerSize().getCornerSize(getBoundsAsRectF());
     float radius = Math.min(cornerSize, rectF.width() / 2f);
-    if (shapeAppearanceModel.isRoundRect(getBoundsAsRectF())) {
+    if (shapeAppearanceModel.isRoundRect(getBoundsAsRectF()))
+    {
       rectF.inset(halfBorderWidth, halfBorderWidth);
       canvas.drawRoundRect(rectF, radius, radius, paint);
     }
@@ -143,8 +164,10 @@ class BorderDrawable extends Drawable {
 
   @TargetApi(VERSION_CODES.LOLLIPOP)
   @Override
-  public void getOutline(@NonNull Outline outline) {
-    if (shapeAppearanceModel.isRoundRect(getBoundsAsRectF())) {
+  public void getOutline(@NonNull Outline outline)
+  {
+    if (shapeAppearanceModel.isRoundRect(getBoundsAsRectF()))
+    {
       float radius = shapeAppearanceModel.getTopLeftCornerSize().getCornerSize(getBoundsAsRectF());
       outline.setRoundRect(getBounds(), radius);
       return;
@@ -153,14 +176,17 @@ class BorderDrawable extends Drawable {
     copyBounds(rect);
     rectF.set(rect);
     pathProvider.calculatePath(shapeAppearanceModel, 1f, rectF, shapePath);
-    if (shapePath.isConvex()) {
+    if (shapePath.isConvex())
+    {
       outline.setConvexPath(shapePath);
     }
   }
 
   @Override
-  public boolean getPadding(@NonNull Rect padding) {
-    if (shapeAppearanceModel.isRoundRect(getBoundsAsRectF())) {
+  public boolean getPadding(@NonNull Rect padding)
+  {
+    if (shapeAppearanceModel.isRoundRect(getBoundsAsRectF()))
+    {
       final int borderWidth = Math.round(this.borderWidth);
       padding.set(borderWidth, borderWidth, borderWidth, borderWidth);
     }
@@ -168,58 +194,70 @@ class BorderDrawable extends Drawable {
   }
 
   @NonNull
-  protected RectF getBoundsAsRectF() {
+  protected RectF getBoundsAsRectF()
+  {
     boundsRectF.set(getBounds());
     return boundsRectF;
   }
 
-  public ShapeAppearanceModel getShapeAppearanceModel() {
+  public ShapeAppearanceModel getShapeAppearanceModel()
+  {
     return shapeAppearanceModel;
   }
 
-  public void setShapeAppearanceModel(ShapeAppearanceModel shapeAppearanceModel) {
+  public void setShapeAppearanceModel(ShapeAppearanceModel shapeAppearanceModel)
+  {
     this.shapeAppearanceModel = shapeAppearanceModel;
     invalidateSelf();
   }
 
   @Override
-  public void setAlpha(@IntRange(from = 0, to = 255) int alpha) {
+  public void setAlpha(@IntRange(from = 0, to = 255) int alpha)
+  {
     paint.setAlpha(alpha);
     invalidateSelf();
   }
 
   @Override
-  public int getOpacity() {
+  public int getOpacity()
+  {
     return borderWidth > 0 ? PixelFormat.TRANSLUCENT : PixelFormat.TRANSPARENT;
   }
 
   @Override
-  protected void onBoundsChange(Rect bounds) {
+  protected void onBoundsChange(Rect bounds)
+  {
     invalidateShader = true;
   }
 
   @Override
-  public boolean isStateful() {
+  public boolean isStateful()
+  {
     return (borderTint != null && borderTint.isStateful()) || super.isStateful();
   }
 
   @Override
-  protected boolean onStateChange(int[] state) {
-    if (borderTint != null) {
+  protected boolean onStateChange(int[] state)
+  {
+    if (borderTint != null)
+    {
       final int newColor = borderTint.getColorForState(state, currentBorderTintColor);
-      if (newColor != currentBorderTintColor) {
+      if (newColor != currentBorderTintColor)
+      {
         invalidateShader = true;
         currentBorderTintColor = newColor;
       }
     }
-    if (invalidateShader) {
+    if (invalidateShader)
+    {
       invalidateSelf();
     }
     return invalidateShader;
   }
 
   @NonNull
-  private Shader createGradientShader() {
+  private Shader createGradientShader()
+  {
     final Rect rect = this.rect;
     copyBounds(rect);
 
@@ -251,7 +289,8 @@ class BorderDrawable extends Drawable {
 
   @Nullable
   @Override
-  public ConstantState getConstantState() {
+  public ConstantState getConstantState()
+  {
     return state;
   }
 
@@ -259,16 +298,19 @@ class BorderDrawable extends Drawable {
    * Dummy implementation of constant state. This drawable doesn't have shared state. Implementing
    * so that calls to getConstantState().newDrawable() don't crash on L and M.
    */
-  private class BorderState extends ConstantState {
+  private class BorderState extends ConstantState
+  {
 
     @NonNull
     @Override
-    public Drawable newDrawable() {
+    public Drawable newDrawable()
+    {
       return BorderDrawable.this;
     }
 
     @Override
-    public int getChangingConfigurations() {
+    public int getChangingConfigurations()
+    {
       return 0;
     }
   }

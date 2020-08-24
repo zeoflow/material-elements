@@ -15,19 +15,20 @@
  */
 package com.zeoflow.material.elements.resources;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
+import android.util.TypedValue;
+import android.view.View;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RestrictTo;
-import android.util.TypedValue;
-import android.view.View;
+
+import com.google.android.material.R;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Utility methods to work with attributes.
@@ -35,16 +36,19 @@ import android.view.View;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class MaterialAttributes {
+public class MaterialAttributes
+{
 
   /**
    * Returns the {@link TypedValue} for the provided {@code attributeResId} or null if the attribute
    * is not present in the current theme.
    */
   @Nullable
-  public static TypedValue resolve(@NonNull Context context, @AttrRes int attributeResId) {
+  public static TypedValue resolve(@NonNull Context context, @AttrRes int attributeResId)
+  {
     TypedValue typedValue = new TypedValue();
-    if (context.getTheme().resolveAttribute(attributeResId, typedValue, true)) {
+    if (context.getTheme().resolveAttribute(attributeResId, typedValue, true))
+    {
       return typedValue;
     }
     return null;
@@ -58,9 +62,11 @@ public class MaterialAttributes {
   public static int resolveOrThrow(
       @NonNull Context context,
       @AttrRes int attributeResId,
-      @NonNull String errorMessageComponent) {
+      @NonNull String errorMessageComponent)
+  {
     TypedValue typedValue = resolve(context, attributeResId);
-    if (typedValue == null) {
+    if (typedValue == null)
+    {
       String errorMessage =
           "%1$s requires a value for the %2$s attribute to be set in your app theme. "
               + "You can either set the attribute in your theme or "
@@ -80,7 +86,8 @@ public class MaterialAttributes {
    *
    * @throws IllegalArgumentException if the attribute is not present in the current theme.
    */
-  public static int resolveOrThrow(@NonNull View componentView, @AttrRes int attributeResId) {
+  public static int resolveOrThrow(@NonNull View componentView, @AttrRes int attributeResId)
+  {
     return resolveOrThrow(
         componentView.getContext(), attributeResId, componentView.getClass().getCanonicalName());
   }
@@ -93,7 +100,8 @@ public class MaterialAttributes {
   public static boolean resolveBooleanOrThrow(
       @NonNull Context context,
       @AttrRes int attributeResId,
-      @NonNull String errorMessageComponent) {
+      @NonNull String errorMessageComponent)
+  {
     return resolveOrThrow(context, attributeResId, errorMessageComponent) != 0;
   }
 
@@ -102,16 +110,20 @@ public class MaterialAttributes {
    * the attribute is not a boolean or not present in the current theme.
    */
   public static boolean resolveBoolean(
-      @NonNull Context context, @AttrRes int attributeResId, boolean defaultValue) {
+      @NonNull Context context, @AttrRes int attributeResId, boolean defaultValue)
+  {
     TypedValue typedValue = resolve(context, attributeResId);
     return (typedValue != null && typedValue.type == TypedValue.TYPE_INT_BOOLEAN)
         ? typedValue.data != 0
         : defaultValue;
   }
 
-  /** Returns the minimum touch target size, acceptable for accessibility, in pixels. */
+  /**
+   * Returns the minimum touch target size, acceptable for accessibility, in pixels.
+   */
   @Px
-  public static int resolveMinimumAccessibleTouchTarget(@NonNull Context context) {
+  public static int resolveMinimumAccessibleTouchTarget(@NonNull Context context)
+  {
     return resolveDimension(context, R.attr.minTouchTargetSize, R.dimen.mtrl_min_touch_target_size);
   }
 
@@ -122,11 +134,14 @@ public class MaterialAttributes {
    */
   @Px
   public static int resolveDimension(
-      @NonNull Context context, @AttrRes int attributeResId, @DimenRes int defaultDimenResId) {
+      @NonNull Context context, @AttrRes int attributeResId, @DimenRes int defaultDimenResId)
+  {
     TypedValue dimensionValue = resolve(context, attributeResId);
-    if (dimensionValue == null || dimensionValue.type != TypedValue.TYPE_DIMENSION) {
+    if (dimensionValue == null || dimensionValue.type != TypedValue.TYPE_DIMENSION)
+    {
       return (int) context.getResources().getDimension(defaultDimenResId);
-    } else {
+    } else
+    {
       return (int) dimensionValue.getDimension(context.getResources().getDisplayMetrics());
     }
   }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright 2020 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,11 +18,15 @@
   <!-- ThemeOverlay for Framework Alert Dialogs. -->
 
   <style name="Base.ThemeOverlay.MaterialComponents.Dialog.Alert.Framework" parent="@android:style/Theme.Material.Dialog.Alert">
-    <item name="android:buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+    <item name="android:buttonBarButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush
+    </item>
   </style>
 
   <style name="Base.ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework" parent="@android:style/Theme.Material.Light.Dialog.Alert">
-    <item name="android:buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+    <item name="android:buttonBarButtonStyle">
+      @style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush
+    </item>
   </style>
 
   <!-- Themes V21 and above specify an android:alertDialogTheme so that text
@@ -33,15 +36,19 @@
        platform default. -->
 
   <style name="Base.V21.Theme.MaterialComponents.Dialog" parent="Base.V14.Theme.MaterialComponents.Dialog">
-    <item name="android:alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert.Framework</item>
+    <item name="android:alertDialogTheme">
+      @style/ThemeOverlay.MaterialComponents.Dialog.Alert.Framework
+    </item>
   </style>
 
   <style name="Base.V21.Theme.MaterialComponents.Light.Dialog" parent="Base.V14.Theme.MaterialComponents.Light.Dialog">
-    <item name="android:alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework</item>
+    <item name="android:alertDialogTheme">
+      @style/ThemeOverlay.MaterialComponents.Light.Dialog.Alert.Framework
+    </item>
   </style>
 
-  <style name="Base.Theme.MaterialComponents.Dialog" parent="Base.V21.Theme.MaterialComponents.Dialog"/>
+  <style name="Base.Theme.MaterialComponents.Dialog" parent="Base.V21.Theme.MaterialComponents.Dialog" />
 
-  <style name="Base.Theme.MaterialComponents.Light.Dialog" parent="Base.V21.Theme.MaterialComponents.Light.Dialog"/>
+  <style name="Base.Theme.MaterialComponents.Light.Dialog" parent="Base.V21.Theme.MaterialComponents.Light.Dialog" />
 
 </resources>

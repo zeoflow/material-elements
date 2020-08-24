@@ -21,7 +21,10 @@
 package com.zeoflow.material.elements.transition.platform;
 
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-interface FadeModeEvaluator {
-  /** Calculate the current start and end view sizes and scales depending on the fit mode. */
+interface FadeModeEvaluator
+{
+  /**
+   * Calculate the current start and end view sizes and scales depending on the fit mode.
+   */
   FadeModeResult evaluate(float progress, float fadeStartFraction, float fadeEndFraction);
 }

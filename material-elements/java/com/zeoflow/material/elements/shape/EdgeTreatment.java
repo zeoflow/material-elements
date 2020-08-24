@@ -26,17 +26,19 @@ import androidx.annotation.NonNull;
  * setting `android:clipChildren="false"` in xml. `clipToPadding` may also need to be false if there
  * is any padding on the parent that could intersect the shadow.
  */
-public class EdgeTreatment {
+public class EdgeTreatment
+{
 
   /**
    * @deprecated Does not support interpolation. Use {@link #getEdgePath(float, float, float,
-   *     ShapePath)} instead.
+   * ShapePath)} instead.
    */
   @Deprecated
-  public void getEdgePath(float length, float interpolation, @NonNull ShapePath shapePath) {
+  public void getEdgePath(float length, float interpolation, @NonNull ShapePath shapePath)
+  {
     // Best guess at center since it could be offset by corners of different size.
     float center = length / 2f;
-    getEdgePath(length, center,  interpolation, shapePath);
+    getEdgePath(length, center, interpolation, shapePath);
   }
 
   /**
@@ -47,20 +49,21 @@ public class EdgeTreatment {
    * other edges. Only the horizontal, top EdgeTreatment needs to be defined in order to apply it to
    * all four edges.
    *
-   * @param length the length of the edge.
-   * @param center the distance to the center of the edge. This takes into account any offset added
-   *     by the proceeding corner. Drawing anything at (center, 0) will be center aligned with the
-   *     shape. Normally you'll want to use this instead of length / 2.
+   * @param length        the length of the edge.
+   * @param center        the distance to the center of the edge. This takes into account any offset added
+   *                      by the proceeding corner. Drawing anything at (center, 0) will be center aligned with the
+   *                      shape. Normally you'll want to use this instead of length / 2.
    * @param interpolation the interpolation of the edge treatment. Ranges between 0 (none) and 1
-   *     (fully) interpolated. Custom edge treatments can implement interpolation to support shape
-   *     transition between two arbitrary states. Typically, a value of 0 indicates that the custom
-   *     edge treatment is not rendered (i.e. that it is a straight line), and a value of 1
-   *     indicates that the treatment is fully rendered. Animation between these two values can
-   *     "heal" or "reveal" an edge treatment.
-   * @param shapePath the {@link ShapePath} that this treatment should write to.
+   *                      (fully) interpolated. Custom edge treatments can implement interpolation to support shape
+   *                      transition between two arbitrary states. Typically, a value of 0 indicates that the custom
+   *                      edge treatment is not rendered (i.e. that it is a straight line), and a value of 1
+   *                      indicates that the treatment is fully rendered. Animation between these two values can
+   *                      "heal" or "reveal" an edge treatment.
+   * @param shapePath     the {@link ShapePath} that this treatment should write to.
    */
   public void getEdgePath(
-      float length, float center, float interpolation, @NonNull ShapePath shapePath) {
+      float length, float center, float interpolation, @NonNull ShapePath shapePath)
+  {
     shapePath.lineTo(length, 0);
   }
 
@@ -69,7 +72,8 @@ public class EdgeTreatment {
    * the end of the next corner. This allows for simpler definition of edge treatments since they
    * can be less exact about how they calculate the start and ending point of the edge.
    */
-  boolean forceIntersection() {
+  boolean forceIntersection()
+  {
     return false;
   }
 }

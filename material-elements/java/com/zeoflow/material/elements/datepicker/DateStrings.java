@@ -18,19 +18,27 @@ package com.zeoflow.material.elements.datepicker;
 import android.icu.text.DateFormat;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/** Util methods for formatting date strings for use in {@link MaterialDatePicker}. */
-class DateStrings {
+/**
+ * Util methods for formatting date strings for use in {@link MaterialDatePicker}.
+ */
+class DateStrings
+{
 
-  private DateStrings() {}
+  private DateStrings()
+  {
+  }
 
-  static String getYearMonthDay(long timeInMillis) {
+  static String getYearMonthDay(long timeInMillis)
+  {
     return getYearMonthDay(timeInMillis, Locale.getDefault());
   }
 
@@ -41,17 +49,20 @@ class DateStrings {
    * java.text.DateFormat#MEDIUM} before API 24.
    *
    * @param timeInMillis long in UTC milliseconds to turn into string with year, month, and day.
-   * @param locale Locale for date string.
+   * @param locale       Locale for date string.
    * @return Date string with year, month, and day formatted properly for the specified Locale.
    */
-  static String getYearMonthDay(long timeInMillis, Locale locale) {
-    if (VERSION.SDK_INT >= VERSION_CODES.N) {
+  static String getYearMonthDay(long timeInMillis, Locale locale)
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.N)
+    {
       return UtcDates.getYearAbbrMonthDayFormat(locale).format(new Date(timeInMillis));
     }
     return UtcDates.getMediumFormat(locale).format(new Date(timeInMillis));
   }
 
-  static String getMonthDay(long timeInMillis) {
+  static String getMonthDay(long timeInMillis)
+  {
     return getMonthDay(timeInMillis, Locale.getDefault());
   }
 
@@ -62,39 +73,48 @@ class DateStrings {
    * java.text.DateFormat#MEDIUM} before API 24.
    *
    * @param timeInMillis long in UTC milliseconds to turn into string with month and day.
-   * @param locale Locale for date string.
+   * @param locale       Locale for date string.
    * @return Date string with month and day formatted properly for the specified Locale.
    */
-  static String getMonthDay(long timeInMillis, Locale locale) {
-    if (VERSION.SDK_INT >= VERSION_CODES.N) {
+  static String getMonthDay(long timeInMillis, Locale locale)
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.N)
+    {
       return UtcDates.getAbbrMonthDayFormat(locale).format(new Date(timeInMillis));
     }
     return UtcDates.getMediumNoYear(locale).format(new Date(timeInMillis));
   }
 
-  static String getMonthDayOfWeekDay(long timeInMillis) {
+  static String getMonthDayOfWeekDay(long timeInMillis)
+  {
     return getMonthDayOfWeekDay(timeInMillis, Locale.getDefault());
   }
 
-  static String getMonthDayOfWeekDay(long timeInMillis, Locale locale) {
-    if (VERSION.SDK_INT >= VERSION_CODES.N) {
+  static String getMonthDayOfWeekDay(long timeInMillis, Locale locale)
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.N)
+    {
       return UtcDates.getAbbrMonthWeekdayDayFormat(locale).format(new Date(timeInMillis));
     }
     return UtcDates.getFullFormat(locale).format(new Date(timeInMillis));
   }
 
-  static String getYearMonthDayOfWeekDay(long timeInMillis) {
+  static String getYearMonthDayOfWeekDay(long timeInMillis)
+  {
     return getYearMonthDayOfWeekDay(timeInMillis, Locale.getDefault());
   }
 
-  static String getYearMonthDayOfWeekDay(long timeInMillis, Locale locale) {
-    if (VERSION.SDK_INT >= VERSION_CODES.N) {
+  static String getYearMonthDayOfWeekDay(long timeInMillis, Locale locale)
+  {
+    if (VERSION.SDK_INT >= VERSION_CODES.N)
+    {
       return UtcDates.getYearAbbrMonthWeekdayDayFormat(locale).format(new Date(timeInMillis));
     }
     return UtcDates.getFullFormat(locale).format(new Date(timeInMillis));
   }
 
-  static String getDateString(long timeInMillis) {
+  static String getDateString(long timeInMillis)
+  {
     return getDateString(timeInMillis, null);
   }
 
@@ -105,25 +125,29 @@ class DateStrings {
    *
    * <p>If userDefinedDateFormat is set, this format overrides the rule above.
    *
-   * @param timeInMillis milliseconds since UTC epoch.
+   * @param timeInMillis          milliseconds since UTC epoch.
    * @param userDefinedDateFormat {@link SimpleDateFormat} specified by the user, if set.
    * @return Formatted date string.
    */
-  static String getDateString(long timeInMillis, @Nullable SimpleDateFormat userDefinedDateFormat) {
+  static String getDateString(long timeInMillis, @Nullable SimpleDateFormat userDefinedDateFormat)
+  {
     Calendar currentCalendar = UtcDates.getTodayCalendar();
     Calendar calendarDate = UtcDates.getUtcCalendar();
     calendarDate.setTimeInMillis(timeInMillis);
 
-    if (userDefinedDateFormat != null) {
+    if (userDefinedDateFormat != null)
+    {
       Date date = new Date(timeInMillis);
       return userDefinedDateFormat.format(date);
-    } else if (currentCalendar.get(Calendar.YEAR) == calendarDate.get(Calendar.YEAR)) {
+    } else if (currentCalendar.get(Calendar.YEAR) == calendarDate.get(Calendar.YEAR))
+    {
       return getMonthDay(timeInMillis);
     }
     return getYearMonthDay(timeInMillis);
   }
 
-  static Pair<String, String> getDateRangeString(@Nullable Long start, @Nullable Long end) {
+  static Pair<String, String> getDateRangeString(@Nullable Long start, @Nullable Long end)
+  {
     return getDateRangeString(start, end, null);
   }
 
@@ -138,18 +162,22 @@ class DateStrings {
    *
    * <p>If userDefinedDateFormat is set, this format overrides the rules above.
    *
-   * @param start Start date.
-   * @param end End date.
+   * @param start                 Start date.
+   * @param end                   End date.
    * @param userDefinedDateFormat {@link SimpleDateFormat} specified by the user, if set.
    * @return Formatted date range string.
    */
   static Pair<String, String> getDateRangeString(
-      @Nullable Long start, @Nullable Long end, @Nullable SimpleDateFormat userDefinedDateFormat) {
-    if (start == null && end == null) {
+      @Nullable Long start, @Nullable Long end, @Nullable SimpleDateFormat userDefinedDateFormat)
+  {
+    if (start == null && end == null)
+    {
       return Pair.create(null, null);
-    } else if (start == null) {
+    } else if (start == null)
+    {
       return Pair.create(null, getDateString(end, userDefinedDateFormat));
-    } else if (end == null) {
+    } else if (end == null)
+    {
       return Pair.create(getDateString(start, userDefinedDateFormat), null);
     }
 
@@ -159,16 +187,20 @@ class DateStrings {
     Calendar endCalendar = UtcDates.getUtcCalendar();
     endCalendar.setTimeInMillis(end);
 
-    if (userDefinedDateFormat != null) {
+    if (userDefinedDateFormat != null)
+    {
       Date startDate = new Date(start);
       Date endDate = new Date(end);
       return Pair.create(
           userDefinedDateFormat.format(startDate), userDefinedDateFormat.format(endDate));
-    } else if (startCalendar.get(Calendar.YEAR) == endCalendar.get(Calendar.YEAR)) {
-      if (startCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR)) {
+    } else if (startCalendar.get(Calendar.YEAR) == endCalendar.get(Calendar.YEAR))
+    {
+      if (startCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR))
+      {
         return Pair.create(
             getMonthDay(start, Locale.getDefault()), getMonthDay(end, Locale.getDefault()));
-      } else {
+      } else
+      {
         return Pair.create(
             getMonthDay(start, Locale.getDefault()), getYearMonthDay(end, Locale.getDefault()));
       }

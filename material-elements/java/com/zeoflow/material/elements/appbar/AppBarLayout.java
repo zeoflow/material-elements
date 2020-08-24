@@ -16,12 +16,6 @@
 
 package com.zeoflow.material.elements.appbar;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_BACKWARD;
-import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_FORWARD;
-
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
@@ -35,6 +29,14 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Interpolator;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -44,25 +46,20 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.math.MathUtils;
 import androidx.core.util.ObjectsCompat;
-import androidx.customview.view.AbsSavedState;
 import androidx.core.view.NestedScrollingChild;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewCompat.NestedScrollType;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import androidx.core.view.accessibility.AccessibilityViewCommand;
-import androidx.appcompat.content.res.AppCompatResources;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Interpolator;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.customview.view.AbsSavedState;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
@@ -74,6 +71,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_BACKWARD;
+import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_FORWARD;
 
 /**
  * AppBarLayout is a vertical {@link LinearLayout} which implements many of the features of material
@@ -126,87 +127,60 @@ import java.util.List;
  * </pre>
  *
  * @see <a href="http://www.google.com/design/spec/layout/structure.html#structure-app-bar">
- *     http://www.google.com/design/spec/layout/structure.html#structure-app-bar</a>
+ * http://www.google.com/design/spec/layout/structure.html#structure-app-bar</a>
  */
-public class AppBarLayout extends LinearLayout implements CoordinatorLayout.AttachedBehavior {
+public class AppBarLayout extends LinearLayout implements CoordinatorLayout.AttachedBehavior
+{
 
   static final int PENDING_ACTION_NONE = 0x0;
   static final int PENDING_ACTION_EXPANDED = 0x1;
   static final int PENDING_ACTION_COLLAPSED = 1 << 1;
   static final int PENDING_ACTION_ANIMATE_ENABLED = 1 << 2;
   static final int PENDING_ACTION_FORCE = 1 << 3;
-
-  /**
-   * Interface definition for a callback to be invoked when an {@link AppBarLayout}'s vertical
-   * offset changes.
-   */
-  // TODO(b/76413401): remove this base interface after the widget migration
-  public interface BaseOnOffsetChangedListener<T extends AppBarLayout> {
-
-    /**
-     * Called when the {@link AppBarLayout}'s layout offset has been changed. This allows child
-     * views to implement custom behavior based on the offset (for instance pinning a view at a
-     * certain y value).
-     *
-     * @param appBarLayout the {@link AppBarLayout} which offset has changed
-     * @param verticalOffset the vertical offset for the parent {@link AppBarLayout}, in px
-     */
-    void onOffsetChanged(T appBarLayout, int verticalOffset);
-  }
-
-  /**
-   * Interface definition for a callback to be invoked when an {@link AppBarLayout}'s vertical
-   * offset changes.
-   */
-  // TODO(b/76413401): update this interface after the widget migration
-  public interface OnOffsetChangedListener extends BaseOnOffsetChangedListener<AppBarLayout> {
-    void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset);
-  }
-
   private static final int DEF_STYLE_RES = R.style.Widget_Design_AppBarLayout;
   private static final int INVALID_SCROLL_RANGE = -1;
-
   private int currentOffset;
   private int totalScrollRange = INVALID_SCROLL_RANGE;
   private int downPreScrollRange = INVALID_SCROLL_RANGE;
   private int downScrollRange = INVALID_SCROLL_RANGE;
-
   private boolean haveChildWithInterpolator;
-
   private int pendingAction = PENDING_ACTION_NONE;
-
-  @Nullable private WindowInsetsCompat lastInsets;
-
+  @Nullable
+  private WindowInsetsCompat lastInsets;
   private List<BaseOnOffsetChangedListener> listeners;
-
   private boolean liftableOverride;
   private boolean liftable;
   private boolean lifted;
-
   private boolean liftOnScroll;
-  @IdRes private int liftOnScrollTargetViewId;
-  @Nullable private WeakReference<View> liftOnScrollTargetView;
-  @Nullable private ValueAnimator elevationOverlayAnimator;
-
+  @IdRes
+  private int liftOnScrollTargetViewId;
+  @Nullable
+  private WeakReference<View> liftOnScrollTargetView;
+  @Nullable
+  private ValueAnimator elevationOverlayAnimator;
   private int[] tmpStatesArray;
+  @Nullable
+  private Drawable statusBarForeground;
 
-  @Nullable private Drawable statusBarForeground;
-
-  public AppBarLayout(@NonNull Context context) {
+  public AppBarLayout(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public AppBarLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public AppBarLayout(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.appBarLayoutStyle);
   }
 
-  public AppBarLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public AppBarLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
     setOrientation(VERTICAL);
 
-    if (Build.VERSION.SDK_INT >= 21) {
+    if (Build.VERSION.SDK_INT >= 21)
+    {
       // Use the bounds view outline provider so that we cast a shadow, even without a
       // background
       ViewUtilsLollipop.setBoundsViewOutlineProvider(this);
@@ -227,7 +201,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
     ViewCompat.setBackground(this, a.getDrawable(R.styleable.AppBarLayout_android_background));
 
-    if (getBackground() instanceof ColorDrawable) {
+    if (getBackground() instanceof ColorDrawable)
+    {
       ColorDrawable background = (ColorDrawable) getBackground();
       MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
       materialShapeDrawable.setFillColor(ColorStateList.valueOf(background.getColor()));
@@ -235,26 +210,31 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       ViewCompat.setBackground(this, materialShapeDrawable);
     }
 
-    if (a.hasValue(R.styleable.AppBarLayout_expanded)) {
+    if (a.hasValue(R.styleable.AppBarLayout_expanded))
+    {
       setExpanded(
           a.getBoolean(R.styleable.AppBarLayout_expanded, false),
           false, /* animate */
           false /* force */);
     }
 
-    if (Build.VERSION.SDK_INT >= 21 && a.hasValue(R.styleable.AppBarLayout_elevation)) {
+    if (Build.VERSION.SDK_INT >= 21 && a.hasValue(R.styleable.AppBarLayout_elevation))
+    {
       ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(
           this, a.getDimensionPixelSize(R.styleable.AppBarLayout_elevation, 0));
     }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+    {
       // In O+, we have these values set in the style. Since there is no defStyleAttr for
       // AppBarLayout at the AppCompat level, check for these attributes here.
-      if (a.hasValue(R.styleable.AppBarLayout_android_keyboardNavigationCluster)) {
+      if (a.hasValue(R.styleable.AppBarLayout_android_keyboardNavigationCluster))
+      {
         this.setKeyboardNavigationCluster(
             a.getBoolean(R.styleable.AppBarLayout_android_keyboardNavigationCluster, false));
       }
-      if (a.hasValue(R.styleable.AppBarLayout_android_touchscreenBlocksFocus)) {
+      if (a.hasValue(R.styleable.AppBarLayout_android_touchscreenBlocksFocus))
+      {
         this.setTouchscreenBlocksFocus(
             a.getBoolean(R.styleable.AppBarLayout_android_touchscreenBlocksFocus, false));
       }
@@ -269,9 +249,11 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
     ViewCompat.setOnApplyWindowInsetsListener(
         this,
-        new androidx.core.view.OnApplyWindowInsetsListener() {
+        new androidx.core.view.OnApplyWindowInsetsListener()
+        {
           @Override
-          public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+          public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets)
+          {
             return onWindowInsetChanged(insets);
           }
         });
@@ -284,17 +266,21 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * @see #removeOnOffsetChangedListener(OnOffsetChangedListener)
    */
   @SuppressWarnings("FunctionalInterfaceClash")
-  public void addOnOffsetChangedListener(@Nullable BaseOnOffsetChangedListener listener) {
-    if (listeners == null) {
+  public void addOnOffsetChangedListener(@Nullable BaseOnOffsetChangedListener listener)
+  {
+    if (listeners == null)
+    {
       listeners = new ArrayList<>();
     }
-    if (listener != null && !listeners.contains(listener)) {
+    if (listener != null && !listeners.contains(listener))
+    {
       listeners.add(listener);
     }
   }
 
   @SuppressWarnings("FunctionalInterfaceClash")
-  public void addOnOffsetChangedListener(OnOffsetChangedListener listener) {
+  public void addOnOffsetChangedListener(OnOffsetChangedListener listener)
+  {
     addOnOffsetChangedListener((BaseOnOffsetChangedListener) listener);
   }
 
@@ -306,44 +292,18 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   // TODO(b/76413401): change back to removeOnOffsetChangedListener once the widget migration is
   // finished since the shim class needs to implement this method.
   @SuppressWarnings("FunctionalInterfaceClash")
-  public void removeOnOffsetChangedListener(@Nullable BaseOnOffsetChangedListener listener) {
-    if (listeners != null && listener != null) {
+  public void removeOnOffsetChangedListener(@Nullable BaseOnOffsetChangedListener listener)
+  {
+    if (listeners != null && listener != null)
+    {
       listeners.remove(listener);
     }
   }
 
   @SuppressWarnings("FunctionalInterfaceClash")
-  public void removeOnOffsetChangedListener(OnOffsetChangedListener listener) {
+  public void removeOnOffsetChangedListener(OnOffsetChangedListener listener)
+  {
     removeOnOffsetChangedListener((BaseOnOffsetChangedListener) listener);
-  }
-
-  /**
-   * Set the drawable to use for the status bar foreground drawable. Providing null will disable the
-   * scrim functionality.
-   *
-   * <p>This scrim is only shown when we have been given a top system inset.
-   *
-   * @param drawable the drawable to display
-   * @attr ref R.styleable#AppBarLayout_statusBarForeground
-   * @see #getStatusBarForeground()
-   */
-  public void setStatusBarForeground(@Nullable Drawable drawable) {
-    if (statusBarForeground != drawable) {
-      if (statusBarForeground != null) {
-        statusBarForeground.setCallback(null);
-      }
-      statusBarForeground = drawable != null ? drawable.mutate() : null;
-      if (statusBarForeground != null) {
-        if (statusBarForeground.isStateful()) {
-          statusBarForeground.setState(getDrawableState());
-        }
-        DrawableCompat.setLayoutDirection(statusBarForeground, ViewCompat.getLayoutDirection(this));
-        statusBarForeground.setVisible(getVisibility() == VISIBLE, false);
-        statusBarForeground.setCallback(this);
-      }
-      updateWillNotDraw();
-      ViewCompat.postInvalidateOnAnimation(this);
-    }
   }
 
   /**
@@ -355,7 +315,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * @attr ref R.styleable#AppBarLayout_statusBarForeground
    * @see #getStatusBarForeground()
    */
-  public void setStatusBarForegroundColor(@ColorInt int color) {
+  public void setStatusBarForegroundColor(@ColorInt int color)
+  {
     setStatusBarForeground(new ColorDrawable(color));
   }
 
@@ -368,27 +329,65 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * @attr ref R.styleable#AppBarLayout_statusBarForeground
    * @see #getStatusBarForeground()
    */
-  public void setStatusBarForegroundResource(@DrawableRes int resId) {
+  public void setStatusBarForegroundResource(@DrawableRes int resId)
+  {
     setStatusBarForeground(AppCompatResources.getDrawable(getContext(), resId));
   }
 
   /**
    * Returns the drawable which is used for the status bar foreground.
    *
-   * @see #setStatusBarForeground(Drawable)
    * @attr ref R.styleable#AppBarLayout_statusBarForeground
+   * @see #setStatusBarForeground(Drawable)
    */
   @Nullable
-  public Drawable getStatusBarForeground() {
+  public Drawable getStatusBarForeground()
+  {
     return statusBarForeground;
   }
 
+  /**
+   * Set the drawable to use for the status bar foreground drawable. Providing null will disable the
+   * scrim functionality.
+   *
+   * <p>This scrim is only shown when we have been given a top system inset.
+   *
+   * @param drawable the drawable to display
+   * @attr ref R.styleable#AppBarLayout_statusBarForeground
+   * @see #getStatusBarForeground()
+   */
+  public void setStatusBarForeground(@Nullable Drawable drawable)
+  {
+    if (statusBarForeground != drawable)
+    {
+      if (statusBarForeground != null)
+      {
+        statusBarForeground.setCallback(null);
+      }
+      statusBarForeground = drawable != null ? drawable.mutate() : null;
+      if (statusBarForeground != null)
+      {
+        if (statusBarForeground.isStateful())
+        {
+          statusBarForeground.setState(getDrawableState());
+        }
+        DrawableCompat.setLayoutDirection(statusBarForeground, ViewCompat.getLayoutDirection(this));
+        statusBarForeground.setVisible(getVisibility() == VISIBLE, false);
+        statusBarForeground.setCallback(this);
+      }
+      updateWillNotDraw();
+      ViewCompat.postInvalidateOnAnimation(this);
+    }
+  }
+
   @Override
-  public void draw(@NonNull Canvas canvas) {
+  public void draw(@NonNull Canvas canvas)
+  {
     super.draw(canvas);
 
     // Draw the status bar foreground drawable if we have a top inset
-    if (shouldDrawStatusBarForeground()) {
+    if (shouldDrawStatusBarForeground())
+    {
       int saveCount = canvas.save();
       canvas.translate(0f, -currentOffset);
       statusBarForeground.draw(canvas);
@@ -397,34 +396,40 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   @Override
-  protected void drawableStateChanged() {
+  protected void drawableStateChanged()
+  {
     super.drawableStateChanged();
 
     final int[] state = getDrawableState();
 
     Drawable d = statusBarForeground;
-    if (d != null && d.isStateful() && d.setState(state)) {
+    if (d != null && d.isStateful() && d.setState(state))
+    {
       invalidateDrawable(d);
     }
   }
 
   @Override
-  protected boolean verifyDrawable(@NonNull Drawable who) {
+  protected boolean verifyDrawable(@NonNull Drawable who)
+  {
     return super.verifyDrawable(who) || who == statusBarForeground;
   }
 
   @Override
-  public void setVisibility(int visibility) {
+  public void setVisibility(int visibility)
+  {
     super.setVisibility(visibility);
 
     final boolean visible = visibility == VISIBLE;
-    if (statusBarForeground != null) {
+    if (statusBarForeground != null)
+    {
       statusBarForeground.setVisible(visible, false);
     }
   }
 
   @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+  {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     // If we're set to handle system windows but our first child is not, we need to add some
@@ -432,9 +437,11 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
     if (heightMode != MeasureSpec.EXACTLY
         && ViewCompat.getFitsSystemWindows(this)
-        && shouldOffsetFirstChild()) {
+        && shouldOffsetFirstChild())
+    {
       int newHeight = getMeasuredHeight();
-      switch (heightMode) {
+      switch (heightMode)
+      {
         case MeasureSpec.AT_MOST:
           // For AT_MOST, we need to clamp our desired height with the max height
           newHeight =
@@ -454,13 +461,16 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   @Override
-  protected void onLayout(boolean changed, int l, int t, int r, int b) {
+  protected void onLayout(boolean changed, int l, int t, int r, int b)
+  {
     super.onLayout(changed, l, t, r, b);
 
-    if (ViewCompat.getFitsSystemWindows(this) && shouldOffsetFirstChild()) {
+    if (ViewCompat.getFitsSystemWindows(this) && shouldOffsetFirstChild())
+    {
       // If we need to offset the first child, we need to offset all of them to make space
       final int topInset = getTopInset();
-      for (int z = getChildCount() - 1; z >= 0; z--) {
+      for (int z = getChildCount() - 1; z >= 0; z--)
+      {
         ViewCompat.offsetTopAndBottom(getChildAt(z), topInset);
       }
     }
@@ -468,45 +478,55 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     invalidateScrollRanges();
 
     haveChildWithInterpolator = false;
-    for (int i = 0, z = getChildCount(); i < z; i++) {
+    for (int i = 0, z = getChildCount(); i < z; i++)
+    {
       final View child = getChildAt(i);
       final LayoutParams childLp = (LayoutParams) child.getLayoutParams();
       final Interpolator interpolator = childLp.getScrollInterpolator();
 
-      if (interpolator != null) {
+      if (interpolator != null)
+      {
         haveChildWithInterpolator = true;
         break;
       }
     }
 
-    if (statusBarForeground != null) {
+    if (statusBarForeground != null)
+    {
       statusBarForeground.setBounds(0, 0, getWidth(), getTopInset());
     }
 
     // If the user has set liftable manually, don't set liftable state automatically.
-    if (!liftableOverride) {
+    if (!liftableOverride)
+    {
       setLiftableState(liftOnScroll || hasCollapsibleChild());
     }
   }
 
-  private void updateWillNotDraw() {
+  private void updateWillNotDraw()
+  {
     setWillNotDraw(!shouldDrawStatusBarForeground());
   }
 
-  private boolean shouldDrawStatusBarForeground() {
+  private boolean shouldDrawStatusBarForeground()
+  {
     return statusBarForeground != null && getTopInset() > 0;
   }
 
-  private boolean hasCollapsibleChild() {
-    for (int i = 0, z = getChildCount(); i < z; i++) {
-      if (((LayoutParams) getChildAt(i).getLayoutParams()).isCollapsible()) {
+  private boolean hasCollapsibleChild()
+  {
+    for (int i = 0, z = getChildCount(); i < z; i++)
+    {
+      if (((LayoutParams) getChildAt(i).getLayoutParams()).isCollapsible())
+      {
         return true;
       }
     }
     return false;
   }
 
-  private void invalidateScrollRanges() {
+  private void invalidateScrollRanges()
+  {
     // Invalidate the scroll ranges
     totalScrollRange = INVALID_SCROLL_RANGE;
     downPreScrollRange = INVALID_SCROLL_RANGE;
@@ -514,8 +534,10 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   @Override
-  public void setOrientation(int orientation) {
-    if (orientation != VERTICAL) {
+  public void setOrientation(int orientation)
+  {
+    if (orientation != VERTICAL)
+    {
       throw new IllegalArgumentException(
           "AppBarLayout is always vertical and does not support horizontal orientation");
     }
@@ -523,7 +545,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
     MaterialShapeUtils.setParentAbsoluteElevation(this);
@@ -531,13 +554,15 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
   @Override
   @NonNull
-  public CoordinatorLayout.Behavior<AppBarLayout> getBehavior() {
+  public CoordinatorLayout.Behavior<AppBarLayout> getBehavior()
+  {
     return new AppBarLayout.Behavior();
   }
 
   @RequiresApi(VERSION_CODES.LOLLIPOP)
   @Override
-  public void setElevation(float elevation) {
+  public void setElevation(float elevation)
+  {
     super.setElevation(elevation);
 
     MaterialShapeUtils.setElevation(this, elevation);
@@ -551,10 +576,11 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * child of a {@link CoordinatorLayout}.
    *
    * @param expanded true if the layout should be fully expanded, false if it should be fully
-   *     collapsed
+   *                 collapsed
    * @attr ref com.google.android.material.R.styleable#AppBarLayout_expanded
    */
-  public void setExpanded(boolean expanded) {
+  public void setExpanded(boolean expanded)
+  {
     setExpanded(expanded, ViewCompat.isLaidOut(this));
   }
 
@@ -565,15 +591,17 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * child of a {@link CoordinatorLayout}.
    *
    * @param expanded true if the layout should be fully expanded, false if it should be fully
-   *     collapsed
-   * @param animate Whether to animate to the new state
+   *                 collapsed
+   * @param animate  Whether to animate to the new state
    * @attr ref com.google.android.material.R.styleable#AppBarLayout_expanded
    */
-  public void setExpanded(boolean expanded, boolean animate) {
+  public void setExpanded(boolean expanded, boolean animate)
+  {
     setExpanded(expanded, animate, true);
   }
 
-  private void setExpanded(boolean expanded, boolean animate, boolean force) {
+  private void setExpanded(boolean expanded, boolean animate, boolean force)
+  {
     pendingAction =
         (expanded ? PENDING_ACTION_EXPANDED : PENDING_ACTION_COLLAPSED)
             | (animate ? PENDING_ACTION_ANIMATE_ENABLED : 0)
@@ -582,38 +610,46 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   @Override
-  protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+  protected boolean checkLayoutParams(ViewGroup.LayoutParams p)
+  {
     return p instanceof LayoutParams;
   }
 
   @Override
-  protected LayoutParams generateDefaultLayoutParams() {
+  protected LayoutParams generateDefaultLayoutParams()
+  {
     return new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
   }
 
   @Override
-  public LayoutParams generateLayoutParams(AttributeSet attrs) {
+  public LayoutParams generateLayoutParams(AttributeSet attrs)
+  {
     return new LayoutParams(getContext(), attrs);
   }
 
   @Override
-  protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
-    if (Build.VERSION.SDK_INT >= 19 && p instanceof LinearLayout.LayoutParams) {
+  protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p)
+  {
+    if (Build.VERSION.SDK_INT >= 19 && p instanceof LinearLayout.LayoutParams)
+    {
       return new LayoutParams((LinearLayout.LayoutParams) p);
-    } else if (p instanceof MarginLayoutParams) {
+    } else if (p instanceof MarginLayoutParams)
+    {
       return new LayoutParams((MarginLayoutParams) p);
     }
     return new LayoutParams(p);
   }
 
   @Override
-  protected void onDetachedFromWindow() {
+  protected void onDetachedFromWindow()
+  {
     super.onDetachedFromWindow();
 
     clearLiftOnScrollTargetView();
   }
 
-  boolean hasChildWithInterpolator() {
+  boolean hasChildWithInterpolator()
+  {
     return haveChildWithInterpolator;
   }
 
@@ -622,35 +658,42 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    *
    * @return the scroll range in px
    */
-  public final int getTotalScrollRange() {
-    if (totalScrollRange != INVALID_SCROLL_RANGE) {
+  public final int getTotalScrollRange()
+  {
+    if (totalScrollRange != INVALID_SCROLL_RANGE)
+    {
       return totalScrollRange;
     }
 
     int range = 0;
-    for (int i = 0, z = getChildCount(); i < z; i++) {
+    for (int i = 0, z = getChildCount(); i < z; i++)
+    {
       final View child = getChildAt(i);
       final LayoutParams lp = (LayoutParams) child.getLayoutParams();
       final int childHeight = child.getMeasuredHeight();
       final int flags = lp.scrollFlags;
 
-      if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+      if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0)
+      {
         // We're set to scroll so add the child's height
         range += childHeight + lp.topMargin + lp.bottomMargin;
 
-        if (i == 0 && ViewCompat.getFitsSystemWindows(child)) {
+        if (i == 0 && ViewCompat.getFitsSystemWindows(child))
+        {
           // If this is the first child and it wants to handle system windows, we need to make
           // sure we don't scroll it past the inset
           range -= getTopInset();
         }
-        if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+        if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0)
+        {
           // For a collapsing scroll, we to take the collapsed height into account.
           // We also break straight away since later views can't scroll beneath
           // us
           range -= ViewCompat.getMinimumHeight(child);
           break;
         }
-      } else {
+      } else
+      {
         // As soon as a view doesn't have the scroll flag, we end the range calculation.
         // This is because views below can not scroll under a fixed view.
         break;
@@ -659,50 +702,65 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     return totalScrollRange = Math.max(0, range);
   }
 
-  boolean hasScrollableChildren() {
+  boolean hasScrollableChildren()
+  {
     return getTotalScrollRange() != 0;
   }
 
-  /** Return the scroll range when scrolling up from a nested pre-scroll. */
-  int getUpNestedPreScrollRange() {
+  /**
+   * Return the scroll range when scrolling up from a nested pre-scroll.
+   */
+  int getUpNestedPreScrollRange()
+  {
     return getTotalScrollRange();
   }
 
-  /** Return the scroll range when scrolling down from a nested pre-scroll. */
-  int getDownNestedPreScrollRange() {
-    if (downPreScrollRange != INVALID_SCROLL_RANGE) {
+  /**
+   * Return the scroll range when scrolling down from a nested pre-scroll.
+   */
+  int getDownNestedPreScrollRange()
+  {
+    if (downPreScrollRange != INVALID_SCROLL_RANGE)
+    {
       // If we already have a valid value, return it
       return downPreScrollRange;
     }
 
     int range = 0;
-    for (int i = getChildCount() - 1; i >= 0; i--) {
+    for (int i = getChildCount() - 1; i >= 0; i--)
+    {
       final View child = getChildAt(i);
       final LayoutParams lp = (LayoutParams) child.getLayoutParams();
       final int childHeight = child.getMeasuredHeight();
       final int flags = lp.scrollFlags;
 
-      if ((flags & LayoutParams.FLAG_QUICK_RETURN) == LayoutParams.FLAG_QUICK_RETURN) {
+      if ((flags & LayoutParams.FLAG_QUICK_RETURN) == LayoutParams.FLAG_QUICK_RETURN)
+      {
         // First take the margin into account
         int childRange = lp.topMargin + lp.bottomMargin;
         // The view has the quick return flag combination...
-        if ((flags & LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED) != 0) {
+        if ((flags & LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED) != 0)
+        {
           // If they're set to enter collapsed, use the minimum height
           childRange += ViewCompat.getMinimumHeight(child);
-        } else if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+        } else if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0)
+        {
           // Only enter by the amount of the collapsed height
           childRange += childHeight - ViewCompat.getMinimumHeight(child);
-        } else {
+        } else
+        {
           // Else use the full height
           childRange += childHeight;
         }
-        if (i == 0 && ViewCompat.getFitsSystemWindows(child)) {
+        if (i == 0 && ViewCompat.getFitsSystemWindows(child))
+        {
           // If this is the first child and it wants to handle system windows, we need to make
           // sure we don't scroll past the inset
           childRange = Math.min(childRange, childHeight - getTopInset());
         }
         range += childRange;
-      } else if (range > 0) {
+      } else if (range > 0)
+      {
         // If we've hit an non-quick return scrollable view, and we've already hit a
         // quick return view, return now
         break;
@@ -711,15 +769,20 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     return downPreScrollRange = Math.max(0, range);
   }
 
-  /** Return the scroll range when scrolling down from a nested scroll. */
-  int getDownNestedScrollRange() {
-    if (downScrollRange != INVALID_SCROLL_RANGE) {
+  /**
+   * Return the scroll range when scrolling down from a nested scroll.
+   */
+  int getDownNestedScrollRange()
+  {
+    if (downScrollRange != INVALID_SCROLL_RANGE)
+    {
       // If we already have a valid value, return it
       return downScrollRange;
     }
 
     int range = 0;
-    for (int i = 0, z = getChildCount(); i < z; i++) {
+    for (int i = 0, z = getChildCount(); i < z; i++)
+    {
       final View child = getChildAt(i);
       final LayoutParams lp = (LayoutParams) child.getLayoutParams();
       int childHeight = child.getMeasuredHeight();
@@ -727,18 +790,21 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
       final int flags = lp.scrollFlags;
 
-      if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+      if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0)
+      {
         // We're set to scroll so add the child's height
         range += childHeight;
 
-        if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+        if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0)
+        {
           // For a collapsing exit scroll, we to take the collapsed height into account.
           // We also break the range straight away since later views can't scroll
           // beneath us
           range -= ViewCompat.getMinimumHeight(child);
           break;
         }
-      } else {
+      } else
+      {
         // As soon as a view doesn't have the scroll flag, we end the range calculation.
         // This is because views below can not scroll under a fixed view.
         break;
@@ -747,29 +813,36 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     return downScrollRange = Math.max(0, range);
   }
 
-  void onOffsetChanged(int offset) {
+  void onOffsetChanged(int offset)
+  {
     currentOffset = offset;
 
-    if (!willNotDraw()) {
+    if (!willNotDraw())
+    {
       ViewCompat.postInvalidateOnAnimation(this);
     }
 
     // Iterate backwards through the list so that most recently added listeners
     // get the first chance to decide
-    if (listeners != null) {
-      for (int i = 0, z = listeners.size(); i < z; i++) {
+    if (listeners != null)
+    {
+      for (int i = 0, z = listeners.size(); i < z; i++)
+      {
         final BaseOnOffsetChangedListener listener = listeners.get(i);
-        if (listener != null) {
+        if (listener != null)
+        {
           listener.onOffsetChanged(this, offset);
         }
       }
     }
   }
 
-  public final int getMinimumHeightForVisibleOverlappingContent() {
+  public final int getMinimumHeightForVisibleOverlappingContent()
+  {
     final int topInset = getTopInset();
     final int minHeight = ViewCompat.getMinimumHeight(this);
-    if (minHeight != 0) {
+    if (minHeight != 0)
+    {
       // If this layout has a min height, use it (doubled)
       return (minHeight * 2) + topInset;
     }
@@ -778,7 +851,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     final int childCount = getChildCount();
     final int lastChildMinHeight =
         childCount >= 1 ? ViewCompat.getMinimumHeight(getChildAt(childCount - 1)) : 0;
-    if (lastChildMinHeight != 0) {
+    if (lastChildMinHeight != 0)
+    {
       return (lastChildMinHeight * 2) + topInset;
     }
 
@@ -788,8 +862,10 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   @Override
-  protected int[] onCreateDrawableState(int extraSpace) {
-    if (tmpStatesArray == null) {
+  protected int[] onCreateDrawableState(int extraSpace)
+  {
+    if (tmpStatesArray == null)
+    {
       // Note that we can't allocate this at the class level (in declaration) since some paths in
       // super View constructor are going to call this method before that
       tmpStatesArray = new int[4];
@@ -813,14 +889,17 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    *
    * @return true if the liftable state changed
    */
-  public boolean setLiftable(boolean liftable) {
+  public boolean setLiftable(boolean liftable)
+  {
     this.liftableOverride = true;
     return setLiftableState(liftable);
   }
 
   // Internal helper method that updates liftable state without enabling the override.
-  private boolean setLiftableState(boolean liftable) {
-    if (this.liftable != liftable) {
+  private boolean setLiftableState(boolean liftable)
+  {
+    if (this.liftable != liftable)
+    {
       this.liftable = liftable;
       refreshDrawableState();
       return true;
@@ -833,16 +912,20 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    *
    * @return true if the lifted state changed
    */
-  public boolean setLifted(boolean lifted) {
+  public boolean setLifted(boolean lifted)
+  {
     return setLiftedState(lifted);
   }
 
   // Internal helper method that updates lifted state.
-  boolean setLiftedState(boolean lifted) {
-    if (this.lifted != lifted) {
+  boolean setLiftedState(boolean lifted)
+  {
+    if (this.lifted != lifted)
+    {
       this.lifted = lifted;
       refreshDrawableState();
-      if (liftOnScroll && getBackground() instanceof MaterialShapeDrawable) {
+      if (liftOnScroll && getBackground() instanceof MaterialShapeDrawable)
+      {
         startLiftOnScrollElevationOverlayAnimation((MaterialShapeDrawable) getBackground(), lifted);
       }
       return true;
@@ -851,12 +934,14 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   private void startLiftOnScrollElevationOverlayAnimation(
-      @NonNull final MaterialShapeDrawable background, boolean lifted) {
+      @NonNull final MaterialShapeDrawable background, boolean lifted)
+  {
     float appBarElevation = getResources().getDimension(R.dimen.design_appbar_elevation);
     float fromElevation = lifted ? 0 : appBarElevation;
     float toElevation = lifted ? appBarElevation : 0;
 
-    if (elevationOverlayAnimator != null) {
+    if (elevationOverlayAnimator != null)
+    {
       elevationOverlayAnimator.cancel();
     }
 
@@ -865,13 +950,23 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         getResources().getInteger(R.integer.app_bar_elevation_anim_duration));
     elevationOverlayAnimator.setInterpolator(AnimationUtils.LINEAR_INTERPOLATOR);
     elevationOverlayAnimator.addUpdateListener(
-        new AnimatorUpdateListener() {
+        new AnimatorUpdateListener()
+        {
           @Override
-          public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
+          public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator)
+          {
             background.setElevation((float) valueAnimator.getAnimatedValue());
           }
         });
     elevationOverlayAnimator.start();
+  }
+
+  /**
+   * Returns whether the {@link AppBarLayout} lifts on scroll or not.
+   */
+  public boolean isLiftOnScroll()
+  {
+    return liftOnScroll;
   }
 
   /**
@@ -882,23 +977,9 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * `app:layout_behavior="@string/appbar_scrolling_view_behavior` to be set on the scrolling
    * sibling (e.g., `NestedScrollView`, `RecyclerView`, etc.).
    */
-  public void setLiftOnScroll(boolean liftOnScroll) {
+  public void setLiftOnScroll(boolean liftOnScroll)
+  {
     this.liftOnScroll = liftOnScroll;
-  }
-
-  /** Returns whether the {@link AppBarLayout} lifts on scroll or not. */
-  public boolean isLiftOnScroll() {
-    return liftOnScroll;
-  }
-
-  /**
-   * Sets the id of the view that the {@link AppBarLayout} should use to determine whether it should
-   * be lifted.
-   */
-  public void setLiftOnScrollTargetViewId(@IdRes int liftOnScrollTargetViewId) {
-    this.liftOnScrollTargetViewId = liftOnScrollTargetViewId;
-    // Invalidate cached target view so it will be looked up on next scroll.
-    clearLiftOnScrollTargetView();
   }
 
   /**
@@ -906,13 +987,27 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * should be lifted.
    */
   @IdRes
-  public int getLiftOnScrollTargetViewId() {
+  public int getLiftOnScrollTargetViewId()
+  {
     return liftOnScrollTargetViewId;
   }
 
-  boolean shouldLift(@Nullable View defaultScrollingView) {
+  /**
+   * Sets the id of the view that the {@link AppBarLayout} should use to determine whether it should
+   * be lifted.
+   */
+  public void setLiftOnScrollTargetViewId(@IdRes int liftOnScrollTargetViewId)
+  {
+    this.liftOnScrollTargetViewId = liftOnScrollTargetViewId;
+    // Invalidate cached target view so it will be looked up on next scroll.
+    clearLiftOnScrollTargetView();
+  }
+
+  boolean shouldLift(@Nullable View defaultScrollingView)
+  {
     View scrollingView = findLiftOnScrollTargetView(defaultScrollingView);
-    if (scrollingView == null) {
+    if (scrollingView == null)
+    {
       scrollingView = defaultScrollingView;
     }
     return scrollingView != null
@@ -920,26 +1015,33 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
   }
 
   @Nullable
-  private View findLiftOnScrollTargetView(@Nullable View defaultScrollingView) {
-    if (liftOnScrollTargetView == null && liftOnScrollTargetViewId != View.NO_ID) {
+  private View findLiftOnScrollTargetView(@Nullable View defaultScrollingView)
+  {
+    if (liftOnScrollTargetView == null && liftOnScrollTargetViewId != View.NO_ID)
+    {
       View targetView = null;
-      if (defaultScrollingView != null) {
+      if (defaultScrollingView != null)
+      {
         targetView = defaultScrollingView.findViewById(liftOnScrollTargetViewId);
       }
-      if (targetView == null && getParent() instanceof ViewGroup) {
+      if (targetView == null && getParent() instanceof ViewGroup)
+      {
         // Assumes the scrolling view is a child of the AppBarLayout's parent,
         // which should be true due to the CoordinatorLayout pattern.
         targetView = ((ViewGroup) getParent()).findViewById(liftOnScrollTargetViewId);
       }
-      if (targetView != null) {
+      if (targetView != null)
+      {
         liftOnScrollTargetView = new WeakReference<>(targetView);
       }
     }
     return liftOnScrollTargetView != null ? liftOnScrollTargetView.get() : null;
   }
 
-  private void clearLiftOnScrollTargetView() {
-    if (liftOnScrollTargetView != null) {
+  private void clearLiftOnScrollTargetView()
+  {
+    if (liftOnScrollTargetView != null)
+    {
       liftOnScrollTargetView.clear();
     }
     liftOnScrollTargetView = null;
@@ -947,37 +1049,43 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
   /**
    * @deprecated target elevation is now deprecated. AppBarLayout's elevation is now controlled via
-   *     a {@link android.animation.StateListAnimator}. If a target elevation is set, either by this
-   *     method or the {@code app:elevation} attribute, a new state list animator is created which
-   *     uses the given {@code elevation} value.
-   * @attr ref com.google.android.material.R.styleable#AppBarLayout_elevation
+   * a {@link android.animation.StateListAnimator}. This method now always returns 0.
    */
   @Deprecated
-  public void setTargetElevation(float elevation) {
-    if (Build.VERSION.SDK_INT >= 21) {
+  public float getTargetElevation()
+  {
+    return 0;
+  }
+
+  /**
+   * @attr ref com.google.android.material.R.styleable#AppBarLayout_elevation
+   * @deprecated target elevation is now deprecated. AppBarLayout's elevation is now controlled via
+   * a {@link android.animation.StateListAnimator}. If a target elevation is set, either by this
+   * method or the {@code app:elevation} attribute, a new state list animator is created which
+   * uses the given {@code elevation} value.
+   */
+  @Deprecated
+  public void setTargetElevation(float elevation)
+  {
+    if (Build.VERSION.SDK_INT >= 21)
+    {
       ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, elevation);
     }
   }
 
-  /**
-   * @deprecated target elevation is now deprecated. AppBarLayout's elevation is now controlled via
-   *     a {@link android.animation.StateListAnimator}. This method now always returns 0.
-   */
-  @Deprecated
-  public float getTargetElevation() {
-    return 0;
-  }
-
-  int getPendingAction() {
+  int getPendingAction()
+  {
     return pendingAction;
   }
 
-  void resetPendingAction() {
+  void resetPendingAction()
+  {
     pendingAction = PENDING_ACTION_NONE;
   }
 
   @VisibleForTesting
-  final int getTopInset() {
+  final int getTopInset()
+  {
     return lastInsets != null ? lastInsets.getSystemWindowInsetTop() : 0;
   }
 
@@ -985,24 +1093,29 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * Whether the first child needs to be offset because it does not want to handle the top window
    * inset
    */
-  private boolean shouldOffsetFirstChild() {
-    if (getChildCount() > 0) {
+  private boolean shouldOffsetFirstChild()
+  {
+    if (getChildCount() > 0)
+    {
       final View firstChild = getChildAt(0);
       return firstChild.getVisibility() != GONE && !ViewCompat.getFitsSystemWindows(firstChild);
     }
     return false;
   }
 
-  WindowInsetsCompat onWindowInsetChanged(final WindowInsetsCompat insets) {
+  WindowInsetsCompat onWindowInsetChanged(final WindowInsetsCompat insets)
+  {
     WindowInsetsCompat newInsets = null;
 
-    if (ViewCompat.getFitsSystemWindows(this)) {
+    if (ViewCompat.getFitsSystemWindows(this))
+    {
       // If we're set to fit system windows, keep the insets
       newInsets = insets;
     }
 
     // If our insets have changed, keep them and trigger a layout...
-    if (!ObjectsCompat.equals(lastInsets, newInsets)) {
+    if (!ObjectsCompat.equals(lastInsets, newInsets))
+    {
       lastInsets = newInsets;
       updateWillNotDraw();
       requestLayout();
@@ -1011,37 +1124,52 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     return insets;
   }
 
-  /** A {@link ViewGroup.LayoutParams} implementation for {@link AppBarLayout}. */
-  public static class LayoutParams extends LinearLayout.LayoutParams {
+  /**
+   * Interface definition for a callback to be invoked when an {@link AppBarLayout}'s vertical
+   * offset changes.
+   */
+  // TODO(b/76413401): remove this base interface after the widget migration
+  public interface BaseOnOffsetChangedListener<T extends AppBarLayout>
+  {
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
-    @IntDef(
-        flag = true,
-        value = {
-          SCROLL_FLAG_NO_SCROLL,
-          SCROLL_FLAG_SCROLL,
-          SCROLL_FLAG_EXIT_UNTIL_COLLAPSED,
-          SCROLL_FLAG_ENTER_ALWAYS,
-          SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED,
-          SCROLL_FLAG_SNAP,
-          SCROLL_FLAG_SNAP_MARGINS,
-        })
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ScrollFlags {}
+    /**
+     * Called when the {@link AppBarLayout}'s layout offset has been changed. This allows child
+     * views to implement custom behavior based on the offset (for instance pinning a view at a
+     * certain y value).
+     *
+     * @param appBarLayout   the {@link AppBarLayout} which offset has changed
+     * @param verticalOffset the vertical offset for the parent {@link AppBarLayout}, in px
+     */
+    void onOffsetChanged(T appBarLayout, int verticalOffset);
+  }
+
+  /**
+   * Interface definition for a callback to be invoked when an {@link AppBarLayout}'s vertical
+   * offset changes.
+   */
+  // TODO(b/76413401): update this interface after the widget migration
+  public interface OnOffsetChangedListener extends BaseOnOffsetChangedListener<AppBarLayout>
+  {
+    void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset);
+  }
+
+  /**
+   * A {@link ViewGroup.LayoutParams} implementation for {@link AppBarLayout}.
+   */
+  public static class LayoutParams extends LinearLayout.LayoutParams
+  {
+
     /**
      * Disable scrolling on the view. This flag should not be combined with any of the other scroll
      * flags.
      */
     public static final int SCROLL_FLAG_NO_SCROLL = 0x0;
-
     /**
      * The view will be scroll in direct relation to scroll events. This flag needs to be set for
      * any of the other flags to take effect. If any sibling views before this one do not have this
      * flag, then this value has no effect.
      */
     public static final int SCROLL_FLAG_SCROLL = 0x1;
-
     /**
      * When exiting (scrolling off screen) the view will be scrolled until it is 'collapsed'. The
      * collapsed height is defined by the view's minimum height.
@@ -1050,14 +1178,12 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
      * @see View#setMinimumHeight(int)
      */
     public static final int SCROLL_FLAG_EXIT_UNTIL_COLLAPSED = 1 << 1;
-
     /**
      * When entering (scrolling on screen) the view will scroll on any downwards scroll event,
      * regardless of whether the scrolling view is also scrolling. This is commonly referred to as
      * the 'quick return' pattern.
      */
     public static final int SCROLL_FLAG_ENTER_ALWAYS = 1 << 2;
-
     /**
      * An additional flag for 'enterAlways' which modifies the returning view to only initially
      * scroll back to it's collapsed height. Once the scrolling view has reached the end of it's
@@ -1068,7 +1194,6 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
      * @see View#setMinimumHeight(int)
      */
     public static final int SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED = 1 << 3;
-
     /**
      * Upon a scroll ending, if the view is only partially visible then it will be snapped and
      * scrolled to its closest edge. For example, if the view only has its bottom 25% displayed, it
@@ -1076,58 +1201,63 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
      * be scrolled fully into view.
      */
     public static final int SCROLL_FLAG_SNAP = 1 << 4;
-
     /**
      * An additional flag to be used with 'snap'. If set, the view will be snapped to its top and
      * bottom margins, as opposed to the edges of the view itself.
      */
     public static final int SCROLL_FLAG_SNAP_MARGINS = 1 << 5;
-
-    /** Internal flags which allows quick checking features */
+    /**
+     * Internal flags which allows quick checking features
+     */
     static final int FLAG_QUICK_RETURN = SCROLL_FLAG_SCROLL | SCROLL_FLAG_ENTER_ALWAYS;
-
     static final int FLAG_SNAP = SCROLL_FLAG_SCROLL | SCROLL_FLAG_SNAP;
     static final int COLLAPSIBLE_FLAGS =
         SCROLL_FLAG_EXIT_UNTIL_COLLAPSED | SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED;
-
     int scrollFlags = SCROLL_FLAG_SCROLL;
     Interpolator scrollInterpolator;
-
-    public LayoutParams(Context c, AttributeSet attrs) {
+    public LayoutParams(Context c, AttributeSet attrs)
+    {
       super(c, attrs);
       TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.AppBarLayout_Layout);
       scrollFlags = a.getInt(R.styleable.AppBarLayout_Layout_layout_scrollFlags, 0);
-      if (a.hasValue(R.styleable.AppBarLayout_Layout_layout_scrollInterpolator)) {
+      if (a.hasValue(R.styleable.AppBarLayout_Layout_layout_scrollInterpolator))
+      {
         int resId = a.getResourceId(R.styleable.AppBarLayout_Layout_layout_scrollInterpolator, 0);
         scrollInterpolator = android.view.animation.AnimationUtils.loadInterpolator(c, resId);
       }
       a.recycle();
     }
 
-    public LayoutParams(int width, int height) {
+    public LayoutParams(int width, int height)
+    {
       super(width, height);
     }
 
-    public LayoutParams(int width, int height, float weight) {
+    public LayoutParams(int width, int height, float weight)
+    {
       super(width, height, weight);
     }
 
-    public LayoutParams(ViewGroup.LayoutParams p) {
+    public LayoutParams(ViewGroup.LayoutParams p)
+    {
       super(p);
     }
 
-    public LayoutParams(MarginLayoutParams source) {
+    public LayoutParams(MarginLayoutParams source)
+    {
       super(source);
     }
 
     @RequiresApi(19)
-    public LayoutParams(LinearLayout.LayoutParams source) {
+    public LayoutParams(LinearLayout.LayoutParams source)
+    {
       // The copy constructor called here only exists on API 19+.
       super(source);
     }
 
     @RequiresApi(19)
-    public LayoutParams(@NonNull LayoutParams source) {
+    public LayoutParams(@NonNull LayoutParams source)
+    {
       // The copy constructor called here only exists on API 19+.
       super(source);
       scrollFlags = source.scrollFlags;
@@ -1135,40 +1265,31 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     /**
-     * Set the scrolling flags.
-     *
-     * @param flags bitwise int of {@link #SCROLL_FLAG_SCROLL}, {@link
-     *     #SCROLL_FLAG_EXIT_UNTIL_COLLAPSED}, {@link #SCROLL_FLAG_ENTER_ALWAYS}, {@link
-     *     #SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED}, {@link #SCROLL_FLAG_SNAP}, and {@link
-     *     #SCROLL_FLAG_SNAP_MARGINS}. Otherwise, use {@link #SCROLL_FLAG_NO_SCROLL} to disable
-     *     scrolling.
-     * @see #getScrollFlags()
-     * @attr ref com.google.android.material.R.styleable#AppBarLayout_Layout_layout_scrollFlags
-     */
-    public void setScrollFlags(@ScrollFlags int flags) {
-      scrollFlags = flags;
-    }
-
-    /**
      * Returns the scrolling flags.
      *
-     * @see #setScrollFlags(int)
      * @attr ref com.google.android.material.R.styleable#AppBarLayout_Layout_layout_scrollFlags
+     * @see #setScrollFlags(int)
      */
     @ScrollFlags
-    public int getScrollFlags() {
+    public int getScrollFlags()
+    {
       return scrollFlags;
     }
 
     /**
-     * Set the interpolator to when scrolling the view associated with this {@link LayoutParams}.
+     * Set the scrolling flags.
      *
-     * @param interpolator the interpolator to use, or null to use normal 1-to-1 scrolling.
-     * @attr ref com.google.android.material.R.styleable#AppBarLayout_Layout_layout_scrollInterpolator
-     * @see #getScrollInterpolator()
+     * @param flags bitwise int of {@link #SCROLL_FLAG_SCROLL}, {@link
+     *              #SCROLL_FLAG_EXIT_UNTIL_COLLAPSED}, {@link #SCROLL_FLAG_ENTER_ALWAYS}, {@link
+     *              #SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED}, {@link #SCROLL_FLAG_SNAP}, and {@link
+     *              #SCROLL_FLAG_SNAP_MARGINS}. Otherwise, use {@link #SCROLL_FLAG_NO_SCROLL} to disable
+     *              scrolling.
+     * @attr ref com.google.android.material.R.styleable#AppBarLayout_Layout_layout_scrollFlags
+     * @see #getScrollFlags()
      */
-    public void setScrollInterpolator(Interpolator interpolator) {
-      scrollInterpolator = interpolator;
+    public void setScrollFlags(@ScrollFlags int flags)
+    {
+      scrollFlags = flags;
     }
 
     /**
@@ -1178,14 +1299,50 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
      * @attr ref com.google.android.material.R.styleable#AppBarLayout_Layout_layout_scrollInterpolator
      * @see #setScrollInterpolator(Interpolator)
      */
-    public Interpolator getScrollInterpolator() {
+    public Interpolator getScrollInterpolator()
+    {
       return scrollInterpolator;
     }
 
-    /** Returns true if the scroll flags are compatible for 'collapsing' */
-    boolean isCollapsible() {
+    /**
+     * Set the interpolator to when scrolling the view associated with this {@link LayoutParams}.
+     *
+     * @param interpolator the interpolator to use, or null to use normal 1-to-1 scrolling.
+     * @attr ref com.google.android.material.R.styleable#AppBarLayout_Layout_layout_scrollInterpolator
+     * @see #getScrollInterpolator()
+     */
+    public void setScrollInterpolator(Interpolator interpolator)
+    {
+      scrollInterpolator = interpolator;
+    }
+
+    /**
+     * Returns true if the scroll flags are compatible for 'collapsing'
+     */
+    boolean isCollapsible()
+    {
       return (scrollFlags & SCROLL_FLAG_SCROLL) == SCROLL_FLAG_SCROLL
           && (scrollFlags & COLLAPSIBLE_FLAGS) != 0;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @IntDef(
+        flag = true,
+        value = {
+            SCROLL_FLAG_NO_SCROLL,
+            SCROLL_FLAG_SCROLL,
+            SCROLL_FLAG_EXIT_UNTIL_COLLAPSED,
+            SCROLL_FLAG_ENTER_ALWAYS,
+            SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED,
+            SCROLL_FLAG_SNAP,
+            SCROLL_FLAG_SNAP_MARGINS,
+        })
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ScrollFlags
+    {
     }
   }
 
@@ -1194,17 +1351,24 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * handling with offsetting.
    */
   // TODO(b/76413401): remove the base class and generic type after the widget migration is done
-  public static class Behavior extends BaseBehavior<AppBarLayout> {
+  public static class Behavior extends BaseBehavior<AppBarLayout>
+  {
 
-    /** Callback to allow control over any {@link AppBarLayout} dragging. */
-    public abstract static class DragCallback extends BaseBehavior.BaseDragCallback<AppBarLayout> {}
-
-    public Behavior() {
+    public Behavior()
+    {
       super();
     }
 
-    public Behavior(Context context, AttributeSet attrs) {
+    public Behavior(Context context, AttributeSet attrs)
+    {
       super(context, attrs);
+    }
+
+    /**
+     * Callback to allow control over any {@link AppBarLayout} dragging.
+     */
+    public abstract static class DragCallback extends BaseBehavior.BaseDragCallback<AppBarLayout>
+    {
     }
   }
 
@@ -1213,41 +1377,48 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * handling with offsetting.
    */
   // TODO(b/76413401): remove this base class and generic type after the widget migration is done
-  protected static class BaseBehavior<T extends AppBarLayout> extends HeaderBehavior<T> {
+  protected static class BaseBehavior<T extends AppBarLayout> extends HeaderBehavior<T>
+  {
     private static final int MAX_OFFSET_ANIMATION_DURATION = 600; // ms
     private static final int INVALID_POSITION = -1;
-
-    /** Callback to allow control over any {@link AppBarLayout} dragging. */
-    // TODO(b/76413401): remove this base class and generic type after the widget migration
-    public abstract static class BaseDragCallback<T extends AppBarLayout> {
-      /**
-       * Allows control over whether the given {@link AppBarLayout} can be dragged or not.
-       *
-       * <p>Dragging is defined as a direct touch on the AppBarLayout with movement. This call does
-       * not affect any nested scrolling.
-       *
-       * @return true if we are in a position to scroll the AppBarLayout via a drag, false if not.
-       */
-      public abstract boolean canDrag(@NonNull T appBarLayout);
-    }
-
     private int offsetDelta;
-
-    @NestedScrollType private int lastStartedType;
-
+    @NestedScrollType
+    private int lastStartedType;
     private ValueAnimator offsetAnimator;
-
     private int offsetToChildIndexOnLayout = INVALID_POSITION;
     private boolean offsetToChildIndexOnLayoutIsMinHeight;
     private float offsetToChildIndexOnLayoutPerc;
-
-    @Nullable private WeakReference<View> lastNestedScrollingChildRef;
+    @Nullable
+    private WeakReference<View> lastNestedScrollingChildRef;
     private BaseDragCallback onDragCallback;
+    public BaseBehavior()
+    {
+    }
 
-    public BaseBehavior() {}
-
-    public BaseBehavior(Context context, AttributeSet attrs) {
+    public BaseBehavior(Context context, AttributeSet attrs)
+    {
       super(context, attrs);
+    }
+
+    private static boolean checkFlag(final int flags, final int check)
+    {
+      return (flags & check) == check;
+    }
+
+    @Nullable
+    private static View getAppBarChildOnOffset(
+        @NonNull final AppBarLayout layout, final int offset)
+    {
+      final int absOffset = Math.abs(offset);
+      for (int i = 0, z = layout.getChildCount(); i < z; i++)
+      {
+        final View child = layout.getChildAt(i);
+        if (absOffset >= child.getTop() && absOffset <= child.getBottom())
+        {
+          return child;
+        }
+      }
+      return null;
     }
 
     @Override
@@ -1257,14 +1428,16 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         @NonNull View directTargetChild,
         View target,
         int nestedScrollAxes,
-        int type) {
+        int type)
+    {
       // Return true if we're nested scrolling vertically, and we either have lift on scroll enabled
       // or we can scroll the children.
       final boolean started =
           (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0
               && (child.isLiftOnScroll() || canScrollChildren(parent, child, directTargetChild));
 
-      if (started && offsetAnimator != null) {
+      if (started && offsetAnimator != null)
+      {
         // Cancel any offset animation
         offsetAnimator.cancel();
       }
@@ -1280,7 +1453,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
     // Return true if there are scrollable children and the scrolling view is big enough to scroll.
     private boolean canScrollChildren(
-        @NonNull CoordinatorLayout parent, @NonNull T child, @NonNull View directTargetChild) {
+        @NonNull CoordinatorLayout parent, @NonNull T child, @NonNull View directTargetChild)
+    {
       return child.hasScrollableChildren()
           && parent.getHeight() - directTargetChild.getHeight() <= child.getHeight();
     }
@@ -1293,24 +1467,30 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         int dx,
         int dy,
         int[] consumed,
-        int type) {
-      if (dy != 0) {
+        int type)
+    {
+      if (dy != 0)
+      {
         int min;
         int max;
-        if (dy < 0) {
+        if (dy < 0)
+        {
           // We're scrolling down
           min = -child.getTotalScrollRange();
           max = min + child.getDownNestedPreScrollRange();
-        } else {
+        } else
+        {
           // We're scrolling up
           min = -child.getUpNestedPreScrollRange();
           max = 0;
         }
-        if (min != max) {
+        if (min != max)
+        {
           consumed[1] = scroll(coordinatorLayout, child, dy, min, max);
         }
       }
-      if (child.isLiftOnScroll()) {
+      if (child.isLiftOnScroll())
+      {
         child.setLiftedState(child.shouldLift(target));
       }
     }
@@ -1325,15 +1505,18 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         int dxUnconsumed,
         int dyUnconsumed,
         int type,
-        int[] consumed) {
-      if (dyUnconsumed < 0) {
+        int[] consumed)
+    {
+      if (dyUnconsumed < 0)
+      {
         // If the scrolling view is scrolling down but not consuming, it's probably be at
         // the top of it's content
         consumed[1] =
             scroll(coordinatorLayout, child, dyUnconsumed, -child.getDownNestedScrollRange(), 0);
       }
 
-      if (dyUnconsumed == 0) {
+      if (dyUnconsumed == 0)
+      {
         // The scrolling view may scroll to the top of its content without updating the actions, so
         // update here.
         updateAccessibilityActions(coordinatorLayout, child);
@@ -1342,15 +1525,18 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
     @Override
     public void onStopNestedScroll(
-        CoordinatorLayout coordinatorLayout, @NonNull T abl, View target, int type) {
+        CoordinatorLayout coordinatorLayout, @NonNull T abl, View target, int type)
+    {
       // onStartNestedScroll for a fling will happen before onStopNestedScroll for the scroll. This
       // isn't necessarily guaranteed yet, but it should be in the future. We use this to our
       // advantage to check if a fling (ViewCompat.TYPE_NON_TOUCH) will start after the touch scroll
       // (ViewCompat.TYPE_TOUCH) ends
-      if (lastStartedType == ViewCompat.TYPE_TOUCH || type == ViewCompat.TYPE_NON_TOUCH) {
+      if (lastStartedType == ViewCompat.TYPE_TOUCH || type == ViewCompat.TYPE_NON_TOUCH)
+      {
         // If we haven't been flung, or a fling is ending
         snapToChildIfNeeded(coordinatorLayout, abl);
-        if (abl.isLiftOnScroll()) {
+        if (abl.isLiftOnScroll())
+        {
           abl.setLiftedState(abl.shouldLift(target));
         }
       }
@@ -1364,7 +1550,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
      *
      * @param callback the callback to use, or {@code null} to use the default behavior.
      */
-    public void setDragCallback(@Nullable BaseDragCallback callback) {
+    public void setDragCallback(@Nullable BaseDragCallback callback)
+    {
       onDragCallback = callback;
     }
 
@@ -1372,14 +1559,17 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         final CoordinatorLayout coordinatorLayout,
         @NonNull final T child,
         final int offset,
-        float velocity) {
+        float velocity)
+    {
       final int distance = Math.abs(getTopBottomOffsetForScrollingSibling() - offset);
 
       final int duration;
       velocity = Math.abs(velocity);
-      if (velocity > 0) {
+      if (velocity > 0)
+      {
         duration = 3 * Math.round(1000 * (distance / velocity));
-      } else {
+      } else
+      {
         final float distanceRatio = (float) distance / child.getHeight();
         duration = (int) ((distanceRatio + 1) * 150);
       }
@@ -1391,27 +1581,34 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         final CoordinatorLayout coordinatorLayout,
         final T child,
         final int offset,
-        final int duration) {
+        final int duration)
+    {
       final int currentOffset = getTopBottomOffsetForScrollingSibling();
-      if (currentOffset == offset) {
-        if (offsetAnimator != null && offsetAnimator.isRunning()) {
+      if (currentOffset == offset)
+      {
+        if (offsetAnimator != null && offsetAnimator.isRunning())
+        {
           offsetAnimator.cancel();
         }
         return;
       }
 
-      if (offsetAnimator == null) {
+      if (offsetAnimator == null)
+      {
         offsetAnimator = new ValueAnimator();
         offsetAnimator.setInterpolator(AnimationUtils.DECELERATE_INTERPOLATOR);
         offsetAnimator.addUpdateListener(
-            new ValueAnimator.AnimatorUpdateListener() {
+            new ValueAnimator.AnimatorUpdateListener()
+            {
               @Override
-              public void onAnimationUpdate(@NonNull ValueAnimator animator) {
+              public void onAnimationUpdate(@NonNull ValueAnimator animator)
+              {
                 setHeaderTopBottomOffset(
                     coordinatorLayout, child, (int) animator.getAnimatedValue());
               }
             });
-      } else {
+      } else
+      {
         offsetAnimator.cancel();
       }
 
@@ -1420,60 +1617,73 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       offsetAnimator.start();
     }
 
-    private int getChildIndexOnOffset(@NonNull T abl, final int offset) {
-      for (int i = 0, count = abl.getChildCount(); i < count; i++) {
+    private int getChildIndexOnOffset(@NonNull T abl, final int offset)
+    {
+      for (int i = 0, count = abl.getChildCount(); i < count; i++)
+      {
         View child = abl.getChildAt(i);
         int top = child.getTop();
         int bottom = child.getBottom();
 
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        if (checkFlag(lp.getScrollFlags(), LayoutParams.SCROLL_FLAG_SNAP_MARGINS)) {
+        if (checkFlag(lp.getScrollFlags(), LayoutParams.SCROLL_FLAG_SNAP_MARGINS))
+        {
           // Update top and bottom to include margins
           top -= lp.topMargin;
           bottom += lp.bottomMargin;
         }
 
-        if (top <= -offset && bottom >= -offset) {
+        if (top <= -offset && bottom >= -offset)
+        {
           return i;
         }
       }
       return -1;
     }
 
-    private void snapToChildIfNeeded(CoordinatorLayout coordinatorLayout, @NonNull T abl) {
+    private void snapToChildIfNeeded(CoordinatorLayout coordinatorLayout, @NonNull T abl)
+    {
       final int offset = getTopBottomOffsetForScrollingSibling();
       final int offsetChildIndex = getChildIndexOnOffset(abl, offset);
-      if (offsetChildIndex >= 0) {
+      if (offsetChildIndex >= 0)
+      {
         final View offsetChild = abl.getChildAt(offsetChildIndex);
         final LayoutParams lp = (LayoutParams) offsetChild.getLayoutParams();
         final int flags = lp.getScrollFlags();
 
-        if ((flags & LayoutParams.FLAG_SNAP) == LayoutParams.FLAG_SNAP) {
+        if ((flags & LayoutParams.FLAG_SNAP) == LayoutParams.FLAG_SNAP)
+        {
           // We're set the snap, so animate the offset to the nearest edge
           int snapTop = -offsetChild.getTop();
           int snapBottom = -offsetChild.getBottom();
 
-          if (offsetChildIndex == abl.getChildCount() - 1) {
+          if (offsetChildIndex == abl.getChildCount() - 1)
+          {
             // If this is the last child, we need to take the top inset into account
             snapBottom += abl.getTopInset();
           }
 
-          if (checkFlag(flags, LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED)) {
+          if (checkFlag(flags, LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED))
+          {
             // If the view is set only exit until it is collapsed, we'll abide by that
             snapBottom += ViewCompat.getMinimumHeight(offsetChild);
           } else if (checkFlag(
-              flags, LayoutParams.FLAG_QUICK_RETURN | LayoutParams.SCROLL_FLAG_ENTER_ALWAYS)) {
+              flags, LayoutParams.FLAG_QUICK_RETURN | LayoutParams.SCROLL_FLAG_ENTER_ALWAYS))
+          {
             // If it's set to always enter collapsed, it actually has two states. We
             // select the state and then snap within the state
             final int seam = snapBottom + ViewCompat.getMinimumHeight(offsetChild);
-            if (offset < seam) {
+            if (offset < seam)
+            {
               snapTop = seam;
-            } else {
+            } else
+            {
               snapBottom = seam;
             }
           }
 
-          if (checkFlag(flags, LayoutParams.SCROLL_FLAG_SNAP_MARGINS)) {
+          if (checkFlag(flags, LayoutParams.SCROLL_FLAG_SNAP_MARGINS))
+          {
             // Update snap destinations to include margins
             snapTop += lp.topMargin;
             snapBottom -= lp.bottomMargin;
@@ -1486,10 +1696,6 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       }
     }
 
-    private static boolean checkFlag(final int flags, final int check) {
-      return (flags & check) == check;
-    }
-
     @Override
     public boolean onMeasureChild(
         @NonNull CoordinatorLayout parent,
@@ -1497,10 +1703,12 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         int parentWidthMeasureSpec,
         int widthUsed,
         int parentHeightMeasureSpec,
-        int heightUsed) {
+        int heightUsed)
+    {
       final CoordinatorLayout.LayoutParams lp =
           (CoordinatorLayout.LayoutParams) child.getLayoutParams();
-      if (lp.height == CoordinatorLayout.LayoutParams.WRAP_CONTENT) {
+      if (lp.height == CoordinatorLayout.LayoutParams.WRAP_CONTENT)
+      {
         // If the view is set to wrap on it's height, CoordinatorLayout by default will
         // cap the view at the CoL's height. Since the AppBarLayout can scroll, this isn't
         // what we actually want, so we measure it ourselves with an unspecified spec to
@@ -1521,7 +1729,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
     @Override
     public boolean onLayoutChild(
-        @NonNull CoordinatorLayout parent, @NonNull T abl, int layoutDirection) {
+        @NonNull CoordinatorLayout parent, @NonNull T abl, int layoutDirection)
+    {
       boolean handled = super.onLayoutChild(parent, abl, layoutDirection);
 
       // The priority for actions here is (first which is true wins):
@@ -1529,28 +1738,38 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       // 2. offsets for restorations
       // 3. non-forced pending actions
       final int pendingAction = abl.getPendingAction();
-      if (offsetToChildIndexOnLayout >= 0 && (pendingAction & PENDING_ACTION_FORCE) == 0) {
+      if (offsetToChildIndexOnLayout >= 0 && (pendingAction & PENDING_ACTION_FORCE) == 0)
+      {
         View child = abl.getChildAt(offsetToChildIndexOnLayout);
         int offset = -child.getBottom();
-        if (offsetToChildIndexOnLayoutIsMinHeight) {
+        if (offsetToChildIndexOnLayoutIsMinHeight)
+        {
           offset += ViewCompat.getMinimumHeight(child) + abl.getTopInset();
-        } else {
+        } else
+        {
           offset += Math.round(child.getHeight() * offsetToChildIndexOnLayoutPerc);
         }
         setHeaderTopBottomOffset(parent, abl, offset);
-      } else if (pendingAction != PENDING_ACTION_NONE) {
+      } else if (pendingAction != PENDING_ACTION_NONE)
+      {
         final boolean animate = (pendingAction & PENDING_ACTION_ANIMATE_ENABLED) != 0;
-        if ((pendingAction & PENDING_ACTION_COLLAPSED) != 0) {
+        if ((pendingAction & PENDING_ACTION_COLLAPSED) != 0)
+        {
           final int offset = -abl.getUpNestedPreScrollRange();
-          if (animate) {
+          if (animate)
+          {
             animateOffsetTo(parent, abl, offset, 0);
-          } else {
+          } else
+          {
             setHeaderTopBottomOffset(parent, abl, offset);
           }
-        } else if ((pendingAction & PENDING_ACTION_EXPANDED) != 0) {
-          if (animate) {
+        } else if ((pendingAction & PENDING_ACTION_EXPANDED) != 0)
+        {
+          if (animate)
+          {
             animateOffsetTo(parent, abl, 0, 0);
-          } else {
+          } else
+          {
             setHeaderTopBottomOffset(parent, abl, 0);
           }
         }
@@ -1579,20 +1798,23 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     private void updateAccessibilityActions(
-        CoordinatorLayout coordinatorLayout, @NonNull T appBarLayout) {
+        CoordinatorLayout coordinatorLayout, @NonNull T appBarLayout)
+    {
       ViewCompat.removeAccessibilityAction(coordinatorLayout, ACTION_SCROLL_FORWARD.getId());
       ViewCompat.removeAccessibilityAction(coordinatorLayout, ACTION_SCROLL_BACKWARD.getId());
       View scrollingView = findFirstScrollingChild(coordinatorLayout);
       // Don't add a11y actions if there is no scrolling view that the abl depends on for scrolling
       // or the abl has no scroll range.
-      if (scrollingView == null || appBarLayout.getTotalScrollRange() == 0) {
+      if (scrollingView == null || appBarLayout.getTotalScrollRange() == 0)
+      {
         return;
       }
       // Don't add actions if the scrolling view doesn't have the behavior that will cause the abl
       // to scroll.
       CoordinatorLayout.LayoutParams lp =
           (CoordinatorLayout.LayoutParams) scrollingView.getLayoutParams();
-      if (!(lp.getBehavior() instanceof ScrollingViewBehavior)) {
+      if (!(lp.getBehavior() instanceof ScrollingViewBehavior))
+      {
         return;
       }
       addAccessibilityScrollActions(coordinatorLayout, appBarLayout, scrollingView);
@@ -1601,42 +1823,50 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     private void addAccessibilityScrollActions(
         final CoordinatorLayout coordinatorLayout,
         @NonNull final T appBarLayout,
-        @NonNull final View scrollingView) {
+        @NonNull final View scrollingView)
+    {
       if (getTopBottomOffsetForScrollingSibling() != -appBarLayout.getTotalScrollRange()
-          && scrollingView.canScrollVertically(1)) {
+          && scrollingView.canScrollVertically(1))
+      {
         // Add a collapsing action if the view can scroll up and the offset isn't the abl scroll
         // range. (This offset means the view is completely collapsed). Collapse to minimum height.
         addActionToExpand(coordinatorLayout, appBarLayout, ACTION_SCROLL_FORWARD, false);
       }
       // Don't add an expanding action if the sibling offset is 0, which would mean the abl is
       // completely expanded.
-      if (getTopBottomOffsetForScrollingSibling() != 0) {
-        if (scrollingView.canScrollVertically(-1)) {
+      if (getTopBottomOffsetForScrollingSibling() != 0)
+      {
+        if (scrollingView.canScrollVertically(-1))
+        {
           // Expanding action. If the view can scroll down, expand the app bar reflecting the logic
           // in onNestedPreScroll.
           final int dy = -appBarLayout.getDownNestedPreScrollRange();
           // Offset by non-zero.
-          if (dy != 0) {
+          if (dy != 0)
+          {
             ViewCompat.replaceAccessibilityAction(
                 coordinatorLayout,
                 ACTION_SCROLL_BACKWARD,
                 null,
-                new AccessibilityViewCommand() {
+                new AccessibilityViewCommand()
+                {
                   @Override
-                  public boolean perform(@NonNull View view, @Nullable CommandArguments arguments) {
+                  public boolean perform(@NonNull View view, @Nullable CommandArguments arguments)
+                  {
                     onNestedPreScroll(
                         coordinatorLayout,
                         appBarLayout,
                         scrollingView,
                         0,
                         dy,
-                        new int[] {0, 0},
+                        new int[]{0, 0},
                         ViewCompat.TYPE_NON_TOUCH);
                     return true;
                   }
                 });
           }
-        } else {
+        } else
+        {
           // If the view can't scroll down, we are probably at the top of the scrolling content so
           // expand completely.
           addActionToExpand(coordinatorLayout, appBarLayout, ACTION_SCROLL_BACKWARD, true);
@@ -1648,14 +1878,17 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         CoordinatorLayout parent,
         @NonNull final T appBarLayout,
         @NonNull AccessibilityActionCompat action,
-        final boolean expand) {
+        final boolean expand)
+    {
       ViewCompat.replaceAccessibilityAction(
           parent,
           action,
           null,
-          new AccessibilityViewCommand() {
+          new AccessibilityViewCommand()
+          {
             @Override
-            public boolean perform(@NonNull View view, @Nullable CommandArguments arguments) {
+            public boolean perform(@NonNull View view, @Nullable CommandArguments arguments)
+            {
               appBarLayout.setExpanded(expand);
               return true;
             }
@@ -1663,41 +1896,49 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     @Override
-    boolean canDragView(T view) {
-      if (onDragCallback != null) {
+    boolean canDragView(T view)
+    {
+      if (onDragCallback != null)
+      {
         // If there is a drag callback set, it's in control
         return onDragCallback.canDrag(view);
       }
 
       // Else we'll use the default behaviour of seeing if it can scroll down
-      if (lastNestedScrollingChildRef != null) {
+      if (lastNestedScrollingChildRef != null)
+      {
         // If we have a reference to a scrolling view, check it
         final View scrollingView = lastNestedScrollingChildRef.get();
         return scrollingView != null
             && scrollingView.isShown()
             && !scrollingView.canScrollVertically(-1);
-      } else {
+      } else
+      {
         // Otherwise we assume that the scrolling view hasn't been scrolled and can drag.
         return true;
       }
     }
 
     @Override
-    void onFlingFinished(@NonNull CoordinatorLayout parent, @NonNull T layout) {
+    void onFlingFinished(@NonNull CoordinatorLayout parent, @NonNull T layout)
+    {
       // At the end of a manual fling, check to see if we need to snap to the edge-child
       snapToChildIfNeeded(parent, layout);
-      if (layout.isLiftOnScroll()) {
+      if (layout.isLiftOnScroll())
+      {
         layout.setLiftedState(layout.shouldLift(findFirstScrollingChild(parent)));
       }
     }
 
     @Override
-    int getMaxDragOffset(@NonNull T view) {
+    int getMaxDragOffset(@NonNull T view)
+    {
       return -view.getDownNestedScrollRange();
     }
 
     @Override
-    int getScrollRangeForDragFling(@NonNull T view) {
+    int getScrollRangeForDragFling(@NonNull T view)
+    {
       return view.getTotalScrollRange();
     }
 
@@ -1707,15 +1948,18 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         @NonNull T appBarLayout,
         int newOffset,
         int minOffset,
-        int maxOffset) {
+        int maxOffset)
+    {
       final int curOffset = getTopBottomOffsetForScrollingSibling();
       int consumed = 0;
 
-      if (minOffset != 0 && curOffset >= minOffset && curOffset <= maxOffset) {
+      if (minOffset != 0 && curOffset >= minOffset && curOffset <= maxOffset)
+      {
         // If we have some scrolling range, and we're currently within the min and max
         // offsets, calculate a new offset
         newOffset = MathUtils.clamp(newOffset, minOffset, maxOffset);
-        if (curOffset != newOffset) {
+        if (curOffset != newOffset)
+        {
           final int interpolatedOffset =
               appBarLayout.hasChildWithInterpolator()
                   ? interpolateOffset(appBarLayout, newOffset)
@@ -1728,7 +1972,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
           // Update the stored sibling offset
           offsetDelta = newOffset - interpolatedOffset;
 
-          if (!offsetChanged && appBarLayout.hasChildWithInterpolator()) {
+          if (!offsetChanged && appBarLayout.hasChildWithInterpolator())
+          {
             // If the offset hasn't changed and we're using an interpolated scroll
             // then we need to keep any dependent views updated. CoL will do this for
             // us when we move, but we need to do it manually when we don't (as an
@@ -1747,7 +1992,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
               newOffset < curOffset ? -1 : 1,
               false /* forceJump */);
         }
-      } else {
+      } else
+      {
         // Reset the offset delta
         offsetDelta = 0;
       }
@@ -1757,44 +2003,53 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     @VisibleForTesting
-    boolean isOffsetAnimatorRunning() {
+    boolean isOffsetAnimatorRunning()
+    {
       return offsetAnimator != null && offsetAnimator.isRunning();
     }
 
-    private int interpolateOffset(@NonNull T layout, final int offset) {
+    private int interpolateOffset(@NonNull T layout, final int offset)
+    {
       final int absOffset = Math.abs(offset);
 
-      for (int i = 0, z = layout.getChildCount(); i < z; i++) {
+      for (int i = 0, z = layout.getChildCount(); i < z; i++)
+      {
         final View child = layout.getChildAt(i);
         final AppBarLayout.LayoutParams childLp = (LayoutParams) child.getLayoutParams();
         final Interpolator interpolator = childLp.getScrollInterpolator();
 
-        if (absOffset >= child.getTop() && absOffset <= child.getBottom()) {
-          if (interpolator != null) {
+        if (absOffset >= child.getTop() && absOffset <= child.getBottom())
+        {
+          if (interpolator != null)
+          {
             int childScrollableHeight = 0;
             final int flags = childLp.getScrollFlags();
-            if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+            if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0)
+            {
               // We're set to scroll so add the child's height plus margin
               childScrollableHeight += child.getHeight() + childLp.topMargin + childLp.bottomMargin;
 
-              if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+              if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0)
+              {
                 // For a collapsing scroll, we to take the collapsed height
                 // into account.
                 childScrollableHeight -= ViewCompat.getMinimumHeight(child);
               }
             }
 
-            if (ViewCompat.getFitsSystemWindows(child)) {
+            if (ViewCompat.getFitsSystemWindows(child))
+            {
               childScrollableHeight -= layout.getTopInset();
             }
 
-            if (childScrollableHeight > 0) {
+            if (childScrollableHeight > 0)
+            {
               final int offsetForView = absOffset - child.getTop();
               final int interpolatedDiff =
                   Math.round(
                       childScrollableHeight
                           * interpolator.getInterpolation(
-                              offsetForView / (float) childScrollableHeight));
+                          offsetForView / (float) childScrollableHeight));
 
               return Integer.signum(offset) * (child.getTop() + interpolatedDiff);
             }
@@ -1814,32 +2069,38 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         @NonNull final T layout,
         final int offset,
         final int direction,
-        final boolean forceJump) {
+        final boolean forceJump)
+    {
       final View child = getAppBarChildOnOffset(layout, offset);
-      if (child != null) {
+      if (child != null)
+      {
         final AppBarLayout.LayoutParams childLp = (LayoutParams) child.getLayoutParams();
         final int flags = childLp.getScrollFlags();
         boolean lifted = false;
 
-        if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+        if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0)
+        {
           final int minHeight = ViewCompat.getMinimumHeight(child);
 
           if (direction > 0
               && (flags
-                      & (LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                          | LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED))
-                  != 0) {
+              & (LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+              | LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED))
+              != 0)
+          {
             // We're set to enter always collapsed so we are only collapsed when
             // being scrolled down, and in a collapsed offset
             lifted = -offset >= child.getBottom() - minHeight - layout.getTopInset();
-          } else if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+          } else if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0)
+          {
             // We're set to exit until collapsed, so any offset which results in
             // the minimum height (or less) being shown is collapsed
             lifted = -offset >= child.getBottom() - minHeight - layout.getTopInset();
           }
         }
 
-        if (layout.isLiftOnScroll()) {
+        if (layout.isLiftOnScroll())
+        {
           // Use first scrolling child as default scrolling view for updating lifted state because
           // it represents the content that would be scrolled beneath the app bar.
           lifted = layout.shouldLift(findFirstScrollingChild(parent));
@@ -1847,7 +2108,8 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
         final boolean changed = layout.setLiftedState(lifted);
 
-        if (forceJump || (changed && shouldJumpElevationState(parent, layout))) {
+        if (forceJump || (changed && shouldJumpElevationState(parent, layout)))
+        {
           // If the collapsed state changed, we may need to
           // jump to the current state if we have an overlapping view
           layout.jumpDrawablesToCurrentState();
@@ -1855,17 +2117,20 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       }
     }
 
-    private boolean shouldJumpElevationState(@NonNull CoordinatorLayout parent, @NonNull T layout) {
+    private boolean shouldJumpElevationState(@NonNull CoordinatorLayout parent, @NonNull T layout)
+    {
       // We should jump the elevated state if we have a dependent scrolling view which has
       // an overlapping top (i.e. overlaps us)
       final List<View> dependencies = parent.getDependents(layout);
-      for (int i = 0, size = dependencies.size(); i < size; i++) {
+      for (int i = 0, size = dependencies.size(); i < size; i++)
+      {
         final View dependency = dependencies.get(i);
         final CoordinatorLayout.LayoutParams lp =
             (CoordinatorLayout.LayoutParams) dependency.getLayoutParams();
         final CoordinatorLayout.Behavior behavior = lp.getBehavior();
 
-        if (behavior instanceof ScrollingViewBehavior) {
+        if (behavior instanceof ScrollingViewBehavior)
+        {
           return ((ScrollingViewBehavior) behavior).getOverlayTop() != 0;
         }
       }
@@ -1873,25 +2138,15 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     @Nullable
-    private static View getAppBarChildOnOffset(
-        @NonNull final AppBarLayout layout, final int offset) {
-      final int absOffset = Math.abs(offset);
-      for (int i = 0, z = layout.getChildCount(); i < z; i++) {
-        final View child = layout.getChildAt(i);
-        if (absOffset >= child.getTop() && absOffset <= child.getBottom()) {
-          return child;
-        }
-      }
-      return null;
-    }
-
-    @Nullable
-    private View findFirstScrollingChild(@NonNull CoordinatorLayout parent) {
-      for (int i = 0, z = parent.getChildCount(); i < z; i++) {
+    private View findFirstScrollingChild(@NonNull CoordinatorLayout parent)
+    {
+      for (int i = 0, z = parent.getChildCount(); i < z; i++)
+      {
         final View child = parent.getChildAt(i);
         if (child instanceof NestedScrollingChild
             || child instanceof ListView
-            || child instanceof ScrollView) {
+            || child instanceof ScrollView)
+        {
           return child;
         }
       }
@@ -1899,21 +2154,25 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     @Override
-    int getTopBottomOffsetForScrollingSibling() {
+    int getTopBottomOffsetForScrollingSibling()
+    {
       return getTopAndBottomOffset() + offsetDelta;
     }
 
     @Override
-    public Parcelable onSaveInstanceState(@NonNull CoordinatorLayout parent, @NonNull T abl) {
+    public Parcelable onSaveInstanceState(@NonNull CoordinatorLayout parent, @NonNull T abl)
+    {
       final Parcelable superState = super.onSaveInstanceState(parent, abl);
       final int offset = getTopAndBottomOffset();
 
       // Try and find the first visible child...
-      for (int i = 0, count = abl.getChildCount(); i < count; i++) {
+      for (int i = 0, count = abl.getChildCount(); i < count; i++)
+      {
         View child = abl.getChildAt(i);
         final int visBottom = child.getBottom() + offset;
 
-        if (child.getTop() + offset <= 0 && visBottom >= 0) {
+        if (child.getTop() + offset <= 0 && visBottom >= 0)
+        {
           final SavedState ss = new SavedState(superState);
           ss.firstVisibleChildIndex = i;
           ss.firstVisibleChildAtMinimumHeight =
@@ -1929,64 +2188,93 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
     @Override
     public void onRestoreInstanceState(
-        @NonNull CoordinatorLayout parent, @NonNull T appBarLayout, Parcelable state) {
-      if (state instanceof SavedState) {
+        @NonNull CoordinatorLayout parent, @NonNull T appBarLayout, Parcelable state)
+    {
+      if (state instanceof SavedState)
+      {
         final SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(parent, appBarLayout, ss.getSuperState());
         offsetToChildIndexOnLayout = ss.firstVisibleChildIndex;
         offsetToChildIndexOnLayoutPerc = ss.firstVisibleChildPercentageShown;
         offsetToChildIndexOnLayoutIsMinHeight = ss.firstVisibleChildAtMinimumHeight;
-      } else {
+      } else
+      {
         super.onRestoreInstanceState(parent, appBarLayout, state);
         offsetToChildIndexOnLayout = INVALID_POSITION;
       }
     }
 
-    /** A {@link Parcelable} implementation for {@link AppBarLayout}. */
-    protected static class SavedState extends AbsSavedState {
+    /**
+     * Callback to allow control over any {@link AppBarLayout} dragging.
+     */
+    // TODO(b/76413401): remove this base class and generic type after the widget migration
+    public abstract static class BaseDragCallback<T extends AppBarLayout>
+    {
+      /**
+       * Allows control over whether the given {@link AppBarLayout} can be dragged or not.
+       *
+       * <p>Dragging is defined as a direct touch on the AppBarLayout with movement. This call does
+       * not affect any nested scrolling.
+       *
+       * @return true if we are in a position to scroll the AppBarLayout via a drag, false if not.
+       */
+      public abstract boolean canDrag(@NonNull T appBarLayout);
+    }
+
+    /**
+     * A {@link Parcelable} implementation for {@link AppBarLayout}.
+     */
+    protected static class SavedState extends AbsSavedState
+    {
+      public static final Creator<SavedState> CREATOR =
+          new ClassLoaderCreator<SavedState>()
+          {
+            @NonNull
+            @Override
+            public SavedState createFromParcel(@NonNull Parcel source, ClassLoader loader)
+            {
+              return new SavedState(source, loader);
+            }
+
+            @Nullable
+            @Override
+            public SavedState createFromParcel(@NonNull Parcel source)
+            {
+              return new SavedState(source, null);
+            }
+
+            @NonNull
+            @Override
+            public SavedState[] newArray(int size)
+            {
+              return new SavedState[size];
+            }
+          };
       int firstVisibleChildIndex;
       float firstVisibleChildPercentageShown;
       boolean firstVisibleChildAtMinimumHeight;
 
-      public SavedState(@NonNull Parcel source, ClassLoader loader) {
+      public SavedState(@NonNull Parcel source, ClassLoader loader)
+      {
         super(source, loader);
         firstVisibleChildIndex = source.readInt();
         firstVisibleChildPercentageShown = source.readFloat();
         firstVisibleChildAtMinimumHeight = source.readByte() != 0;
       }
 
-      public SavedState(Parcelable superState) {
+      public SavedState(Parcelable superState)
+      {
         super(superState);
       }
 
       @Override
-      public void writeToParcel(@NonNull Parcel dest, int flags) {
+      public void writeToParcel(@NonNull Parcel dest, int flags)
+      {
         super.writeToParcel(dest, flags);
         dest.writeInt(firstVisibleChildIndex);
         dest.writeFloat(firstVisibleChildPercentageShown);
         dest.writeByte((byte) (firstVisibleChildAtMinimumHeight ? 1 : 0));
       }
-
-      public static final Creator<SavedState> CREATOR =
-          new ClassLoaderCreator<SavedState>() {
-            @NonNull
-            @Override
-            public SavedState createFromParcel(@NonNull Parcel source, ClassLoader loader) {
-              return new SavedState(source, loader);
-            }
-
-            @Nullable
-            @Override
-            public SavedState createFromParcel(@NonNull Parcel source) {
-              return new SavedState(source, null);
-            }
-
-            @NonNull
-            @Override
-            public SavedState[] newArray(int size) {
-              return new SavedState[size];
-            }
-          };
     }
   }
 
@@ -1994,11 +2282,15 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
    * Behavior which should be used by {@link View}s which can scroll vertically and support nested
    * scrolling to automatically scroll any {@link AppBarLayout} siblings.
    */
-  public static class ScrollingViewBehavior extends HeaderScrollingViewBehavior {
+  public static class ScrollingViewBehavior extends HeaderScrollingViewBehavior
+  {
 
-    public ScrollingViewBehavior() {}
+    public ScrollingViewBehavior()
+    {
+    }
 
-    public ScrollingViewBehavior(Context context, AttributeSet attrs) {
+    public ScrollingViewBehavior(Context context, AttributeSet attrs)
+    {
       super(context, attrs);
 
       final TypedArray a =
@@ -2008,15 +2300,28 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       a.recycle();
     }
 
+    private static int getAppBarLayoutOffset(@NonNull AppBarLayout abl)
+    {
+      final CoordinatorLayout.Behavior behavior =
+          ((CoordinatorLayout.LayoutParams) abl.getLayoutParams()).getBehavior();
+      if (behavior instanceof BaseBehavior)
+      {
+        return ((BaseBehavior) behavior).getTopBottomOffsetForScrollingSibling();
+      }
+      return 0;
+    }
+
     @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
+    public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency)
+    {
       // We depend on any AppBarLayouts
       return dependency instanceof AppBarLayout;
     }
 
     @Override
     public boolean onDependentViewChanged(
-        @NonNull CoordinatorLayout parent, @NonNull View child, @NonNull View dependency) {
+        @NonNull CoordinatorLayout parent, @NonNull View child, @NonNull View dependency)
+    {
       offsetChildAsNeeded(child, dependency);
       updateLiftedStateIfNeeded(child, dependency);
       return false;
@@ -2024,8 +2329,10 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
 
     @Override
     public void onDependentViewRemoved(
-        @NonNull CoordinatorLayout parent, @NonNull View child, @NonNull View dependency) {
-      if (dependency instanceof AppBarLayout) {
+        @NonNull CoordinatorLayout parent, @NonNull View child, @NonNull View dependency)
+    {
+      if (dependency instanceof AppBarLayout)
+      {
         ViewCompat.removeAccessibilityAction(parent, ACTION_SCROLL_FORWARD.getId());
         ViewCompat.removeAccessibilityAction(parent, ACTION_SCROLL_BACKWARD.getId());
       }
@@ -2036,16 +2343,19 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         @NonNull CoordinatorLayout parent,
         @NonNull View child,
         @NonNull Rect rectangle,
-        boolean immediate) {
+        boolean immediate)
+    {
       final AppBarLayout header = findFirstDependency(parent.getDependencies(child));
-      if (header != null) {
+      if (header != null)
+      {
         // Offset the rect by the child's left/top
         rectangle.offset(child.getLeft(), child.getTop());
 
         final Rect parentRect = tempRect1;
         parentRect.set(0, 0, parent.getWidth(), parent.getHeight());
 
-        if (!parentRect.contains(rectangle)) {
+        if (!parentRect.contains(rectangle))
+        {
           // If the rectangle can not be fully seen the visible bounds, collapse
           // the AppBarLayout
           header.setExpanded(false, !immediate);
@@ -2055,10 +2365,12 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       return false;
     }
 
-    private void offsetChildAsNeeded(@NonNull View child, @NonNull View dependency) {
+    private void offsetChildAsNeeded(@NonNull View child, @NonNull View dependency)
+    {
       final CoordinatorLayout.Behavior behavior =
           ((CoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior();
-      if (behavior instanceof BaseBehavior) {
+      if (behavior instanceof BaseBehavior)
+      {
         // Offset the child, pinning it to the bottom the header-dependency, maintaining
         // any vertical gap and overlap
         final BaseBehavior ablBehavior = (BaseBehavior) behavior;
@@ -2072,19 +2384,24 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     @Override
-    float getOverlapRatioForOffset(final View header) {
-      if (header instanceof AppBarLayout) {
+    float getOverlapRatioForOffset(final View header)
+    {
+      if (header instanceof AppBarLayout)
+      {
         final AppBarLayout abl = (AppBarLayout) header;
         final int totalScrollRange = abl.getTotalScrollRange();
         final int preScrollDown = abl.getDownNestedPreScrollRange();
         final int offset = getAppBarLayoutOffset(abl);
 
-        if (preScrollDown != 0 && (totalScrollRange + offset) <= preScrollDown) {
+        if (preScrollDown != 0 && (totalScrollRange + offset) <= preScrollDown)
+        {
           // If we're in a pre-scroll down. Don't use the offset at all.
           return 0;
-        } else {
+        } else
+        {
           final int availScrollRange = totalScrollRange - preScrollDown;
-          if (availScrollRange != 0) {
+          if (availScrollRange != 0)
+          {
             // Else we'll use a interpolated ratio of the overlap, depending on offset
             return 1f + (offset / (float) availScrollRange);
           }
@@ -2093,21 +2410,15 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
       return 0f;
     }
 
-    private static int getAppBarLayoutOffset(@NonNull AppBarLayout abl) {
-      final CoordinatorLayout.Behavior behavior =
-          ((CoordinatorLayout.LayoutParams) abl.getLayoutParams()).getBehavior();
-      if (behavior instanceof BaseBehavior) {
-        return ((BaseBehavior) behavior).getTopBottomOffsetForScrollingSibling();
-      }
-      return 0;
-    }
-
     @Nullable
     @Override
-    AppBarLayout findFirstDependency(@NonNull List<View> views) {
-      for (int i = 0, z = views.size(); i < z; i++) {
+    AppBarLayout findFirstDependency(@NonNull List<View> views)
+    {
+      for (int i = 0, z = views.size(); i < z; i++)
+      {
         View view = views.get(i);
-        if (view instanceof AppBarLayout) {
+        if (view instanceof AppBarLayout)
+        {
           return (AppBarLayout) view;
         }
       }
@@ -2115,18 +2426,24 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     }
 
     @Override
-    int getScrollRange(View v) {
-      if (v instanceof AppBarLayout) {
+    int getScrollRange(View v)
+    {
+      if (v instanceof AppBarLayout)
+      {
         return ((AppBarLayout) v).getTotalScrollRange();
-      } else {
+      } else
+      {
         return super.getScrollRange(v);
       }
     }
 
-    private void updateLiftedStateIfNeeded(View child, View dependency) {
-      if (dependency instanceof AppBarLayout) {
+    private void updateLiftedStateIfNeeded(View child, View dependency)
+    {
+      if (dependency instanceof AppBarLayout)
+      {
         AppBarLayout appBarLayout = (AppBarLayout) dependency;
-        if (appBarLayout.isLiftOnScroll()) {
+        if (appBarLayout.isLiftOnScroll())
+        {
           appBarLayout.setLiftedState(appBarLayout.shouldLift(child));
         }
       }

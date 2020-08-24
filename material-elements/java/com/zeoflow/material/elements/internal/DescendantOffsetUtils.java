@@ -16,16 +16,17 @@
 
 package com.zeoflow.material.elements.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Utility class for descendant {@link Rect} calculations.
@@ -33,7 +34,8 @@ import android.view.ViewParent;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class DescendantOffsetUtils {
+public class DescendantOffsetUtils
+{
   private static final ThreadLocal<Matrix> matrix = new ThreadLocal<>();
   private static final ThreadLocal<RectF> rectF = new ThreadLocal<>();
 
@@ -43,22 +45,26 @@ public class DescendantOffsetUtils {
    * bounding rect of the real transformed rect.
    *
    * @param descendant view defining the original coordinate system of rect
-   * @param rect (in/out) the rect to offset from descendant to this view's coordinate system
+   * @param rect       (in/out) the rect to offset from descendant to this view's coordinate system
    */
   public static void offsetDescendantRect(
-      @NonNull ViewGroup parent, @NonNull View descendant, @NonNull Rect rect) {
+      @NonNull ViewGroup parent, @NonNull View descendant, @NonNull Rect rect)
+  {
     Matrix m = matrix.get();
-    if (m == null) {
+    if (m == null)
+    {
       m = new Matrix();
       matrix.set(m);
-    } else {
+    } else
+    {
       m.reset();
     }
 
     offsetDescendantMatrix(parent, descendant, m);
 
     RectF rectF = DescendantOffsetUtils.rectF.get();
-    if (rectF == null) {
+    if (rectF == null)
+    {
       rectF = new RectF();
       DescendantOffsetUtils.rectF.set(rectF);
     }
@@ -76,18 +82,21 @@ public class DescendantOffsetUtils {
    * be a direct child.
    *
    * @param descendant descendant view to reference
-   * @param out rect to set to the bounds of the descendant view
+   * @param out        rect to set to the bounds of the descendant view
    */
   public static void getDescendantRect(
-      @NonNull ViewGroup parent, @NonNull View descendant, @NonNull Rect out) {
+      @NonNull ViewGroup parent, @NonNull View descendant, @NonNull Rect out)
+  {
     out.set(0, 0, descendant.getWidth(), descendant.getHeight());
     offsetDescendantRect(parent, descendant, out);
   }
 
   private static void offsetDescendantMatrix(
-      ViewParent target, @NonNull View view, @NonNull Matrix m) {
+      ViewParent target, @NonNull View view, @NonNull Matrix m)
+  {
     final ViewParent parent = view.getParent();
-    if (parent instanceof View && parent != target) {
+    if (parent instanceof View && parent != target)
+    {
       final View vp = (View) parent;
       offsetDescendantMatrix(target, vp, m);
       m.preTranslate(-vp.getScrollX(), -vp.getScrollY());
@@ -95,7 +104,8 @@ public class DescendantOffsetUtils {
 
     m.preTranslate(view.getLeft(), view.getTop());
 
-    if (!view.getMatrix().isIdentity()) {
+    if (!view.getMatrix().isIdentity())
+    {
       m.preConcat(view.getMatrix());
     }
   }

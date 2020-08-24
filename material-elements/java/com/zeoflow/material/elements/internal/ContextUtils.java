@@ -16,13 +16,14 @@
 
 package com.zeoflow.material.elements.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Utils class for {@link Context}.
@@ -30,16 +31,20 @@ import androidx.annotation.RestrictTo;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class ContextUtils {
+public class ContextUtils
+{
 
   /**
    * Returns the {@link Activity} given a {@link Context} or null if there is no {@link Activity},
    * taking into account the potential hierarchy of {@link ContextWrapper ContextWrappers}.
    */
   @Nullable
-  public static Activity getActivity(Context context) {
-    while (context instanceof ContextWrapper) {
-      if (context instanceof Activity) {
+  public static Activity getActivity(Context context)
+  {
+    while (context instanceof ContextWrapper)
+    {
+      if (context instanceof Activity)
+      {
         return (Activity) context;
       }
       context = ((ContextWrapper) context).getBaseContext();

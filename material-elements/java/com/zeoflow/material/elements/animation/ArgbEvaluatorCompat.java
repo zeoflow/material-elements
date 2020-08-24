@@ -16,6 +16,7 @@
 package com.zeoflow.material.elements.animation;
 
 import android.animation.TypeEvaluator;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -25,7 +26,8 @@ import androidx.annotation.NonNull;
  * <p>This compat version is copied from {@link android.animation.ArgbEvaluator} with critical bug
  * fixes for older versions of Android.
  */
-public class ArgbEvaluatorCompat implements TypeEvaluator<Integer> {
+public class ArgbEvaluatorCompat implements TypeEvaluator<Integer>
+{
   private static final ArgbEvaluatorCompat instance = new ArgbEvaluatorCompat();
 
   /**
@@ -36,7 +38,8 @@ public class ArgbEvaluatorCompat implements TypeEvaluator<Integer> {
    * @return An instance of <code>ArgbEvalutor</code>.
    */
   @NonNull
-  public static ArgbEvaluatorCompat getInstance() {
+  public static ArgbEvaluatorCompat getInstance()
+  {
     return instance;
   }
 
@@ -45,16 +48,17 @@ public class ArgbEvaluatorCompat implements TypeEvaluator<Integer> {
    * the start and end values in the four bytes of the 32-bit int. Each channel is separately
    * linearly interpolated and the resulting calculated values are recombined into the return value.
    *
-   * @param fraction The fraction from the starting to the ending values
+   * @param fraction   The fraction from the starting to the ending values
    * @param startValue A 32-bit int value representing colors in the separate bytes of the parameter
-   * @param endValue A 32-bit int value representing colors in the separate bytes of the parameter
+   * @param endValue   A 32-bit int value representing colors in the separate bytes of the parameter
    * @return A value that is calculated to be the linearly interpolated result, derived by
-   *     separating the start and end values into separate color channels and interpolating each one
-   *     separately, recombining the resulting values in the same way.
+   * separating the start and end values into separate color channels and interpolating each one
+   * separately, recombining the resulting values in the same way.
    */
   @NonNull
   @Override
-  public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
+  public Integer evaluate(float fraction, Integer startValue, Integer endValue)
+  {
     int startInt = startValue;
     float startA = ((startInt >> 24) & 0xff) / 255.0f;
     float startR = ((startInt >> 16) & 0xff) / 255.0f;

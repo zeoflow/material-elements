@@ -26,7 +26,8 @@ import com.zeoflow.material.elements.floatingactionbutton.FloatingActionButton;
  * {@link BottomAppBar} reacting to the {@link
  * FloatingActionButton}.
  */
-public interface TransformationCallback<T extends View> {
+public interface TransformationCallback<T extends View>
+{
   /**
    * Called when the view has been translated.
    *

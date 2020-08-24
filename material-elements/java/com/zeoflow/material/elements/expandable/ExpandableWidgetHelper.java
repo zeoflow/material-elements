@@ -18,10 +18,11 @@ package com.zeoflow.material.elements.expandable;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewParent;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 /**
@@ -29,21 +30,31 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
  * ExpandableTransformationWidget}. Please see the interface documentation when implementing your
  * custom class.
  */
-public final class ExpandableWidgetHelper {
+public final class ExpandableWidgetHelper
+{
 
-  @NonNull private final View widget;
+  @NonNull
+  private final View widget;
 
   private boolean expanded = false;
-  @IdRes private int expandedComponentIdHint = 0;
+  @IdRes
+  private int expandedComponentIdHint = 0;
 
-  /** Call this from the constructor. */
-  public ExpandableWidgetHelper(ExpandableWidget widget) {
+  /**
+   * Call this from the constructor.
+   */
+  public ExpandableWidgetHelper(ExpandableWidget widget)
+  {
     this.widget = (View) widget;
   }
 
-  /** Call this from {@link ExpandableWidget#setExpanded(boolean)}. */
-  public boolean setExpanded(boolean expanded) {
-    if (this.expanded != expanded) {
+  /**
+   * Call this from {@link ExpandableWidget#setExpanded(boolean)}.
+   */
+  public boolean setExpanded(boolean expanded)
+  {
+    if (this.expanded != expanded)
+    {
       this.expanded = expanded;
       dispatchExpandedStateChanged();
       return true;
@@ -51,14 +62,20 @@ public final class ExpandableWidgetHelper {
     return false;
   }
 
-  /** Call this from {@link ExpandableWidget#isExpanded()}. */
-  public boolean isExpanded() {
+  /**
+   * Call this from {@link ExpandableWidget#isExpanded()}.
+   */
+  public boolean isExpanded()
+  {
     return expanded;
   }
 
-  /** Call this from {@link View#onSaveInstanceState()}. */
+  /**
+   * Call this from {@link View#onSaveInstanceState()}.
+   */
   @NonNull
-  public Bundle onSaveInstanceState() {
+  public Bundle onSaveInstanceState()
+  {
     Bundle state = new Bundle();
     state.putBoolean("expanded", expanded);
     state.putInt("expandedComponentIdHint", expandedComponentIdHint);
@@ -66,30 +83,42 @@ public final class ExpandableWidgetHelper {
     return state;
   }
 
-  /** Call this from {@link View#onRestoreInstanceState(Parcelable)}. */
-  public void onRestoreInstanceState(@NonNull Bundle state) {
+  /**
+   * Call this from {@link View#onRestoreInstanceState(Parcelable)}.
+   */
+  public void onRestoreInstanceState(@NonNull Bundle state)
+  {
     expanded = state.getBoolean("expanded", false);
     expandedComponentIdHint = state.getInt("expandedComponentIdHint", 0);
 
-    if (expanded) {
+    if (expanded)
+    {
       dispatchExpandedStateChanged();
     }
   }
 
-  /** Call this from {@link ExpandableTransformationWidget#setExpandedComponentIdHint(int)}. */
-  public void setExpandedComponentIdHint(@IdRes int expandedComponentIdHint) {
-    this.expandedComponentIdHint = expandedComponentIdHint;
-  }
-
-  /** Call this from {@link ExpandableTransformationWidget#getExpandedComponentIdHint()}. */
+  /**
+   * Call this from {@link ExpandableTransformationWidget#getExpandedComponentIdHint()}.
+   */
   @IdRes
-  public int getExpandedComponentIdHint() {
+  public int getExpandedComponentIdHint()
+  {
     return expandedComponentIdHint;
   }
 
-  private void dispatchExpandedStateChanged() {
+  /**
+   * Call this from {@link ExpandableTransformationWidget#setExpandedComponentIdHint(int)}.
+   */
+  public void setExpandedComponentIdHint(@IdRes int expandedComponentIdHint)
+  {
+    this.expandedComponentIdHint = expandedComponentIdHint;
+  }
+
+  private void dispatchExpandedStateChanged()
+  {
     ViewParent parent = widget.getParent();
-    if (parent instanceof CoordinatorLayout) {
+    if (parent instanceof CoordinatorLayout)
+    {
       ((CoordinatorLayout) parent).dispatchDependentViewsChanged(widget);
     }
   }

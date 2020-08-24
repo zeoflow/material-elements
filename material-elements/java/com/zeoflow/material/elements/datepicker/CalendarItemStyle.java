@@ -15,8 +15,6 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -26,11 +24,14 @@ import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.core.util.Preconditions;
 import androidx.core.view.ViewCompat;
-import android.widget.TextView;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
@@ -39,7 +40,8 @@ import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
  * Loads and applies {@link R.styleable#MaterialCalendarDay} attributes to {@link TextView}
  * instances.
  */
-final class CalendarItemStyle {
+final class CalendarItemStyle
+{
 
   /**
    * The inset between the TextView horizontal edge - bounding the touch target for an item - and
@@ -49,7 +51,8 @@ final class CalendarItemStyle {
    * R.styleable.MaterialCalendarItem#itemShapeAppearance} and {@link
    * R.styleable.MaterialCalendarItem#itemShapeAppearanceOverlay}.
    */
-  @NonNull private final Rect insets;
+  @NonNull
+  private final Rect insets;
 
   private final ColorStateList textColor;
   private final ColorStateList backgroundColor;
@@ -63,7 +66,8 @@ final class CalendarItemStyle {
       ColorStateList strokeColor,
       int strokeWidth,
       ShapeAppearanceModel itemShape,
-      @NonNull Rect insets) {
+      @NonNull Rect insets)
+  {
     Preconditions.checkArgumentNonnegative(insets.left);
     Preconditions.checkArgumentNonnegative(insets.top);
     Preconditions.checkArgumentNonnegative(insets.right);
@@ -83,7 +87,8 @@ final class CalendarItemStyle {
    */
   @NonNull
   static CalendarItemStyle create(
-      @NonNull Context context, @StyleRes int materialCalendarItemStyle) {
+      @NonNull Context context, @StyleRes int materialCalendarItemStyle)
+  {
     Preconditions.checkArgument(
         materialCalendarItemStyle != 0, "Cannot create a CalendarItemStyle with a styleResId of 0");
 
@@ -131,8 +136,11 @@ final class CalendarItemStyle {
         backgroundColor, textColor, strokeColor, strokeWidth, itemShape, insets);
   }
 
-  /** Applies the {@link R.styleable#MaterialCalendarDay} style to the provided {@code item} */
-  void styleItem(@NonNull TextView item) {
+  /**
+   * Applies the {@link R.styleable#MaterialCalendarDay} style to the provided {@code item}
+   */
+  void styleItem(@NonNull TextView item)
+  {
     MaterialShapeDrawable backgroundDrawable = new MaterialShapeDrawable();
     MaterialShapeDrawable shapeMask = new MaterialShapeDrawable();
     backgroundDrawable.setShapeAppearanceModel(itemShape);
@@ -141,28 +149,34 @@ final class CalendarItemStyle {
     backgroundDrawable.setStroke(strokeWidth, strokeColor);
     item.setTextColor(textColor);
     Drawable d;
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       d = new RippleDrawable(textColor.withAlpha(30), backgroundDrawable, shapeMask);
-    } else {
+    } else
+    {
       d = backgroundDrawable;
     }
     ViewCompat.setBackground(
         item, new InsetDrawable(d, insets.left, insets.top, insets.right, insets.bottom));
   }
 
-  int getLeftInset() {
+  int getLeftInset()
+  {
     return insets.left;
   }
 
-  int getRightInset() {
+  int getRightInset()
+  {
     return insets.right;
   }
 
-  int getTopInset() {
+  int getTopInset()
+  {
     return insets.top;
   }
 
-  int getBottomInset() {
+  int getBottomInset()
+  {
     return insets.bottom;
   }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -188,7 +187,7 @@
     <item name="android:paddingBottom">8dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.TextInputEditText.OutlinedBox" parent="Base.Widget.MaterialComponents.TextInputEditText"/>
+  <style name="Widget.MaterialComponents.TextInputEditText.OutlinedBox" parent="Base.Widget.MaterialComponents.TextInputEditText" />
 
   <style name="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
     <item name="android:paddingTop">13dp</item>
@@ -207,8 +206,12 @@
     <item name="android:paddingTop">16dp</item>
     <item name="android:paddingBottom">16dp</item>
     <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
-    <item name="android:dropDownVerticalOffset">@dimen/mtrl_exposed_dropdown_menu_popup_vertical_offset</item>
-    <item name="android:popupElevation" tools:ignore="NewApi">@dimen/mtrl_exposed_dropdown_menu_popup_elevation</item>
+    <item name="android:dropDownVerticalOffset">
+      @dimen/mtrl_exposed_dropdown_menu_popup_vertical_offset
+    </item>
+    <item name="android:popupElevation" tools:ignore="NewApi">
+      @dimen/mtrl_exposed_dropdown_menu_popup_elevation
+    </item>
   </style>
 
   <!-- Styles for the AutocompleteTextView to be used if an ExposedDropdownMenu style is being used. -->
@@ -222,7 +225,7 @@
     <item name="android:paddingBottom">8dp</item>
   </style>
 
-  <style name="Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox" parent="Base.Widget.MaterialComponents.AutoCompleteTextView"/>
+  <style name="Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox" parent="Base.Widget.MaterialComponents.AutoCompleteTextView" />
 
   <style name="Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense">
     <item name="android:paddingTop">13dp</item>
@@ -231,7 +234,7 @@
 
   <!-- Set of ThemeOverlays to be used internally in the TextInputLayout styles to automatically
        apply the correct TextInputEditText style to the TextInputEditText. -->
-  <style name="ThemeOverlay.Design.TextInputEditText" parent=""/>
+  <style name="ThemeOverlay.Design.TextInputEditText" parent="" />
 
   <style name="ThemeOverlay.MaterialComponents.TextInputEditText" parent="ThemeOverlay.Design.TextInputEditText">
     <item name="colorControlActivated">?attr/colorPrimary</item>
@@ -288,23 +291,23 @@
   </style>
 
   <!-- Text appearance styles. -->
-  <style name="TextAppearance.Design.HelperText" parent="TextAppearance.AppCompat.Caption"/>
+  <style name="TextAppearance.Design.HelperText" parent="TextAppearance.AppCompat.Caption" />
 
   <style name="TextAppearance.Design.Hint" parent="TextAppearance.AppCompat.Caption">
     <item name="android:textColor">?attr/colorControlActivated</item>
   </style>
 
-  <style name="TextAppearance.Design.Placeholder" parent="TextAppearance.AppCompat.Body1"/>
+  <style name="TextAppearance.Design.Placeholder" parent="TextAppearance.AppCompat.Body1" />
 
-  <style name="TextAppearance.Design.Prefix" parent="TextAppearance.AppCompat.Body1"/>
+  <style name="TextAppearance.Design.Prefix" parent="TextAppearance.AppCompat.Body1" />
 
-  <style name="TextAppearance.Design.Suffix" parent="TextAppearance.AppCompat.Body1"/>
+  <style name="TextAppearance.Design.Suffix" parent="TextAppearance.AppCompat.Body1" />
 
   <style name="TextAppearance.Design.Error" parent="TextAppearance.AppCompat.Caption">
     <item name="android:textColor">@color/design_error</item>
   </style>
 
-  <style name="TextAppearance.Design.Counter" parent="TextAppearance.AppCompat.Caption"/>
+  <style name="TextAppearance.Design.Counter" parent="TextAppearance.AppCompat.Caption" />
 
   <style name="TextAppearance.Design.Counter.Overflow" parent="TextAppearance.AppCompat.Caption">
     <item name="android:textColor">@color/design_error</item>

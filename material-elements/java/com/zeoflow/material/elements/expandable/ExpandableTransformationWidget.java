@@ -17,10 +17,15 @@ package com.zeoflow.material.elements.expandable;
 
 import androidx.annotation.IdRes;
 
-/** An ExpandableWidget that visually transforms into another component when expanded. */
-public interface ExpandableTransformationWidget extends ExpandableWidget {
+/**
+ * An ExpandableWidget that visually transforms into another component when expanded.
+ */
+public interface ExpandableTransformationWidget extends ExpandableWidget
+{
 
-  /** Returns the expanded component id hint. */
+  /**
+   * Returns the expanded component id hint.
+   */
   @IdRes
   int getExpandedComponentIdHint();
 

@@ -19,9 +19,11 @@ package com.zeoflow.material.elements.floatingactionbutton;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
+
 import androidx.annotation.AnimatorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.zeoflow.material.elements.animation.MotionSpec;
 
 import java.util.List;
@@ -30,17 +32,20 @@ import java.util.List;
  * A delegate to perform actions that are coupled with animations on {@link
  * ExtendedFloatingActionButton}.
  */
-interface MotionStrategy {
+interface MotionStrategy
+{
 
   void performNow();
 
   MotionSpec getCurrentMotionSpec();
 
-  @AnimatorRes int getDefaultMotionSpecResource();
+  @AnimatorRes
+  int getDefaultMotionSpecResource();
+
+  @Nullable
+  MotionSpec getMotionSpec();
 
   void setMotionSpec(@Nullable MotionSpec spec);
-
-  @Nullable MotionSpec getMotionSpec();
 
   AnimatorSet createAnimator();
 

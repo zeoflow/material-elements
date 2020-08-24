@@ -16,20 +16,21 @@
 
 package com.zeoflow.material.elements.appbar;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.view.ViewCompat;
 import androidx.appcompat.widget.Toolbar;
-import android.util.AttributeSet;
+import androidx.core.view.ViewCompat;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.MaterialShapeUtils;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -55,19 +56,23 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  *         android:layout_height=&quot;wrap_content&quot;/&gt;
  * </pre>
  */
-public class MaterialToolbar extends Toolbar {
+public class MaterialToolbar extends Toolbar
+{
 
   private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_Toolbar;
 
-  public MaterialToolbar(@NonNull Context context) {
+  public MaterialToolbar(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public MaterialToolbar(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public MaterialToolbar(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, R.attr.toolbarStyle);
   }
 
-  public MaterialToolbar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public MaterialToolbar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
@@ -76,7 +81,8 @@ public class MaterialToolbar extends Toolbar {
   }
 
   @Override
-  protected void onAttachedToWindow() {
+  protected void onAttachedToWindow()
+  {
     super.onAttachedToWindow();
 
     MaterialShapeUtils.setParentAbsoluteElevation(this);
@@ -84,15 +90,18 @@ public class MaterialToolbar extends Toolbar {
 
   @RequiresApi(VERSION_CODES.LOLLIPOP)
   @Override
-  public void setElevation(float elevation) {
+  public void setElevation(float elevation)
+  {
     super.setElevation(elevation);
 
     MaterialShapeUtils.setElevation(this, elevation);
   }
 
-  private void initBackground(Context context) {
+  private void initBackground(Context context)
+  {
     Drawable background = getBackground();
-    if (background != null && !(background instanceof ColorDrawable)) {
+    if (background != null && !(background instanceof ColorDrawable))
+    {
       return;
     }
     MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();

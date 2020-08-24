@@ -17,22 +17,26 @@
 package com.zeoflow.material.elements.textfield;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
+
 import com.zeoflow.material.elements.internal.CheckableImageButton;
 
 /**
  * End icon delegate abstract class.
- *
+ * <p>
  * Each end icon delegate class that extends this class will provide the default configuration for
  * a specific {@link TextInputLayout} {@link TextInputLayout.EndIconMode}.
  */
-abstract class EndIconDelegate {
+abstract class EndIconDelegate
+{
 
   TextInputLayout textInputLayout;
   Context context;
   CheckableImageButton endIconView;
 
-  EndIconDelegate(@NonNull TextInputLayout textInputLayout) {
+  EndIconDelegate(@NonNull TextInputLayout textInputLayout)
+  {
     this.textInputLayout = textInputLayout;
     context = textInputLayout.getContext();
     endIconView = textInputLayout.getEndIconView();
@@ -47,7 +51,8 @@ abstract class EndIconDelegate {
    * Whether the end icon should be tinted with the error color when the {@link TextInputLayout} is
    * in error mode.
    */
-  boolean shouldTintIconOnError() {
+  boolean shouldTintIconOnError()
+  {
     return false;
   }
 
@@ -56,7 +61,8 @@ abstract class EndIconDelegate {
    *
    * @param boxBackgroundMode the text input's box background mode
    */
-  boolean isBoxBackgroundModeSupported(@TextInputLayout.BoxBackgroundMode int boxBackgroundMode) {
+  boolean isBoxBackgroundModeSupported(@TextInputLayout.BoxBackgroundMode int boxBackgroundMode)
+  {
     return true;
   }
 
@@ -66,5 +72,7 @@ abstract class EndIconDelegate {
    *
    * @param visible whether the icon should be set to visible
    */
-  void onSuffixVisibilityChanged(boolean visible) {}
+  void onSuffixVisibilityChanged(boolean visible)
+  {
+  }
 }

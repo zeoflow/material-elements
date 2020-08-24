@@ -18,28 +18,35 @@ package com.zeoflow.material.elements.shape;
 
 import androidx.annotation.NonNull;
 
-/** A corner treatment which rounds a corner of a shape. */
-public class RoundedCornerTreatment extends CornerTreatment {
+/**
+ * A corner treatment which rounds a corner of a shape.
+ */
+public class RoundedCornerTreatment extends CornerTreatment
+{
 
   float radius = -1;
 
-  public RoundedCornerTreatment() {}
+  public RoundedCornerTreatment()
+  {
+  }
 
   /**
    * Instantiates a rounded corner treatment.
    *
    * @param radius the radius, in pixels, of the rounded corner, which is rendered as a quarter
-   *     circle.
+   *               circle.
    * @deprecated Set the size using the {@link ShapeAppearanceModel.Builder}
    */
   @Deprecated
-  public RoundedCornerTreatment(float radius) {
+  public RoundedCornerTreatment(float radius)
+  {
     this.radius = radius;
   }
 
   @Override
   public void getCornerPath(
-      @NonNull ShapePath shapePath, float angle, float interpolation, float radius) {
+      @NonNull ShapePath shapePath, float angle, float interpolation, float radius)
+  {
     shapePath.reset(0, radius * interpolation, ShapePath.ANGLE_LEFT, 180 - angle);
     shapePath.addArc(0, 0, 2 * radius * interpolation, 2 * radius * interpolation, 180, angle);
   }

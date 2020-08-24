@@ -26,8 +26,11 @@ import androidx.annotation.RestrictTo.Scope;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-public interface BaseOnChangeListener<S> {
+public interface BaseOnChangeListener<S>
+{
 
-  /** Called when the value of the slider changes. */
+  /**
+   * Called when the value of the slider changes.
+   */
   void onValueChange(@NonNull S slider, float value, boolean fromUser);
 }

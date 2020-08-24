@@ -17,6 +17,7 @@
 package com.zeoflow.material.elements.resources;
 
 import android.graphics.Typeface;
+
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.core.content.res.ResourcesCompat.FontCallback;
@@ -27,16 +28,19 @@ import androidx.core.content.res.ResourcesCompat.FontCallback;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-public abstract class TextAppearanceFontCallback {
+public abstract class TextAppearanceFontCallback
+{
   /**
    * Called when an asynchronous font was finished loading.
    *
-   * @param typeface Font that was loaded.
+   * @param typeface                  Font that was loaded.
    * @param fontResolvedSynchronously Whether the font was loaded synchronously, because it was
-   *     already available.
+   *                                  already available.
    */
   public abstract void onFontRetrieved(Typeface typeface, boolean fontResolvedSynchronously);
 
-  /** Called when an asynchronous font failed to load. */
+  /**
+   * Called when an asynchronous font failed to load.
+   */
   public abstract void onFontRetrievalFailed(int reason);
 }

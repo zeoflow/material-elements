@@ -16,15 +16,16 @@
 
 package com.zeoflow.material.elements.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
+import android.view.SubMenu;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.view.menu.SubMenuBuilder;
-import android.view.SubMenu;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * This is a {@link MenuBuilder} that returns an instance of {@link NavigationSubMenu} instead of
@@ -33,15 +34,18 @@ import android.view.SubMenu;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class NavigationMenu extends MenuBuilder {
+public class NavigationMenu extends MenuBuilder
+{
 
-  public NavigationMenu(Context context) {
+  public NavigationMenu(Context context)
+  {
     super(context);
   }
 
   @NonNull
   @Override
-  public SubMenu addSubMenu(int group, int id, int categoryOrder, CharSequence title) {
+  public SubMenu addSubMenu(int group, int id, int categoryOrder, CharSequence title)
+  {
     final MenuItemImpl item = (MenuItemImpl) addInternal(group, id, categoryOrder, title);
     final SubMenuBuilder subMenu = new NavigationSubMenu(getContext(), this, item);
     item.setSubMenu(subMenu);

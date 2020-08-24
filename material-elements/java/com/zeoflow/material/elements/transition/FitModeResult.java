@@ -16,7 +16,8 @@
 
 package com.zeoflow.material.elements.transition;
 
-class FitModeResult {
+class FitModeResult
+{
   final float startScale;
   final float endScale;
   final float currentStartWidth;
@@ -30,7 +31,8 @@ class FitModeResult {
       float currentStartWidth,
       float currentStartHeight,
       float currentEndWidth,
-      float currentEndHeight) {
+      float currentEndHeight)
+  {
     this.startScale = startScale;
     this.endScale = endScale;
     this.currentStartWidth = currentStartWidth;

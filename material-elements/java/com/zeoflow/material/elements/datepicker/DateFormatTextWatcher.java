@@ -15,23 +15,27 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.material.R;
 import com.zeoflow.material.elements.textfield.TextInputLayout;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
-abstract class DateFormatTextWatcher implements TextWatcher {
+abstract class DateFormatTextWatcher implements TextWatcher
+{
 
   private final String formatHint;
   private final DateFormat dateFormat;
-  @NonNull private final TextInputLayout textInputLayout;
+  @NonNull
+  private final TextInputLayout textInputLayout;
   private final CalendarConstraints constraints;
   private final String outOfRange;
 
@@ -39,7 +43,8 @@ abstract class DateFormatTextWatcher implements TextWatcher {
       String formatHint,
       DateFormat dateFormat,
       @NonNull TextInputLayout textInputLayout,
-      CalendarConstraints constraints) {
+      CalendarConstraints constraints)
+  {
     this.formatHint = formatHint;
     this.dateFormat = dateFormat;
     this.textInputLayout = textInputLayout;
@@ -49,33 +54,43 @@ abstract class DateFormatTextWatcher implements TextWatcher {
 
   abstract void onValidDate(@Nullable Long day);
 
-  void onInvalidDate() {}
+  void onInvalidDate()
+  {
+  }
 
   @Override
-  public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+  public void beforeTextChanged(CharSequence s, int start, int count, int after)
+  {
+  }
 
   @Override
-  public void onTextChanged(@NonNull CharSequence s, int start, int before, int count) {
-    if (TextUtils.isEmpty(s)) {
+  public void onTextChanged(@NonNull CharSequence s, int start, int before, int count)
+  {
+    if (TextUtils.isEmpty(s))
+    {
       textInputLayout.setError(null);
       onValidDate(null);
       return;
     }
 
-    try {
+    try
+    {
       Date date = dateFormat.parse(s.toString());
 
       textInputLayout.setError(null);
       long milliseconds = date.getTime();
       if (constraints.getDateValidator().isValid(milliseconds)
-          && constraints.isWithinBounds(milliseconds)) {
+          && constraints.isWithinBounds(milliseconds))
+      {
         onValidDate(date.getTime());
-      } else {
+      } else
+      {
         textInputLayout.setError(
             String.format(outOfRange, DateStrings.getDateString(milliseconds)));
         onInvalidDate();
       }
-    } catch (ParseException e) {
+    } catch (ParseException e)
+    {
       String invalidFormat =
           textInputLayout.getContext().getString(R.string.mtrl_picker_invalid_format);
       String useLine =
@@ -92,5 +107,7 @@ abstract class DateFormatTextWatcher implements TextWatcher {
   }
 
   @Override
-  public void afterTextChanged(Editable s) {}
+  public void afterTextChanged(Editable s)
+  {
+  }
 }

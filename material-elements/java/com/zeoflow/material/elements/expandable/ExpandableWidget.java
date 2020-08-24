@@ -58,7 +58,8 @@ import android.view.View;
  * }
  * </code></pre>
  */
-public interface ExpandableWidget {
+public interface ExpandableWidget
+{
 
   /**
    * Returns whether this widget is expanded.

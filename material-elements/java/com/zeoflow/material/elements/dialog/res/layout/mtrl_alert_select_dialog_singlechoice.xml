@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,18 +27,18 @@
     right when in RTL configurations
 -->
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/listPreferredItemHeightSmall"
-    android:gravity="left|center_vertical"
-    android:textAlignment="viewStart"
-    android:paddingLeft="@dimen/abc_select_dialog_padding_start_material"
-    android:paddingRight="?attr/dialogPreferredPadding"
-    android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
-    android:paddingEnd="?attr/dialogPreferredPadding"
-    app:drawableLeftCompat="?android:attr/listChoiceIndicatorSingle"
-    app:drawableStartCompat="?android:attr/listChoiceIndicatorSingle"
-    android:drawablePadding="20dp"
-    android:ellipsize="marquee" />
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@android:id/text1"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:drawablePadding="20dp"
+  android:ellipsize="marquee"
+  android:gravity="left|center_vertical"
+  android:minHeight="?attr/listPreferredItemHeightSmall"
+  android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+  android:paddingLeft="@dimen/abc_select_dialog_padding_start_material"
+  android:paddingEnd="?attr/dialogPreferredPadding"
+  android:paddingRight="?attr/dialogPreferredPadding"
+  android:textAlignment="viewStart"
+  app:drawableLeftCompat="?android:attr/listChoiceIndicatorSingle"
+  app:drawableStartCompat="?android:attr/listChoiceIndicatorSingle" />

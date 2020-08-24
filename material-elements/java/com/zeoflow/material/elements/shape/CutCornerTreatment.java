@@ -18,12 +18,17 @@ package com.zeoflow.material.elements.shape;
 
 import androidx.annotation.NonNull;
 
-/** A corner treatment which cuts or clips the original corner of a shape with a straight line. */
-public class CutCornerTreatment extends CornerTreatment {
+/**
+ * A corner treatment which cuts or clips the original corner of a shape with a straight line.
+ */
+public class CutCornerTreatment extends CornerTreatment
+{
 
   float size = -1;
 
-  public CutCornerTreatment() {}
+  public CutCornerTreatment()
+  {
+  }
 
   /**
    * Instantiates a cut corner treatment of a given size. A cut corner treatment introduces two new
@@ -37,13 +42,15 @@ public class CutCornerTreatment extends CornerTreatment {
    * @deprecated Set the size using the {@link ShapeAppearanceModel.Builder}
    */
   @Deprecated
-  public CutCornerTreatment(float size) {
+  public CutCornerTreatment(float size)
+  {
     this.size = size;
   }
 
   @Override
   public void getCornerPath(
-      @NonNull ShapePath shapePath, float angle, float interpolation, float radius) {
+      @NonNull ShapePath shapePath, float angle, float interpolation, float radius)
+  {
     shapePath.reset(0, radius * interpolation, ShapePath.ANGLE_LEFT, 180 - angle);
     shapePath.lineTo(
         (float) (Math.sin(Math.toRadians(angle)) * radius * interpolation),

@@ -16,19 +16,26 @@
 package com.zeoflow.material.elements.datepicker;
 
 import androidx.annotation.Nullable;
+
 import java.util.Calendar;
 import java.util.TimeZone;
 
-/** Provider for the current date and time. */
-class TimeSource {
+/**
+ * Provider for the current date and time.
+ */
+class TimeSource
+{
 
   private static final TimeSource SYSTEM_TIME_SOURCE = new TimeSource(null, null);
 
-  @Nullable private final Long fixedTimeMs;
+  @Nullable
+  private final Long fixedTimeMs;
 
-  @Nullable private final TimeZone fixedTimeZone;
+  @Nullable
+  private final TimeZone fixedTimeZone;
 
-  private TimeSource(@Nullable final Long fixedTimeMs, @Nullable final TimeZone fixedTimeZone) {
+  private TimeSource(@Nullable final Long fixedTimeMs, @Nullable final TimeZone fixedTimeZone)
+  {
     this.fixedTimeMs = fixedTimeMs;
     this.fixedTimeZone = fixedTimeZone;
   }
@@ -39,7 +46,8 @@ class TimeSource {
    * <p>For testability, rather than calling this method directly, most classes should have an
    * instance of {@code TimeSource} <i>provided</i> to them, for example by dependency injection.
    */
-  static TimeSource system() {
+  static TimeSource system()
+  {
     return SYSTEM_TIME_SOURCE;
   }
 
@@ -52,11 +60,12 @@ class TimeSource {
    *
    * <p>The returned implementation is immutable, thread-safe and {@code Serializable}.
    *
-   * @param epochMs the time in UTC milliseconds from the epoch.
+   * @param epochMs  the time in UTC milliseconds from the epoch.
    * @param timeZone the timezone to use to convert the date-time. If this value is null, the host
-   *     device's timezone will be used.
+   *                 device's timezone will be used.
    */
-  static TimeSource fixed(long epochMs, @Nullable TimeZone timeZone) {
+  static TimeSource fixed(long epochMs, @Nullable TimeZone timeZone)
+  {
     return new TimeSource(epochMs, timeZone);
   }
 
@@ -71,12 +80,16 @@ class TimeSource {
    *
    * @param epochMs the time in UTC milliseconds from the epoch.
    */
-  static TimeSource fixed(long epochMs) {
+  static TimeSource fixed(long epochMs)
+  {
     return new TimeSource(epochMs, null);
   }
 
-  /** Returns a {@code Calendar} according to this time source. */
-  Calendar now() {
+  /**
+   * Returns a {@code Calendar} according to this time source.
+   */
+  Calendar now()
+  {
     return now(fixedTimeZone);
   }
 
@@ -84,11 +97,13 @@ class TimeSource {
    * Returns a {@code Calendar} according to this time source in the specified timezone.
    *
    * @param timeZone the timezone to use to convert the date-time. If this value is null, the host
-   *     device's timezone will be used.
+   *                 device's timezone will be used.
    */
-  Calendar now(@Nullable TimeZone timeZone) {
+  Calendar now(@Nullable TimeZone timeZone)
+  {
     Calendar calendar = timeZone == null ? Calendar.getInstance() : Calendar.getInstance(timeZone);
-    if (fixedTimeMs != null) {
+    if (fixedTimeMs != null)
+    {
       calendar.setTimeInMillis(fixedTimeMs);
     }
 

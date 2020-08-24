@@ -16,25 +16,12 @@
 
 package com.zeoflow.material.elements.snackbar;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_CONTROLS;
-import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_ICONS;
-import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_TEXT;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.ColorInt;
-import androidx.annotation.Dimension;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -44,7 +31,21 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Dimension;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.StringRes;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.R;
+
+import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_CONTROLS;
+import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_ICONS;
+import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_TEXT;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Snackbars provide lightweight feedback about an operation. They show a brief message at the
@@ -61,76 +62,26 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
  * <p>To be notified when a snackbar has been shown or dismissed, you can provide a {@link Callback}
  * via {@link BaseTransientBottomBar#addCallback(BaseCallback)}.
  */
-public class Snackbar extends BaseTransientBottomBar<Snackbar> {
+public class Snackbar extends BaseTransientBottomBar<Snackbar>
+{
 
-  @Nullable private final AccessibilityManager accessibilityManager;
-  private boolean hasAction;
-
-  private static final int[] SNACKBAR_BUTTON_STYLE_ATTR = new int[] {R.attr.snackbarButtonStyle};
+  private static final int[] SNACKBAR_BUTTON_STYLE_ATTR = new int[]{R.attr.snackbarButtonStyle};
   private static final int[] SNACKBAR_CONTENT_STYLE_ATTRS =
-      new int[] {R.attr.snackbarButtonStyle, R.attr.snackbarTextViewStyle};
-
-  /**
-   * Callback class for {@link Snackbar} instances.
-   *
-   * <p>Note: this class is here to provide backwards-compatible way for apps written before the
-   * existence of the base {@link BaseTransientBottomBar} class.
-   *
-   * @see BaseTransientBottomBar#addCallback(BaseCallback)
-   */
-  public static class Callback extends BaseCallback<Snackbar> {
-    /** Indicates that the Snackbar was dismissed via a swipe. */
-    public static final int DISMISS_EVENT_SWIPE = BaseCallback.DISMISS_EVENT_SWIPE;
-    /** Indicates that the Snackbar was dismissed via an action click. */
-    public static final int DISMISS_EVENT_ACTION = BaseCallback.DISMISS_EVENT_ACTION;
-    /** Indicates that the Snackbar was dismissed via a timeout. */
-    public static final int DISMISS_EVENT_TIMEOUT = BaseCallback.DISMISS_EVENT_TIMEOUT;
-    /** Indicates that the Snackbar was dismissed via a call to {@link #dismiss()}. */
-    public static final int DISMISS_EVENT_MANUAL = BaseCallback.DISMISS_EVENT_MANUAL;
-    /** Indicates that the Snackbar was dismissed from a new Snackbar being shown. */
-    public static final int DISMISS_EVENT_CONSECUTIVE = BaseCallback.DISMISS_EVENT_CONSECUTIVE;
-
-    @Override
-    public void onShown(Snackbar sb) {
-      // Stub implementation to make API check happy.
-    }
-
-    @Override
-    public void onDismissed(Snackbar transientBottomBar, @DismissEvent int event) {
-      // Stub implementation to make API check happy.
-    }
-  }
-
-  @Nullable private BaseCallback<Snackbar> callback;
+      new int[]{R.attr.snackbarButtonStyle, R.attr.snackbarTextViewStyle};
+  @Nullable
+  private final AccessibilityManager accessibilityManager;
+  private boolean hasAction;
+  @Nullable
+  private BaseCallback<Snackbar> callback;
 
   private Snackbar(
       @NonNull ViewGroup parent,
       @NonNull View content,
-      @NonNull com.zeoflow.material.elements.snackbar.ContentViewCallback contentViewCallback) {
+      @NonNull com.zeoflow.material.elements.snackbar.ContentViewCallback contentViewCallback)
+  {
     super(parent, content, contentViewCallback);
     accessibilityManager =
         (AccessibilityManager) parent.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
-  }
-
-  // TODO: Delete this once custom Robolectric shadows no longer depend on this method being present
-  // (and instead properly utilize BaseTransientBottomBar hierarchy).
-  @Override
-  public void show() {
-    super.show();
-  }
-
-  // TODO: Delete this once custom Robolectric shadows no longer depend on this method being present
-  // (and instead properly utilize BaseTransientBottomBar hierarchy).
-  @Override
-  public void dismiss() {
-    super.dismiss();
-  }
-
-  // TODO: Delete this once custom Robolectric shadows no longer depend on this method being present
-  // (and instead properly utilize BaseTransientBottomBar hierarchy).
-  @Override
-  public boolean isShown() {
-    return super.isShown();
   }
 
   /**
@@ -144,17 +95,19 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * <p>Having a {@link CoordinatorLayout} in your view hierarchy allows Snackbar to enable certain
    * features, such as swipe-to-dismiss and automatically moving of widgets.
    *
-   * @param view The view to find a parent from. This view is also used to find the anchor view when
-   *     calling {@link Snackbar#setAnchorView(int)}.
-   * @param text The text to show. Can be formatted text.
+   * @param view     The view to find a parent from. This view is also used to find the anchor view when
+   *                 calling {@link Snackbar#setAnchorView(int)}.
+   * @param text     The text to show. Can be formatted text.
    * @param duration How long to display the message. Can be {@link #LENGTH_SHORT}, {@link
-   *     #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
+   *                 #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
    */
   @NonNull
   public static Snackbar make(
-      @NonNull View view, @NonNull CharSequence text, @Duration int duration) {
+      @NonNull View view, @NonNull CharSequence text, @Duration int duration)
+  {
     final ViewGroup parent = findSuitableParent(view);
-    if (parent == null) {
+    if (parent == null)
+    {
       throw new IllegalArgumentException(
           "No suitable parent found from the given view. Please provide a valid view.");
     }
@@ -182,14 +135,16 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * @deprecated This is for backward compatibility with AppCompat themes.
    */
   @Deprecated
-  protected static boolean hasSnackbarButtonStyleAttr(@NonNull Context context) {
+  protected static boolean hasSnackbarButtonStyleAttr(@NonNull Context context)
+  {
     TypedArray a = context.obtainStyledAttributes(SNACKBAR_BUTTON_STYLE_ATTR);
     int snackbarButtonStyleResId = a.getResourceId(0, -1);
     a.recycle();
     return snackbarButtonStyleResId != -1;
   }
 
-  private static boolean hasSnackbarContentStyleAttrs(@NonNull Context context) {
+  private static boolean hasSnackbarContentStyleAttrs(@NonNull Context context)
+  {
     TypedArray a = context.obtainStyledAttributes(SNACKBAR_CONTENT_STYLE_ATTRS);
     int snackbarButtonStyleResId = a.getResourceId(0, -1);
     int snackbarTextViewStyleResId = a.getResourceId(1, -1);
@@ -208,35 +163,43 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * <p>Having a {@link CoordinatorLayout} in your view hierarchy allows Snackbar to enable certain
    * features, such as swipe-to-dismiss and automatically moving of widgets.
    *
-   * @param view The view to find a parent from.
-   * @param resId The resource id of the string resource to use. Can be formatted text.
+   * @param view     The view to find a parent from.
+   * @param resId    The resource id of the string resource to use. Can be formatted text.
    * @param duration How long to display the message. Can be {@link #LENGTH_SHORT}, {@link
-   *     #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
+   *                 #LENGTH_LONG}, {@link #LENGTH_INDEFINITE}, or a custom duration in milliseconds.
    */
   @NonNull
-  public static Snackbar make(@NonNull View view, @StringRes int resId, @Duration int duration) {
+  public static Snackbar make(@NonNull View view, @StringRes int resId, @Duration int duration)
+  {
     return make(view, view.getResources().getText(resId), duration);
   }
 
   @Nullable
-  private static ViewGroup findSuitableParent(View view) {
+  private static ViewGroup findSuitableParent(View view)
+  {
     ViewGroup fallback = null;
-    do {
-      if (view instanceof CoordinatorLayout) {
+    do
+    {
+      if (view instanceof CoordinatorLayout)
+      {
         // We've found a CoordinatorLayout, use it
         return (ViewGroup) view;
-      } else if (view instanceof FrameLayout) {
-        if (view.getId() == android.R.id.content) {
+      } else if (view instanceof FrameLayout)
+      {
+        if (view.getId() == android.R.id.content)
+        {
           // If we've hit the decor content view, then we didn't find a CoL in the
           // hierarchy, so use it.
           return (ViewGroup) view;
-        } else {
+        } else
+        {
           // It's not the content view but we'll use it as our fallback
           fallback = (ViewGroup) view;
         }
       }
 
-      if (view != null) {
+      if (view != null)
+      {
         // Else, we will loop and crawl up the view hierarchy and try to find a parent
         final ViewParent parent = view.getParent();
         view = parent instanceof View ? (View) parent : null;
@@ -247,13 +210,38 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
     return fallback;
   }
 
+  // TODO: Delete this once custom Robolectric shadows no longer depend on this method being present
+  // (and instead properly utilize BaseTransientBottomBar hierarchy).
+  @Override
+  public void show()
+  {
+    super.show();
+  }
+
+  // TODO: Delete this once custom Robolectric shadows no longer depend on this method being present
+  // (and instead properly utilize BaseTransientBottomBar hierarchy).
+  @Override
+  public void dismiss()
+  {
+    super.dismiss();
+  }
+
+  // TODO: Delete this once custom Robolectric shadows no longer depend on this method being present
+  // (and instead properly utilize BaseTransientBottomBar hierarchy).
+  @Override
+  public boolean isShown()
+  {
+    return super.isShown();
+  }
+
   /**
    * Update the text in this {@link Snackbar}.
    *
    * @param message The new text for this {@link BaseTransientBottomBar}.
    */
   @NonNull
-  public Snackbar setText(@NonNull CharSequence message) {
+  public Snackbar setText(@NonNull CharSequence message)
+  {
     final SnackbarContentLayout contentLayout = (SnackbarContentLayout) view.getChildAt(0);
     final TextView tv = contentLayout.getMessageView();
     tv.setText(message);
@@ -266,44 +254,51 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * @param resId The new text for this {@link BaseTransientBottomBar}.
    */
   @NonNull
-  public Snackbar setText(@StringRes int resId) {
+  public Snackbar setText(@StringRes int resId)
+  {
     return setText(getContext().getText(resId));
   }
 
   /**
    * Set the action to be displayed in this {@link BaseTransientBottomBar}.
    *
-   * @param resId String resource to display for the action
+   * @param resId    String resource to display for the action
    * @param listener callback to be invoked when the action is clicked
    */
   @NonNull
-  public Snackbar setAction(@StringRes int resId, View.OnClickListener listener) {
+  public Snackbar setAction(@StringRes int resId, View.OnClickListener listener)
+  {
     return setAction(getContext().getText(resId), listener);
   }
 
   /**
    * Set the action to be displayed in this {@link BaseTransientBottomBar}.
    *
-   * @param text Text to display for the action
+   * @param text     Text to display for the action
    * @param listener callback to be invoked when the action is clicked
    */
   @NonNull
   public Snackbar setAction(
-      @Nullable CharSequence text, @Nullable final View.OnClickListener listener) {
+      @Nullable CharSequence text, @Nullable final View.OnClickListener listener)
+  {
     final SnackbarContentLayout contentLayout = (SnackbarContentLayout) this.view.getChildAt(0);
     final TextView tv = contentLayout.getActionView();
-    if (TextUtils.isEmpty(text) || listener == null) {
+    if (TextUtils.isEmpty(text) || listener == null)
+    {
       tv.setVisibility(View.GONE);
       tv.setOnClickListener(null);
       hasAction = false;
-    } else {
+    } else
+    {
       hasAction = true;
       tv.setVisibility(View.VISIBLE);
       tv.setText(text);
       tv.setOnClickListener(
-          new View.OnClickListener() {
+          new View.OnClickListener()
+          {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
               listener.onClick(view);
               // Now dismiss the Snackbar
               dispatchDismiss(BaseCallback.DISMISS_EVENT_ACTION);
@@ -315,13 +310,16 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
 
   @Override
   @Duration
-  public int getDuration() {
+  public int getDuration()
+  {
     int userSetDuration = super.getDuration();
-    if (userSetDuration == LENGTH_INDEFINITE) {
+    if (userSetDuration == LENGTH_INDEFINITE)
+    {
       return LENGTH_INDEFINITE;
     }
 
-    if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+    if (VERSION.SDK_INT >= VERSION_CODES.Q)
+    {
       int controlsFlag = hasAction ? FLAG_CONTENT_CONTROLS : 0;
       return accessibilityManager.getRecommendedTimeoutMillis(
           userSetDuration, controlsFlag | FLAG_CONTENT_ICONS | FLAG_CONTENT_TEXT);
@@ -338,7 +336,8 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * #setText(int)}.
    */
   @NonNull
-  public Snackbar setTextColor(ColorStateList colors) {
+  public Snackbar setTextColor(ColorStateList colors)
+  {
     final SnackbarContentLayout contentLayout = (SnackbarContentLayout) view.getChildAt(0);
     final TextView tv = contentLayout.getMessageView();
     tv.setTextColor(colors);
@@ -350,7 +349,8 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * #setText(int)}.
    */
   @NonNull
-  public Snackbar setTextColor(@ColorInt int color) {
+  public Snackbar setTextColor(@ColorInt int color)
+  {
     final SnackbarContentLayout contentLayout = (SnackbarContentLayout) view.getChildAt(0);
     final TextView tv = contentLayout.getMessageView();
     tv.setTextColor(color);
@@ -362,7 +362,8 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * View.OnClickListener)}.
    */
   @NonNull
-  public Snackbar setActionTextColor(ColorStateList colors) {
+  public Snackbar setActionTextColor(ColorStateList colors)
+  {
     final SnackbarContentLayout contentLayout = (SnackbarContentLayout) view.getChildAt(0);
     final TextView tv = contentLayout.getActionView();
     tv.setTextColor(colors);
@@ -374,7 +375,8 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * If the width is exceeded the action would go to the next line.
    */
   @NonNull
-  public Snackbar setMaxInlineActionWidth(@Dimension int width) {
+  public Snackbar setMaxInlineActionWidth(@Dimension int width)
+  {
     final SnackbarContentLayout contentLayout = (SnackbarContentLayout) view.getChildAt(0);
     contentLayout.setMaxInlineActionWidth(width);
     return this;
@@ -385,28 +387,36 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * View.OnClickListener)}.
    */
   @NonNull
-  public Snackbar setActionTextColor(@ColorInt int color) {
+  public Snackbar setActionTextColor(@ColorInt int color)
+  {
     final SnackbarContentLayout contentLayout = (SnackbarContentLayout) view.getChildAt(0);
     final TextView tv = contentLayout.getActionView();
     tv.setTextColor(color);
     return this;
   }
 
-  /** Sets the tint color of the background Drawable. */
+  /**
+   * Sets the tint color of the background Drawable.
+   */
   @NonNull
-  public Snackbar setBackgroundTint(@ColorInt int color) {
+  public Snackbar setBackgroundTint(@ColorInt int color)
+  {
     return setBackgroundTintList(ColorStateList.valueOf(color));
   }
 
-  /** Sets the tint color state list of the background Drawable. */
+  /**
+   * Sets the tint color state list of the background Drawable.
+   */
   @NonNull
-  public Snackbar setBackgroundTintList(@Nullable ColorStateList colorStateList) {
+  public Snackbar setBackgroundTintList(@Nullable ColorStateList colorStateList)
+  {
     view.setBackgroundTintList(colorStateList);
     return this;
   }
 
   @NonNull
-  public Snackbar setBackgroundTintMode(@Nullable PorterDuff.Mode mode) {
+  public Snackbar setBackgroundTintMode(@Nullable PorterDuff.Mode mode)
+  {
     view.setBackgroundTintMode(mode);
     return this;
   }
@@ -417,20 +427,23 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
    * callback and {@link #removeCallback(BaseCallback)} to remove a registered callback.
    *
    * @param callback Callback to notify when transient bottom bar events occur.
-   * @deprecated Use {@link #addCallback(BaseCallback)}
    * @see Callback
    * @see #addCallback(BaseCallback)
    * @see #removeCallback(BaseCallback)
+   * @deprecated Use {@link #addCallback(BaseCallback)}
    */
   @Deprecated
   @NonNull
-  public Snackbar setCallback(@Nullable Callback callback) {
+  public Snackbar setCallback(@Nullable Callback callback)
+  {
     // The logic in this method emulates what we had before support for multiple
     // registered callbacks.
-    if (this.callback != null) {
+    if (this.callback != null)
+    {
       removeCallback(this.callback);
     }
-    if (callback != null) {
+    if (callback != null)
+    {
       addCallback(callback);
     }
     // Update the deprecated field so that we can remove the passed callback the next
@@ -440,21 +453,69 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
   }
 
   /**
+   * Callback class for {@link Snackbar} instances.
+   *
+   * <p>Note: this class is here to provide backwards-compatible way for apps written before the
+   * existence of the base {@link BaseTransientBottomBar} class.
+   *
+   * @see BaseTransientBottomBar#addCallback(BaseCallback)
+   */
+  public static class Callback extends BaseCallback<Snackbar>
+  {
+    /**
+     * Indicates that the Snackbar was dismissed via a swipe.
+     */
+    public static final int DISMISS_EVENT_SWIPE = BaseCallback.DISMISS_EVENT_SWIPE;
+    /**
+     * Indicates that the Snackbar was dismissed via an action click.
+     */
+    public static final int DISMISS_EVENT_ACTION = BaseCallback.DISMISS_EVENT_ACTION;
+    /**
+     * Indicates that the Snackbar was dismissed via a timeout.
+     */
+    public static final int DISMISS_EVENT_TIMEOUT = BaseCallback.DISMISS_EVENT_TIMEOUT;
+    /**
+     * Indicates that the Snackbar was dismissed via a call to {@link #dismiss()}.
+     */
+    public static final int DISMISS_EVENT_MANUAL = BaseCallback.DISMISS_EVENT_MANUAL;
+    /**
+     * Indicates that the Snackbar was dismissed from a new Snackbar being shown.
+     */
+    public static final int DISMISS_EVENT_CONSECUTIVE = BaseCallback.DISMISS_EVENT_CONSECUTIVE;
+
+    @Override
+    public void onShown(Snackbar sb)
+    {
+      // Stub implementation to make API check happy.
+    }
+
+    @Override
+    public void onDismissed(Snackbar transientBottomBar, @DismissEvent int event)
+    {
+      // Stub implementation to make API check happy.
+    }
+  }
+
+  /**
    * @hide Note: this class is here to provide backwards-compatible way for apps written before the
-   *     existence of the base {@link BaseTransientBottomBar} class.
+   * existence of the base {@link BaseTransientBottomBar} class.
    */
   @RestrictTo(LIBRARY_GROUP)
-  public static final class SnackbarLayout extends BaseTransientBottomBar.SnackbarBaseLayout {
-    public SnackbarLayout(Context context) {
+  public static final class SnackbarLayout extends BaseTransientBottomBar.SnackbarBaseLayout
+  {
+    public SnackbarLayout(Context context)
+    {
       super(context);
     }
 
-    public SnackbarLayout(Context context, AttributeSet attrs) {
+    public SnackbarLayout(Context context, AttributeSet attrs)
+    {
       super(context, attrs);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
       super.onMeasure(widthMeasureSpec, heightMeasureSpec);
       // Work around our backwards-compatible refactoring of Snackbar and inner content
       // being inflated against snackbar's parent (instead of against the snackbar itself).
@@ -462,9 +523,11 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
       // minus the paddings.
       int childCount = getChildCount();
       int availableWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
-      for (int i = 0; i < childCount; i++) {
+      for (int i = 0; i < childCount; i++)
+      {
         View child = getChildAt(i);
-        if (child.getLayoutParams().width == ViewGroup.LayoutParams.MATCH_PARENT) {
+        if (child.getLayoutParams().width == ViewGroup.LayoutParams.MATCH_PARENT)
+        {
           child.measure(
               MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.EXACTLY),
               MeasureSpec.makeMeasureSpec(child.getMeasuredHeight(), MeasureSpec.EXACTLY));

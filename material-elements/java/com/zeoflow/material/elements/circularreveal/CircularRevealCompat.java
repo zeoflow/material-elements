@@ -22,9 +22,11 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+
+import androidx.annotation.NonNull;
+
 import com.zeoflow.material.elements.circularreveal.CircularRevealWidget.CircularRevealEvaluator;
 import com.zeoflow.material.elements.circularreveal.CircularRevealWidget.CircularRevealProperty;
 import com.zeoflow.material.elements.circularreveal.CircularRevealWidget.RevealInfo;
@@ -34,9 +36,12 @@ import com.zeoflow.material.elements.circularreveal.CircularRevealWidget.RevealI
  *
  * @see ViewAnimationUtils
  */
-public final class CircularRevealCompat {
+public final class CircularRevealCompat
+{
 
-  private CircularRevealCompat() {}
+  private CircularRevealCompat()
+  {
+  }
 
   /**
    * Returns an Animator to animate a clipping circle. The startRadius will be the current {@link
@@ -53,18 +58,21 @@ public final class CircularRevealCompat {
    */
   @NonNull
   public static Animator createCircularReveal(
-      @NonNull CircularRevealWidget view, float centerX, float centerY, float endRadius) {
+      @NonNull CircularRevealWidget view, float centerX, float centerY, float endRadius)
+  {
     Animator revealInfoAnimator =
         ObjectAnimator.ofObject(
             view,
             CircularRevealProperty.CIRCULAR_REVEAL,
             CircularRevealEvaluator.CIRCULAR_REVEAL,
             new RevealInfo(centerX, centerY, endRadius));
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       // Ideally, the start radius would be inferred from the RevealInfo at the time of animation
       // start (usually on the next event loop iteration). So we approximate.
       RevealInfo revealInfo = view.getRevealInfo();
-      if (revealInfo == null) {
+      if (revealInfo == null)
+      {
         throw new IllegalStateException(
             "Caller must set a non-null RevealInfo before calling this.");
       }
@@ -75,7 +83,8 @@ public final class CircularRevealCompat {
       AnimatorSet set = new AnimatorSet();
       set.playTogether(revealInfoAnimator, circularRevealAnimator);
       return set;
-    } else {
+    } else
+    {
       return revealInfoAnimator;
     }
   }
@@ -93,7 +102,8 @@ public final class CircularRevealCompat {
    */
   @NonNull
   public static Animator createCircularReveal(
-      CircularRevealWidget view, float centerX, float centerY, float startRadius, float endRadius) {
+      CircularRevealWidget view, float centerX, float centerY, float startRadius, float endRadius)
+  {
     Animator revealInfoAnimator =
         ObjectAnimator.ofObject(
             view,
@@ -101,14 +111,16 @@ public final class CircularRevealCompat {
             CircularRevealEvaluator.CIRCULAR_REVEAL,
             new RevealInfo(centerX, centerY, startRadius),
             new RevealInfo(centerX, centerY, endRadius));
-    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
+    {
       Animator circularRevealAnimator =
           ViewAnimationUtils.createCircularReveal(
               (View) view, (int) centerX, (int) centerY, startRadius, endRadius);
       AnimatorSet set = new AnimatorSet();
       set.playTogether(revealInfoAnimator, circularRevealAnimator);
       return set;
-    } else {
+    } else
+    {
       return revealInfoAnimator;
     }
   }
@@ -119,15 +131,19 @@ public final class CircularRevealCompat {
    */
   @NonNull
   public static AnimatorListener createCircularRevealListener(
-      @NonNull final CircularRevealWidget view) {
-    return new AnimatorListenerAdapter() {
+      @NonNull final CircularRevealWidget view)
+  {
+    return new AnimatorListenerAdapter()
+    {
       @Override
-      public void onAnimationStart(Animator animation) {
+      public void onAnimationStart(Animator animation)
+      {
         view.buildCircularRevealCache();
       }
 
       @Override
-      public void onAnimationEnd(Animator animation) {
+      public void onAnimationEnd(Animator animation)
+      {
         view.destroyCircularRevealCache();
       }
     };

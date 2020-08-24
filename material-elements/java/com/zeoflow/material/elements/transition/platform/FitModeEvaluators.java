@@ -20,15 +20,15 @@
  */
 package com.zeoflow.material.elements.transition.platform;
 
-import static com.zeoflow.material.elements.transition.platform.TransitionUtils.lerp;
-
 import android.graphics.RectF;
 
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-class FitModeEvaluators {
+class FitModeEvaluators
+{
 
   private static final FitModeEvaluator WIDTH =
-      new FitModeEvaluator() {
+      new FitModeEvaluator()
+      {
         @Override
         public FitModeResult evaluate(
             float progress,
@@ -37,7 +37,8 @@ class FitModeEvaluators {
             float startWidth,
             float startHeight,
             float endWidth,
-            float endHeight) {
+            float endHeight)
+        {
           // Use same width for start/end views; calculate heights using respective aspect ratios.
           float currentWidth =
               TransitionUtils.lerp(startWidth, endWidth, scaleStartFraction, scaleEndFraction, progress);
@@ -55,12 +56,14 @@ class FitModeEvaluators {
         }
 
         @Override
-        public boolean shouldMaskStartBounds(FitModeResult fitModeResult) {
+        public boolean shouldMaskStartBounds(FitModeResult fitModeResult)
+        {
           return fitModeResult.currentStartHeight > fitModeResult.currentEndHeight;
         }
 
         @Override
-        public void applyMask(RectF maskBounds, float maskMultiplier, FitModeResult fitModeResult) {
+        public void applyMask(RectF maskBounds, float maskMultiplier, FitModeResult fitModeResult)
+        {
           float currentHeightDiff =
               Math.abs(fitModeResult.currentEndHeight - fitModeResult.currentStartHeight);
           maskBounds.bottom -= currentHeightDiff * maskMultiplier;
@@ -68,7 +71,8 @@ class FitModeEvaluators {
       };
 
   private static final FitModeEvaluator HEIGHT =
-      new FitModeEvaluator() {
+      new FitModeEvaluator()
+      {
         @Override
         public FitModeResult evaluate(
             float progress,
@@ -77,7 +81,8 @@ class FitModeEvaluators {
             float startWidth,
             float startHeight,
             float endWidth,
-            float endHeight) {
+            float endHeight)
+        {
           // Use same height for start/end views; calculate widths using respective aspect ratios.
           float currentHeight =
               TransitionUtils.lerp(startHeight, endHeight, scaleStartFraction, scaleEndFraction, progress);
@@ -95,12 +100,14 @@ class FitModeEvaluators {
         }
 
         @Override
-        public boolean shouldMaskStartBounds(FitModeResult fitModeResult) {
+        public boolean shouldMaskStartBounds(FitModeResult fitModeResult)
+        {
           return fitModeResult.currentStartWidth > fitModeResult.currentEndWidth;
         }
 
         @Override
-        public void applyMask(RectF maskBounds, float maskMultiplier, FitModeResult fitModeResult) {
+        public void applyMask(RectF maskBounds, float maskMultiplier, FitModeResult fitModeResult)
+        {
           float currentWidthDiff =
               Math.abs(fitModeResult.currentEndWidth - fitModeResult.currentStartWidth);
           maskBounds.left += currentWidthDiff / 2 * maskMultiplier;
@@ -108,9 +115,15 @@ class FitModeEvaluators {
         }
       };
 
+  private FitModeEvaluators()
+  {
+  }
+
   static FitModeEvaluator get(
-          @MaterialContainerTransform.FitMode int fitMode, boolean entering, RectF startBounds, RectF endBounds) {
-    switch (fitMode) {
+      @MaterialContainerTransform.FitMode int fitMode, boolean entering, RectF startBounds, RectF endBounds)
+  {
+    switch (fitMode)
+    {
       case MaterialContainerTransform.FIT_MODE_AUTO:
         return shouldAutoFitToWidth(entering, startBounds, endBounds) ? WIDTH : HEIGHT;
       case MaterialContainerTransform.FIT_MODE_WIDTH:
@@ -123,7 +136,8 @@ class FitModeEvaluators {
   }
 
   private static boolean shouldAutoFitToWidth(
-      boolean entering, RectF startBounds, RectF endBounds) {
+      boolean entering, RectF startBounds, RectF endBounds)
+  {
     float startWidth = startBounds.width();
     float startHeight = startBounds.height();
     float endWidth = endBounds.width();
@@ -133,6 +147,4 @@ class FitModeEvaluators {
     float startHeightFitToWidth = startHeight * endWidth / startWidth;
     return entering ? endHeightFitToWidth >= startHeight : startHeightFitToWidth >= endHeight;
   }
-
-  private FitModeEvaluators() {}
 }

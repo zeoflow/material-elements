@@ -15,11 +15,14 @@
  */
 package com.zeoflow.material.elements.datepicker;
 
-import com.google.android.material.R;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -27,10 +30,9 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.util.Pair;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
+
+import com.google.android.material.R;
+
 import java.util.Collection;
 
 /**
@@ -46,14 +48,14 @@ import java.util.Collection;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
-public interface DateSelector<S> extends Parcelable {
+public interface DateSelector<S> extends Parcelable
+{
 
-  /** Returns the current selection. */
+  /**
+   * Returns the current selection.
+   */
   @Nullable
   S getSelection();
-
-  /** Returns true if the current selection is acceptable. */
-  boolean isSelectionComplete();
 
   /**
    * Sets the current selection to {@code selection}.
@@ -61,6 +63,11 @@ public interface DateSelector<S> extends Parcelable {
    * @throws IllegalArgumentException If {@code selection} creates an invalid state.
    */
   void setSelection(@NonNull S selection);
+
+  /**
+   * Returns true if the current selection is acceptable.
+   */
+  boolean isSelectionComplete();
 
   /**
    * Allows this selection handler to respond to clicks within the {@link AdapterView}.

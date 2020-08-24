@@ -16,22 +16,23 @@
 
 package com.zeoflow.material.elements.internal;
 
-import com.google.android.material.R;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.core.view.ViewCompat;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
+
+import com.google.android.material.R;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Horizontally lay out children until the row is filled and then moved to the next line. Call
@@ -40,21 +41,25 @@ import android.view.ViewGroup;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
-public class FlowLayout extends ViewGroup {
+public class FlowLayout extends ViewGroup
+{
   private int lineSpacing;
   private int itemSpacing;
   private boolean singleLine;
   private int rowCount;
 
-  public FlowLayout(@NonNull Context context) {
+  public FlowLayout(@NonNull Context context)
+  {
     this(context, null);
   }
 
-  public FlowLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+  public FlowLayout(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     this(context, attrs, 0);
   }
 
-  public FlowLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  public FlowLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
+  {
     super(context, attrs, defStyleAttr);
     singleLine = false;
     loadFromAttributes(context, attrs);
@@ -62,13 +67,28 @@ public class FlowLayout extends ViewGroup {
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public FlowLayout(
-      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+      @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
+  {
     super(context, attrs, defStyleAttr, defStyleRes);
     singleLine = false;
     loadFromAttributes(context, attrs);
   }
 
-  private void loadFromAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
+  private static int getMeasuredDimension(int size, int mode, int childrenEdge)
+  {
+    switch (mode)
+    {
+      case MeasureSpec.EXACTLY:
+        return size;
+      case MeasureSpec.AT_MOST:
+        return Math.min(childrenEdge, size);
+      default: // UNSPECIFIED:
+        return childrenEdge;
+    }
+  }
+
+  private void loadFromAttributes(@NonNull Context context, @Nullable AttributeSet attrs)
+  {
     final TypedArray array =
         context.getTheme().obtainStyledAttributes(attrs, R.styleable.FlowLayout, 0, 0);
     lineSpacing = array.getDimensionPixelSize(R.styleable.FlowLayout_lineSpacing, 0);
@@ -76,34 +96,45 @@ public class FlowLayout extends ViewGroup {
     array.recycle();
   }
 
-  protected int getLineSpacing() {
+  protected int getLineSpacing()
+  {
     return lineSpacing;
   }
 
-  protected void setLineSpacing(int lineSpacing) {
+  protected void setLineSpacing(int lineSpacing)
+  {
     this.lineSpacing = lineSpacing;
   }
 
-  protected int getItemSpacing() {
+  protected int getItemSpacing()
+  {
     return itemSpacing;
   }
 
-  protected void setItemSpacing(int itemSpacing) {
+  protected void setItemSpacing(int itemSpacing)
+  {
     this.itemSpacing = itemSpacing;
   }
 
-  /** Returns whether this chip group is single line or reflowed multiline. */
-  public boolean isSingleLine() {
+  /**
+   * Returns whether this chip group is single line or reflowed multiline.
+   */
+  public boolean isSingleLine()
+  {
     return singleLine;
   }
 
-  /** Sets whether this chip group is single line, or reflowed multiline. */
-  public void setSingleLine(boolean singleLine) {
+  /**
+   * Sets whether this chip group is single line, or reflowed multiline.
+   */
+  public void setSingleLine(boolean singleLine)
+  {
     this.singleLine = singleLine;
   }
 
   @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+  {
     final int width = MeasureSpec.getSize(widthMeasureSpec);
     final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 
@@ -121,10 +152,12 @@ public class FlowLayout extends ViewGroup {
     int childRight = childLeft;
     int maxChildRight = 0;
     final int maxRight = maxWidth - getPaddingRight();
-    for (int i = 0; i < getChildCount(); i++) {
+    for (int i = 0; i < getChildCount(); i++)
+    {
       View child = getChildAt(i);
 
-      if (child.getVisibility() == View.GONE) {
+      if (child.getVisibility() == View.GONE)
+      {
         continue;
       }
       measureChild(child, widthMeasureSpec, heightMeasureSpec);
@@ -132,7 +165,8 @@ public class FlowLayout extends ViewGroup {
       LayoutParams lp = child.getLayoutParams();
       int leftMargin = 0;
       int rightMargin = 0;
-      if (lp instanceof MarginLayoutParams) {
+      if (lp instanceof MarginLayoutParams)
+      {
         MarginLayoutParams marginLp = (MarginLayoutParams) lp;
         leftMargin += marginLp.leftMargin;
         rightMargin += marginLp.rightMargin;
@@ -143,7 +177,8 @@ public class FlowLayout extends ViewGroup {
       // If the current child's right bound exceeds Flowlayout's max right bound and flowlayout is
       // not confined to a single line, move this child to the next line and reset its left bound to
       // flowlayout's left bound.
-      if (childRight > maxRight && !isSingleLine()) {
+      if (childRight > maxRight && !isSingleLine())
+      {
         childLeft = getPaddingLeft();
         childTop = childBottom + lineSpacing;
       }
@@ -152,7 +187,8 @@ public class FlowLayout extends ViewGroup {
       childBottom = childTop + child.getMeasuredHeight();
 
       // Updates Flowlayout's max right bound if current child's right bound exceeds it.
-      if (childRight > maxChildRight) {
+      if (childRight > maxChildRight)
+      {
         maxChildRight = childRight;
       }
 
@@ -161,7 +197,8 @@ public class FlowLayout extends ViewGroup {
       // For all preceding children, the child's right margin is taken into account in the next
       // child's left bound (childLeft). However, childLeft is ignored after the last child so the
       // last child's right margin needs to be explicitly added to Flowlayout's max right bound.
-      if (i == (getChildCount() - 1)) {
+      if (i == (getChildCount() - 1))
+      {
         maxChildRight += rightMargin;
       }
     }
@@ -174,20 +211,11 @@ public class FlowLayout extends ViewGroup {
     setMeasuredDimension(finalWidth, finalHeight);
   }
 
-  private static int getMeasuredDimension(int size, int mode, int childrenEdge) {
-    switch (mode) {
-      case MeasureSpec.EXACTLY:
-        return size;
-      case MeasureSpec.AT_MOST:
-        return Math.min(childrenEdge, size);
-      default: // UNSPECIFIED:
-        return childrenEdge;
-    }
-  }
-
   @Override
-  protected void onLayout(boolean sizeChanged, int left, int top, int right, int bottom) {
-    if (getChildCount() == 0) {
+  protected void onLayout(boolean sizeChanged, int left, int top, int right, int bottom)
+  {
+    if (getChildCount() == 0)
+    {
       // Do not re-layout when there are no children.
       rowCount = 0;
       return;
@@ -204,10 +232,12 @@ public class FlowLayout extends ViewGroup {
 
     final int maxChildEnd = right - left - paddingEnd;
 
-    for (int i = 0; i < getChildCount(); i++) {
+    for (int i = 0; i < getChildCount(); i++)
+    {
       View child = getChildAt(i);
 
-      if (child.getVisibility() == View.GONE) {
+      if (child.getVisibility() == View.GONE)
+      {
         child.setTag(R.id.row_index_key, -1);
         continue;
       }
@@ -215,7 +245,8 @@ public class FlowLayout extends ViewGroup {
       LayoutParams lp = child.getLayoutParams();
       int startMargin = 0;
       int endMargin = 0;
-      if (lp instanceof MarginLayoutParams) {
+      if (lp instanceof MarginLayoutParams)
+      {
         MarginLayoutParams marginLp = (MarginLayoutParams) lp;
         startMargin = MarginLayoutParamsCompat.getMarginStart(marginLp);
         endMargin = MarginLayoutParamsCompat.getMarginEnd(marginLp);
@@ -223,7 +254,8 @@ public class FlowLayout extends ViewGroup {
 
       childEnd = childStart + startMargin + child.getMeasuredWidth();
 
-      if (!singleLine && (childEnd > maxChildEnd)) {
+      if (!singleLine && (childEnd > maxChildEnd))
+      {
         childStart = paddingStart;
         childTop = childBottom + lineSpacing;
         rowCount++;
@@ -233,10 +265,12 @@ public class FlowLayout extends ViewGroup {
       childEnd = childStart + startMargin + child.getMeasuredWidth();
       childBottom = childTop + child.getMeasuredHeight();
 
-      if (isRtl) {
+      if (isRtl)
+      {
         child.layout(
             maxChildEnd - childEnd, childTop, maxChildEnd - childStart - startMargin, childBottom);
-      } else {
+      } else
+      {
         child.layout(childStart + startMargin, childTop, childEnd, childBottom);
       }
 
@@ -244,14 +278,19 @@ public class FlowLayout extends ViewGroup {
     }
   }
 
-  protected int getRowCount() {
+  protected int getRowCount()
+  {
     return rowCount;
   }
 
-  /** Gets the row index of the child, primarily for accessibility.   */
-  public int getRowIndex(@NonNull View child) {
+  /**
+   * Gets the row index of the child, primarily for accessibility.
+   */
+  public int getRowIndex(@NonNull View child)
+  {
     Object index = child.getTag(R.id.row_index_key);
-    if (!(index instanceof Integer)) {
+    if (!(index instanceof Integer))
+    {
       return -1;
     }
     return (int) index;

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2017 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,31 +18,31 @@
 
   <!-- Pressed state -->
   <item
-      android:state_enabled="true"
-      android:state_pressed="true">
+    android:state_enabled="true"
+    android:state_pressed="true">
     <objectAnimator
-        android:duration="@integer/mtrl_chip_anim_duration"
-        android:propertyName="translationZ"
-        android:valueTo="@dimen/mtrl_chip_pressed_translation_z"
-        android:valueType="floatType"/>
+      android:duration="@integer/mtrl_chip_anim_duration"
+      android:propertyName="translationZ"
+      android:valueTo="@dimen/mtrl_chip_pressed_translation_z"
+      android:valueType="floatType" />
   </item>
 
   <!-- Enabled state -->
   <item android:state_enabled="true">
     <objectAnimator
-        android:duration="@integer/mtrl_chip_anim_duration"
-        android:propertyName="translationZ"
-        android:valueTo="0"
-        android:valueType="floatType"/>
+      android:duration="@integer/mtrl_chip_anim_duration"
+      android:propertyName="translationZ"
+      android:valueTo="0"
+      android:valueType="floatType" />
   </item>
 
   <!-- Disabled state -->
   <item>
     <objectAnimator
-        android:duration="0"
-        android:propertyName="translationZ"
-        android:valueTo="0"
-        android:valueType="floatType"/>
+      android:duration="0"
+      android:propertyName="translationZ"
+      android:valueTo="0"
+      android:valueType="floatType" />
   </item>
 
 </selector>

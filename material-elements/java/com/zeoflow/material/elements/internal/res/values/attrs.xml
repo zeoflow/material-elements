@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2017 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,39 +24,39 @@
          should only use this flag if a particular usage is known to cause a visual glitch or crash.
          For example, tinting a vector drawable with a non-existent theme attribute is known to
          crash on pre-21 devices. -->
-    <attr name="enforceMaterialTheme" format="boolean"/>
+    <attr name="enforceMaterialTheme" format="boolean" />
     <!-- Internal flag used to denote that a style requires that the textAppearance attribute is
          specified and evaluates to a valid text appearance. -->
-    <attr name="enforceTextAppearance" format="boolean"/>
+    <attr name="enforceTextAppearance" format="boolean" />
     <!-- Attribute used to check that a component has a TextAppearance specified on it. -->
-    <attr name="android:textAppearance"/>
+    <attr name="android:textAppearance" />
   </declare-styleable>
 
   <declare-styleable name="ForegroundLinearLayout">
-    <attr name="android:foreground"/>
-    <attr name="android:foregroundGravity"/>
+    <attr name="android:foreground" />
+    <attr name="android:foregroundGravity" />
     <!-- Do not expose publicly, used by ForegroundLinearLayout but never set by any style.  -->
-    <attr name="foregroundInsidePadding" format="boolean"/>
+    <attr name="foregroundInsidePadding" format="boolean" />
   </declare-styleable>
 
   <declare-styleable name="ScrimInsetsFrameLayout">
-    <attr name="insetForeground" format="color|reference"/>
+    <attr name="insetForeground" format="color|reference" />
   </declare-styleable>
 
-    <!-- Do not expose publicly, FlowLayout (private class) that is the parent for ChipGroup (public), which has its own public spacing attributes.  -->
+  <!-- Do not expose publicly, FlowLayout (private class) that is the parent for ChipGroup (public), which has its own public spacing attributes.  -->
   <declare-styleable name="FlowLayout">
     <!-- Horizontal spacing between two items being laid out. -->
-    <attr name="itemSpacing" format="dimension"/>
+    <attr name="itemSpacing" format="dimension" />
     <!-- Vertical Spacing between two lines of items being laid out. -->
-    <attr name="lineSpacing" format="dimension"/>
+    <attr name="lineSpacing" format="dimension" />
   </declare-styleable>
 
   <declare-styleable name="Insets">
     <!-- Just adding the parameters that we need for now. We can add others if we need them, but
          ideally we'll be able to use https://github.com/chrisbanes/insetter once it's ready. -->
-    <attr name="paddingBottomSystemWindowInsets" format="boolean"/>
-    <attr name="paddingLeftSystemWindowInsets" format="boolean"/>
-    <attr name="paddingRightSystemWindowInsets" format="boolean"/>
+    <attr name="paddingBottomSystemWindowInsets" format="boolean" />
+    <attr name="paddingLeftSystemWindowInsets" format="boolean" />
+    <attr name="paddingRightSystemWindowInsets" format="boolean" />
   </declare-styleable>
 
 </resources>

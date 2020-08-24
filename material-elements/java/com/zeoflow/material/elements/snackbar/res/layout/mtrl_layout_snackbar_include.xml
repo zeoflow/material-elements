@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +14,7 @@
   ~ limitations under the License.
 -->
 
-<view
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<view xmlns:android="http://schemas.android.com/apk/res/android"
   class="com.zeoflow.material.elements.snackbar.SnackbarContentLayout"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -27,18 +25,18 @@
     style="?attr/snackbarTextViewStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:layout_gravity="center_vertical|left|start"/>
+    android:layout_gravity="center_vertical|left|start"
+    android:layout_weight="1" />
 
   <Button
     android:id="@+id/snackbar_action"
     style="?attr/snackbarButtonStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|right|end"
     android:layout_marginStart="@dimen/design_snackbar_extra_spacing_horizontal"
     android:layout_marginLeft="@dimen/design_snackbar_extra_spacing_horizontal"
-    android:layout_gravity="center_vertical|right|end"
     android:minWidth="48dp"
-    android:visibility="gone"/>
+    android:visibility="gone" />
 
 </view>
