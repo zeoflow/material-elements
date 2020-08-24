@@ -5,7 +5,7 @@ android {
   buildToolsVersion "30.0.1"
 
   defaultConfig {
-    applicationId "com.zeoflow.materialcomponents"
+    applicationId "com.zeoflow.material-elements"
     minSdkVersion 23
     targetSdkVersion 30
     versionCode 1
