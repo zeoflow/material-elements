@@ -14,8 +14,8 @@
   ~ limitations under the License.
 -->
 <resources>
-  <!-- Deprecated. Use com.google.android.material.transition.MaterialContainerTransform instead. -->
+  <!-- Deprecated. Use com.zeoflow.transition.MaterialContainerTransform instead. -->
   <public name="fab_transformation_sheet_behavior" type="string" />
-  <!-- Deprecated. Use com.google.android.material.transition.MaterialContainerTransform instead. -->
+  <!-- Deprecated. Use com.zeoflow.transition.MaterialContainerTransform instead. -->
   <public name="fab_transformation_scrim_behavior" type="string" />
 </resources>

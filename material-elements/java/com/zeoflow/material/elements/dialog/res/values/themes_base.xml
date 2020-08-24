@@ -20,7 +20,7 @@
 
   <style name="Base.V14.Theme.MaterialElements.Dialog" parent="Base.V14.Theme.MaterialElements.Dialog.Bridge">
     <item name="viewInflaterClass">
-      com.google.android.material.theme.MaterialElementsViewInflater
+      com.zeoflow.theme.MaterialElementsViewInflater
     </item>
 
     <item name="colorPrimary">@color/design_dark_default_color_primary</item>
@@ -77,7 +77,7 @@
 
   <style name="Base.V14.Theme.MaterialElements.Light.Dialog" parent="Base.V14.Theme.MaterialElements.Light.Dialog.Bridge">
     <item name="viewInflaterClass">
-      com.google.android.material.theme.MaterialElementsViewInflater
+      com.zeoflow.theme.MaterialElementsViewInflater
     </item>
 
     <!-- Colors -->

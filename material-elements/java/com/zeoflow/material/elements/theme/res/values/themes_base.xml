@@ -20,7 +20,7 @@
 
   <style name="Base.V14.Theme.MaterialElements" parent="Base.V14.Theme.MaterialElements.Bridge">
     <item name="viewInflaterClass">
-      com.google.android.material.theme.MaterialElementsViewInflater
+      com.zeoflow.theme.MaterialElementsViewInflater
     </item>
 
     <!-- Colors -->
@@ -93,7 +93,7 @@
 
   <style name="Base.V14.Theme.MaterialElements.Light" parent="Base.V14.Theme.MaterialElements.Light.Bridge">
     <item name="viewInflaterClass">
-      com.google.android.material.theme.MaterialElementsViewInflater
+      com.zeoflow.theme.MaterialElementsViewInflater
     </item>
 
     <!-- Colors -->
