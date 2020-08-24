@@ -63,34 +63,34 @@ import java.util.TreeMap;
  * added to this view group via XML, as follows:
  *
  * <pre>
- * &lt;com.google.android.material.button.MaterialButtonToggleGroup
+ * &lt;com.zeoflow.material.elements.button.MaterialButtonToggleGroup
  *     xmlns:android="http://schemas.android.com/apk/res/android"
  *     android:id="@+id/toggle_button_group"
  *     android:layout_width="wrap_content"
  *     android:layout_height="wrap_content"&gt;
  *
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_private"/&gt;
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_team"/&gt;
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_everyone"/&gt;
- *     &lt;com.google.android.material.button.MaterialButton
+ *     &lt;com.zeoflow.material.elements.button.MaterialButton
  *         style="?attr/materialButtonOutlinedStyle"
  *         android:layout_width="wrap_content"
  *         android:layout_height="wrap_content"
  *         android:text="@string/button_label_custom"/&gt;
  *
- * &lt;/com.google.android.material.button.MaterialButtonToggleGroup&gt;
+ * &lt;/com.zeoflow.material.elements.button.MaterialButtonToggleGroup&gt;
  * </pre>
  *
  * <p>Buttons can also be added to this view group programmatically via the {@link #addView(View)}

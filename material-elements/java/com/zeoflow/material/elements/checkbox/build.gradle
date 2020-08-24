@@ -9,8 +9,8 @@ version = rootProject.ext.mdcLibraryVersion
 dependencies {
   implementation compatibility("appcompat")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
 }
 
 android {

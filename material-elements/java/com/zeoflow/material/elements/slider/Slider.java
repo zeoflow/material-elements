@@ -36,7 +36,7 @@ import com.zeoflow.material.elements.slider.Slider.OnSliderTouchListener;
  * <p>{@code android:value}: <b>Optional.</b> The initial value of the slider. If not specified, the
  * slider's minimum value {@code android:valueFrom} is used.
  *
- * @attr ref com.google.android.material.R.styleable#SingleSlider_android_value
+ * @attr ref com.zeoflow.material.elements.R.styleable#SingleSlider_android_value
  */
 public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchListener>
 {
@@ -65,7 +65,7 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
   /**
    * Returns the value of the slider.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_android_value
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_value
    * @see #setValue(float)
    */
   public float getValue()
@@ -86,7 +86,7 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
    * an {@link IllegalStateException} will be thrown when the view is laid out.
    *
    * @param value The value to which to set the slider
-   * @attr ref com.google.android.material.R.styleable#Slider_android_value
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_value
    * @see #getValue()
    */
   public void setValue(float value)

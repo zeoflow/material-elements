@@ -12,10 +12,10 @@ dependencies {
   implementation compatibility("core")
   implementation compatibility("viewpager2")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
-  implementation project(fromPath("lib/java/com/google/android/material/resources"))
-  implementation project(fromPath("lib/java/com/google/android/material/ripple"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/resources"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/ripple"))
 }
 
 android {

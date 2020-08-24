@@ -86,7 +86,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  *
  *     &lt;!-- Your contents --&gt;
  *
- *     &lt;com.google.android.material.navigation.NavigationView
+ *     &lt;com.zeoflow.material.elements.navigation.NavigationView
  *         android:id="@+id/navigation"
  *         android:layout_width="wrap_content"
  *         android:layout_height="match_parent"

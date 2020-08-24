@@ -11,10 +11,10 @@ dependencies {
   implementation compatibility("appcompat")
   implementation compatibility("core")
 
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
-  implementation project(fromPath("lib/java/com/google/android/material/resources"))
-  implementation project(fromPath("lib/java/com/google/android/material/shape"))
-  implementation project(fromPath("lib/java/com/google/android/material/typography"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/resources"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/shape"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/typography"))
 }
 
 android {

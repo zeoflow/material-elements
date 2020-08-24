@@ -319,7 +319,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * than a ripple.
    *
    * @param color ARGB color to use for the ripple
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_rippleColor
    * @see #getRippleColor()
    */
   public void setRippleColor(@ColorInt int color)
@@ -334,7 +334,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * than a ripple.
    *
    * @param color color state list to use for the ripple
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_rippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_rippleColor
    * @see #getRippleColor()
    */
   public void setRippleColor(@Nullable ColorStateList color)
@@ -589,7 +589,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Returns whether this fab will expand its bounds (if needed) to meet the minimum touch target
    * size.
    *
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_ensureMinTouchTargetSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_ensureMinTouchTargetSize
    * @see #setEnsureMinTouchTargetSize(boolean)
    */
   public boolean shouldEnsureMinTouchTargetSize()
@@ -601,7 +601,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Sets whether this FloatingActionButton should expand its bounds (if needed) to meet the minimum
    * touch target size.
    *
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_ensureMinTouchTargetSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_ensureMinTouchTargetSize
    */
   public void setEnsureMinTouchTargetSize(boolean flag)
   {
@@ -721,7 +721,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    *
    * @return true if FloatingActionButton is adding inner padding on platforms Lollipop and after,
    * to ensure consistent dimensions on all platforms.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_useCompatPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_useCompatPadding
    * @see #setUseCompatPadding(boolean)
    */
   public boolean getUseCompatPadding()
@@ -735,7 +735,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    *
    * @param useCompatPadding true if FloatingActionButton is adding inner padding on platforms
    *                         Lollipop and after, to ensure consistent dimensions on all platforms.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_useCompatPadding
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_useCompatPadding
    * @see #getUseCompatPadding()
    */
   public void setUseCompatPadding(boolean useCompatPadding)
@@ -770,7 +770,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * previously on.
    *
    * @param size one of {@link #SIZE_NORMAL}, {@link #SIZE_MINI} or {@link #SIZE_AUTO}
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_fabSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_fabSize
    */
   public void setSize(@Size int size)
   {
@@ -836,7 +836,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * calculated based on the value set using {@link #setSize(int)} or the {@code fabSize} attribute.
    *
    * @param size preferred size in pixels, or {@link #NO_CUSTOM_SIZE}
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_fabCustomSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_fabCustomSize
    */
   public void setCustomSize(@Px int size)
   {
@@ -1030,7 +1030,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Returns the backward compatible elevation of the FloatingActionButton.
    *
    * @return the backward compatible elevation in pixels.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_elevation
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_elevation
    * @see #setCompatElevation(float)
    */
   public float getCompatElevation()
@@ -1042,7 +1042,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Updates the backward compatible elevation of the FloatingActionButton.
    *
    * @param elevation The backward compatible elevation in pixels.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_elevation
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_elevation
    * @see #getCompatElevation()
    * @see #setUseCompatPadding(boolean)
    */
@@ -1055,7 +1055,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Updates the backward compatible elevation of the FloatingActionButton.
    *
    * @param id The resource id of the backward compatible elevation.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_elevation
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_elevation
    * @see #getCompatElevation()
    * @see #setUseCompatPadding(boolean)
    */
@@ -1069,7 +1069,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    *
    * @return the backward compatible hovered/focused translationZ in pixels.
    * @attr ref
-   * com.google.android.material.R.styleable#FloatingActionButton_hoveredFocusedTranslationZ
+   * com.zeoflow.material.elements.R.styleable#FloatingActionButton_hoveredFocusedTranslationZ
    * @see #setCompatHoveredFocusedTranslationZ(float)
    */
   public float getCompatHoveredFocusedTranslationZ()
@@ -1082,7 +1082,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    *
    * @param translationZ The backward compatible hovered/focused translationZ in pixels.
    * @attr ref
-   * com.google.android.material.R.styleable#FloatingActionButton_hoveredFocusedTranslationZ
+   * com.zeoflow.material.elements.R.styleable#FloatingActionButton_hoveredFocusedTranslationZ
    * @see #getCompatHoveredFocusedTranslationZ()
    * @see #setUseCompatPadding(boolean)
    */
@@ -1096,7 +1096,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    *
    * @param id The resource id of the backward compatible hovered/focused translationZ.
    * @attr ref
-   * com.google.android.material.R.styleable#FloatingActionButton_hoveredFocusedTranslationZ
+   * com.zeoflow.material.elements.R.styleable#FloatingActionButton_hoveredFocusedTranslationZ
    * @see #getCompatHoveredFocusedTranslationZ()
    * @see #setUseCompatPadding(boolean)
    */
@@ -1109,7 +1109,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Returns the backward compatible pressed translationZ of the FloatingActionButton.
    *
    * @return the backward compatible pressed translationZ in pixels.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_pressedTranslationZ
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_pressedTranslationZ
    * @see #setCompatPressedTranslationZ(float)
    */
   public float getCompatPressedTranslationZ()
@@ -1121,7 +1121,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Updates the backward compatible pressed translationZ of the FloatingActionButton.
    *
    * @param translationZ The backward compatible pressed translationZ in pixels.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_pressedTranslationZ
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_pressedTranslationZ
    * @see #getCompatPressedTranslationZ()
    * @see #setUseCompatPadding(boolean)
    */
@@ -1134,7 +1134,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
    * Updates the backward compatible pressed translationZ of the FloatingActionButton.
    *
    * @param id The resource id of the backward compatible pressed translationZ.
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_pressedTranslationZ
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_pressedTranslationZ
    * @see #getCompatPressedTranslationZ()
    * @see #setUseCompatPadding(boolean)
    */
@@ -1155,7 +1155,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
   /**
    * Updates the motion spec for the show animation.
    *
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_showMotionSpec
    */
   public void setShowMotionSpec(@Nullable MotionSpec spec)
   {
@@ -1165,7 +1165,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
   /**
    * Updates the motion spec for the show animation.
    *
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_showMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_showMotionSpec
    */
   public void setShowMotionSpecResource(@AnimatorRes int id)
   {
@@ -1184,7 +1184,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
   /**
    * Updates the motion spec for the hide animation.
    *
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_hideMotionSpec
    */
   public void setHideMotionSpec(@Nullable MotionSpec spec)
   {
@@ -1194,7 +1194,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
   /**
    * Updates the motion spec for the hide animation.
    *
-   * @attr ref com.google.android.material.R.styleable#FloatingActionButton_hideMotionSpec
+   * @attr ref com.zeoflow.material.elements.R.styleable#FloatingActionButton_hideMotionSpec
    */
   public void setHideMotionSpecResource(@AnimatorRes int id)
   {
@@ -1392,7 +1392,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
      *
      * @return true if enabled
      * @attr ref
-     * com.google.android.material.R.styleable#FloatingActionButton_Behavior_Layout_behavior_autoHide
+     * com.zeoflow.material.elements.R.styleable#FloatingActionButton_Behavior_Layout_behavior_autoHide
      */
     public boolean isAutoHideEnabled()
     {
@@ -1405,7 +1405,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
      *
      * @param autoHide true to enable automatic hiding
      * @attr ref
-     * com.google.android.material.R.styleable#FloatingActionButton_Behavior_Layout_behavior_autoHide
+     * com.zeoflow.material.elements.R.styleable#FloatingActionButton_Behavior_Layout_behavior_autoHide
      */
     public void setAutoHideEnabled(boolean autoHide)
     {

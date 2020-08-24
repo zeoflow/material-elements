@@ -102,15 +102,15 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * view' to the Toolbar which allows us to work out the available space for the title. This can
  * interfere with any views which you add.
  *
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_collapsedTitleTextAppearance
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleTextAppearance
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_contentScrim
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMargin
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginStart
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginEnd
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginBottom
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_statusBarScrim
- * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_toolbarId
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_collapsedTitleTextAppearance
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleTextAppearance
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_contentScrim
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMargin
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginStart
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginEnd
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginBottom
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_statusBarScrim
+ * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_toolbarId
  */
 public class CollapsingToolbarLayout extends FrameLayout
 {
@@ -938,7 +938,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * resource.
    *
    * @attr ref
-   * com.google.android.material.R.styleable#CollapsingToolbarLayout_collapsedTitleTextAppearance
+   * com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_collapsedTitleTextAppearance
    */
   public void setCollapsedTitleTextAppearance(@StyleRes int resId)
   {
@@ -968,7 +968,7 @@ public class CollapsingToolbarLayout extends FrameLayout
   /**
    * Returns the horizontal and vertical alignment for title when collapsed.
    *
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_collapsedTitleGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_collapsedTitleGravity
    */
   public int getCollapsedTitleGravity()
   {
@@ -979,7 +979,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Sets the horizontal alignment of the collapsed title and the vertical gravity that will be used
    * when there is extra space in the collapsed bounds beyond what is required for the title itself.
    *
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_collapsedTitleGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_collapsedTitleGravity
    */
   public void setCollapsedTitleGravity(int gravity)
   {
@@ -990,7 +990,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Sets the text color and size for the expanded title from the specified TextAppearance resource.
    *
    * @attr ref
-   * com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleTextAppearance
+   * com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleTextAppearance
    */
   public void setExpandedTitleTextAppearance(@StyleRes int resId)
   {
@@ -1020,7 +1020,7 @@ public class CollapsingToolbarLayout extends FrameLayout
   /**
    * Returns the horizontal and vertical alignment for title when expanded.
    *
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleGravity
    */
   public int getExpandedTitleGravity()
   {
@@ -1031,7 +1031,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Sets the horizontal alignment of the expanded title and the vertical gravity that will be used
    * when there is extra space in the expanded bounds beyond what is required for the title itself.
    *
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleGravity
    */
   public void setExpandedTitleGravity(int gravity)
   {
@@ -1083,7 +1083,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * @param top    the top title margin in pixels
    * @param end    the ending title margin in pixels
    * @param bottom the bottom title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMargin
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMargin
    * @see #getExpandedTitleMarginStart()
    * @see #getExpandedTitleMarginTop()
    * @see #getExpandedTitleMarginEnd()
@@ -1100,7 +1100,7 @@ public class CollapsingToolbarLayout extends FrameLayout
 
   /**
    * @return the starting expanded title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginStart
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginStart
    * @see #setExpandedTitleMarginStart(int)
    */
   public int getExpandedTitleMarginStart()
@@ -1112,7 +1112,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Sets the starting expanded title margin in pixels.
    *
    * @param margin the starting title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginStart
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginStart
    * @see #getExpandedTitleMarginStart()
    */
   public void setExpandedTitleMarginStart(int margin)
@@ -1123,7 +1123,7 @@ public class CollapsingToolbarLayout extends FrameLayout
 
   /**
    * @return the top expanded title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginTop
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginTop
    * @see #setExpandedTitleMarginTop(int)
    */
   public int getExpandedTitleMarginTop()
@@ -1135,7 +1135,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Sets the top expanded title margin in pixels.
    *
    * @param margin the top title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginTop
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginTop
    * @see #getExpandedTitleMarginTop()
    */
   public void setExpandedTitleMarginTop(int margin)
@@ -1146,7 +1146,7 @@ public class CollapsingToolbarLayout extends FrameLayout
 
   /**
    * @return the ending expanded title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginEnd
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginEnd
    * @see #setExpandedTitleMarginEnd(int)
    */
   public int getExpandedTitleMarginEnd()
@@ -1158,7 +1158,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Sets the ending expanded title margin in pixels.
    *
    * @param margin the ending title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginEnd
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginEnd
    * @see #getExpandedTitleMarginEnd()
    */
   public void setExpandedTitleMarginEnd(int margin)
@@ -1169,7 +1169,7 @@ public class CollapsingToolbarLayout extends FrameLayout
 
   /**
    * @return the bottom expanded title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginBottom
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginBottom
    * @see #setExpandedTitleMarginBottom(int)
    */
   public int getExpandedTitleMarginBottom()
@@ -1181,7 +1181,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Sets the bottom expanded title margin in pixels.
    *
    * @param margin the bottom title margin in pixels
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_expandedTitleMarginBottom
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_expandedTitleMarginBottom
    * @see #getExpandedTitleMarginBottom()
    */
   public void setExpandedTitleMarginBottom(int margin)
@@ -1248,7 +1248,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    *
    * @param height value in pixels used to define when to trigger a scrim visibility change
    * @attr ref
-   * com.google.android.material.R.styleable#CollapsingToolbarLayout_scrimVisibleHeightTrigger
+   * com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_scrimVisibleHeightTrigger
    */
   public void setScrimVisibleHeightTrigger(@IntRange(from = 0) final int height)
   {
@@ -1272,7 +1272,7 @@ public class CollapsingToolbarLayout extends FrameLayout
    * Set the duration used for scrim visibility animations.
    *
    * @param duration the duration to use in milliseconds
-   * @attr ref com.google.android.material.R.styleable#CollapsingToolbarLayout_scrimAnimationDuration
+   * @attr ref com.zeoflow.material.elements.R.styleable#CollapsingToolbarLayout_scrimAnimationDuration
    */
   public void setScrimAnimationDuration(@IntRange(from = 0) final long duration)
   {

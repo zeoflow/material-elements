@@ -200,7 +200,7 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable
    * set for a stroke to be drawn.
    *
    * @param strokeColorResourceId Color resource to use for the stroke.
-   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#ShapeableImageView_strokeColor
    * @see #setStrokeColor(ColorStateList)
    * @see #getStrokeColor()
    */
@@ -212,7 +212,7 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable
   /**
    * Returns the stroke color for this ImageView.
    *
-   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#ShapeableImageView_strokeColor
    * @see #setStrokeColor(ColorStateList)
    * @see #setStrokeColorResource(int)
    */
@@ -233,7 +233,7 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable
    * must be set for a stroke to be drawn.
    *
    * @param strokeWidthResourceId Stroke width dimension resource for this ImageView.
-   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#ShapeableImageView_strokeWidth
    * @see #setStrokeWidth(float)
    * @see #getStrokeWidth()
    */
@@ -246,7 +246,7 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable
    * Gets the stroke width for this ImageView.
    *
    * @return Stroke width for this ImageView.
-   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#ShapeableImageView_strokeWidth
    * @see #setStrokeWidth(float)
    * @see #setStrokeWidthResource(int)
    */
@@ -261,7 +261,7 @@ public class ShapeableImageView extends AppCompatImageView implements Shapeable
    * stroke to be drawn.
    *
    * @param strokeWidth Stroke width for this ImageView.
-   * @attr ref com.google.android.material.R.styleable#ShapeableImageView_strokeWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#ShapeableImageView_strokeWidth
    * @see #setStrokeWidthResource(int)
    * @see #getStrokeWidth()
    */

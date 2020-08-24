@@ -47,11 +47,11 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  * case, when using the {@code Widget.MaterialComponents.Toolbar.Surface} style with elevation.
  *
  * <p>To get started with the {@code MaterialToolbar} component, use {@code
- * com.google.android.material.appbar.MaterialToolbar} in your layout XML instead of {@code
+ * com.zeoflow.material.elements.appbar.MaterialToolbar} in your layout XML instead of {@code
  * androidx.appcompat.widget.Toolbar} or {@code Toolbar}. E.g.,:
  *
  * <pre>
- * &lt;com.google.android.material.appbar.MaterialToolbar
+ * &lt;com.zeoflow.material.elements.appbar.MaterialToolbar
  *         android:layout_width=&quot;match_parent&quot;
  *         android:layout_height=&quot;wrap_content&quot;/&gt;
  * </pre>

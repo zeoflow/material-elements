@@ -28,13 +28,13 @@ To use it:
     ```groovy
       dependencies {
         // ...
-        implementation 'com.google.android.material:material:<version>'
+        implementation 'com.zeoflow.material.elements:material:<version>'
         // ...
       }
     ```
 
 Visit [Google's Maven Repository](http://maven.google.com) or
-[MVN Repository](https://mvnrepository.com/artifact/com.google.android.material/material)
+[MVN Repository](https://mvnrepository.com/artifact/com.zeoflow.material.elements/material)
 to find the latest version of the library.
 
 ##### New Namespace and AndroidX
@@ -43,15 +43,15 @@ If your app currently depends on the original Design Support Library, you can
 make use of the
 [`Refactor to AndroidX…`](https://developer.android.com/jetpack/androidx/migrate)
 option provided by Android Studio. Doing so will update your app's dependencies
-and code to use the newly packaged `androidx` and `com.google.android.material`
+and code to use the newly packaged `androidx` and `com.zeoflow.material.elements`
 libraries.
 
 If you don't want to switch over to the new `androidx` and
-`com.google.android.material` packages yet, you can use Material Components via
+`com.zeoflow.material.elements` packages yet, you can use Material Components via
 the `com.android.support:design:28.0.0` dependency.
 
 Note: You should not use the `com.android.support` and
-`com.google.android.material` dependencies in your app at the same time.
+`com.zeoflow.material.elements` dependencies in your app at the same time.
 
 ### 2. Compile your app with Android 10
 
@@ -112,7 +112,7 @@ Note: Using a Material Components theme enables a custom view inflater which
 replaces default components with their Material counterparts. Currently, this
 only replaces `<Button>` and `<AutoCompleteTextView>` XML components with
 [`<MaterialButton>`](components/Button.md) and
-[`<MaterialAutoCompleteTextView>`](https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/textfield/MaterialAutoCompleteTextView.java),
+[`<MaterialAutoCompleteTextView>`](https://github.com/material-components/material-components-android/blob/master/material-elements/java/com/zeoflow/material/elements/textfield/MaterialAutoCompleteTextView.java),
 respectively.
 
 #### **Bridge Themes** {#bridge-themes}
@@ -199,15 +199,15 @@ The default
 XML is defined as:
 
 ```xml
-<com.google.android.material.textfield.TextInputLayout
+<com.zeoflow.material.elements.textfield.TextInputLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="@string/textfield_label">
 
-  <com.google.android.material.textfield.TextInputEditText
+  <com.zeoflow.material.elements.textfield.TextInputEditText
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
-</com.google.android.material.textfield.TextInputLayout>
+</com.zeoflow.material.elements.textfield.TextInputLayout>
 ```
 
 Note: If you are **not** using a theme that inherits from a Material Components
@@ -220,16 +220,16 @@ in your layout, you can apply the Material Components `outlined` style to the
 text field in XML:
 
 ```xml
-<com.google.android.material.textfield.TextInputLayout
+<com.zeoflow.material.elements.textfield.TextInputLayout
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="@string/textfield_label">
 
-  <com.google.android.material.textfield.TextInputEditText
+  <com.zeoflow.material.elements.textfield.TextInputEditText
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
-</com.google.android.material.textfield.TextInputLayout>
+</com.zeoflow.material.elements.textfield.TextInputLayout>
 ```
 
 ## Contributors

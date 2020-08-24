@@ -39,7 +39,7 @@ import java.util.List;
  * <p>{@code app:values}: <b>Optional.</b> The initial values of the range slider. If not specified,
  * the range slider will only have one value equal to {@code android:valueFrom}
  *
- * @attr ref com.google.android.material.R.styleable#RangeSlider_values
+ * @attr ref com.zeoflow.material.elements.R.styleable#RangeSlider_values
  */
 public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSliderTouchListener>
 {

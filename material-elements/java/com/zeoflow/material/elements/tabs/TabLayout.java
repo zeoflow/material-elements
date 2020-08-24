@@ -129,17 +129,17 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
  * example usage is like so:
  *
  * <pre>
- * &lt;com.google.android.material.tabs.TabLayout
+ * &lt;com.zeoflow.material.elements.tabs.TabLayout
  *         android:layout_height=&quot;wrap_content&quot;
  *         android:layout_width=&quot;match_parent&quot;&gt;
  *
- *     &lt;com.google.android.material.tabs.TabItem
+ *     &lt;com.zeoflow.material.elements.tabs.TabItem
  *             android:text=&quot;@string/tab_text&quot;/&gt;
  *
- *     &lt;com.google.android.material.tabs.TabItem
+ *     &lt;com.zeoflow.material.elements.tabs.TabItem
  *             android:icon=&quot;@drawable/ic_android&quot;/&gt;
  *
- * &lt;/com.google.android.material.tabs.TabLayout&gt;
+ * &lt;/com.zeoflow.material.elements.tabs.TabLayout&gt;
  * </pre>
  *
  * <h3>ViewPager integration</h3>
@@ -156,7 +156,7 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
  *     android:layout_width=&quot;match_parent&quot;
  *     android:layout_height=&quot;match_parent&quot;&gt;
  *
- *     &lt;com.google.android.material.tabs.TabLayout
+ *     &lt;com.zeoflow.material.elements.tabs.TabLayout
  *         android:layout_width=&quot;match_parent&quot;
  *         android:layout_height=&quot;wrap_content&quot;
  *         android:layout_gravity=&quot;top&quot; /&gt;
@@ -164,16 +164,16 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
  * &lt;/androidx.viewpager.widget.ViewPager&gt;
  * </pre>
  *
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabPadding
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabPaddingStart
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabPaddingTop
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabPaddingEnd
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabPaddingBottom
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabContentStart
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabBackground
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabMinWidth
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabMaxWidth
- * @attr ref com.google.android.material.R.styleable#TabLayout_tabTextAppearance
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabPadding
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabPaddingStart
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabPaddingTop
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabPaddingEnd
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabPaddingBottom
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabContentStart
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabBackground
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabMinWidth
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabMaxWidth
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabTextAppearance
  * @see <a href="http://www.google.com/design/spec/components/tabs.html">Tabs</a>
  */
 @ViewPager.DecorView
@@ -251,7 +251,7 @@ public class TabLayout extends HorizontalScrollView
    * (deprecated), or via {@link #setSelectedTabIndicatorHeight(int)} (deprecated). Otherwise, the
    * indicator will not be shown. This is the default value.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorGravity
    * @see #setSelectedTabIndicatorGravity(int)
    * @see #getTabIndicatorGravity()
    */
@@ -263,7 +263,7 @@ public class TabLayout extends HorizontalScrollView
    * (deprecated), or via {@link #setSelectedTabIndicatorHeight(int)} (deprecated). Otherwise, the
    * indicator will not be shown.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorGravity
    * @see #setSelectedTabIndicatorGravity(int)
    * @see #getTabIndicatorGravity()
    */
@@ -275,7 +275,7 @@ public class TabLayout extends HorizontalScrollView
    * (deprecated), or via {@link #setSelectedTabIndicatorHeight(int)} (deprecated). Otherwise, the
    * indicator will not be shown.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorGravity
    * @see #setSelectedTabIndicatorGravity(int)
    * @see #getTabIndicatorGravity()
    */
@@ -285,7 +285,7 @@ public class TabLayout extends HorizontalScrollView
    * width of the {@link TabLayout}. This will disregard {@code tabIndicatorHeight} and the
    * indicator drawable's intrinsic height, if set.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorGravity
    * @see #setSelectedTabIndicatorGravity(int)
    * @see #getTabIndicatorGravity()
    */
@@ -517,7 +517,7 @@ public class TabLayout extends HorizontalScrollView
    * Sets the tab indicator's color for the currently selected tab.
    *
    * @param color color to use for the indicator
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorColor
    */
   public void setSelectedTabIndicatorColor(@ColorInt int color)
   {
@@ -528,7 +528,7 @@ public class TabLayout extends HorizontalScrollView
    * Sets the tab indicator's height for the currently selected tab.
    *
    * @param height height to use for the indicator in pixels
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorHeight
    * @deprecated If possible, set the intrinsic height directly on a custom indicator drawable
    * passed to {@link #setSelectedTabIndicator(Drawable)}.
    */
@@ -926,7 +926,7 @@ public class TabLayout extends HorizontalScrollView
    * </ul>
    *
    * @param mode one of {@link #MODE_FIXED} or {@link #MODE_SCROLLABLE}.
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabMode
    */
   public void setTabMode(@Mode int mode)
   {
@@ -952,7 +952,7 @@ public class TabLayout extends HorizontalScrollView
    * Set the gravity to use when laying out the tabs.
    *
    * @param gravity one of {@link #GRAVITY_CENTER} or {@link #GRAVITY_FILL}.
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabGravity
    */
   public void setTabGravity(@TabGravity int gravity)
   {
@@ -975,7 +975,7 @@ public class TabLayout extends HorizontalScrollView
    * @param indicatorGravity one of {@link #INDICATOR_GRAVITY_BOTTOM}, {@link
    *                         #INDICATOR_GRAVITY_CENTER}, {@link #INDICATOR_GRAVITY_TOP}, or {@link
    *                         #INDICATOR_GRAVITY_STRETCH}
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorGravity
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorGravity
    */
   public void setSelectedTabIndicatorGravity(@TabIndicatorGravity int indicatorGravity)
   {
@@ -1004,7 +1004,7 @@ public class TabLayout extends HorizontalScrollView
    * the tab item's content.
    *
    * @return whether or not selection indicator width is fit to the full width of the tab item
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorFullWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorFullWidth
    * @see #setTabIndicatorFullWidth(boolean)
    */
   public boolean isTabIndicatorFullWidth()
@@ -1024,7 +1024,7 @@ public class TabLayout extends HorizontalScrollView
    *
    * @param tabIndicatorFullWidth Whether or not to fit selection indicator width to full width of
    *                              the tab item
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabIndicatorFullWidth
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabIndicatorFullWidth
    * @see #isTabIndicatorFullWidth()
    */
   public void setTabIndicatorFullWidth(boolean tabIndicatorFullWidth)
@@ -1038,7 +1038,7 @@ public class TabLayout extends HorizontalScrollView
    * underneath tab icons.
    *
    * @param inlineResourceId Resource ID for boolean inline flag
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabInlineLabel
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabInlineLabel
    * @see #isInlineLabel()
    */
   public void setInlineLabelResource(@BoolRes int inlineResourceId)
@@ -1050,7 +1050,7 @@ public class TabLayout extends HorizontalScrollView
    * Returns whether tab labels will be displayed inline with tab icons, or if they will be
    * displayed underneath tab icons.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabInlineLabel
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabInlineLabel
    * @see #setInlineLabel(boolean)
    */
   public boolean isInlineLabel()
@@ -1062,7 +1062,7 @@ public class TabLayout extends HorizontalScrollView
    * Set whether tab labels will be displayed inline with tab icons, or if they will be displayed
    * underneath tab icons.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabInlineLabel
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabInlineLabel
    * @see #isInlineLabel()
    */
   public void setInlineLabel(boolean inline)
@@ -1088,7 +1088,7 @@ public class TabLayout extends HorizontalScrollView
    *
    * <p>Defaults to false.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabUnboundedRipple
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabUnboundedRipple
    * @see #hasUnboundedRipple()
    */
   public void setUnboundedRipple(boolean unboundedRipple)
@@ -1112,7 +1112,7 @@ public class TabLayout extends HorizontalScrollView
    * bound to the tab item size. Defaults to false.
    *
    * @param unboundedRippleResourceId Resource ID for boolean unbounded ripple value
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabUnboundedRipple
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabUnboundedRipple
    * @see #hasUnboundedRipple()
    */
   public void setUnboundedRippleResource(@BoolRes int unboundedRippleResourceId)
@@ -1124,7 +1124,7 @@ public class TabLayout extends HorizontalScrollView
    * Returns whether this {@link TabLayout} has an unbounded ripple effect, or if ripple is bound to
    * the tab item size.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabUnboundedRipple
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabUnboundedRipple
    * @see #setUnboundedRipple(boolean)
    */
   public boolean hasUnboundedRipple()
@@ -1158,8 +1158,8 @@ public class TabLayout extends HorizontalScrollView
   /**
    * Sets the text colors for the different states (normal, selected) used for the tabs.
    *
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabTextColor
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabSelectedTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabSelectedTextColor
    */
   public void setTabTextColors(int normalColor, int selectedColor)
   {
@@ -1219,7 +1219,7 @@ public class TabLayout extends HorizontalScrollView
    * than a ripple.
    *
    * @param color color (or ColorStateList) to use for the ripple
-   * @attr ref com.google.android.material.R.styleable#TabLayout_tabRippleColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#TabLayout_tabRippleColor
    * @see #getTabRippleColor()
    */
   public void setTabRippleColor(@Nullable ColorStateList color)

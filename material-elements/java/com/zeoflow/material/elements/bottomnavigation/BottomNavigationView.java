@@ -88,7 +88,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
  *
  * <pre>
  * layout resource file:
- * &lt;com.google.android.material.bottomnavigation.BottomNavigationView
+ * &lt;com.zeoflow.material.elements.bottomnavigation.BottomNavigationView
  *     xmlns:android="http://schemas.android.com/apk/res/android"
  *     xmlns:app="http://schema.android.com/apk/res/res-auto"
  *     android:id="@+id/navigation"
@@ -621,7 +621,7 @@ public class BottomNavigationView extends FrameLayout
   /**
    * Returns the current label visibility mode used by this {@link BottomNavigationView}.
    *
-   * @attr ref com.google.android.material.R.styleable#BottomNavigationView_labelVisibilityMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomNavigationView_labelVisibilityMode
    * @see #setLabelVisibilityMode(int)
    */
   @LabelVisibilityMode
@@ -641,7 +641,7 @@ public class BottomNavigationView extends FrameLayout
    *                            LabelVisibilityMode#LABEL_VISIBILITY_SELECTED}, {@link
    *                            LabelVisibilityMode#LABEL_VISIBILITY_LABELED}, or {@link
    *                            LabelVisibilityMode#LABEL_VISIBILITY_UNLABELED}
-   * @attr ref com.google.android.material.R.styleable#BottomNavigationView_labelVisibilityMode
+   * @attr ref com.zeoflow.material.elements.R.styleable#BottomNavigationView_labelVisibilityMode
    * @see #getLabelVisibilityMode()
    */
   public void setLabelVisibilityMode(@LabelVisibilityMode int labelVisibilityMode)

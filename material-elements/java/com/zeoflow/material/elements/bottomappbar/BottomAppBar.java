@@ -97,16 +97,16 @@ import static com.zeoflow.material.elements.shape.MaterialShapeDrawable.SHADOW_C
  * colorSurface}, as it is in the default style, you should set {@code materialThemeOverlay} to
  * {@code @style/ThemeOverlay.MaterialComponents.BottomAppBar.Surface}.
  *
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_backgroundTint
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_fabAlignmentMode
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_fabAnimationMode
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_fabCradleMargin
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_backgroundTint
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_fabAlignmentMode
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_fabAnimationMode
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_fabCradleMargin
  * @attr ref
- * com.google.android.material.R.styleable#BottomAppBar_fabCradleRoundedCornerRadius
+ * com.zeoflow.material.elements.R.styleable#BottomAppBar_fabCradleRoundedCornerRadius
  * @attr ref
- * com.google.android.material.R.styleable#BottomAppBar_fabCradleVerticalOffset
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_hideOnScroll
- * @attr ref com.google.android.material.R.styleable#BottomAppBar_paddingBottomSystemWindowInsets
+ * com.zeoflow.material.elements.R.styleable#BottomAppBar_fabCradleVerticalOffset
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_hideOnScroll
+ * @attr ref com.zeoflow.material.elements.R.styleable#BottomAppBar_paddingBottomSystemWindowInsets
  */
 public class BottomAppBar extends Toolbar implements AttachedBehavior
 {

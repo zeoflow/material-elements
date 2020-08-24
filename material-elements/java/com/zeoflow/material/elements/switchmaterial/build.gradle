@@ -24,8 +24,8 @@ version = rootProject.ext.mdcLibraryVersion
 dependencies {
   implementation compatibility("appcompat")
 
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
-  implementation project(fromPath("lib/java/com/google/android/material/color"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/color"))
 }
 
 android {

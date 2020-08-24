@@ -11,9 +11,9 @@ dependencies {
   api compatibility("appcompat")
   api compatibility("cardview")
 
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
 
-  api project(fromPath("lib/java/com/google/android/material/resources"))
+  api project(fromPath("material-elements/java/com/zeoflow/material/elements/resources"))
 }
 
 android {

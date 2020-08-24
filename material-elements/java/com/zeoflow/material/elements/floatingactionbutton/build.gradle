@@ -9,16 +9,16 @@ version = rootProject.ext.mdcLibraryVersion
 dependencies {
   implementation compatibility("appcompat")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/appbar"))
-  implementation project(fromPath("lib/java/com/google/android/material/bottomsheet"))
-  implementation project(fromPath("lib/java/com/google/android/material/expandable"))
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
-  implementation project(fromPath("lib/java/com/google/android/material/shadow"))
-  implementation project(fromPath("lib/java/com/google/android/material/resources"))
-  implementation project(fromPath("lib/java/com/google/android/material/ripple"))
-  implementation project(fromPath("lib/java/com/google/android/material/shape"))
-  implementation project(fromPath("lib/java/com/google/android/material/stateful"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/appbar"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/bottomsheet"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/expandable"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/shadow"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/resources"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/ripple"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/shape"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/stateful"))
 }
 
 android {

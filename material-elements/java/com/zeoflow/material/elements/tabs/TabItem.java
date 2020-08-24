@@ -31,9 +31,9 @@ import com.zeoflow.R;
  * of a tab items's text, icon and custom layout. See TabLayout for more information on how to use
  * it.
  *
- * @attr ref com.google.android.material.R.styleable#TabItem_android_icon
- * @attr ref com.google.android.material.R.styleable#TabItem_android_text
- * @attr ref com.google.android.material.R.styleable#TabItem_android_layout
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabItem_android_icon
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabItem_android_text
+ * @attr ref com.zeoflow.material.elements.R.styleable#TabItem_android_layout
  * @see TabLayout
  */
 //TODO(b/76413401): make class final after the widget migration

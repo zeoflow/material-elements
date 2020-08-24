@@ -356,7 +356,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   /**
    * Returns this badge's background color.
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_backgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_backgroundColor
    * @see #setBackgroundColor(int)
    */
   @ColorInt
@@ -369,7 +369,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * Sets this badge's background color.
    *
    * @param backgroundColor This badge's background color.
-   * @attr ref com.google.android.material.R.styleable#Badge_backgroundColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_backgroundColor
    */
   public void setBackgroundColor(@ColorInt int backgroundColor)
   {
@@ -385,7 +385,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   /**
    * Returns this badge's text color.
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_badgeTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_badgeTextColor
    * @see #setBadgeTextColor(int)
    */
   @ColorInt
@@ -398,7 +398,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * Sets this badge's text color.
    *
    * @param badgeTextColor This badge's text color.
-   * @attr ref com.google.android.material.R.styleable#Badge_badgeTextColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_badgeTextColor
    */
   public void setBadgeTextColor(@ColorInt int badgeTextColor)
   {
@@ -424,7 +424,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    *
    * <p>WARNING: Do not call this method if you are planning to compare to BADGE_NUMBER_NONE
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_number
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_number
    * @see #setNumber(int)
    */
   public int getNumber()
@@ -442,7 +442,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * digits exceeds {@code maxCharacterCount} in which case a truncated version will be shown.
    *
    * @param number This badge's number.
-   * @attr ref com.google.android.material.R.styleable#Badge_number
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_number
    */
   public void setNumber(int number)
   {
@@ -468,7 +468,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   /**
    * Returns this badge's max character count.
    *
-   * @attr ref com.google.android.material.R.styleable#Badge_maxCharacterCount
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_maxCharacterCount
    * @see #setMaxCharacterCount(int)
    */
   public int getMaxCharacterCount()
@@ -480,7 +480,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
    * Sets this badge's max character count.
    *
    * @param maxCharacterCount This badge's max character count.
-   * @attr ref com.google.android.material.R.styleable#Badge_maxCharacterCount
+   * @attr ref com.zeoflow.material.elements.R.styleable#Badge_maxCharacterCount
    */
   public void setMaxCharacterCount(int maxCharacterCount)
   {

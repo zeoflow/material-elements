@@ -11,15 +11,15 @@ dependencies {
   api compatibility("appcompat")
   api compatibility("core")
 
-  implementation project(fromPath("lib/java/com/google/android/material/animation"))
-  implementation project(fromPath("lib/java/com/google/android/material/behavior"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/animation"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/behavior"))
   // The dependency on FAB requires this dependency for now.
-  implementation project(fromPath("lib/java/com/google/android/material/expandable"))
-  implementation project(fromPath("lib/java/com/google/android/material/floatingactionbutton"))
-  implementation project(fromPath("lib/java/com/google/android/material/internal"))
-  implementation project(fromPath("lib/java/com/google/android/material/shape"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/expandable"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/floatingactionbutton"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/internal"))
+  implementation project(fromPath("material-elements/java/com/zeoflow/material/elements/shape"))
 
-  api project(fromPath("lib/java/com/google/android/material/resources"))
+  api project(fromPath("material-elements/java/com/zeoflow/material/elements/resources"))
 }
 
 android {

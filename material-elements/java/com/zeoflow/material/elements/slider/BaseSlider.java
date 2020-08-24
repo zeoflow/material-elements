@@ -101,7 +101,7 @@ import static java.lang.Math.abs;
  * displays the selected value using letters to indicate magnitude (e.g.: 1.5K, 3M, 12B, etc..).
  *
  * <p>With the default style {@link
- * com.google.android.material.R.style#Widget_MaterialElements_Slider}, colorPrimary and
+ * com.zeoflow.material.elements.R.style#Widget_MaterialElements_Slider}, colorPrimary and
  * colorOnPrimary are used to customize the color of the slider when enabled, and colorOnSurface is
  * used when disabled. The following attributes are used to customize the slider's appearance
  * further:
@@ -152,23 +152,23 @@ import static java.lang.Math.abs;
  *       be thrown when the view is laid out.
  * </ul>
  *
- * @attr ref com.google.android.material.R.styleable#Slider_android_stepSize
- * @attr ref com.google.android.material.R.styleable#Slider_android_valueFrom
- * @attr ref com.google.android.material.R.styleable#Slider_android_valueTo
- * @attr ref com.google.android.material.R.styleable#Slider_haloColor
- * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
- * @attr ref com.google.android.material.R.styleable#Slider_labelBehavior
- * @attr ref com.google.android.material.R.styleable#Slider_labelStyle
- * @attr ref com.google.android.material.R.styleable#Slider_thumbColor
- * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
- * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
- * @attr ref com.google.android.material.R.styleable#Slider_tickColor
- * @attr ref com.google.android.material.R.styleable#Slider_tickColorActive
- * @attr ref com.google.android.material.R.styleable#Slider_tickColorInactive
- * @attr ref com.google.android.material.R.styleable#Slider_trackColor
- * @attr ref com.google.android.material.R.styleable#Slider_trackColorActive
- * @attr ref com.google.android.material.R.styleable#Slider_trackColorInactive
- * @attr ref com.google.android.material.R.styleable#Slider_trackHeight
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_stepSize
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_valueFrom
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_valueTo
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_haloColor
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_haloRadius
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_labelBehavior
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_labelStyle
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbColor
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbElevation
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbRadius
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColor
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColorActive
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColorInactive
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColor
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColorActive
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColorInactive
+ * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackHeight
  */
 abstract class BaseSlider<
     S extends BaseSlider<S, L, T>,
@@ -519,7 +519,7 @@ abstract class BaseSlider<
   /**
    * Returns the slider's {@code valueFrom} value.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueFrom
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_valueFrom
    * @see #setValueFrom(float)
    */
   public float getValueFrom()
@@ -534,7 +534,7 @@ abstract class BaseSlider<
    * is not the case, an {@link IllegalStateException} will be thrown when the view is laid out.
    *
    * @param valueFrom The minimum value for the slider's range of values
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueFrom
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_valueFrom
    * @see #getValueFrom()
    */
   public void setValueFrom(float valueFrom)
@@ -547,7 +547,7 @@ abstract class BaseSlider<
   /**
    * Returns the slider's {@code valueTo} value.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueTo
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_valueTo
    * @see #setValueTo(float)
    */
   public float getValueTo()
@@ -562,7 +562,7 @@ abstract class BaseSlider<
    * is not the case, an {@link IllegalStateException} will be thrown when the view is laid out.
    *
    * @param valueTo The maximum value for the slider's range of values
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueTo
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_valueTo
    * @see #getValueTo()
    */
   public void setValueTo(float valueTo)
@@ -692,7 +692,7 @@ abstract class BaseSlider<
    * <p>A step size of 0 means that the slider is operating in continuous mode. A step size greater
    * than 0 means that the slider is operating in discrete mode.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_android_stepSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_stepSize
    * @see #setStepSize(float)
    */
   public float getStepSize()
@@ -715,7 +715,7 @@ abstract class BaseSlider<
    * @param stepSize The interval value at which ticks must be drawn. Set to 0 to operate the slider
    *                 in continuous mode and not have any ticks.
    * @throws IllegalArgumentException If the step size is less than 0
-   * @attr ref com.google.android.material.R.styleable#Slider_android_stepSize
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_android_stepSize
    * @see #getStepSize()
    */
   public void setStepSize(float stepSize)
@@ -851,7 +851,7 @@ abstract class BaseSlider<
   /**
    * Returns the elevation of the thumb.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbElevation
    * @see #setThumbElevation(float)
    * @see #setThumbElevationResource(int)
    */
@@ -863,7 +863,7 @@ abstract class BaseSlider<
   /**
    * Sets the elevation of the thumb.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbElevation
    * @see #getThumbElevation()
    */
   public void setThumbElevation(float elevation)
@@ -874,7 +874,7 @@ abstract class BaseSlider<
   /**
    * Sets the elevation of the thumb from a dimension resource.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbElevation
    * @see #getThumbElevation()
    */
   public void setThumbElevationResource(@DimenRes int elevation)
@@ -885,7 +885,7 @@ abstract class BaseSlider<
   /**
    * Returns the radius of the thumb.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbRadius
    * @see #setThumbRadius(int)
    * @see #setThumbRadiusResource(int)
    */
@@ -898,7 +898,7 @@ abstract class BaseSlider<
   /**
    * Sets the radius of the thumb in pixels.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbRadius
    * @see #getThumbRadius()
    */
   public void setThumbRadius(@IntRange(from = 0) @Dimension int radius)
@@ -920,7 +920,7 @@ abstract class BaseSlider<
   /**
    * Sets the radius of the thumb from a dimension resource.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbRadius
    * @see #getThumbRadius()
    */
   public void setThumbRadiusResource(@DimenRes int radius)
@@ -931,7 +931,7 @@ abstract class BaseSlider<
   /**
    * Returns the radius of the halo.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_haloRadius
    * @see #setHaloRadius(int)
    * @see #setHaloRadiusResource(int)
    */
@@ -944,7 +944,7 @@ abstract class BaseSlider<
   /**
    * Sets the radius of the halo in pixels.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_haloRadius
    * @see #getHaloRadius()
    */
   public void setHaloRadius(@IntRange(from = 0) @Dimension int radius)
@@ -968,7 +968,7 @@ abstract class BaseSlider<
   /**
    * Sets the radius of the halo from a dimension resource.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_haloRadius
    * @see #getHaloRadius()
    */
   public void setHaloRadiusResource(@DimenRes int radius)
@@ -979,7 +979,7 @@ abstract class BaseSlider<
   /**
    * Returns the {@link LabelBehavior} used.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_labelBehavior
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_labelBehavior
    * @see #setLabelBehavior(int)
    */
   @LabelBehavior
@@ -991,7 +991,7 @@ abstract class BaseSlider<
   /**
    * Determines the {@link LabelBehavior} used.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_labelBehavior
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_labelBehavior
    * @see LabelBehavior
    * @see #getLabelBehavior()
    */
@@ -1025,7 +1025,7 @@ abstract class BaseSlider<
   /**
    * Returns the height of the track in pixels.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_trackHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackHeight
    * @see #setTrackHeight(int)
    */
   @Dimension()
@@ -1037,7 +1037,7 @@ abstract class BaseSlider<
   /**
    * Set the height of the track in pixels.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_trackHeight
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackHeight
    * @see #getTrackHeight()
    */
   public void setTrackHeight(@IntRange(from = 0) @Dimension int trackHeight)
@@ -1053,7 +1053,7 @@ abstract class BaseSlider<
   /**
    * Returns the color of the halo.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_haloColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_haloColor
    * @see #setHaloTintList(ColorStateList)
    */
   @NonNull
@@ -1065,7 +1065,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the halo.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_haloColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_haloColor
    * @see #getHaloTintList()
    */
   public void setHaloTintList(@NonNull ColorStateList haloColor)
@@ -1091,7 +1091,7 @@ abstract class BaseSlider<
   /**
    * Returns the color of the thumb.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbColor
    * @see #setThumbTintList(ColorStateList)
    */
   @NonNull
@@ -1103,7 +1103,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the thumb.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_thumbColor
    * @see #getThumbTintList()
    */
   public void setThumbTintList(@NonNull ColorStateList thumbColor)
@@ -1116,7 +1116,7 @@ abstract class BaseSlider<
    *
    * @throws IllegalStateException If {@code tickColorActive} and {@code tickColorInactive} have
    *                               been set to different values.
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColor
    * @see #setTickTintList(ColorStateList)
    * @see #setTickInactiveTintList(ColorStateList)
    * @see #setTickActiveTintList(ColorStateList)
@@ -1138,7 +1138,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the tick marks.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColor
    * @see #setTickInactiveTintList(ColorStateList)
    * @see #setTickActiveTintList(ColorStateList)
    * @see #getTickTintList()
@@ -1152,7 +1152,7 @@ abstract class BaseSlider<
   /**
    * Returns the color of the ticks on the active portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorActive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColorActive
    * @see #setTickActiveTintList(ColorStateList)
    * @see #setTickTintList(ColorStateList)
    * @see #getTickTintList()
@@ -1166,7 +1166,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the ticks on the active portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorActive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColorActive
    * @see #getTickActiveTintList()
    * @see #setTickTintList(ColorStateList)
    */
@@ -1184,7 +1184,7 @@ abstract class BaseSlider<
   /**
    * Returns the color of the ticks on the inactive portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorInactive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColorInactive
    * @see #setTickInactiveTintList(ColorStateList)
    * @see #setTickTintList(ColorStateList)
    * @see #getTickTintList()
@@ -1198,7 +1198,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the ticks on the inactive portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorInactive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_tickColorInactive
    * @see #getTickInactiveTintList()
    * @see #setTickTintList(ColorStateList)
    */
@@ -1218,7 +1218,7 @@ abstract class BaseSlider<
    *
    * @throws IllegalStateException If {@code trackColorActive} and {@code trackColorInactive} have
    *                               been set to different values.
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColor
    * @see #setTrackTintList(ColorStateList)
    * @see #setTrackInactiveTintList(ColorStateList)
    * @see #setTrackActiveTintList(ColorStateList)
@@ -1240,7 +1240,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColor
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColor
    * @see #setTrackInactiveTintList(ColorStateList)
    * @see #setTrackActiveTintList(ColorStateList)
    * @see #getTrackTintList()
@@ -1254,7 +1254,7 @@ abstract class BaseSlider<
   /**
    * Returns the color of the active portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorActive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColorActive
    * @see #setTrackActiveTintList(ColorStateList)
    * @see #setTrackTintList(ColorStateList)
    * @see #getTrackTintList()
@@ -1268,7 +1268,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the active portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorActive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColorActive
    * @see #getTrackActiveTintList()
    * @see #setTrackTintList(ColorStateList)
    */
@@ -1286,7 +1286,7 @@ abstract class BaseSlider<
   /**
    * Returns the color of the inactive portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorInactive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColorInactive
    * @see #setTrackInactiveTintList(ColorStateList)
    * @see #setTrackTintList(ColorStateList)
    * @see #getTrackTintList()
@@ -1300,7 +1300,7 @@ abstract class BaseSlider<
   /**
    * Sets the color of the inactive portion of the track.
    *
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorInactive
+   * @attr ref com.zeoflow.material.elements.R.styleable#Slider_trackColorInactive
    * @see #getTrackInactiveTintList()
    * @see #setTrackTintList(ColorStateList)
    */
