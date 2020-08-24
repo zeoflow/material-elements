@@ -1,11 +1,3 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: "[Component name] Short description of issue"
-assignees: 'TeodorHMX1'
-
----
-
 - [ ] Identify the component the PR relates to in brackets in the title.
   Example: `[Buttons] Updated documentation`
 
