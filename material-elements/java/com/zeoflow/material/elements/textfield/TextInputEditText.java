@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.textfield;
 
@@ -37,13 +23,7 @@ import com.zeoflow.material.elements.internal.ManufacturerUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-/**
- * A special sub-class of {@link android.widget.EditText} designed for use as a child of {@link
- * TextInputLayout}.
- *
- * <p>Using this class allows us to display a hint in the IME when in 'extract' mode and provides
- * accessibility support for {@link TextInputLayout}.
- */
+
 public class TextInputEditText extends AppCompatEditText {
 
   private final Rect parentRect = new Rect();
@@ -78,9 +58,9 @@ public class TextInputEditText extends AppCompatEditText {
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    // Meizu devices expect TextView#mHintLayout to be non-null if TextView#getHint() is non-null.
-    // In order to avoid crashing, we force the creation of the layout by setting an empty non-null
-    // hint.
+    
+    
+    
     TextInputLayout layout = getTextInputLayout();
     if (layout != null
         && layout.isProvidingHint()
@@ -93,8 +73,8 @@ public class TextInputEditText extends AppCompatEditText {
   @Nullable
   @Override
   public CharSequence getHint() {
-    // Certain test frameworks expect the actionable element to expose its hint as a label. When
-    // TextInputLayout is providing our hint, retrieve it from the parent layout.
+    
+    
     TextInputLayout layout = getTextInputLayout();
     if (layout != null && layout.isProvidingHint()) {
       return layout.getHint();
@@ -107,8 +87,8 @@ public class TextInputEditText extends AppCompatEditText {
   public InputConnection onCreateInputConnection(@NonNull EditorInfo outAttrs) {
     final InputConnection ic = super.onCreateInputConnection(outAttrs);
     if (ic != null && outAttrs.hintText == null) {
-      // If we don't have a hint and our parent is a TextInputLayout, use its hint for the
-      // EditorInfo. This allows us to display a hint in 'extract mode'.
+      
+      
       outAttrs.hintText = getHintFromLayout();
     }
     return ic;
@@ -132,16 +112,12 @@ public class TextInputEditText extends AppCompatEditText {
     return (layout != null) ? layout.getHint() : null;
   }
 
-  /**
-   * Whether the edit text should use the TextInputLayout's focused rectangle.
-   */
+  
   public void setTextInputLayoutFocusedRectEnabled(boolean textInputLayoutFocusedRectEnabled) {
     this.textInputLayoutFocusedRectEnabled = textInputLayoutFocusedRectEnabled;
   }
 
-  /**
-   * Whether the edit text is using the TextInputLayout's focused rectangle.
-   */
+  
   public boolean isTextInputLayoutFocusedRectEnabled() {
     return textInputLayoutFocusedRectEnabled;
   }
@@ -192,8 +168,8 @@ public class TextInputEditText extends AppCompatEditText {
     super.onInitializeAccessibilityNodeInfo(info);
     TextInputLayout layout = getTextInputLayout();
 
-    // In APIs < 23, some things set in the parent TextInputLayout's AccessibilityDelegate get
-    // overwritten, so we set them here so that announcements are as expected.
+    
+    
     if (VERSION.SDK_INT < 23 && layout != null) {
       info.setText(getAccessibilityNodeInfoText(layout));
     }

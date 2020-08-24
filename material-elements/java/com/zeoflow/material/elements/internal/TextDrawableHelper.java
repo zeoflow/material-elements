@@ -1,18 +1,4 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.internal;
 
@@ -30,12 +16,7 @@ import com.zeoflow.material.elements.resources.TextAppearanceFontCallback;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Class that helps to support drawing text in drawables. It can be used by any drawable that draws
- * text.
- *
- * @hide
- */
+
 @RestrictTo(LIBRARY_GROUP)
 public class TextDrawableHelper {
 
@@ -58,7 +39,7 @@ public class TextDrawableHelper {
         @Override
         public void onFontRetrievalFailed(int reason) {
           textWidthDirty = true;
-          // Use fallback font.
+          
           TextDrawableDelegate textDrawableDelegate = delegate.get();
           if (textDrawableDelegate != null) {
             textDrawableDelegate.onTextSizeChange();
@@ -71,14 +52,12 @@ public class TextDrawableHelper {
   @Nullable private WeakReference<TextDrawableDelegate> delegate = new WeakReference<>(null);
   @Nullable private TextAppearance textAppearance;
 
-  /**
-   * Please provide a delegate if your text font may load asynchronously.
-   */
+  
   public TextDrawableHelper(@Nullable TextDrawableDelegate delegate) {
     setDelegate(delegate);
   }
 
-  /** Sets the delegate that owns this TextDrawableHelper. */
+  
   public void setDelegate(@Nullable TextDrawableDelegate delegate) {
     this.delegate = new WeakReference<>(delegate);
   }
@@ -96,7 +75,7 @@ public class TextDrawableHelper {
     return textWidthDirty;
   }
 
-  /** Returns the visual width of the {@code text} based on its current text appearance. */
+  
   public float getTextWidth(String text) {
     if (!textWidthDirty) {
       return textWidth;
@@ -114,23 +93,13 @@ public class TextDrawableHelper {
     return textPaint.measureText(charSequence, 0, charSequence.length());
   }
 
-  /**
-   * Returns the text appearance.
-   *
-   * @see #setTextAppearance(TextAppearance, Context)
-   */
+  
   @Nullable
   public TextAppearance getTextAppearance() {
     return textAppearance;
   }
 
-  /**
-   * Sets the delegate drawable's text appearance. If the {@code textAppearance} is {@code null},
-   * text appearance will be cleared.
-   *
-   * @param textAppearance The delegate drawable's text appearance or null to clear it.
-   * @see #getTextAppearance()
-   */
+  
   public void setTextAppearance(@Nullable TextAppearance textAppearance, Context context) {
     if (this.textAppearance != textAppearance) {
       this.textAppearance = textAppearance;
@@ -157,16 +126,16 @@ public class TextDrawableHelper {
     textAppearance.updateDrawState(context, textPaint, fontCallback);
   }
 
-  /** Delegate interface to be implemented by Drawables that own a TextDrawableHelper. */
+  
   public interface TextDrawableDelegate {
-    // See Drawable#getState()
+    
     @NonNull
     int[] getState();
 
-    /** Handles a change in the text's size. */
+    
     void onTextSizeChange();
 
-    // See Drawable#onStateChange();
+    
     boolean onStateChange(int[] state);
   }
 }

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.shadow;
 
@@ -34,15 +20,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.graphics.drawable.DrawableWrapper;
 
-/**
- * A {@link android.graphics.drawable.Drawable} which wraps another drawable and draws a shadow
- * around it.
- *
- * @deprecated Use {@link MaterialShapeDrawable} instead.
- */
+
 @Deprecated
 public class ShadowDrawableWrapper extends DrawableWrapper {
-  // used to calculate content padding
+  
   static final double COS_45 = Math.cos(Math.toRadians(45));
 
   static final float SHADOW_MULTIPLIER = 1.5f;
@@ -60,14 +41,14 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
 
   Path cornerShadowPath;
 
-  // updated value with inset
+  
   float maxShadowSize;
-  // actual value set by developer
+  
   float rawMaxShadowSize;
 
-  // multiplied value to account for shadow offset
+  
   float shadowSize;
-  // actual value set by developer
+  
   float rawShadowSize;
 
   private boolean dirty = true;
@@ -80,7 +61,7 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
 
   private float rotation;
 
-  /** If shadow size is set to a value above max shadow, we print a warning */
+  
   private boolean printedShadowClipWarning = false;
 
   public ShadowDrawableWrapper(
@@ -100,7 +81,7 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
     setShadowSize(shadowSize, maxShadowSize);
   }
 
-  /** Casts the value to an even integer. */
+  
   private static int toEven(float value) {
     int i = Math.round(value);
     return (i % 2 == 1) ? i - 1 : i;
@@ -236,13 +217,13 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
     final float shadowScaleTop = shadowOffset / (shadowOffset + shadowOffsetTop);
     final float shadowScaleBottom = shadowOffset / (shadowOffset + shadowOffsetBottom);
 
-    // LT
+    
     int saved = canvas.save();
     canvas.translate(contentBounds.left + shadowOffset, contentBounds.top + shadowOffset);
     canvas.scale(shadowScaleHorizontal, shadowScaleTop);
     canvas.drawPath(cornerShadowPath, cornerShadowPaint);
     if (drawHorizontalEdges) {
-      // TE
+      
       canvas.scale(1f / shadowScaleHorizontal, 1f);
       canvas.drawRect(
           0,
@@ -252,14 +233,14 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
           edgeShadowPaint);
     }
     canvas.restoreToCount(saved);
-    // RB
+    
     saved = canvas.save();
     canvas.translate(contentBounds.right - shadowOffset, contentBounds.bottom - shadowOffset);
     canvas.scale(shadowScaleHorizontal, shadowScaleBottom);
     canvas.rotate(180f);
     canvas.drawPath(cornerShadowPath, cornerShadowPaint);
     if (drawHorizontalEdges) {
-      // BE
+      
       canvas.scale(1f / shadowScaleHorizontal, 1f);
       canvas.drawRect(
           0,
@@ -269,14 +250,14 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
           edgeShadowPaint);
     }
     canvas.restoreToCount(saved);
-    // LB
+    
     saved = canvas.save();
     canvas.translate(contentBounds.left + shadowOffset, contentBounds.bottom - shadowOffset);
     canvas.scale(shadowScaleHorizontal, shadowScaleBottom);
     canvas.rotate(270f);
     canvas.drawPath(cornerShadowPath, cornerShadowPaint);
     if (drawVerticalEdges) {
-      // LE
+      
       canvas.scale(1f / shadowScaleBottom, 1f);
       canvas.drawRect(
           0,
@@ -286,14 +267,14 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
           edgeShadowPaint);
     }
     canvas.restoreToCount(saved);
-    // RT
+    
     saved = canvas.save();
     canvas.translate(contentBounds.right - shadowOffset, contentBounds.top + shadowOffset);
     canvas.scale(shadowScaleHorizontal, shadowScaleTop);
     canvas.rotate(90f);
     canvas.drawPath(cornerShadowPath, cornerShadowPaint);
     if (drawVerticalEdges) {
-      // RE
+      
       canvas.scale(1f / shadowScaleTop, 1f);
       canvas.drawRect(
           0,
@@ -320,9 +301,9 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
     cornerShadowPath.setFillType(Path.FillType.EVEN_ODD);
     cornerShadowPath.moveTo(-cornerRadius, 0);
     cornerShadowPath.rLineTo(-shadowSize, 0);
-    // outer arc
+    
     cornerShadowPath.arcTo(outerBounds, 180f, 90f, false);
-    // inner arc
+    
     cornerShadowPath.arcTo(innerBounds, 270f, -90f, false);
     cornerShadowPath.close();
 
@@ -340,9 +321,9 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
               Shader.TileMode.CLAMP));
     }
 
-    // we offset the content shadowSize/2 pixels up to make it more realistic.
-    // this is why edge shadow shader has some extra space
-    // When drawing bottom edge shadow, we use that extra space.
+    
+    
+    
     edgeShadowPaint.setShader(
         new LinearGradient(
             0,
@@ -356,9 +337,9 @@ public class ShadowDrawableWrapper extends DrawableWrapper {
   }
 
   private void buildComponents(@NonNull Rect bounds) {
-    // Card is offset SHADOW_MULTIPLIER * maxShadowSize to account for the shadow shift.
-    // We could have different top-bottom offsets to avoid extra gap above but in that case
-    // center aligning Views inside the CardView would be problematic.
+    
+    
+    
     final float verticalOffset = rawMaxShadowSize * SHADOW_MULTIPLIER;
     contentBounds.set(
         bounds.left + rawMaxShadowSize,

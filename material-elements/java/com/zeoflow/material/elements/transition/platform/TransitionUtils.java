@@ -1,23 +1,6 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-/*
- * NOTE: THIS CLASS IS AUTO-GENERATED FROM THE EQUIVALENT CLASS IN THE PARENT TRANSITION PACKAGE.
- * IT SHOULD NOT BE EDITED DIRECTLY.
- */
+
+
 package com.zeoflow.material.elements.transition.platform;
 
 import android.graphics.Canvas;
@@ -61,16 +44,16 @@ class TransitionUtils {
         });
   }
 
-  // TODO: rethink how to interpolate more than just corner size
+  
   static ShapeAppearanceModel transformCornerSizes(
       ShapeAppearanceModel shapeAppearanceModel1,
       ShapeAppearanceModel shapeAppearanceModel2,
       RectF shapeAppearanceModel1Bounds,
       CornerSizeBinaryOperator op) {
 
-    // If all of shapeAppearanceModel's corner sizes are 0, consider the shape appearance
-    // insignificant compared to shapeAppearanceModel2 and use shapeAppearanceModel2's
-    // corner family instead.
+    
+    
+    
     ShapeAppearanceModel shapeAppearanceModel =
         isShapeAppearanceSignificant(shapeAppearanceModel1, shapeAppearanceModel1Bounds)
             ? shapeAppearanceModel1
@@ -252,13 +235,10 @@ class TransitionUtils {
     }
   }
 
-  /**
-   * Helper method to translate, scale and set an alpha layer on a canvas, run any operations on the
-   * transformed canvas and finally, restore the Canvas to it's original state.
-   */
+  
   static void transform(
       Canvas canvas, Rect bounds, float dx, float dy, float scale, int alpha, CanvasOperation op) {
-    // Exit early and avoid drawing if what will be drawn is completely transparent.
+    
     if (alpha <= 0) {
       return;
     }

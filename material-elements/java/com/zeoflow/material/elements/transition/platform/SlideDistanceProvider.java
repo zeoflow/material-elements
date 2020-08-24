@@ -1,23 +1,6 @@
-/*
- * Copyright 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-/*
- * NOTE: THIS CLASS IS AUTO-GENERATED FROM THE EQUIVALENT CLASS IN THE PARENT TRANSITION PACKAGE.
- * IT SHOULD NOT BE EDITED DIRECTLY.
- */
+
+
 package com.zeoflow.material.elements.transition.platform;
 
 import com.google.android.material.R;
@@ -40,20 +23,13 @@ import android.view.ViewGroup;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/**
- * A class that can configure and create an {@link Animator} that slides a view vertically or
- * horizontally slide over a specific distance.
- */
+
 @androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
 public final class SlideDistanceProvider implements VisibilityAnimatorProvider {
 
   private static final int DEFAULT_DISTANCE = -1;
 
-  /**
-   * GravityFlag definitions.
-   *
-   * @hide
-   */
+  
   @RestrictTo(LIBRARY_GROUP)
   @IntDef({Gravity.LEFT, Gravity.TOP, Gravity.RIGHT, Gravity.BOTTOM, Gravity.START, Gravity.END})
   @Retention(RetentionPolicy.SOURCE)
@@ -75,26 +51,13 @@ public final class SlideDistanceProvider implements VisibilityAnimatorProvider {
     this.slideEdge = slideEdge;
   }
 
-  /**
-   * Get the distance this animator will translate its target. If set to -1, the default slide
-   * distance will be used.
-   *
-   * @see #setSlideDistance(int)
-   */
+  
   @Px
   public int getSlideDistance() {
     return slideDistance;
   }
 
-  /**
-   * Set the distance this animator will translate its target.
-   *
-   * <p>By default, this value is set to -1 which indicates that the default slide distance,
-   * R.dimen.mtrl_transition_shared_axis_slide_distance will be used. Setting the slide distance to
-   * any other value will override this default.
-   *
-   * @throws IllegalArgumentException If {@code slideDistance} is negative.
-   */
+  
   public void setSlideDistance(@Px int slideDistance) {
     if (slideDistance < 0) {
       throw new IllegalArgumentException(

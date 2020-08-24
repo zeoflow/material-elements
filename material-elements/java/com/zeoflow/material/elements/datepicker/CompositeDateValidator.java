@@ -1,18 +1,4 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.zeoflow.material.elements.datepicker;
 
 import static androidx.core.util.Preconditions.checkNotNull;
@@ -23,7 +9,7 @@ import androidx.annotation.NonNull;
 import com.zeoflow.material.elements.datepicker.CalendarConstraints.DateValidator;
 import java.util.List;
 
-/** A {@link DateValidator} that accepts a list of Date Validators. */
+
 public final class CompositeDateValidator implements DateValidator {
 
   @NonNull private final List<DateValidator> validators;
@@ -32,15 +18,13 @@ public final class CompositeDateValidator implements DateValidator {
     this.validators = validators;
   }
 
-  /**
-   * Returns a {@link DateValidator} that can perform validation for every given validator.
-   */
+  
   @NonNull
   public static DateValidator allOf(@NonNull List<DateValidator> validators) {
     return new CompositeDateValidator(validators);
   }
 
-  /** Part of {@link Parcelable} requirements. Do not use. */
+  
   public static final Creator<CompositeDateValidator> CREATOR =
       new Creator<CompositeDateValidator>() {
         @NonNull
@@ -59,14 +43,7 @@ public final class CompositeDateValidator implements DateValidator {
         }
       };
 
-  /**
-   * Performs the {@link DateValidator#isValid(long)} check as an AND of all validators.
-   * e.g. If every validator in this class returns `true` for each {@link
-   * DateValidator#isValid(long)}, this this method will return true.
-   *
-   * @param date milliseconds date to validate against.
-   * @return True, if the given date is valid for every given validator in this class.
-   */
+  
   @Override
   public boolean isValid(long date) {
     for (DateValidator validator : validators) {

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.textfield;
 
@@ -34,7 +20,7 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 
-/** Default initialization of the clear text end icon {@link TextInputLayout.EndIconMode}. */
+
 class ClearTextEndIconDelegate extends EndIconDelegate {
 
   private static final int ANIMATION_FADE_DURATION = 100;
@@ -71,7 +57,7 @@ class ClearTextEndIconDelegate extends EndIconDelegate {
         public void onEditTextAttached(@NonNull TextInputLayout textInputLayout) {
           EditText editText = textInputLayout.getEditText();
           textInputLayout.setEndIconVisible(editText.hasFocus() && hasText(editText.getText()));
-          // Make sure there's always only one clear text text watcher added
+          
           textInputLayout.setEndIconCheckable(false);
           editText.setOnFocusChangeListener(onFocusChangeListener);
           editText.removeTextChangedListener(clearTextEndIconTextWatcher);
@@ -84,7 +70,7 @@ class ClearTextEndIconDelegate extends EndIconDelegate {
         public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon) {
           EditText editText = textInputLayout.getEditText();
           if (editText != null && previousIcon == TextInputLayout.END_ICON_CLEAR_TEXT) {
-            // Remove any listeners set on the edit text.
+            
             editText.removeTextChangedListener(clearTextEndIconTextWatcher);
             if (editText.getOnFocusChangeListener() == onFocusChangeListener) {
               editText.setOnFocusChangeListener(null);

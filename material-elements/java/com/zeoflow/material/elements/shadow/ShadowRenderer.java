@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.shadow;
 
@@ -33,17 +19,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.graphics.ColorUtils;
 
-/**
- * A helper class to draw linear or radial shadows using gradient shaders.
- *
- * @hide
- */
+
 @RestrictTo(LIBRARY_GROUP)
 public class ShadowRenderer {
 
-  /** Gradient start color of 68 which evaluates to approximately 26% opacity. */
+  
   private static final int COLOR_ALPHA_START = 0x44;
-  /** Gradient start color of 20 which evaluates to approximately 8% opacity. */
+  
   private static final int COLOR_ALPHA_MIDDLE = 0x14;
 
   private static final int COLOR_ALPHA_END = 0;
@@ -57,11 +39,11 @@ public class ShadowRenderer {
   private int shadowEndColor;
 
   private static final int[] edgeColors = new int[3];
-  /** Start, middle of shadow, and end of shadow positions */
+  
   private static final float[] edgePositions = new float[] {0f, .5f, 1f};
 
   private static final int[] cornerColors = new int[4];
-  /** Start, beginning of corner, middle of shadow, and end of shadow positions */
+  
   private static final float[] cornerPositions = new float[] {0f, 0f, .5f, 1f};
 
   private final Path scratch = new Path();
@@ -89,7 +71,7 @@ public class ShadowRenderer {
     shadowPaint.setColor(shadowStartColor);
   }
 
-  /** Draws an edge shadow on the canvas in the current bounds with the matrix transform applied. */
+  
   public void drawEdgeShadow(
       @NonNull Canvas canvas, @Nullable Matrix transform, @NonNull RectF bounds, int elevation) {
     bounds.bottom += elevation;
@@ -115,9 +97,7 @@ public class ShadowRenderer {
     canvas.restore();
   }
 
-  /**
-   * Draws a corner shadow on the canvas in the current bounds with the matrix transform applied.
-   */
+  
   public void drawCornerShadow(
       @NonNull Canvas canvas,
       @Nullable Matrix matrix,
@@ -136,7 +116,7 @@ public class ShadowRenderer {
       cornerColors[2] = shadowMiddleColor;
       cornerColors[3] = shadowStartColor;
     } else {
-      // Calculate the arc bounds to prevent drawing shadow in the same part of the arc.
+      
       arcBounds.rewind();
       arcBounds.moveTo(bounds.centerX(), bounds.centerY());
       arcBounds.arcTo(bounds, startAngle, sweepAngle);
@@ -150,7 +130,7 @@ public class ShadowRenderer {
     }
 
     float radius = bounds.width() / 2f;
-    // The shadow is not big enough to draw.
+    
     if (radius <= 0) {
       return;
     }
@@ -168,13 +148,13 @@ public class ShadowRenderer {
             cornerPositions,
             Shader.TileMode.CLAMP));
 
-    // TODO(b/117606382): handle oval bounds by scaling the canvas.
+    
     canvas.save();
     canvas.concat(matrix);
 
     if (!drawShadowInsideBounds) {
       canvas.clipPath(arcBounds, Op.DIFFERENCE);
-      // This line is required for the next drawArc to work correctly, I think.
+      
       canvas.drawPath(arcBounds, transparentPaint);
     }
 

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.zeoflow.material.elements.color;
 
 import android.content.Context;
@@ -27,9 +13,7 @@ import android.util.TypedValue;
 import android.view.View;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 
-/**
- * A utility class for common color variants used in Material themes.
- */
+
 public class MaterialColors {
 
   public static final float ALPHA_FULL = 1.00F;
@@ -39,45 +23,30 @@ public class MaterialColors {
   public static final float ALPHA_DISABLED_LOW = 0.12F;
 
   private MaterialColors() {
-    // Private constructor to prevent unwanted construction.
+    
   }
 
-  /**
-   * Returns the color int for the provided theme color attribute, using the {@link Context} of the
-   * provided {@code view}.
-   *
-   * @throws IllegalArgumentException if the attribute is not set in the current theme.
-   */
+  
   @ColorInt
   public static int getColor(@NonNull View view, @AttrRes int colorAttributeResId) {
     return MaterialAttributes.resolveOrThrow(view, colorAttributeResId);
   }
 
-  /**
-   * Returns the color int for the provided theme color attribute.
-   *
-   * @throws IllegalArgumentException if the attribute is not set in the current theme.
-   */
+  
   @ColorInt
   public static int getColor(
       Context context, @AttrRes int colorAttributeResId, String errorMessageComponent) {
     return MaterialAttributes.resolveOrThrow(context, colorAttributeResId, errorMessageComponent);
   }
 
-  /**
-   * Returns the color int for the provided theme color attribute, or the default value if the
-   * attribute is not set in the current theme, using the {@code view}'s {@link Context}.
-   */
+  
   @ColorInt
   public static int getColor(
       @NonNull View view, @AttrRes int colorAttributeResId, @ColorInt int defaultValue) {
     return getColor(view.getContext(), colorAttributeResId, defaultValue);
   }
 
-  /**
-   * Returns the color int for the provided theme color attribute, or the default value if the
-   * attribute is not set in the current theme.
-   */
+  
   @ColorInt
   public static int getColor(
       @NonNull Context context, @AttrRes int colorAttributeResId, @ColorInt int defaultValue) {
@@ -89,10 +58,7 @@ public class MaterialColors {
     }
   }
 
-  /**
-   * Convenience method that calculates {@link MaterialColors#layer(View, int, int, float)} without
-   * an {@code overlayAlpha} value by passing in {@code 1f} for the alpha value.
-   */
+  
   @ColorInt
   public static int layer(
       @NonNull View view,
@@ -101,10 +67,7 @@ public class MaterialColors {
     return layer(view, backgroundColorAttributeResId, overlayColorAttributeResId, 1f);
   }
 
-  /**
-   * Convenience method that wraps {@link MaterialColors#layer(int, int, float)} for layering colors
-   * from theme attributes.
-   */
+  
   @ColorInt
   public static int layer(
       @NonNull View view,
@@ -116,10 +79,7 @@ public class MaterialColors {
     return layer(backgroundColor, overlayColor, overlayAlpha);
   }
 
-  /**
-   * Calculates a color that represents the layering of the {@code overlayColor} (with {@code
-   * overlayAlpha} applied) on top of the {@code backgroundColor}.
-   */
+  
   @ColorInt
   public static int layer(
       @ColorInt int backgroundColor,
@@ -130,23 +90,13 @@ public class MaterialColors {
     return layer(backgroundColor, computedOverlayColor);
   }
 
-  /**
-   * Calculates a color that represents the layering of the {@code overlayColor} on top of the
-   * {@code backgroundColor}.
-   */
+  
   @ColorInt
   public static int layer(@ColorInt int backgroundColor, @ColorInt int overlayColor) {
     return ColorUtils.compositeColors(overlayColor, backgroundColor);
   }
 
-  /**
-   * Calculates a new color by multiplying an additional alpha int value to the alpha channel of a
-   * color in integer type.
-   *
-   * @param originalARGB The original color.
-   * @param alpha The additional alpha [0-255].
-   * @return The blended color.
-   */
+  
   @ColorInt
   public static int compositeARGBWithAlpha(
       @ColorInt int originalARGB, @IntRange(from = 0, to = 255) int alpha) {

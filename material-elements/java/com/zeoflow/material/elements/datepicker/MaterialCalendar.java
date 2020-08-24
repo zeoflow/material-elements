@@ -1,18 +1,4 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.zeoflow.material.elements.datepicker;
 
 import com.google.android.material.R;
@@ -49,16 +35,11 @@ import android.widget.GridView;
 import com.zeoflow.material.elements.button.MaterialButton;
 import java.util.Calendar;
 
-/**
- * Fragment for a days of week {@link Calendar} represented as a header row of days labels and
- * {@link GridView} of days backed by {@link MonthAdapter}.
- *
- * @hide
- */
+
 @RestrictTo(Scope.LIBRARY_GROUP)
 public final class MaterialCalendar<S> extends PickerFragment<S> {
 
-  /** The views supported by {@link MaterialCalendar}. */
+  
   enum CalendarSelector {
     DAY,
     YEAR
@@ -154,7 +135,7 @@ public final class MaterialCalendar<S> extends PickerFragment<S> {
           public void onInitializeAccessibilityNodeInfo(
               View view, @NonNull AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
             super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
-            // Remove announcing row/col info.
+            
             accessibilityNodeInfoCompat.setCollectionInfo(null);
           }
         });
@@ -194,7 +175,7 @@ public final class MaterialCalendar<S> extends PickerFragment<S> {
                   for (OnSelectionChangedListener<S> listener : onSelectionChangedListeners) {
                     listener.onSelectionChanged(dateSelector.getSelection());
                   }
-                  // TODO(b/134663744): Look into monthsPager.getAdapter().notifyItemRangeChanged();
+                  
                   recyclerView.getAdapter().notifyDataSetChanged();
                   if (yearSelector != null) {
                     yearSelector.getAdapter().notifyDataSetChanged();
@@ -283,18 +264,13 @@ public final class MaterialCalendar<S> extends PickerFragment<S> {
     return current;
   }
 
-  /** Returns the {@link CalendarConstraints} in use by this {@link MaterialCalendar}. */
+  
   @Nullable
   CalendarConstraints getCalendarConstraints() {
     return calendarConstraints;
   }
 
-  /**
-   * Changes the currently displayed month to {@code moveTo}.
-   *
-   * @throws IllegalArgumentException If {@code moveTo} is not within the allowed {@link
-   *     CalendarConstraints}.
-   */
+  
   void setCurrentMonth(Month moveTo) {
     MonthsPagerAdapter adapter = (MonthsPagerAdapter) recyclerView.getAdapter();
     int moveToPosition = adapter.getPosition(moveTo);
@@ -328,7 +304,7 @@ public final class MaterialCalendar<S> extends PickerFragment<S> {
     void onDayClick(long day);
   }
 
-  /** Returns the pixel height of each {@link android.view.View} representing a day. */
+  
   @Px
   static int getDayHeight(@NonNull Context context) {
     return context.getResources().getDimensionPixelSize(R.dimen.mtrl_calendar_day_height);
@@ -346,8 +322,8 @@ public final class MaterialCalendar<S> extends PickerFragment<S> {
     } else if (selector == CalendarSelector.DAY) {
       yearFrame.setVisibility(View.GONE);
       dayFrame.setVisibility(View.VISIBLE);
-      // When visibility is toggled, the RecyclerView default opens to its lowest available id.
-      // This id is always one month earlier than current, so we force it to current.
+      
+      
       setCurrentMonth(current);
     }
   }

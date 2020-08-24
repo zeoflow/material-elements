@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.internal;
 
@@ -34,7 +20,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Checkable;
 
-/** @hide */
+
 @RestrictTo(LIBRARY_GROUP)
 public class CheckableImageButton extends AppCompatImageButton implements Checkable {
 
@@ -131,7 +117,7 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
     setChecked(savedState.checked);
   }
 
-  /** Sets image button to be checkable or not. */
+  
   public void setCheckable(boolean checkable) {
     if (this.checkable != checkable) {
       this.checkable = checkable;
@@ -139,17 +125,17 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
     }
   }
 
-  /** Returns whether the image button is checkable. */
+  
   public boolean isCheckable() {
     return checkable;
   }
 
-  /** Sets image button to be pressable or not. */
+  
   public void setPressable(boolean pressable) {
     this.pressable = pressable;
   }
 
-  /** Returns whether the image button is pressable. */
+  
   public boolean isPressable() {
     return pressable;
   }

@@ -1,18 +1,4 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.datepicker;
 
@@ -38,11 +24,7 @@ import com.zeoflow.material.elements.dialog.MaterialDialogs;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 
-/**
- * A Material version of {@link android.app.DatePickerDialog}
- *
- * @hide
- */
+
 @RestrictTo({Scope.LIBRARY_GROUP, Scope.TESTS})
 public class MaterialStyledDatePickerDialog extends DatePickerDialog {
 
@@ -89,7 +71,7 @@ public class MaterialStyledDatePickerDialog extends DatePickerDialog {
 
     MaterialShapeDrawable materialShapeDrawable =
         new MaterialShapeDrawable(context, null, DEF_STYLE_ATTR, DEF_STYLE_RES);
-    // Pre-L, windowBackground is a second background behind the Picker Dialog.
+    
     if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
       materialShapeDrawable.setFillColor(ColorStateList.valueOf(surfaceColor));
     } else {

@@ -1,18 +1,4 @@
-/*
- * Copyright 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.internal;
 
@@ -33,12 +19,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Horizontally lay out children until the row is filled and then moved to the next line. Call
- * {@link FlowLayout#setSingleLine(boolean)} to disable reflow and lay all children out in one line.
- *
- * @hide
- */
+
 @RestrictTo(LIBRARY_GROUP)
 public class FlowLayout extends ViewGroup {
   private int lineSpacing;
@@ -92,12 +73,12 @@ public class FlowLayout extends ViewGroup {
     this.itemSpacing = itemSpacing;
   }
 
-  /** Returns whether this chip group is single line or reflowed multiline. */
+  
   public boolean isSingleLine() {
     return singleLine;
   }
 
-  /** Sets whether this chip group is single line, or reflowed multiline. */
+  
   public void setSingleLine(boolean singleLine) {
     this.singleLine = singleLine;
   }
@@ -140,9 +121,9 @@ public class FlowLayout extends ViewGroup {
 
       childRight = childLeft + leftMargin + child.getMeasuredWidth();
 
-      // If the current child's right bound exceeds Flowlayout's max right bound and flowlayout is
-      // not confined to a single line, move this child to the next line and reset its left bound to
-      // flowlayout's left bound.
+      
+      
+      
       if (childRight > maxRight && !isSingleLine()) {
         childLeft = getPaddingLeft();
         childTop = childBottom + lineSpacing;
@@ -151,16 +132,16 @@ public class FlowLayout extends ViewGroup {
       childRight = childLeft + leftMargin + child.getMeasuredWidth();
       childBottom = childTop + child.getMeasuredHeight();
 
-      // Updates Flowlayout's max right bound if current child's right bound exceeds it.
+      
       if (childRight > maxChildRight) {
         maxChildRight = childRight;
       }
 
       childLeft += (leftMargin + rightMargin + child.getMeasuredWidth()) + itemSpacing;
 
-      // For all preceding children, the child's right margin is taken into account in the next
-      // child's left bound (childLeft). However, childLeft is ignored after the last child so the
-      // last child's right margin needs to be explicitly added to Flowlayout's max right bound.
+      
+      
+      
       if (i == (getChildCount() - 1)) {
         maxChildRight += rightMargin;
       }
@@ -180,7 +161,7 @@ public class FlowLayout extends ViewGroup {
         return size;
       case MeasureSpec.AT_MOST:
         return Math.min(childrenEdge, size);
-      default: // UNSPECIFIED:
+      default: 
         return childrenEdge;
     }
   }
@@ -188,7 +169,7 @@ public class FlowLayout extends ViewGroup {
   @Override
   protected void onLayout(boolean sizeChanged, int left, int top, int right, int bottom) {
     if (getChildCount() == 0) {
-      // Do not re-layout when there are no children.
+      
       rowCount = 0;
       return;
     }
@@ -248,7 +229,7 @@ public class FlowLayout extends ViewGroup {
     return rowCount;
   }
 
-  /** Gets the row index of the child, primarily for accessibility.   */
+  
   public int getRowIndex(@NonNull View child) {
     Object index = child.getTag(R.id.row_index_key);
     if (!(index instanceof Integer)) {

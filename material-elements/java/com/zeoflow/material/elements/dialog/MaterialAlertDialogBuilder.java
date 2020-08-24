@@ -1,18 +1,4 @@
-/*
- * Copyright 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.dialog;
 
@@ -53,16 +39,7 @@ import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
-/**
- * An extension of {@link AlertDialog.Builder} for use with a Material theme (e.g.,
- * Theme.MaterialComponents).
- *
- * <p>This Builder must be used in order for AlertDialog objects to respond to color and shape
- * theming provided by Material themes.
- *
- * <p>The type of dialog returned is still an {@link AlertDialog}; there is no specific Material
- * implementation of {@link AlertDialog}.
- */
+
 public class MaterialAlertDialogBuilder extends AlertDialog.Builder {
 
   @AttrRes private static final int DEF_STYLE_ATTR = R.attr.alertDialogStyle;
@@ -103,12 +80,12 @@ public class MaterialAlertDialogBuilder extends AlertDialog.Builder {
   }
 
   public MaterialAlertDialogBuilder(@NonNull Context context, int overrideThemeResId) {
-    // Only pass in 0 for overrideThemeResId if both overrideThemeResId and
-    // MATERIAL_ALERT_DIALOG_THEME_OVERLAY are 0 otherwise alertDialogTheme will override both.
+    
+    
     super(
         createMaterialAlertDialogThemedContext(context),
         getOverridingThemeResId(context, overrideThemeResId));
-    // Ensure we are using the correctly themed context rather than the context that was passed in.
+    
     context = getContext();
     Theme theme = context.getTheme();
 
@@ -122,7 +99,7 @@ public class MaterialAlertDialogBuilder extends AlertDialog.Builder {
     materialShapeDrawable.initializeElevationOverlay(context);
     materialShapeDrawable.setFillColor(ColorStateList.valueOf(surfaceColor));
 
-    // dialogCornerRadius first appeared in Android Pie
+    
     if (Build.VERSION.SDK_INT >= VERSION_CODES.P) {
       TypedValue dialogCornerRadiusValue = new TypedValue();
       theme.resolveAttribute(android.R.attr.dialogCornerRadius, dialogCornerRadiusValue, true);
@@ -140,8 +117,7 @@ public class MaterialAlertDialogBuilder extends AlertDialog.Builder {
   public AlertDialog create() {
     AlertDialog alertDialog = super.create();
     Window window = alertDialog.getWindow();
-    /* {@link Window#getDecorView()} should be called before any changes are made to the Window
-     * as it locks in attributes and affects layout. */
+    
     View decorView = window.getDecorView();
     if (background instanceof MaterialShapeDrawable) {
       ((MaterialShapeDrawable) background).setElevation(ViewCompat.getElevation(decorView));
@@ -200,8 +176,8 @@ public class MaterialAlertDialogBuilder extends AlertDialog.Builder {
     return this;
   }
 
-  // The following methods are all pass-through methods used to specify the return type for the
-  // builder chain.
+  
+  
 
   @NonNull
   @Override

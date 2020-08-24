@@ -1,18 +1,4 @@
-/*
- * Copyright 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.shape;
 
@@ -28,64 +14,24 @@ import com.zeoflow.material.elements.shadow.ShadowRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents the descriptive path of a shape. Path segments are stored in sequence so that
- * transformations can be applied to them when the {@link android.graphics.Path} is produced by the
- * {@link MaterialShapeDrawable}.
- */
+
 public class ShapePath {
 
   private static final float ANGLE_UP = 270;
-  /**
-   * Degrees measured from the vector [0,1].
-   *
-   * @hide
-   */
+  
   protected static final float ANGLE_LEFT = 180;
 
-  /**
-   * The x coordinate for the start of the path. Does not change. Do not change.
-   *
-   * @deprecated Use the class methods to interact with this field so internal state can be
-   *     maintained.
-   */
+  
   @Deprecated public float startX;
-  /**
-   * The y coordinate for the start of the path. Does not change. Do not change.
-   *
-   * @deprecated Use the class methods to interact with this field so internal state can be
-   *     maintained.
-   */
+  
   @Deprecated public float startY;
-  /**
-   * The x coordinate for the current end of the path given the previously applied transformation.
-   * Changes internally. Do not change.
-   *
-   * @deprecated Use the class methods to interact with this field so internal state can be
-   *     maintained.
-   */
+  
   @Deprecated public float endX;
-  /**
-   * The y coordinate for the current end of the path given the previously applied transformation.
-   * Changes internally. Do not change.
-   *
-   * @deprecated Use the class methods to interact with this field so internal state can be
-   *     maintained.
-   */
+  
   @Deprecated public float endY;
-  /**
-   * The angle of the start of the last drawn shadow. Changes internally. Do not change.
-   *
-   * @deprecated Use the class methods to interact with this field so internal state can be *
-   *     maintained.
-   */
+  
   @Deprecated public float currentShadowAngle;
-  /**
-   * The angle at the end of the final shadow. Changes internally. Do not change.
-   *
-   * @deprecated Use the class methods to interact with this field so internal state can be *
-   *     maintained.
-   */
+  
   @Deprecated public float endShadowAngle;
 
   private final List<PathOperation> operations = new ArrayList<>();
@@ -100,15 +46,12 @@ public class ShapePath {
     reset(startX, startY);
   }
 
-  /**
-   * Resets the ShapePath using a default shadow. {@link ShapePath#reset(float, float, float,
-   * float)}.
-   */
+  
   public void reset(float startX, float startY) {
     reset(startX, startY, ANGLE_UP, 0);
   }
 
-  /** Resets fields given the provided assignment parameters. */
+  
   public void reset(float startX, float startY, float shadowStartAngle, float shadowSweepAngle) {
     setStartX(startX);
     setStartY(startY);
@@ -121,12 +64,7 @@ public class ShapePath {
     this.containsIncompatibleShadowOp = false;
   }
 
-  /**
-   * Add a line to the ShapePath.
-   *
-   * @param x the x to which the line should be drawn.
-   * @param y the y to which the line should be drawn.
-   */
+  
   public void lineTo(float x, float y) {
     PathLineOperation operation = new PathLineOperation();
     operation.x = x;
@@ -135,7 +73,7 @@ public class ShapePath {
 
     LineShadowOperation shadowOperation = new LineShadowOperation(operation, getEndX(), getEndY());
 
-    // The previous endX and endY is the starting point for this shadow operation.
+    
     addShadowCompatOperation(
         shadowOperation,
         ANGLE_UP + shadowOperation.getAngle(),
@@ -145,17 +83,7 @@ public class ShapePath {
     setEndY(y);
   }
 
-  /**
-   * Add a quad to the ShapePath.
-   *
-   * <p>Note: This operation will not draw compatibility shadows. This means no shadow will be drawn
-   * on API < 21 and a shadow will only be drawn on API < 29 if the final path is convex.
-   *
-   * @param controlX the control point x of the arc.
-   * @param controlY the control point y of the arc.
-   * @param toX the end x of the arc.
-   * @param toY the end y of the arc.
-   */
+  
   @RequiresApi(VERSION_CODES.LOLLIPOP)
   public void quadToPoint(float controlX, float controlY, float toX, float toY) {
     PathQuadOperation operation = new PathQuadOperation();
@@ -171,19 +99,7 @@ public class ShapePath {
     setEndY(toY);
   }
 
-  /**
-   * Add a cubic to the ShapePath.
-   *
-   * <p>Note: This operation will not draw compatibility shadows. This means no shadow will be drawn
-   * on API < 21 and a shadow will only be drawn on API < 29 if the final path is convex.
-   *
-   * @param controlX1 the 1st control point x of the arc.
-   * @param controlY1 the 1st control point y of the arc.
-   * @param controlX2 the 2nd control point x of the arc.
-   * @param controlY2 the 2nd control point y of the arc.
-   * @param toX the end x of the arc.
-   * @param toY the end y of the arc.
-   */
+  
   @RequiresApi(VERSION_CODES.LOLLIPOP)
   public void cubicToPoint(
       float controlX1, float controlY1, float controlX2, float controlY2, float toX, float toY) {
@@ -197,16 +113,7 @@ public class ShapePath {
     setEndY(toY);
   }
 
-  /**
-   * Add an arc to the ShapePath.
-   *
-   * @param left the X coordinate of the left side of the rectangle containing the arc oval.
-   * @param top the Y coordinate of the top of the rectangle containing the arc oval.
-   * @param right the X coordinate of the right side of the rectangle containing the arc oval.
-   * @param bottom the Y coordinate of the bottom of the rectangle containing the arc oval.
-   * @param startAngle start angle of the arc.
-   * @param sweepAngle sweep angle of the arc.
-   */
+  
   public void addArc(
       float left, float top, float right, float bottom, float startAngle, float sweepAngle) {
     PathArcOperation operation = new PathArcOperation(left, top, right, bottom);
@@ -216,9 +123,9 @@ public class ShapePath {
 
     ArcShadowOperation arcShadowOperation = new ArcShadowOperation(operation);
     float endAngle = startAngle + sweepAngle;
-    // Flip the startAngle and endAngle when drawing the shadow inside the bounds. They represent
-    // the angles from the center of the circle to the start or end of the arc, respectively. When
-    // the shadow is drawn inside the arc, it is going the opposite direction.
+    
+    
+    
     boolean drawShadowInsideBounds = sweepAngle < 0;
     addShadowCompatOperation(
         arcShadowOperation,
@@ -233,12 +140,7 @@ public class ShapePath {
             + (bottom - top) / 2 * (float) Math.sin(Math.toRadians(startAngle + sweepAngle)));
   }
 
-  /**
-   * Apply the ShapePath sequence to a {@link android.graphics.Path} under a matrix transform.
-   *
-   * @param transform the matrix transform under which this ShapePath is applied
-   * @param path the path to which this ShapePath is applied
-   */
+  
   public void applyToPath(Matrix transform, Path path) {
     for (int i = 0, size = operations.size(); i < size; i++) {
       PathOperation operation = operations.get(i);
@@ -246,13 +148,10 @@ public class ShapePath {
     }
   }
 
-  /**
-   * Creates a ShadowCompatOperation to draw compatibility shadow under the matrix transform for the
-   * whole path defined by this ShapePath.
-   */
+  
   @NonNull
   ShadowCompatOperation createShadowCompatOperation(final Matrix transform) {
-    // If the shadowCompatOperations don't end on the desired endShadowAngle, add an arc to do so.
+    
     addConnectingShadowIfNecessary(getEndShadowAngle());
     final List<ShadowCompatOperation> operations = new ArrayList<>(shadowCompatOperations);
     return new ShadowCompatOperation() {
@@ -266,10 +165,7 @@ public class ShapePath {
     };
   }
 
-  /**
-   * Adds a {@link ShadowCompatOperation}, adding an {@link ArcShadowOperation} if needed in order
-   * to connect the previous shadow end to the new shadow operation's beginning.
-   */
+  
   private void addShadowCompatOperation(
       ShadowCompatOperation shadowOperation, float startShadowAngle, float endShadowAngle) {
     addConnectingShadowIfNecessary(startShadowAngle);
@@ -277,26 +173,20 @@ public class ShapePath {
     setCurrentShadowAngle(endShadowAngle);
   }
 
-  /**
-   * Hint to let {@link MaterialShapeDrawable} know that it won't be rendering the shadow correctly
-   * if it's drawing the compat shadow.
-   */
+  
   boolean containsIncompatibleShadowOp() {
     return containsIncompatibleShadowOp;
   }
 
-  /**
-   * Create an {@link ArcShadowOperation} to fill in a shadow between the currently drawn shadow and
-   * the next shadow angle, if there would be a gap.
-   */
+  
   private void addConnectingShadowIfNecessary(float nextShadowAngle) {
     if (getCurrentShadowAngle() == nextShadowAngle) {
-      // Previously drawn shadow lines up with the next shadow, so don't draw anything.
+      
       return;
     }
     float shadowSweep = (nextShadowAngle - getCurrentShadowAngle() + 360) % 360;
     if (shadowSweep > 180) {
-      // Shadows are actually overlapping, so don't draw anything.
+      
       return;
     }
     PathArcOperation pathArcOperation =
@@ -355,25 +245,22 @@ public class ShapePath {
     this.endShadowAngle = endShadowAngle;
   }
 
-  /**
-   * Interface to hold operations that will draw a compatible shadow in the case that native shadows
-   * can't be rendered.
-   */
+  
   abstract static class ShadowCompatOperation {
 
     static final Matrix IDENTITY_MATRIX = new Matrix();
 
-    /** Draws the operation on the canvas */
+    
     public final void draw(ShadowRenderer shadowRenderer, int shadowElevation, Canvas canvas) {
       draw(IDENTITY_MATRIX, shadowRenderer, shadowElevation, canvas);
     }
 
-    /** Draws the operation with the matrix transform on the canvas */
+    
     public abstract void draw(
         Matrix transform, ShadowRenderer shadowRenderer, int shadowElevation, Canvas canvas);
   }
 
-  /** Sets up the correct shadow to be drawn for a line. */
+  
   static class LineShadowOperation extends ShadowCompatOperation {
 
     private final PathLineOperation operation;
@@ -396,7 +283,7 @@ public class ShapePath {
       final float width = operation.x - startX;
       final RectF rect = new RectF(0, 0, (float) Math.hypot(height, width), 0);
       final Matrix edgeTransform = new Matrix(transform);
-      // transform & rotate the canvas so that the rect passed to drawEdgeShadow is horizontal.
+      
       edgeTransform.preTranslate(startX, startY);
       edgeTransform.preRotate(getAngle());
       shadowRenderer.drawEdgeShadow(canvas, edgeTransform, rect, shadowElevation);
@@ -407,7 +294,7 @@ public class ShapePath {
     }
   }
 
-  /** Sets up the shadow to be drawn for an arc. */
+  
   static class ArcShadowOperation extends ShadowCompatOperation {
 
     private final PathArcOperation operation;
@@ -432,17 +319,17 @@ public class ShapePath {
     }
   }
 
-  /** Interface for a path operation to be appended to the operations list. */
+  
   public abstract static class PathOperation {
 
-    /** A usable {@link Matrix} object for transformations. */
+    
     protected final Matrix matrix = new Matrix();
 
-    /** Applies the given {@code transform} to the provided {@code path}. */
+    
     public abstract void applyToPath(Matrix transform, Path path);
   }
 
-  /** Straight line operation. */
+  
   public static class PathLineOperation extends PathOperation {
     private float x;
     private float y;
@@ -457,27 +344,15 @@ public class ShapePath {
     }
   }
 
-  /** Path quad operation. */
+  
   public static class PathQuadOperation extends PathOperation {
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float controlX;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float controlY;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float endX;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float endY;
 
     @Override
@@ -522,39 +397,21 @@ public class ShapePath {
     }
   }
 
-  /** Path arc operation. */
+  
   public static class PathArcOperation extends PathOperation {
     private static final RectF rectF = new RectF();
 
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float left;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float top;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float right;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float bottom;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float startAngle;
-    /**
-     * @deprecated Use the class methods to interact with this field so internal state can be
-     *     maintained.
-     */
+    
     @Deprecated public float sweepAngle;
 
     public PathArcOperation(float left, float top, float right, float bottom) {
@@ -623,7 +480,7 @@ public class ShapePath {
     }
   }
 
-  /** Path cubic operation. */
+  
   public static class PathCubicOperation extends PathOperation {
 
     private float controlX1;

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.zeoflow.material.elements.resources;
 
 import com.google.android.material.R;
@@ -29,18 +15,11 @@ import androidx.annotation.RestrictTo;
 import android.util.TypedValue;
 import android.view.View;
 
-/**
- * Utility methods to work with attributes.
- *
- * @hide
- */
+
 @RestrictTo(LIBRARY_GROUP)
 public class MaterialAttributes {
 
-  /**
-   * Returns the {@link TypedValue} for the provided {@code attributeResId} or null if the attribute
-   * is not present in the current theme.
-   */
+  
   @Nullable
   public static TypedValue resolve(@NonNull Context context, @AttrRes int attributeResId) {
     TypedValue typedValue = new TypedValue();
@@ -50,11 +29,7 @@ public class MaterialAttributes {
     return null;
   }
 
-  /**
-   * Returns the {@link TypedValue} for the provided {@code attributeResId}.
-   *
-   * @throws IllegalArgumentException if the attribute is not present in the current theme.
-   */
+  
   public static int resolveOrThrow(
       @NonNull Context context,
       @AttrRes int attributeResId,
@@ -74,22 +49,13 @@ public class MaterialAttributes {
     return typedValue.data;
   }
 
-  /**
-   * Returns the {@link TypedValue} for the provided {@code attributeResId}, using the context of
-   * the provided {@code componentView}.
-   *
-   * @throws IllegalArgumentException if the attribute is not present in the current theme.
-   */
+  
   public static int resolveOrThrow(@NonNull View componentView, @AttrRes int attributeResId) {
     return resolveOrThrow(
         componentView.getContext(), attributeResId, componentView.getClass().getCanonicalName());
   }
 
-  /**
-   * Returns the boolean value for the provided {@code attributeResId}.
-   *
-   * @throws IllegalArgumentException if the attribute is not present in the current theme.
-   */
+  
   public static boolean resolveBooleanOrThrow(
       @NonNull Context context,
       @AttrRes int attributeResId,
@@ -97,10 +63,7 @@ public class MaterialAttributes {
     return resolveOrThrow(context, attributeResId, errorMessageComponent) != 0;
   }
 
-  /**
-   * Returns the boolean value for the provided {@code attributeResId} or {@code defaultValue} if
-   * the attribute is not a boolean or not present in the current theme.
-   */
+  
   public static boolean resolveBoolean(
       @NonNull Context context, @AttrRes int attributeResId, boolean defaultValue) {
     TypedValue typedValue = resolve(context, attributeResId);
@@ -109,17 +72,13 @@ public class MaterialAttributes {
         : defaultValue;
   }
 
-  /** Returns the minimum touch target size, acceptable for accessibility, in pixels. */
+  
   @Px
   public static int resolveMinimumAccessibleTouchTarget(@NonNull Context context) {
     return resolveDimension(context, R.attr.minTouchTargetSize, R.dimen.mtrl_min_touch_target_size);
   }
 
-  /**
-   * Returns the pixel value of the dimension specified by {@code attributeResId}. Defaults to
-   * {@code defaultDimenResId} if {@code attributeResId} cannot be found or is not a dimension
-   * within the given {@code context}.
-   */
+  
   @Px
   public static int resolveDimension(
       @NonNull Context context, @AttrRes int attributeResId, @DimenRes int defaultDimenResId) {

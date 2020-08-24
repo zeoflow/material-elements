@@ -1,18 +1,4 @@
-/*
- * Copyright 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.transformation;
 
@@ -68,13 +54,7 @@ import com.zeoflow.material.elements.transition.MaterialContainerTransform;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Abstract base behavior for any non-scrim view that should appear when a {@link
- * FloatingActionButton} is {@link FloatingActionButton#setExpanded(boolean)} expanded}.
- *
- * @deprecated Use {@link MaterialContainerTransform}
- *     instead.
- */
+
 @Deprecated
 public abstract class FabTransformationBehavior extends ExpandableTransformationBehavior {
 
@@ -83,8 +63,8 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
   private final RectF tmpRectF2 = new RectF();
   private final int[] tmpArray = new int[2];
 
-  // The original translation of the dependency. Used to translate the dependency back to its
-  // original position.
+  
+  
   private float dependencyOriginalTranslationX;
   private float dependencyOriginalTranslationY;
 
@@ -115,8 +95,8 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
   @CallSuper
   public void onAttachedToLayoutParams(@NonNull CoordinatorLayout.LayoutParams lp) {
     if (lp.dodgeInsetEdges == Gravity.NO_GRAVITY) {
-      // If the developer hasn't set dodgeInsetEdges, lets set it to BOTTOM so that
-      // we dodge any Snackbars, matching FAB's behavior.
+      
+      
       lp.dodgeInsetEdges = Gravity.BOTTOM;
     }
   }
@@ -173,7 +153,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
           public void onAnimationStart(Animator animation) {
             if (expanded) {
               child.setVisibility(View.VISIBLE);
-              // A bug exists in 4.4.4 where setVisibility() did not invalidate the view.
+              
               dependency.setAlpha(0f);
               dependency.setVisibility(View.INVISIBLE);
             }
@@ -183,7 +163,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
           public void onAnimationEnd(Animator animation) {
             if (!expanded) {
               child.setVisibility(View.INVISIBLE);
-              // A bug exists in 4.4.4 where setVisibility() did not invalidate the view.
+              
               dependency.setAlpha(1f);
               dependency.setVisibility(View.VISIBLE);
             }
@@ -338,8 +318,8 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
       animator = ObjectAnimator.ofInt(icon, DrawableAlphaProperty.DRAWABLE_ALPHA_COMPAT, 0xFF);
     }
 
-    // icon.setCallback() is not expected to be called and
-    // child.verifyDrawable() is not expected to be implemented.
+    
+    
     animator.addUpdateListener(
         new AnimatorUpdateListener() {
           @Override
@@ -407,8 +387,8 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
           new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-              // After toRadius has been reached, jump to no circular clip. This shouldn't result in
-              // a visual difference, because toRadius has been calculated precisely to avoid it.
+              
+              
               RevealInfo revealInfo = circularRevealChild.getRevealInfo();
               revealInfo.radius = RevealInfo.INVALID_RADIUS;
               circularRevealChild.setRevealInfo(revealInfo);
@@ -422,7 +402,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
           (int) revealCenterY,
           fromRadius,
           animations);
-      // No need to post fill. In all cases, circular reveal radius is removed.
+      
     } else {
       float fromRadius = circularRevealChild.getRevealInfo().radius;
       float toRadius = dependencyRadius;
@@ -506,7 +486,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
     }
     if (child instanceof CircularRevealWidget
         && CircularRevealHelper.STRATEGY == CircularRevealHelper.BITMAP_SHADER) {
-      // Bitmap shader strategy animates a static snapshot of the child.
+      
       return;
     }
 
@@ -542,15 +522,15 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
     MotionTiming translationXTiming;
     MotionTiming translationYTiming;
     if (translationX == 0 || translationY == 0) {
-      // Horizontal or vertical motion.
+      
       translationXTiming = spec.timings.getTiming("translationXLinear");
       translationYTiming = spec.timings.getTiming("translationYLinear");
     } else if ((expanded && translationY < 0) || (!expanded && translationY > 0)) {
-      // Upwards motion.
+      
       translationXTiming = spec.timings.getTiming("translationXCurveUpwards");
       translationYTiming = spec.timings.getTiming("translationYCurveUpwards");
     } else {
-      // Downwards motion.
+      
       translationXTiming = spec.timings.getTiming("translationXCurveDownwards");
       translationYTiming = spec.timings.getTiming("translationYCurveDownwards");
     }
@@ -619,8 +599,8 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
 
     windowBounds.offsetTo(windowLocation[0], windowLocation[1]);
 
-    // We specifically want to take into account the transformations of all parents only.
-    // The idea is that only this transformation should modify the translation of the views itself.
+    
+    
     windowBounds.offset((int) -view.getTranslationX(), (int) -view.getTranslationY());
   }
 
@@ -672,13 +652,13 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
     float translationY =
         calculateValueOfAnimationAtEndOfExpansion(spec, translationYTiming, fromY, toY);
 
-    // Calculate the window bounds.
+    
     Rect window = tmpRect;
     child.getWindowVisibleDisplayFrame(window);
     RectF windowF = tmpRectF1;
     windowF.set(window);
 
-    // Calculate the visible bounds of the child given its translation and window bounds.
+    
     RectF childVisibleBounds = tmpRectF2;
     calculateWindowBounds(child, childVisibleBounds);
     childVisibleBounds.offset(translationX, translationY);
@@ -692,35 +672,35 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
     long delay = timing.getDelay();
     long duration = timing.getDuration();
 
-    // Calculate at what time in the translation animation does the expansion animation end.
+    
     MotionTiming expansionTiming = spec.timings.getTiming("expansion");
     long expansionEnd = expansionTiming.getDelay() + expansionTiming.getDuration();
-    // Adjust one frame (16.6ms) for Android's draw pipeline.
-    // A value set at frame N will be drawn at frame N+1.
+    
+    
     expansionEnd += 17;
     float fraction = (float) (expansionEnd - delay) / duration;
 
-    // Calculate the exact value of the animation at that time.
+    
     fraction = timing.getInterpolator().getInterpolation(fraction);
     return lerp(from, to, fraction);
   }
 
-  /** Given the a child, return the ViewGroup whose children we want to fade. */
+  
   @Nullable
   private ViewGroup calculateChildContentContainer(@NonNull View view) {
-    // 1. If an explicitly tagged view exists, use that as the child content container.
+    
     View childContentContainer = view.findViewById(R.id.mtrl_child_content_container);
     if (childContentContainer != null) {
       return toViewGroupOrNull(childContentContainer);
     }
 
-    // 2. If the view is a wrapper container, use its child as the child content container.
+    
     if (view instanceof TransformationChildLayout || view instanceof TransformationChildCard) {
       childContentContainer = ((ViewGroup) view).getChildAt(0);
       return toViewGroupOrNull(childContentContainer);
     }
 
-    // 3. Use the view itself as the child content container.
+    
     return toViewGroupOrNull(view);
   }
 
@@ -742,7 +722,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
     }
   }
 
-  /** Adds pre radial expansion animator. */
+  
   private void createPreFillRadialExpansion(
       View child,
       long delay,
@@ -751,7 +731,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
       float fromRadius,
       @NonNull List<Animator> animations) {
     if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-      // No setter for circular reveal in L+.
+      
       if (delay > 0) {
         Animator animator =
             ViewAnimationUtils.createCircularReveal(
@@ -763,7 +743,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
     }
   }
 
-  /** Adds post radial expansion animator. */
+  
   private void createPostFillRadialExpansion(
       View child,
       long delay,
@@ -774,7 +754,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
       float toRadius,
       @NonNull List<Animator> animations) {
     if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-      // Circular reveal in L+ doesn't stick around.
+      
       if (delay + duration < totalDuration) {
         Animator animator =
             ViewAnimationUtils.createCircularReveal(
@@ -786,7 +766,7 @@ public abstract class FabTransformationBehavior extends ExpandableTransformation
     }
   }
 
-  /** Motion spec for a FAB transformation. */
+  
   protected static class FabTransformationSpec {
     @Nullable public MotionSpec timings;
     public Positioning positioning;

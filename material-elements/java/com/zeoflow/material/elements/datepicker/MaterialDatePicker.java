@@ -1,18 +1,4 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.datepicker;
 
@@ -58,7 +44,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.LinkedHashSet;
 
-/** A {@link Dialog} with a header, {@link MaterialCalendar}, and set of actions. */
+
 public final class MaterialDatePicker<S> extends DialogFragment {
 
   private static final String OVERRIDE_THEME_RES_ID = "OVERRIDE_THEME_RES_ID";
@@ -72,35 +58,29 @@ public final class MaterialDatePicker<S> extends DialogFragment {
   static final Object CANCEL_BUTTON_TAG = "CANCEL_BUTTON_TAG";
   static final Object TOGGLE_BUTTON_TAG = "TOGGLE_BUTTON_TAG";
 
-  /** Date picker will start with calendar view. */
+  
   public static final int INPUT_MODE_CALENDAR = 0;
 
-  /** Date picker will start with input text view. */
+  
   public static final int INPUT_MODE_TEXT = 1;
 
-  /** @hide */
+  
   @RestrictTo(LIBRARY_GROUP)
   @IntDef(value = {INPUT_MODE_CALENDAR, INPUT_MODE_TEXT})
   @Retention(RetentionPolicy.SOURCE)
   public @interface InputMode {}
 
-  /** Returns the UTC milliseconds representing the first moment of today in local timezone. */
+  
   public static long todayInUtcMilliseconds() {
     return UtcDates.getTodayCalendar().getTimeInMillis();
   }
 
-  /**
-   * Returns the UTC milliseconds representing the first moment in current month in local timezone.
-   */
+  
   public static long thisMonthInUtcMilliseconds() {
     return Month.current().timeInMillis;
   }
 
-  /**
-   * Returns the text to display at the top of the {@link DialogFragment}
-   *
-   * <p>The text is updated when the Dialog launches and on user clicks.
-   */
+  
   public String getHeaderText() {
     return dateSelector.getSelectionDisplayString(getContext());
   }
@@ -271,7 +251,7 @@ public final class MaterialDatePicker<S> extends DialogFragment {
   public void onStart() {
     super.onStart();
     Window window = requireDialog().getWindow();
-    // Dialogs use a background with an InsetDrawable by default, so we have to replace it.
+    
     if (fullscreen) {
       window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
       window.setBackgroundDrawable(background);
@@ -314,10 +294,7 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     super.onDismiss(dialogInterface);
   }
 
-  /**
-   * Returns an {@code S} instance representing the selection or null if the user has not confirmed
-   * a selection.
-   */
+  
   @Nullable
   public final S getSelection() {
     return dateSelector.getSelection();
@@ -364,15 +341,15 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     headerToggleButton.setImageDrawable(createHeaderToggleDrawable(context));
     headerToggleButton.setChecked(inputMode != INPUT_MODE_CALENDAR);
 
-    // By default, CheckableImageButton adds a delegate that reads checked state.
-    // This information is not useful; we remove the delegate and use custom content descriptions.
+    
+    
     ViewCompat.setAccessibilityDelegate(headerToggleButton, null);
     updateToggleContentDescription(headerToggleButton);
     headerToggleButton.setOnClickListener(
         new OnClickListener() {
           @Override
           public void onClick(View v) {
-            // Update confirm button in case in progress selection has been reset
+            
             confirmButton.setEnabled(dateSelector.isSelectionComplete());
 
             headerToggleButton.toggle();
@@ -390,7 +367,7 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     headerToggleButton.setContentDescription(contentDescription);
   }
 
-  // Create StateListDrawable programmatically for pre-lollipop support
+  
   @NonNull
   private static Drawable createHeaderToggleDrawable(Context context) {
     StateListDrawable toggleDrawable = new StateListDrawable();
@@ -441,89 +418,71 @@ public final class MaterialDatePicker<S> extends DialogFragment {
     return 2 * padding + daysInWeek * dayWidth + (daysInWeek - 1) * horizontalSpace;
   }
 
-  /** The supplied listener is called when the user confirms a valid selection. */
+  
   public boolean addOnPositiveButtonClickListener(
       MaterialPickerOnPositiveButtonClickListener<? super S> onPositiveButtonClickListener) {
     return onPositiveButtonClickListeners.add(onPositiveButtonClickListener);
   }
 
-  /**
-   * Removes a listener previously added via {@link
-   * MaterialDatePicker#addOnPositiveButtonClickListener}.
-   */
+  
   public boolean removeOnPositiveButtonClickListener(
       MaterialPickerOnPositiveButtonClickListener<? super S> onPositiveButtonClickListener) {
     return onPositiveButtonClickListeners.remove(onPositiveButtonClickListener);
   }
 
-  /**
-   * Removes all listeners added via {@link MaterialDatePicker#addOnPositiveButtonClickListener}.
-   */
+  
   public void clearOnPositiveButtonClickListeners() {
     onPositiveButtonClickListeners.clear();
   }
 
-  /** The supplied listener is called when the user clicks the cancel button. */
+  
   public boolean addOnNegativeButtonClickListener(
       View.OnClickListener onNegativeButtonClickListener) {
     return onNegativeButtonClickListeners.add(onNegativeButtonClickListener);
   }
 
-  /**
-   * Removes a listener previously added via {@link
-   * MaterialDatePicker#addOnNegativeButtonClickListener}.
-   */
+  
   public boolean removeOnNegativeButtonClickListener(
       View.OnClickListener onNegativeButtonClickListener) {
     return onNegativeButtonClickListeners.remove(onNegativeButtonClickListener);
   }
 
-  /**
-   * Removes all listeners added via {@link MaterialDatePicker#addOnNegativeButtonClickListener}.
-   */
+  
   public void clearOnNegativeButtonClickListeners() {
     onNegativeButtonClickListeners.clear();
   }
 
-  /**
-   * The supplied listener is called when the user cancels the picker via back button or a touch
-   * outside the view. It is not called when the user clicks the cancel button. To add a listener
-   * for use when the user clicks the cancel button, use {@link
-   * MaterialDatePicker#addOnNegativeButtonClickListener}.
-   */
+  
   public boolean addOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
     return onCancelListeners.add(onCancelListener);
   }
 
-  /** Removes a listener previously added via {@link MaterialDatePicker#addOnCancelListener}. */
+  
   public boolean removeOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
     return onCancelListeners.remove(onCancelListener);
   }
 
-  /** Removes all listeners added via {@link MaterialDatePicker#addOnCancelListener}. */
+  
   public void clearOnCancelListeners() {
     onCancelListeners.clear();
   }
 
-  /**
-   * The supplied listener is called whenever the DialogFragment is dismissed, no matter how it is
-   * dismissed.
-   */
+  
   public boolean addOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
     return onDismissListeners.add(onDismissListener);
   }
 
-  /** Removes a listener previously added via {@link MaterialDatePicker#addOnDismissListener}. */
+  
   public boolean removeOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
     return onDismissListeners.remove(onDismissListener);
   }
 
-  /** Removes all listeners added via {@link MaterialDatePicker#addOnDismissListener}. */
+  
   public void clearOnDismissListeners() {
     onDismissListeners.clear();
   }
 
-  /** Used to create MaterialDatePicker instances with default and overridden settings */
+  
   public static final class Builder<S> {
 
     final DateSelector<S> dateSelector;
@@ -539,30 +498,20 @@ public final class MaterialDatePicker<S> extends DialogFragment {
       this.dateSelector = dateSelector;
     }
 
-    /**
-     * Sets the Builder's selection manager to the provided {@link DateSelector}.
-     *
-     * @hide
-     */
+    
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public static <S> Builder<S> customDatePicker(@NonNull DateSelector<S> dateSelector) {
       return new Builder<>(dateSelector);
     }
 
-    /**
-     * Used to create a Builder that allows for choosing a single date in the {@code
-     * MaterialDatePicker}.
-     */
+    
     @NonNull
     public static Builder<Long> datePicker() {
       return new Builder<>(new SingleDateSelector());
     }
 
-    /**
-     * Used to create a Builder that allows for choosing a date range in the {@code
-     * MaterialDatePicker}.
-     */
+    
     @NonNull
     public static Builder<Pair<Long, Long>> dateRangePicker() {
       return new Builder<>(new RangeDateSelector());
@@ -574,24 +523,21 @@ public final class MaterialDatePicker<S> extends DialogFragment {
       return this;
     }
 
-    /** Sets the theme controlling fullscreen mode as well as other styles. */
+    
     @NonNull
     public Builder<S> setTheme(@StyleRes int themeResId) {
       this.overrideThemeResId = themeResId;
       return this;
     }
 
-    /** Sets the first, last, and starting month. */
+    
     @NonNull
     public Builder<S> setCalendarConstraints(CalendarConstraints bounds) {
       this.calendarConstraints = bounds;
       return this;
     }
 
-    /**
-     * Sets the text used to guide the user at the top of the picker. Defaults to a standard title
-     * based upon the type of selection.
-     */
+    
     @NonNull
     public Builder<S> setTitleText(@StringRes int titleTextResId) {
       this.titleTextResId = titleTextResId;
@@ -599,10 +545,7 @@ public final class MaterialDatePicker<S> extends DialogFragment {
       return this;
     }
 
-    /**
-     * Sets the text used to guide the user at the top of the picker. Setting to null will use a
-     * default title based upon the type of selection.
-     */
+    
     @NonNull
     public Builder<S> setTitleText(@Nullable CharSequence charSequence) {
       this.titleText = charSequence;
@@ -610,14 +553,14 @@ public final class MaterialDatePicker<S> extends DialogFragment {
       return this;
     }
 
-    /** Sets the input mode to start with. */
+    
     @NonNull
     public Builder<S> setInputMode(@InputMode int inputMode) {
       this.inputMode = inputMode;
       return this;
     }
 
-    /** Creates a {@link MaterialDatePicker} with the provided options. */
+    
     @NonNull
     public MaterialDatePicker<S> build() {
       if (calendarConstraints == null) {

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.card;
 
@@ -55,7 +41,7 @@ import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.RoundedCornerTreatment;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
-/** @hide */
+
 @RestrictTo(LIBRARY_GROUP)
 class MaterialCardViewHelper {
 
@@ -63,27 +49,10 @@ class MaterialCardViewHelper {
 
   private static final int DEFAULT_STROKE_VALUE = -1;
 
-  // used to calculate content padding
+  
   private static final double COS_45 = Math.cos(Math.toRadians(45));
 
-  /**
-   * Multiplier for {@link MaterialCardView#getMaxCardElevation()} to calculate vertical shadow
-   * padding. Horizontal shadow padding is equal to getMaxCardElevation(). Shadow padding is the
-   * padding around the visible card that {@link CardView} adds in order to have space to render
-   * shadows pre-Lollipop.
-   *
-   * <p>CardView's pre-Lollipop shadow is getMaxCardElevation() larger than the card on all sides
-   * and offset down by 0.5 x getMaxCardElevation(). Thus, the additional padding required is:
-   *
-   * <ul>
-   *   <li>Left & Right: getMaxCardElevation()
-   *   <li>Top: 0.5 x getMaxCardElevation()
-   *   <li>Bottom: 1.5 x getMaxCardElevation()
-   * </ul>
-   *
-   * <p>In order to keep content that is centered in the center, extra padding is added on top to
-   * match the necessary bottom padding.
-   */
+  
   private static final float CARD_VIEW_SHADOW_MULTIPLIER = 1.5f;
 
   private static final int CHECKED_ICON_LAYER_INDEX = 2;
@@ -91,17 +60,17 @@ class MaterialCardViewHelper {
   @NonNull private final MaterialCardView materialCardView;
   @NonNull private final Rect userContentPadding = new Rect();
 
-  // Will always wrapped in an InsetDrawable
+  
   @NonNull private final MaterialShapeDrawable bgDrawable;
 
-  // Will always wrapped in an InsetDrawable
+  
   @NonNull private final MaterialShapeDrawable foregroundContentDrawable;
 
   @Dimension private final int checkedIconMargin;
   @Dimension private final int checkedIconSize;
   @Dimension private int strokeWidth;
 
-  // If card is clickable, this is the clickableForegroundDrawable otherwise it draws the stroke.
+  
   @Nullable private Drawable fgDrawable;
   @Nullable private Drawable checkedIcon;
   @Nullable private ColorStateList rippleColor;
@@ -132,7 +101,7 @@ class MaterialCardViewHelper {
         card.getContext()
             .obtainStyledAttributes(attrs, R.styleable.CardView, defStyleAttr, R.style.CardView);
     if (cardViewAttributes.hasValue(R.styleable.CardView_cardCornerRadius)) {
-      // If cardCornerRadius is set, let it override the shape appearance.
+      
       shapeAppearanceModelBuilder.setAllCornerSizes(
           cardViewAttributes.getDimension(R.styleable.CardView_cardCornerRadius, 0));
     }
@@ -141,7 +110,7 @@ class MaterialCardViewHelper {
     setShapeAppearanceModel(shapeAppearanceModelBuilder.build());
 
     Resources resources = card.getResources();
-    // TODO(b/145298914): support custom sizing
+    
     checkedIconMargin = resources.getDimensionPixelSize(R.dimen.mtrl_card_checked_icon_margin);
     checkedIconSize = resources.getDimensionPixelSize(R.dimen.mtrl_card_checked_icon_size);
 
@@ -312,7 +281,7 @@ class MaterialCardViewHelper {
   }
 
   void updateInsets() {
-    // No way to update the inset amounts for an InsetDrawable, so recreate insets as needed.
+    
     if (!isBackgroundOverwritten()) {
       materialCardView.setBackgroundInternal(insetDrawable(bgDrawable));
     }
@@ -323,19 +292,13 @@ class MaterialCardViewHelper {
     foregroundContentDrawable.setStroke(strokeWidth, strokeColor);
   }
 
-  /**
-   * Apply content padding to the intermediate contentLayout. Padding includes the user-specified
-   * content padding as well as any padding ot prevent corner overlap. The padding is applied to the
-   * intermediate contentLayout so that the bounds of the contentLayout match the bounds of the
-   * stroke (or card bounds if there is no stroke). This ensures that clipping is applied properly
-   * to the inside of the stroke, not around the content.
-   */
+  
   void updateContentPadding() {
     boolean includeCornerPadding =
         shouldAddCornerPaddingInsideCardBackground()
             || shouldAddCornerPaddingOutsideCardBackground();
-    // The amount with which to adjust the user provided content padding to account for stroke and
-    // shape corners.
+    
+    
     int contentPaddingOffset =
         (int)
             ((includeCornerPadding ? calculateActualCornerPadding() : 0)
@@ -409,14 +372,14 @@ class MaterialCardViewHelper {
 
       int right = checkedIconMargin;
       if (ViewCompat.getLayoutDirection(materialCardView) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-        // swap left and right
+        
         int tmp = right;
         right = left;
         left = tmp;
       }
 
       clickableForegroundDrawable.setLayerInset(
-          CHECKED_ICON_LAYER_INDEX, left, checkedIconMargin /* top */, right, bottom);
+          CHECKED_ICON_LAYER_INDEX, left, checkedIconMargin , right, bottom);
     }
   }
 
@@ -424,9 +387,9 @@ class MaterialCardViewHelper {
   void forceRippleRedraw() {
     if (rippleDrawable != null) {
       Rect bounds = rippleDrawable.getBounds();
-      // Change the bounds slightly to force the layer to change color, then change the layer again.
-      // In API 28 the color for the Ripple is snapshot at the beginning of the animation,
-      // it doesn't update when the drawable changes to android:state_checked.
+      
+      
+      
       int bottom = bounds.bottom;
       rippleDrawable.setBounds(bounds.left, bounds.top, bounds.right, bottom - 1);
       rippleDrawable.setBounds(bounds.left, bounds.top, bounds.right, bottom);
@@ -454,11 +417,7 @@ class MaterialCardViewHelper {
     return shapeAppearanceModel;
   }
 
-  /**
-   * Attempts to update the {@link InsetDrawable} foreground to use the given {@link Drawable}.
-   * Changing the Drawable is only available in M+, so earlier versions will create a new
-   * InsetDrawable.
-   */
+  
   private void updateInsetForeground(Drawable insetForeground) {
     if (VERSION.SDK_INT >= VERSION_CODES.M
         && materialCardView.getForeground() instanceof InsetDrawable) {
@@ -468,23 +427,14 @@ class MaterialCardViewHelper {
     }
   }
 
-  /**
-   * Returns a {@link Drawable} that insets the given drawable by the amount of padding CardView
-   * would add for the shadow. This will always use an {@link InsetDrawable} even if there is no
-   * inset.
-   *
-   * <p>Always use an InsetDrawable even when the insets are 0 instead of only wrapping in an
-   * InsetDrawable when there is an inset. Replacing the background (or foreground) of a {@link
-   * View} with the same Drawable wrapped into an InsetDrawable will result in the View clearing the
-   * original Drawable's callback which should refer to the InsetDrawable.
-   */
+  
   @NonNull
   private Drawable insetDrawable(Drawable originalDrawable) {
     int insetVertical = 0;
     int insetHorizontal = 0;
     boolean isPreLollipop = Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP;
     if (isPreLollipop || materialCardView.getUseCompatPadding()) {
-      // Calculate the shadow padding used by CardView
+      
       insetVertical = (int) Math.ceil(calculateVerticalBackgroundPadding());
       insetHorizontal = (int) Math.ceil(calculateHorizontalBackgroundPadding());
     }
@@ -492,18 +442,18 @@ class MaterialCardViewHelper {
         originalDrawable, insetHorizontal, insetVertical, insetHorizontal, insetVertical) {
       @Override
       public boolean getPadding(Rect padding) {
-        // Our very own special InsetDrawable that pretends it does not have padding so that
-        // using it as the background will *not* change the padding of the view.
+        
+        
         return false;
       }
 
-      /** Don't force the card to be as big as this drawable */
+      
       @Override
       public int getMinimumWidth() {
         return -1;
       }
 
-      /** Don't force the card to be as big as this drawable */
+      
       @Override
       public int getMinimumHeight() {
         return -1;
@@ -511,21 +461,13 @@ class MaterialCardViewHelper {
     };
   }
 
-  /**
-   * Calculates the amount of padding that should be added above and below the background shape.
-   * This should only be called pre-lollipop or when using compat padding. This accounts for shadow
-   * and corner padding when they are added outside the background.
-   */
+  
   private float calculateVerticalBackgroundPadding() {
     return materialCardView.getMaxCardElevation() * CARD_VIEW_SHADOW_MULTIPLIER
         + (shouldAddCornerPaddingOutsideCardBackground() ? calculateActualCornerPadding() : 0);
   }
 
-  /**
-   * Calculates the amount of padding that should be added to the left and right of the background
-   * shape. This should only be called pre-lollipop or when using compat padding. This accounts for
-   * shadow and corner padding when they are added outside the background.
-   */
+  
   private float calculateHorizontalBackgroundPadding() {
     return materialCardView.getMaxCardElevation()
         + (shouldAddCornerPaddingOutsideCardBackground() ? calculateActualCornerPadding() : 0);
@@ -553,14 +495,7 @@ class MaterialCardViewHelper {
         && materialCardView.getUseCompatPadding();
   }
 
-  /**
-   * Calculates the amount of padding required between the card background shape and the card
-   * content such that the entire content is within the bounds of the card background shape.
-   *
-   * <p>This should only be called when either {@link
-   * #shouldAddCornerPaddingOutsideCardBackground()} or {@link
-   * #shouldAddCornerPaddingInsideCardBackground()} returns true.
-   */
+  
   private float calculateActualCornerPadding() {
     return Math.max(
         Math.max(
@@ -608,7 +543,7 @@ class MaterialCardViewHelper {
   private Drawable createForegroundRippleDrawable() {
     if (RippleUtils.USE_FRAMEWORK_RIPPLE) {
       foregroundShapeDrawable = createForegroundShapeDrawable();
-      //noinspection NewApi
+      
       return new RippleDrawable(rippleColor, null, foregroundShapeDrawable);
     }
 
@@ -625,7 +560,7 @@ class MaterialCardViewHelper {
   }
 
   private void updateRippleColor() {
-    //noinspection NewApi
+    
     if (RippleUtils.USE_FRAMEWORK_RIPPLE && rippleDrawable != null) {
       ((RippleDrawable) rippleDrawable).setColor(rippleColor);
     } else if (compatRippleDrawable != null) {

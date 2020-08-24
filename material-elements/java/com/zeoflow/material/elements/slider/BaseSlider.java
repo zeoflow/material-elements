@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.slider;
 
@@ -85,90 +71,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * The slider can function either as a continuous slider, or as a discrete slider. The mode of
- * operation is controlled by the value of the step size. If the step size is set to 0, the slider
- * operates as a continuous slider where the slider's thumb can be moved to any position along the
- * horizontal line. If the step size is set to a number greater than 0, the slider operates as a
- * discrete slider where the slider's thumb will snap to the closest valid value. See {@link
- * #setStepSize(float)}.
- *
- * <p>The {@link LabelFormatter} interface defines a formatter to be used to render text within the
- * value indicator label on interaction.
- *
- * <p>{@link BasicLabelFormatter} is a simple implementation of the {@link LabelFormatter} that
- * displays the selected value using letters to indicate magnitude (e.g.: 1.5K, 3M, 12B, etc..).
- *
- * <p>With the default style {@link
- * com.google.android.material.R.style#Widget_MaterialComponents_Slider}, colorPrimary and
- * colorOnPrimary are used to customize the color of the slider when enabled, and colorOnSurface is
- * used when disabled. The following attributes are used to customize the slider's appearance
- * further:
- *
- * <ul>
- *   <li>{@code haloColor}: the color of the halo around the thumb.
- *   <li>{@code haloRadius}: The radius of the halo around the thumb.
- *   <li>{@code labelBehavior}: The behavior of the label which can be {@code LABEL_FLOATING},
- *       {@code LABEL_WITHIN_BOUNDS}, or {@code LABEL_GONE}. See {@link LabelBehavior} for more
- *       information.
- *   <li>{@code labelStyle}: the style to apply to the value indicator {@link TooltipDrawable}.
- *   <li>{@code thumbColor}: the color of the slider's thumb.
- *   <li>{@code thumbElevation}: the elevation of the slider's thumb.
- *   <li>{@code thumbRadius}: The radius of the slider's thumb.
- *   <li>{@code tickColorActive}: the color of the slider's tick marks for the active part of the
- *       track. Only used when the slider is in discrete mode.
- *   <li>{@code tickColorInactive}: the color of the slider's tick marks for the inactive part of
- *       the track. Only used when the slider is in discrete mode.
- *   <li>{@code tickColor}: the color of the slider's tick marks. Only used when the slider is in
- *       discrete mode. This is a short hand for setting both the {@code tickColorActive} and {@code
- *       tickColorInactive} to the same thing. This takes precedence over {@code tickColorActive}
- *       and {@code tickColorInactive}.
- *   <li>{@code trackColorActive}: The color of the active part of the track.
- *   <li>{@code trackColorInactive}: The color of the inactive part of the track.
- *   <li>{@code trackColor}: The color of the whole track. This is a short hand for setting both the
- *       {@code trackColorActive} and {@code trackColorInactive} to the same thing. This takes
- *       precedence over {@code trackColorActive} and {@code trackColorInactive}.
- *   <li>{@code trackHeight}: The height of the track.
- * </ul>
- *
- * <p>The following XML attributes are used to set the slider's various parameters of operation:
- *
- * <ul>
- *   <li>{@code android:valueFrom}: <b>Required.</b> The slider's minimum value. This attribute must
- *       be less than {@code valueTo} or an {@link IllegalStateException} will be thrown when the
- *       view is laid out.
- *   <li>{@code android:valueTo}: <b>Required.</b> The slider's maximum value. This attribute must
- *       be greater than {@code valueFrom} or an {@link IllegalStateException} will be thrown when
- *       the view is laid out.
- *   <li>{@code android:value}: <b>Optional.</b> The initial value of the slider. If not specified,
- *       the slider's minimum value {@code android:valueFrom} is used.
- *   <li>{@code android:stepSize}: <b>Optional.</b> This value dictates whether the slider operates
- *       in continuous mode, or in discrete mode. If missing or equal to 0, the slider operates in
- *       continuous mode. If greater than 0 and evenly divides the range described by {@code
- *       valueFrom} and {@code valueTo}, the slider operates in discrete mode. If negative an {@link
- *       IllegalArgumentException} is thrown, or if greater than 0 but not a factor of the range
- *       described by {@code valueFrom} and {@code valueTo}, an {@link IllegalStateException} will
- *       be thrown when the view is laid out.
- * </ul>
- *
- * @attr ref com.google.android.material.R.styleable#Slider_android_stepSize
- * @attr ref com.google.android.material.R.styleable#Slider_android_valueFrom
- * @attr ref com.google.android.material.R.styleable#Slider_android_valueTo
- * @attr ref com.google.android.material.R.styleable#Slider_haloColor
- * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
- * @attr ref com.google.android.material.R.styleable#Slider_labelBehavior
- * @attr ref com.google.android.material.R.styleable#Slider_labelStyle
- * @attr ref com.google.android.material.R.styleable#Slider_thumbColor
- * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
- * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
- * @attr ref com.google.android.material.R.styleable#Slider_tickColor
- * @attr ref com.google.android.material.R.styleable#Slider_tickColorActive
- * @attr ref com.google.android.material.R.styleable#Slider_tickColorInactive
- * @attr ref com.google.android.material.R.styleable#Slider_trackColor
- * @attr ref com.google.android.material.R.styleable#Slider_trackColorActive
- * @attr ref com.google.android.material.R.styleable#Slider_trackColorInactive
- * @attr ref com.google.android.material.R.styleable#Slider_trackHeight
- */
+
 abstract class BaseSlider<
         S extends BaseSlider<S, L, T>,
         L extends BaseOnChangeListener<S>,
@@ -230,12 +133,12 @@ abstract class BaseSlider<
   private boolean thumbIsPressed = false;
   private float valueFrom;
   private float valueTo;
-  // Holds the values set to this slider. We keep this array sorted in order to check if the value
-  // has been changed when a new value is set and to find the minimum and maximum values.
+  
+  
   private ArrayList<Float> values = new ArrayList<>();
-  // The index of the currently touched thumb.
+  
   private int activeThumbIdx = -1;
-  // The index of the currently focused thumb.
+  
   private int focusedThumbIdx = -1;
   private float stepSize = 0.0f;
   private float[] ticksCoordinates;
@@ -254,19 +157,7 @@ abstract class BaseSlider<
 
   private float touchPosition;
 
-  /**
-   * Determines the behavior of the label which can be any of the following.
-   *
-   * <ul>
-   *   <li>{@code LABEL_FLOATING}: The label will only be visible on interaction. It will float
-   *       above the slider and may cover views above this one. This is the default and recommended
-   *       behavior.
-   *   <li>{@code LABEL_WITHIN_BOUNDS}: The label will only be visible on interaction. The label
-   *       will always be drawn within the bounds of this view. This means extra space will be
-   *       visible above the slider when the label is not visible.
-   *   <li>{@code LABEL_GONE}: The label will never be drawn.
-   * </ul>
-   */
+  
   @IntDef({LabelFormatter.LABEL_FLOATING, LabelFormatter.LABEL_WITHIN_BOUNDS, LabelFormatter.LABEL_GONE})
   @Retention(RetentionPolicy.SOURCE)
   @interface LabelBehavior {}
@@ -282,7 +173,7 @@ abstract class BaseSlider<
   public BaseSlider(
       @NonNull Context context, @Nullable final AttributeSet attrs, final int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
-    // Ensure we are using the correctly themed context rather than the context that was passed in.
+    
     context = getContext();
 
     inactiveTrackPaint = new Paint();
@@ -310,8 +201,8 @@ abstract class BaseSlider<
 
     loadResources(context.getResources());
 
-    // Because there's currently no way to copy the TooltipDrawable we use this to make more if more
-    // thumbs are added.
+    
+    
     labelMaker =
         new TooltipDrawableFactory() {
           @Override
@@ -330,7 +221,7 @@ abstract class BaseSlider<
     setFocusable(true);
     setClickable(true);
 
-    // Set up the thumb drawable to always show the compat shadow.
+    
     thumbDrawable.setShadowCompatibilityMode(MaterialShapeDrawable.SHADOW_COMPAT_MODE_ALWAYS);
 
     scaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
@@ -491,52 +382,24 @@ abstract class BaseSlider<
     }
   }
 
-  /**
-   * Returns the slider's {@code valueFrom} value.
-   *
-   * @see #setValueFrom(float)
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueFrom
-   */
+  
   public float getValueFrom() {
     return valueFrom;
   }
 
-  /**
-   * Sets the slider's {@code valueFrom} value.
-   *
-   * <p>The {@code valueFrom} value must be strictly lower than the {@code valueTo} value. If that
-   * is not the case, an {@link IllegalStateException} will be thrown when the view is laid out.
-   *
-   * @param valueFrom The minimum value for the slider's range of values
-   * @see #getValueFrom()
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueFrom
-   */
+  
   public void setValueFrom(float valueFrom) {
     this.valueFrom = valueFrom;
     dirtyConfig = true;
     postInvalidate();
   }
 
-  /**
-   * Returns the slider's {@code valueTo} value.
-   *
-   * @see #setValueTo(float)
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueTo
-   */
+  
   public float getValueTo() {
     return valueTo;
   }
 
-  /**
-   * Sets the slider's {@code valueTo} value.
-   *
-   * <p>The {@code valueTo} value must be strictly greater than the {@code valueFrom} value. If that
-   * is not the case, an {@link IllegalStateException} will be thrown when the view is laid out.
-   *
-   * @param valueTo The maximum value for the slider's range of values
-   * @see #getValueTo()
-   * @attr ref com.google.android.material.R.styleable#Slider_android_valueTo
-   */
+  
   public void setValueTo(float valueTo) {
     this.valueTo = valueTo;
     dirtyConfig = true;
@@ -548,50 +411,19 @@ abstract class BaseSlider<
     return new ArrayList<>(values);
   }
 
-  /**
-   * Sets multiple values for the slider. Each value will represent a different thumb.
-   *
-   * <p>Each value must be greater or equal to {@code valueFrom}, and lesser or equal to {@code
-   * valueTo}. If that is not the case, an {@link IllegalStateException} will be thrown when the
-   * view is laid out.
-   *
-   * <p>If the slider is in discrete mode (i.e. the tick increment value is greater than 0), the
-   * values must be set to a value falls on a tick (i.e.: {@code value == valueFrom + x * stepSize},
-   * where {@code x} is an integer equal to or greater than 0). If that is not the case, an {@link
-   * IllegalStateException} will be thrown when the view is laid out.
-   *
-   * @param values An array of values to set.
-   * @see #getValues()
-   */
+  
   void setValues(@NonNull Float... values) {
     ArrayList<Float> list = new ArrayList<>();
     Collections.addAll(list, values);
     setValuesInternal(list);
   }
 
-  /**
-   * Sets multiple values for the slider. Each value will represent a different thumb.
-   *
-   * <p>Each value must be greater or equal to {@code valueFrom}, and lesser or equal to {@code
-   * valueTo}. If that is not the case, an {@link IllegalStateException} will be thrown when the
-   * view is laid out.
-   *
-   * <p>If the slider is in discrete mode (i.e. the tick increment value is greater than 0), the
-   * values must be set to a value falls on a tick (i.e.: {@code value == valueFrom + x * stepSize},
-   * where {@code x} is an integer equal to or greater than 0). If that is not the case, an {@link
-   * IllegalStateException} will be thrown when the view is laid out.
-   *
-   * @param values An array of values to set.
-   * @throws IllegalArgumentException If {@code values} is empty.
-   */
+  
   void setValues(@NonNull List<Float> values) {
     setValuesInternal(new ArrayList<>(values));
   }
 
-  /**
-   * This method assumes the list passed in is a copy. It is split out so we can call it from {@link
-   * #setValues(Float...)} and {@link #setValues(List)}
-   */
+  
   private void setValuesInternal(@NonNull ArrayList<Float> values) {
     if (values.isEmpty()) {
       throw new IllegalArgumentException("At least one value must be set");
@@ -607,7 +439,7 @@ abstract class BaseSlider<
 
     this.values = values;
     dirtyConfig = true;
-    // Only update the focused thumb index. The active thumb index will be updated on touch.
+    
     focusedThumbIdx = 0;
     updateHaloHotspot();
     createLabelPool();
@@ -616,7 +448,7 @@ abstract class BaseSlider<
   }
 
   private void createLabelPool() {
-    // If there are too many labels, remove the extra ones from the end.
+    
     if (labels.size() > values.size()) {
       List<TooltipDrawable> tooltipDrawables = labels.subList(values.size(), labels.size());
       for (TooltipDrawable label : tooltipDrawables) {
@@ -627,7 +459,7 @@ abstract class BaseSlider<
       tooltipDrawables.clear();
     }
 
-    // If there's not enough labels, add more.
+    
     while (labels.size() < values.size()) {
       TooltipDrawable tooltipDrawable = labelMaker.createTooltipDrawable();
       labels.add(tooltipDrawable);
@@ -636,44 +468,19 @@ abstract class BaseSlider<
       }
     }
 
-    // Add a stroke if there is more than one label for when they overlap.
+    
     int strokeWidth = labels.size() == 1 ? 0 : 1;
     for (TooltipDrawable label : labels) {
       label.setStrokeWidth(strokeWidth);
     }
   }
 
-  /**
-   * Returns the step size used to mark the ticks.
-   *
-   * <p>A step size of 0 means that the slider is operating in continuous mode. A step size greater
-   * than 0 means that the slider is operating in discrete mode.
-   *
-   * @see #setStepSize(float)
-   * @attr ref com.google.android.material.R.styleable#Slider_android_stepSize
-   */
+  
   public float getStepSize() {
     return stepSize;
   }
 
-  /**
-   * Sets the step size to use to mark the ticks.
-   *
-   * <p>Setting this value to 0 will make the slider operate in continuous mode. Setting this value
-   * to a number greater than 0 will make the slider operate in discrete mode.
-   *
-   * <p>The step size must evenly divide the range described by the {@code valueFrom} and {@code
-   * valueTo}, it must be a factor of the range. If the step size is not a factor of the range, an
-   * {@link IllegalStateException} will be thrown when this view is laid out.
-   *
-   * <p>Setting this value to a negative value will result in an {@link IllegalArgumentException}.
-   *
-   * @param stepSize The interval value at which ticks must be drawn. Set to 0 to operate the slider
-   *     in continuous mode and not have any ticks.
-   * @throws IllegalArgumentException If the step size is less than 0
-   * @see #getStepSize()
-   * @attr ref com.google.android.material.R.styleable#Slider_android_stepSize
-   */
+  
   public void setStepSize(float stepSize) {
     if (stepSize < 0.0f) {
       throw new IllegalArgumentException(
@@ -690,12 +497,12 @@ abstract class BaseSlider<
     }
   }
 
-  /** Returns the index of the currently focused thumb */
+  
   public int getFocusedThumbIndex() {
     return focusedThumbIdx;
   }
 
-  /** Sets the index of the currently focused thumb */
+  
   public void setFocusedThumbIndex(int index) {
     if (index < 0 || index >= values.size()) {
       throw new IllegalArgumentException("index out of range");
@@ -709,124 +516,73 @@ abstract class BaseSlider<
     activeThumbIdx = index;
   }
 
-  /** Returns the index of the currently active thumb, or -1 if no thumb is active */
+  
   public int getActiveThumbIndex() {
     return activeThumbIdx;
   }
 
-  /**
-   * Registers a callback to be invoked when the slider changes.
-   *
-   * @param listener The callback to run when the slider changes
-   */
+  
   public void addOnChangeListener(@Nullable L listener) {
     changeListeners.add(listener);
   }
 
-  /**
-   * Removes a callback for value changes from this slider.
-   *
-   * @param listener The callback that'll stop receive slider changes
-   */
+  
   public void removeOnChangeListener(@NonNull L listener) {
     changeListeners.remove(listener);
   }
 
-  /** Removes all instances of attached to this slider */
+  
   public void clearOnChangeListeners() {
     changeListeners.clear();
   }
 
-  /**
-   * Registers a callback to be invoked when the slider touch event is being started or stopped
-   *
-   * @param listener The callback to run when the slider starts or stops being touched
-   */
+  
   public void addOnSliderTouchListener(@NonNull T listener) {
     touchListeners.add(listener);
   }
 
-  /**
-   * Removes a callback to be invoked when the slider touch event is being started or stopped
-   *
-   * @param listener The callback that'll stop be notified when the slider is being touched
-   */
+  
   public void removeOnSliderTouchListener(@NonNull T listener) {
     touchListeners.remove(listener);
   }
 
-  /** Removes all instances of touch listeners attached to this slider */
+  
   public void clearOnSliderTouchListeners() {
     touchListeners.clear();
   }
 
-  /**
-   * Returns {@code true} if the slider has a {@link LabelFormatter} attached, {@code false}
-   * otherwise.
-   */
+  
   public boolean hasLabelFormatter() {
     return formatter != null;
   }
 
-  /**
-   * Registers a {@link LabelFormatter} to be used to format the value displayed in the bubble shown
-   * when the slider operates in discrete mode.
-   *
-   * @param formatter The {@link LabelFormatter} to use to format the bubble's text
-   */
+  
   public void setLabelFormatter(@Nullable LabelFormatter formatter) {
     this.formatter = formatter;
   }
 
-  /**
-   * Returns the elevation of the thumb.
-   *
-   * @see #setThumbElevation(float)
-   * @see #setThumbElevationResource(int)
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
-   */
+  
   public float getThumbElevation() {
     return thumbDrawable.getElevation();
   }
 
-  /**
-   * Sets the elevation of the thumb.
-   *
-   * @see #getThumbElevation()
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
-   */
+  
   public void setThumbElevation(float elevation) {
     thumbDrawable.setElevation(elevation);
   }
 
-  /**
-   * Sets the elevation of the thumb from a dimension resource.
-   *
-   * @see #getThumbElevation()
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbElevation
-   */
+  
   public void setThumbElevationResource(@DimenRes int elevation) {
     setThumbElevation(getResources().getDimension(elevation));
   }
 
-  /**
-   * Returns the radius of the thumb.
-   *
-   * @see #setThumbRadius(int)
-   * @see #setThumbRadiusResource(int)
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
-   */
+  
   @Dimension
   public int getThumbRadius() {
     return thumbRadius;
   }
 
-  /**
-   * Sets the radius of the thumb in pixels.
-   *
-   * @see #getThumbRadius()
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
-   */
+  
   public void setThumbRadius(@IntRange(from = 0) @Dimension int radius) {
     if (radius == thumbRadius) {
       return;
@@ -841,34 +597,18 @@ abstract class BaseSlider<
     postInvalidate();
   }
 
-  /**
-   * Sets the radius of the thumb from a dimension resource.
-   *
-   * @see #getThumbRadius()
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbRadius
-   */
+  
   public void setThumbRadiusResource(@DimenRes int radius) {
     setThumbRadius(getResources().getDimensionPixelSize(radius));
   }
 
-  /**
-   * Returns the radius of the halo.
-   *
-   * @see #setHaloRadius(int)
-   * @see #setHaloRadiusResource(int)
-   * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
-   */
+  
   @Dimension()
   public int getHaloRadius() {
     return haloRadius;
   }
 
-  /**
-   * Sets the radius of the halo in pixels.
-   *
-   * @see #getHaloRadius()
-   * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
-   */
+  
   public void setHaloRadius(@IntRange(from = 0) @Dimension int radius) {
     if (radius == haloRadius) {
       return;
@@ -884,34 +624,18 @@ abstract class BaseSlider<
     postInvalidate();
   }
 
-  /**
-   * Sets the radius of the halo from a dimension resource.
-   *
-   * @see #getHaloRadius()
-   * @attr ref com.google.android.material.R.styleable#Slider_haloRadius
-   */
+  
   public void setHaloRadiusResource(@DimenRes int radius) {
     setHaloRadius(getResources().getDimensionPixelSize(radius));
   }
 
-  /**
-   * Returns the {@link LabelBehavior} used.
-   *
-   * @see #setLabelBehavior(int)
-   * @attr ref com.google.android.material.R.styleable#Slider_labelBehavior
-   */
+  
   @LabelBehavior
   public int getLabelBehavior() {
     return labelBehavior;
   }
 
-  /**
-   * Determines the {@link LabelBehavior} used.
-   *
-   * @see LabelBehavior
-   * @see #getLabelBehavior()
-   * @attr ref com.google.android.material.R.styleable#Slider_labelBehavior
-   */
+  
   public void setLabelBehavior(@LabelBehavior int labelBehavior) {
     if (this.labelBehavior != labelBehavior) {
       this.labelBehavior = labelBehavior;
@@ -919,35 +643,25 @@ abstract class BaseSlider<
     }
   }
 
-  /** Returns the side padding of the track. */
+  
   @Dimension()
   public int getTrackSidePadding() {
     return trackSidePadding;
   }
 
-  /** Returns the width of the track in pixels. */
+  
   @Dimension()
   public int getTrackWidth() {
     return trackWidth;
   }
 
-  /**
-   * Returns the height of the track in pixels.
-   *
-   * @see #setTrackHeight(int)
-   * @attr ref com.google.android.material.R.styleable#Slider_trackHeight
-   */
+  
   @Dimension()
   public int getTrackHeight() {
     return trackHeight;
   }
 
-  /**
-   * Set the height of the track in pixels.
-   *
-   * @see #getTrackHeight()
-   * @attr ref com.google.android.material.R.styleable#Slider_trackHeight
-   */
+  
   public void setTrackHeight(@IntRange(from = 0) @Dimension int trackHeight) {
     if (this.trackHeight != trackHeight) {
       this.trackHeight = trackHeight;
@@ -956,23 +670,13 @@ abstract class BaseSlider<
     }
   }
 
-  /**
-   * Returns the color of the halo.
-   *
-   * @see #setHaloTintList(ColorStateList)
-   * @attr ref com.google.android.material.R.styleable#Slider_haloColor
-   */
+  
   @NonNull
   public ColorStateList getHaloTintList() {
     return haloColor;
   }
 
-  /**
-   * Sets the color of the halo.
-   *
-   * @see #getHaloTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_haloColor
-   */
+  
   public void setHaloTintList(@NonNull ColorStateList haloColor) {
     if (haloColor.equals(this.haloColor)) {
       return;
@@ -990,39 +694,18 @@ abstract class BaseSlider<
     invalidate();
   }
 
-  /**
-   * Returns the color of the thumb.
-   *
-   * @see #setThumbTintList(ColorStateList)
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbColor
-   */
+  
   @NonNull
   public ColorStateList getThumbTintList() {
     return thumbDrawable.getFillColor();
   }
 
-  /**
-   * Sets the color of the thumb.
-   *
-   * @see #getThumbTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_thumbColor
-   */
+  
   public void setThumbTintList(@NonNull ColorStateList thumbColor) {
     thumbDrawable.setFillColor(thumbColor);
   }
 
-  /**
-   * Returns the color of the tick if the active and inactive parts aren't different.
-   *
-   * @throws IllegalStateException If {@code tickColorActive} and {@code tickColorInactive} have
-   *     been set to different values.
-   * @see #setTickTintList(ColorStateList)
-   * @see #setTickInactiveTintList(ColorStateList)
-   * @see #setTickActiveTintList(ColorStateList)
-   * @see #getTickInactiveTintList()
-   * @see #getTickActiveTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColor
-   */
+  
   @NonNull
   public ColorStateList getTickTintList() {
     if (!tickColorInactive.equals(tickColorActive)) {
@@ -1033,39 +716,19 @@ abstract class BaseSlider<
     return tickColorActive;
   }
 
-  /**
-   * Sets the color of the tick marks.
-   *
-   * @see #setTickInactiveTintList(ColorStateList)
-   * @see #setTickActiveTintList(ColorStateList)
-   * @see #getTickTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColor
-   */
+  
   public void setTickTintList(@NonNull ColorStateList tickColor) {
     setTickInactiveTintList(tickColor);
     setTickActiveTintList(tickColor);
   }
 
-  /**
-   * Returns the color of the ticks on the active portion of the track.
-   *
-   * @see #setTickActiveTintList(ColorStateList)
-   * @see #setTickTintList(ColorStateList)
-   * @see #getTickTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorActive
-   */
+  
   @NonNull
   public ColorStateList getTickActiveTintList() {
     return tickColorActive;
   }
 
-  /**
-   * Sets the color of the ticks on the active portion of the track.
-   *
-   * @see #getTickActiveTintList()
-   * @see #setTickTintList(ColorStateList)
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorActive
-   */
+  
   public void setTickActiveTintList(@NonNull ColorStateList tickColor) {
     if (tickColor.equals(tickColorActive)) {
       return;
@@ -1075,26 +738,13 @@ abstract class BaseSlider<
     invalidate();
   }
 
-  /**
-   * Returns the color of the ticks on the inactive portion of the track.
-   *
-   * @see #setTickInactiveTintList(ColorStateList)
-   * @see #setTickTintList(ColorStateList)
-   * @see #getTickTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorInactive
-   */
+  
   @NonNull
   public ColorStateList getTickInactiveTintList() {
     return tickColorInactive;
   }
 
-  /**
-   * Sets the color of the ticks on the inactive portion of the track.
-   *
-   * @see #getTickInactiveTintList()
-   * @see #setTickTintList(ColorStateList)
-   * @attr ref com.google.android.material.R.styleable#Slider_tickColorInactive
-   */
+  
   public void setTickInactiveTintList(@NonNull ColorStateList tickColor) {
     if (tickColor.equals(tickColorInactive)) {
       return;
@@ -1104,18 +754,7 @@ abstract class BaseSlider<
     invalidate();
   }
 
-  /**
-   * Returns the color of the track if the active and inactive parts aren't different.
-   *
-   * @throws IllegalStateException If {@code trackColorActive} and {@code trackColorInactive} have
-   *     been set to different values.
-   * @see #setTrackTintList(ColorStateList)
-   * @see #setTrackInactiveTintList(ColorStateList)
-   * @see #setTrackActiveTintList(ColorStateList)
-   * @see #getTrackInactiveTintList()
-   * @see #getTrackActiveTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColor
-   */
+  
   @NonNull
   public ColorStateList getTrackTintList() {
     if (!trackColorInactive.equals(trackColorActive)) {
@@ -1126,39 +765,19 @@ abstract class BaseSlider<
     return trackColorActive;
   }
 
-  /**
-   * Sets the color of the track.
-   *
-   * @see #setTrackInactiveTintList(ColorStateList)
-   * @see #setTrackActiveTintList(ColorStateList)
-   * @see #getTrackTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColor
-   */
+  
   public void setTrackTintList(@NonNull ColorStateList trackColor) {
     setTrackInactiveTintList(trackColor);
     setTrackActiveTintList(trackColor);
   }
 
-  /**
-   * Returns the color of the active portion of the track.
-   *
-   * @see #setTrackActiveTintList(ColorStateList)
-   * @see #setTrackTintList(ColorStateList)
-   * @see #getTrackTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorActive
-   */
+  
   @NonNull
   public ColorStateList getTrackActiveTintList() {
     return trackColorActive;
   }
 
-  /**
-   * Sets the color of the active portion of the track.
-   *
-   * @see #getTrackActiveTintList()
-   * @see #setTrackTintList(ColorStateList)
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorActive
-   */
+  
   public void setTrackActiveTintList(@NonNull ColorStateList trackColor) {
     if (trackColor.equals(trackColorActive)) {
       return;
@@ -1168,26 +787,13 @@ abstract class BaseSlider<
     invalidate();
   }
 
-  /**
-   * Returns the color of the inactive portion of the track.
-   *
-   * @see #setTrackInactiveTintList(ColorStateList)
-   * @see #setTrackTintList(ColorStateList)
-   * @see #getTrackTintList()
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorInactive
-   */
+  
   @NonNull
   public ColorStateList getTrackInactiveTintList() {
     return trackColorInactive;
   }
 
-  /**
-   * Sets the color of the inactive portion of the track.
-   *
-   * @see #getTrackInactiveTintList()
-   * @see #setTrackTintList(ColorStateList)
-   * @attr ref com.google.android.material.R.styleable#Slider_trackColorInactive
-   */
+  
   public void setTrackInactiveTintList(@NonNull ColorStateList trackColor) {
     if (trackColor.equals(trackColorInactive)) {
       return;
@@ -1200,15 +806,15 @@ abstract class BaseSlider<
   @Override
   public void setEnabled(boolean enabled) {
     super.setEnabled(enabled);
-    // When we're disabled, set the layer type to hardware so we can clear the track out from behind
-    // the thumb.
+    
+    
     setLayerType(enabled ? LAYER_TYPE_NONE : LAYER_TYPE_HARDWARE, null);
   }
 
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
-    // The label is attached on the Overlay relative to the content.
+    
     for (TooltipDrawable label : labels) {
       attachLabelToContentView(label);
     }
@@ -1251,10 +857,10 @@ abstract class BaseSlider<
 
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    // Update the visible track width.
+    
     trackWidth = Math.max(w - trackSidePadding * 2, 0);
 
-    // Update the visible tick coordinates.
+    
     if (stepSize > 0.0f) {
       calculateTicksCoordinates();
     }
@@ -1266,7 +872,7 @@ abstract class BaseSlider<
     validateConfigurationIfDirty();
 
     int tickCount = (int) ((valueTo - valueFrom) / stepSize + 1);
-    // Limit the tickCount if they will be too dense.
+    
     tickCount = Math.min(tickCount, trackWidth / (trackHeight * 2) + 1);
     if (ticksCoordinates == null || ticksCoordinates.length != tickCount * 2) {
       ticksCoordinates = new float[tickCount * 2];
@@ -1280,7 +886,7 @@ abstract class BaseSlider<
   }
 
   private void updateHaloHotspot() {
-    // Set the hotspot as the halo if RippleDrawable is being used.
+    
     if (!shouldDrawCompatHalo() && getMeasuredWidth() > 0) {
       final Drawable background = getBackground();
       if (background instanceof RippleDrawable) {
@@ -1302,7 +908,7 @@ abstract class BaseSlider<
     if (dirtyConfig) {
       validateConfigurationIfDirty();
 
-      // Update the visible tick coordinates.
+      
       if (stepSize > 0.0f) {
         calculateTicksCoordinates();
       }
@@ -1324,7 +930,7 @@ abstract class BaseSlider<
     if ((thumbIsPressed || isFocused()) && isEnabled()) {
       maybeDrawHalo(canvas, trackWidth, top);
 
-      // Draw labels if there is an active thumb.
+      
       if (activeThumbIdx != -1) {
         ensureLabels();
       }
@@ -1333,17 +939,14 @@ abstract class BaseSlider<
     drawThumbs(canvas, trackWidth, top);
   }
 
-  /**
-   * Returns a float array where {@code float[0]} is the normalized left position and {@code
-   * float[1]} is the normalized right position of the range.
-   */
+  
   private float[] getActiveRange() {
     float max = Collections.max(getValues());
     float min = Collections.min(getValues());
     float left = normalizeValue(values.size() == 1 ? valueFrom : min);
     float right = normalizeValue(max);
 
-    // In RTL we draw things in reverse, so swap the left and right range values
+    
     return isRtl() ? new float[] {right, left} : new float[] {left, right};
   }
 
@@ -1354,17 +957,14 @@ abstract class BaseSlider<
       canvas.drawLine(right, top, trackSidePadding + width, top, inactiveTrackPaint);
     }
 
-    // Also draw inactive track to the left if there is any
+    
     float left = trackSidePadding + activeRange[0] * width;
     if (left > trackSidePadding) {
       canvas.drawLine(trackSidePadding, top, left, top, inactiveTrackPaint);
     }
   }
 
-  /**
-   * Returns a number between 0 and 1 indicating where on the track this value should sit with 0
-   * being on the far left, and 1 on the far right.
-   */
+  
   private float normalizeValue(float value) {
     float normalized = (value - valueFrom) / (valueTo - valueFrom);
     if (isRtl()) {
@@ -1385,17 +985,17 @@ abstract class BaseSlider<
     int leftPivotIndex = pivotIndex(ticksCoordinates, activeRange[0]);
     int rightPivotIndex = pivotIndex(ticksCoordinates, activeRange[1]);
 
-    // Draw inactive ticks to the left of the smallest thumb.
+    
     canvas.drawPoints(ticksCoordinates, 0, leftPivotIndex * 2, inactiveTicksPaint);
 
-    // Draw active ticks between the thumbs.
+    
     canvas.drawPoints(
         ticksCoordinates,
         leftPivotIndex * 2,
         rightPivotIndex * 2 - leftPivotIndex * 2,
         activeTicksPaint);
 
-    // Draw inactive ticks to the right of the largest thumb.
+    
     canvas.drawPoints(
         ticksCoordinates,
         rightPivotIndex * 2,
@@ -1404,8 +1004,8 @@ abstract class BaseSlider<
   }
 
   private void drawThumbs(@NonNull Canvas canvas, int width, int top) {
-    // Clear out the track behind the thumb if we're in a disable state since the thumb is
-    // transparent.
+    
+    
     if (!isEnabled()) {
       for (Float value : values) {
         canvas.drawCircle(
@@ -1424,11 +1024,11 @@ abstract class BaseSlider<
   }
 
   private void maybeDrawHalo(@NonNull Canvas canvas, int width, int top) {
-    // Only draw the halo for devices that aren't using the ripple.
+    
     if (shouldDrawCompatHalo()) {
       int centerX = (int) (trackSidePadding + normalizeValue(values.get(focusedThumbIdx)) * width);
       if (VERSION.SDK_INT < VERSION_CODES.P) {
-        // In this case we can clip the rect to allow drawing outside the bounds.
+        
         canvas.clipRect(
             centerX - haloRadius,
             top - haloRadius,
@@ -1460,8 +1060,8 @@ abstract class BaseSlider<
       case MotionEvent.ACTION_DOWN:
         touchDownX = x;
 
-        // If we're inside a scrolling container,
-        // we should start dragging in ACTION_MOVE
+        
+        
         if (isInScrollingContainer()) {
           break;
         }
@@ -1469,7 +1069,7 @@ abstract class BaseSlider<
         getParent().requestDisallowInterceptTouchEvent(true);
 
         if (!pickActiveThumb()) {
-          // Couldn't determine the active thumb yet.
+          
           break;
         }
 
@@ -1482,7 +1082,7 @@ abstract class BaseSlider<
         break;
       case MotionEvent.ACTION_MOVE:
         if (!thumbIsPressed) {
-          // Check if we're trying to scroll instead of dragging this Slider
+          
           if (abs(x - touchDownX) < scaledTouchSlop) {
             return false;
           }
@@ -1491,7 +1091,7 @@ abstract class BaseSlider<
         }
 
         if (!pickActiveThumb()) {
-          // Couldn't determine the active thumb yet.
+          
           break;
         }
 
@@ -1502,7 +1102,7 @@ abstract class BaseSlider<
         break;
       case MotionEvent.ACTION_UP:
         thumbIsPressed = false;
-        // We need to handle a tap if the last event was down at the same point.
+        
         if (lastEvent != null
             && lastEvent.getActionMasked() == MotionEvent.ACTION_DOWN
             && abs(lastEvent.getX() - event.getX()) <= scaledTouchSlop
@@ -1521,23 +1121,17 @@ abstract class BaseSlider<
         invalidate();
         break;
       default:
-        // Nothing to do in this case.
+        
     }
 
-    // Set if the thumb is pressed. This will cause the ripple to be drawn.
+    
     setPressed(thumbIsPressed);
 
     lastEvent = MotionEvent.obtain(event);
     return true;
   }
 
-  /**
-   * Calculates the index the closest tick coordinates that the thumb should snap to.
-   *
-   * @param coordinates Tick coordinates defined in {@code #setTicksCoordinates()}.
-   * @param position Actual thumb position.
-   * @return Index of the closest tick coordinate.
-   */
+  
   private static int pivotIndex(float[] coordinates, float position) {
     return Math.round(position * (coordinates.length / 2 - 1));
   }
@@ -1551,11 +1145,7 @@ abstract class BaseSlider<
     return position;
   }
 
-  /**
-   * Tries to pick the active thumb if one hasn't already been set. This will pick the closest thumb
-   * if there is only one thumb under the touch position. If there is more than one thumb under the
-   * touch position, it will wait for enough drag left or right to determine which thumb to pick.
-   */
+  
   protected boolean pickActiveThumb() {
     if (activeThumbIdx != -1) {
       return true;
@@ -1573,8 +1163,8 @@ abstract class BaseSlider<
       }
 
       boolean movingForward = isRtl() ? (valueX - touchX) > 0 : (valueX - touchX) < 0;
-      // Keep replacing the activeThumbIdx, while the diff decreases.
-      // If the diffs are equal we'll pick the thumb based on which direction we are dragging.
+      
+      
       if (compare(valueDiff, activeThumbDiff) < 0) {
         activeThumbDiff = valueDiff;
         activeThumbIdx = i;
@@ -1582,7 +1172,7 @@ abstract class BaseSlider<
       }
 
       if (compare(valueDiff, activeThumbDiff) == 0) {
-        // Two thumbs on the same value and we don't have enough movement to use direction yet.
+        
         if (abs(valueX - touchX) < scaledTouchSlop) {
           activeThumbIdx = -1;
           return false;
@@ -1606,12 +1196,7 @@ abstract class BaseSlider<
     return (position * (valueTo - valueFrom) + valueFrom);
   }
 
-  /**
-   * Snaps the thumb position to the closest tick coordinates in discrete mode, and the input
-   * position in continuous mode.
-   *
-   * @return true, if {@code #thumbPosition is updated}; false, otherwise.
-   */
+  
   private boolean snapTouchPosition() {
     return snapActiveThumbToValue(getValueOfTouchPosition());
   }
@@ -1621,13 +1206,13 @@ abstract class BaseSlider<
   }
 
   private boolean snapThumbToValue(int idx, float value) {
-    // Check if the new value equals a value that was already set.
+    
     if (abs(value - values.get(idx)) < THRESHOLD) {
       return false;
     }
 
     float newValue = getClampedValue(idx, value);
-    // Replace the old value with the new value of the touch position.
+    
     values.set(idx, newValue);
     focusedThumbIdx = idx;
 
@@ -1635,7 +1220,7 @@ abstract class BaseSlider<
     return true;
   }
 
-  /** Thumbs cannot cross each other, clamp the value to a bound or the value next to it. */
+  
   private float getClampedValue(int idx, float value) {
     float upperBound = idx + 1 >= values.size() ? valueTo : values.get(idx + 1);
     float lowerBound = idx - 1 < 0 ? valueFrom : values.get(idx - 1);
@@ -1645,7 +1230,7 @@ abstract class BaseSlider<
   private float getValueOfTouchPosition() {
     double position = snapPosition(touchPosition);
 
-    // We might need to invert the touch position to get the correct value.
+    
     if (isRtl()) {
       position = 1 - position;
     }
@@ -1658,7 +1243,7 @@ abstract class BaseSlider<
 
   private void ensureLabels() {
     if (labelBehavior == LabelFormatter.LABEL_GONE) {
-      // If the label shouldn't be drawn we can skip this.
+      
       return;
     }
 
@@ -1666,7 +1251,7 @@ abstract class BaseSlider<
 
     for (int i = 0; i < values.size() && labelItr.hasNext(); i++) {
       if (i == focusedThumbIdx) {
-        // We position the focused thumb last so it's displayed on top, so skip it for now.
+        
         continue;
       }
 
@@ -1679,7 +1264,7 @@ abstract class BaseSlider<
               "Not enough labels(%d) to display all the values(%d)", labels.size(), values.size()));
     }
 
-    // Now set the label for the focused thumb so it's on top.
+    
     setValueForLabel(labelItr.next(), values.get(focusedThumbIdx));
   }
 
@@ -1701,8 +1286,8 @@ abstract class BaseSlider<
     int top = calculateTop() - (labelPadding + thumbRadius);
     label.setBounds(left, top - label.getIntrinsicHeight(), left + label.getIntrinsicWidth(), top);
 
-    // Calculate the difference between the bounds of this view and the bounds of the root view to
-    // correctly position this view in the overlay layer.
+    
+    
     Rect rect = new Rect(label.getBounds());
     DescendantOffsetUtils.offsetDescendantRect(ViewUtils.getContentView(this), this, rect);
     label.setBounds(rect);
@@ -1717,13 +1302,7 @@ abstract class BaseSlider<
     activeTicksPaint.setStrokeWidth(trackHeight / 2.0f);
   }
 
-  /**
-   * If this returns true, we can't start dragging the Slider immediately when we receive a {@link
-   * MotionEvent#ACTION_DOWN}. Instead, we must wait for a {@link MotionEvent#ACTION_MOVE}. Copied
-   * from hidden method of {@link View} isInScrollingContainer.
-   *
-   * @return true if any of this View's parents is a scrolling View.
-   */
+  
   private boolean isInScrollingContainer() {
     ViewParent p = getParent();
     while (p instanceof ViewGroup) {
@@ -1804,12 +1383,12 @@ abstract class BaseSlider<
       return super.onKeyDown(keyCode, event);
     }
 
-    // If there's only one thumb, we can select it right away.
+    
     if (values.size() == 1) {
       activeThumbIdx = 0;
     }
 
-    // If there is no active thumb, key events will be used to pick the thumb to change.
+    
     if (activeThumbIdx == -1) {
       Boolean handled = onKeyDownNoActiveThumb(keyCode, event);
       return handled != null ? handled : super.onKeyDown(keyCode, event);
@@ -1843,7 +1422,7 @@ abstract class BaseSlider<
         postInvalidate();
         return true;
       default:
-        // Nothing to do in this case.
+        
     }
 
     return super.onKeyDown(keyCode, event);
@@ -1870,7 +1449,7 @@ abstract class BaseSlider<
         moveFocusInAbsoluteDirection(1);
         return true;
       case KeyEvent.KEYCODE_EQUALS:
-        // Numpad Plus == Shift + Equals, at least in AVD, so fall through.
+        
       case KeyEvent.KEYCODE_PLUS:
         moveFocus(1);
         return true;
@@ -1880,7 +1459,7 @@ abstract class BaseSlider<
         postInvalidate();
         return true;
       default:
-        // Nothing to do in this case.
+        
     }
 
     return null;
@@ -1896,20 +1475,14 @@ abstract class BaseSlider<
     return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
   }
 
-  /**
-   * Attempts to move focus to next or previous thumb <i>independent of layout direction</i>
-   * and returns whether the focused thumb changed.
-   * If focused thumb didn't change, we're at the view boundary for specified {@code direction}
-   * and focus may be moved to next or previous view instead.
-   * @see #moveFocusInAbsoluteDirection(int)
-   */
+  
   private boolean moveFocus(int direction) {
     int oldFocusedThumbIdx = focusedThumbIdx;
-    // Prevent integer overflow.
+    
     final long newFocusedThumbIdx = (long) oldFocusedThumbIdx + direction;
     focusedThumbIdx = (int) clamp(newFocusedThumbIdx, 0, values.size() - 1);
     if (focusedThumbIdx == oldFocusedThumbIdx) {
-      // Move focus to next or previous view.
+      
       return false;
     }
     if (activeThumbIdx != -1) {
@@ -1920,24 +1493,18 @@ abstract class BaseSlider<
     return true;
   }
 
-  /**
-   * Attempts to move focus to the <i>left or right</i> of currently focused thumb
-   * and returns whether the focused thumb changed.
-   * If focused thumb didn't change, we're at the view boundary for specified {@code direction}
-   * and focus may be moved to next or previous view instead.
-   * @see #moveFocus(int)
-   */
+  
   private boolean moveFocusInAbsoluteDirection(int direction) {
     if (isRtl()) {
-      // Prevent integer overflow.
+      
       direction = direction == Integer.MIN_VALUE ? Integer.MAX_VALUE : -direction;
     }
     return moveFocus(direction);
   }
 
   private Float calculateIncrementForKey(int keyCode) {
-    // If this is a long press, increase the increment so it will only take around 20 steps.
-    // Otherwise choose the smallest valid increment.
+    
+    
     float increment = isLongPress ? calculateStepIncrement(20) : calculateStepIncrement();
     switch (keyCode) {
       case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -1947,7 +1514,7 @@ abstract class BaseSlider<
       case KeyEvent.KEYCODE_MINUS:
         return -increment;
       case KeyEvent.KEYCODE_EQUALS:
-        // Numpad Plus == Shift + Equals, at least in AVD, so fall through.
+        
       case KeyEvent.KEYCODE_PLUS:
         return increment;
       default:
@@ -1955,15 +1522,12 @@ abstract class BaseSlider<
     }
   }
 
-  /** Returns a small valid step increment to use when adding an offset to an existing value */
+  
   private float calculateStepIncrement() {
     return stepSize == 0 ? 1 : stepSize;
   }
 
-  /**
-   * Returns a valid increment based on the {@code stepSize} (if it's set) that will allow
-   * approximately {@code stepFactor} steps to cover the whole range.
-   */
+  
   private float calculateStepIncrement(int stepFactor) {
     float increment = calculateStepIncrement();
     float numSteps = (valueTo - valueFrom) / increment;
@@ -2007,7 +1571,7 @@ abstract class BaseSlider<
       case FOCUS_UP:
       case FOCUS_DOWN:
       default:
-        // Don't make assumptions about where exactly focus came from. Use previously focused thumb.
+        
     }
   }
 
@@ -2029,16 +1593,12 @@ abstract class BaseSlider<
 
   @Override
   public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
-    // We explicitly don't pass the key event to the accessibilityHelper because it doesn't handle
-    // focus correctly in some cases (Such as moving left after moving right a few times).
+    
+    
     return super.dispatchKeyEvent(event);
   }
 
-  /**
-   * Schedule a command for sending an accessibility event. </br> Note: A command is used to ensure
-   * that accessibility events are sent at most one in a given time frame to save system resources
-   * while the value changes quickly.
-   */
+  
   private void scheduleAccessibilityEventSender(int idx) {
     if (accessibilityEventSender == null) {
       accessibilityEventSender = new AccessibilityEventSender();
@@ -2049,7 +1609,7 @@ abstract class BaseSlider<
     postDelayed(accessibilityEventSender, TIMEOUT_SEND_ACCESSIBILITY_EVENT);
   }
 
-  /** Command for sending an accessibility event. */
+  
   private class AccessibilityEventSender implements Runnable {
     int virtualViewId = -1;
 
@@ -2201,11 +1761,11 @@ abstract class BaseSlider<
       info.setRangeInfo(RangeInfoCompat.obtain(RANGE_TYPE_FLOAT, valueFrom, valueTo, value));
       info.setClassName(SeekBar.class.getName());
       StringBuilder contentDescription = new StringBuilder();
-      // Add the content description of the slider.
+      
       if (slider.getContentDescription() != null) {
         contentDescription.append(slider.getContentDescription()).append(",");
       }
-      // Add the range to the content description.
+      
       if (values.size() > 1) {
         contentDescription.append(startOrEndDescription(virtualViewId));
         contentDescription.append(slider.formatValue(value));
@@ -2263,7 +1823,7 @@ abstract class BaseSlider<
               increment = -increment;
             }
 
-            // Swap the increment if we're in RTL.
+            
             if (slider.isRtl()) {
               increment = -increment;
             }

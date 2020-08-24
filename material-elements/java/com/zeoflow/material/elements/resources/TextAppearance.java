@@ -1,18 +1,4 @@
-/*
- * Copyright 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.resources;
 
@@ -37,17 +23,13 @@ import androidx.core.provider.FontsContractCompat.FontRequestCallback;
 import android.text.TextPaint;
 import android.util.Log;
 
-/**
- * Utility class that contains the data from parsing a TextAppearance style resource.
- *
- * @hide
- */
+
 @RestrictTo(Scope.LIBRARY_GROUP)
 public class TextAppearance {
 
   private static final String TAG = "TextAppearance";
 
-  // Enums from AppCompatTextHelper.
+  
   private static final int TYPEFACE_SANS = 1;
   private static final int TYPEFACE_SERIF = 2;
   private static final int TYPEFACE_MONOSPACE = 3;
@@ -70,7 +52,7 @@ public class TextAppearance {
   private boolean fontResolved = false;
   private Typeface font;
 
-  /** Parses the given TextAppearance style resource. */
+  
   public TextAppearance(@NonNull Context context, @StyleRes int id) {
     TypedArray a = context.obtainStyledAttributes(id, R.styleable.TextAppearance);
 
@@ -104,11 +86,7 @@ public class TextAppearance {
     a.recycle();
   }
 
-  /**
-   * Synchronously resolves the font Typeface using the fontFamily, style, and typeface.
-   *
-   * @see androidx.appcompat.widget.AppCompatTextHelper
-   */
+  
   @VisibleForTesting
   @NonNull
   public Typeface getFont(@NonNull Context context) {
@@ -116,7 +94,7 @@ public class TextAppearance {
       return font;
     }
 
-    // Try resolving fontFamily as a font resource.
+    
     if (!context.isRestricted()) {
       try {
         font = ResourcesCompat.getFont(context, fontFamilyResourceId);
@@ -124,43 +102,31 @@ public class TextAppearance {
           font = Typeface.create(font, textStyle);
         }
       } catch (UnsupportedOperationException | Resources.NotFoundException e) {
-        // Expected if it is not a font resource.
+        
       } catch (Exception e) {
         Log.d(TAG, "Error loading font " + fontFamily, e);
       }
     }
 
-    // If not resolved create fallback and resolve.
+    
     createFallbackFont();
     fontResolved = true;
 
     return font;
   }
 
-  /**
-   * Resolves the requested font using the fontFamily, style, and typeface. Immediately (and
-   * synchronously) calls {@link TextAppearanceFontCallback#onFontRetrieved(Typeface, boolean)} with
-   * the requested font, if it has been resolved already, or {@link
-   * TextAppearanceFontCallback#onFontRetrievalFailed(int)} if requested fontFamily is invalid.
-   * Otherwise callback is invoked asynchronously when the font is loaded (or async loading fails).
-   * While font is being fetched asynchronously, {@link #getFallbackFont()} can be used as a
-   * temporary font.
-   *
-   * @param context the {@link Context}.
-   * @param callback callback to notify when font is loaded.
-   * @see androidx.appcompat.widget.AppCompatTextHelper
-   */
+  
   public void getFontAsync(
       @NonNull Context context, @NonNull final TextAppearanceFontCallback callback) {
     if (TextAppearanceConfig.shouldLoadFontSynchronously()) {
       getFont(context);
     } else {
-      // No-op if font already resolved.
+      
       createFallbackFont();
     }
 
     if (fontFamilyResourceId == 0) {
-      // Only fontFamily id requires async fetch, if undefined the fallback font is the actual font.
+      
       fontResolved = true;
     }
 
@@ -169,7 +135,7 @@ public class TextAppearance {
       return;
     }
 
-    // Try to resolve fontFamily asynchronously. If failed fallback font is used instead.
+    
     try {
       ResourcesCompat.getFont(
           context,
@@ -188,9 +154,9 @@ public class TextAppearance {
               callback.onFontRetrievalFailed(reason);
             }
           },
-          /* handler */ null);
+           null);
     } catch (Resources.NotFoundException e) {
-      // Expected if it is not a font resource.
+      
       fontResolved = true;
       callback.onFontRetrievalFailed(FontRequestCallback.FAIL_REASON_FONT_NOT_FOUND);
     } catch (Exception e) {
@@ -200,21 +166,12 @@ public class TextAppearance {
     }
   }
 
-  /**
-   * Asynchronously resolves the requested font Typeface using the fontFamily, style, and typeface,
-   * and automatically updates given {@code textPaint} using {@link #updateTextPaintMeasureState} on
-   * successful load.
-   *
-   * @param context The {@link Context}.
-   * @param textPaint {@link TextPaint} to be updated.
-   * @param callback Callback to notify when font is available.
-   * @see #getFontAsync(Context, TextAppearanceFontCallback)
-   */
+  
   public void getFontAsync(
       @NonNull Context context,
       @NonNull final TextPaint textPaint,
       @NonNull final TextAppearanceFontCallback callback) {
-    // Updates text paint using fallback font while waiting for font to be requested.
+    
     updateTextPaintMeasureState(textPaint, getFallbackFont());
 
     getFontAsync(
@@ -234,26 +191,19 @@ public class TextAppearance {
         });
   }
 
-  /**
-   * Returns a fallback {@link Typeface} that is retrieved synchronously, in case the actual font is
-   * not yet resolved or pending async fetch or an actual {@link Typeface} if resolved already.
-   *
-   * <p>Fallback font is a font that can be resolved using typeface attributes not requiring any
-   * async operations, i.e. android:typeface, android:textStyle and android:fontFamily defined as
-   * string rather than resource id.
-   */
+  
   public Typeface getFallbackFont() {
     createFallbackFont();
     return font;
   }
 
   private void createFallbackFont() {
-    // Try resolving fontFamily as a string name if specified.
+    
     if (font == null && fontFamily != null) {
       font = Typeface.create(fontFamily, textStyle);
     }
 
-    // Try resolving typeface if specified otherwise fallback to Typeface.DEFAULT.
+    
     if (font == null) {
       switch (typeface) {
         case TYPEFACE_SANS:
@@ -273,12 +223,7 @@ public class TextAppearance {
     }
   }
 
-  /**
-   * Applies the attributes that affect drawing from TextAppearance to the given TextPaint. Note
-   * that not all attributes can be applied to the TextPaint.
-   *
-   * @see android.text.style.TextAppearanceSpan#updateDrawState(TextPaint)
-   */
+  
   public void updateDrawState(
       @NonNull Context context,
       @NonNull TextPaint textPaint,
@@ -298,12 +243,7 @@ public class TextAppearance {
             : Color.TRANSPARENT);
   }
 
-  /**
-   * Applies the attributes that affect measurement from TextAppearance to the given TextPaint. Note
-   * that not all attributes can be applied to the TextPaint.
-   *
-   * @see android.text.style.TextAppearanceSpan#updateMeasureState(TextPaint)
-   */
+  
   public void updateMeasureState(
       @NonNull Context context,
       @NonNull TextPaint textPaint,
@@ -315,11 +255,7 @@ public class TextAppearance {
     }
   }
 
-  /**
-   * Applies the attributes that affect measurement from Typeface to the given TextPaint.
-   *
-   * @see android.text.style.TextAppearanceSpan#updateMeasureState(TextPaint)
-   */
+  
   public void updateTextPaintMeasureState(
       @NonNull TextPaint textPaint, @NonNull Typeface typeface) {
     textPaint.setTypeface(typeface);

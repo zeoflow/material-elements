@@ -1,18 +1,4 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.zeoflow.material.elements.datepicker;
 
 import com.google.android.material.R;
@@ -31,10 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.zeoflow.material.elements.datepicker.MaterialCalendar.OnDayClickListener;
 
-/**
- * Manages the instances of {@link MaterialCalendarGridView} that represent each month in a {@link
- * MaterialCalendar}. Caps memory usage via {@link RecyclerView} extension.
- */
+
 class MonthsPagerAdapter extends RecyclerView.Adapter<MonthsPagerAdapter.ViewHolder> {
 
   @NonNull private final CalendarConstraints calendarConstraints;
@@ -95,9 +78,9 @@ class MonthsPagerAdapter extends RecyclerView.Adapter<MonthsPagerAdapter.ViewHol
 
     if (MaterialDatePicker.isFullscreen(viewGroup.getContext())) {
       container.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, itemHeight));
-      return new ViewHolder(container, /* showLabel= */ true);
+      return new ViewHolder(container,  true);
     } else {
-      return new ViewHolder(container, /* showLabel= */ false);
+      return new ViewHolder(container,  false);
     }
   }
 

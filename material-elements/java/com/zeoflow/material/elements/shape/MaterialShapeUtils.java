@@ -1,18 +1,4 @@
-/*
- * Copyright 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.shape;
 
@@ -21,7 +7,7 @@ import androidx.annotation.NonNull;
 import android.view.View;
 import com.zeoflow.material.elements.internal.ViewUtils;
 
-/** Utility methods for {@link MaterialShapeDrawable} and related classes. */
+
 public class MaterialShapeUtils {
 
   private MaterialShapeUtils() {}
@@ -48,11 +34,7 @@ public class MaterialShapeUtils {
     return new EdgeTreatment();
   }
 
-  /**
-   * If the background of the provided {@code view} is a {@link MaterialShapeDrawable}, sets the
-   * drawable's elevation via {@link MaterialShapeDrawable#setElevation(float)}; otherwise does
-   * nothing.
-   */
+  
   public static void setElevation(@NonNull View view, float elevation) {
     Drawable background = view.getBackground();
     if (background instanceof MaterialShapeDrawable) {
@@ -60,12 +42,7 @@ public class MaterialShapeUtils {
     }
   }
 
-  /**
-   * If the background of the provided {@code view} is a {@link MaterialShapeDrawable}, sets the
-   * drawable's parent absolute elevation (see {@link
-   * MaterialShapeUtils#setParentAbsoluteElevation(View, MaterialShapeDrawable)}); otherwise does
-   * nothing.
-   */
+  
   public static void setParentAbsoluteElevation(@NonNull View view) {
     Drawable background = view.getBackground();
     if (background instanceof MaterialShapeDrawable) {
@@ -73,11 +50,7 @@ public class MaterialShapeUtils {
     }
   }
 
-  /**
-   * Updates the {@code materialShapeDrawable} parent absolute elevation via {@link
-   * MaterialShapeDrawable#setParentAbsoluteElevation(float)} to be equal to the absolute elevation
-   * of the parent of the provided {@code view}.
-   */
+  
   public static void setParentAbsoluteElevation(
       @NonNull View view, @NonNull MaterialShapeDrawable materialShapeDrawable) {
     if (materialShapeDrawable.isElevationOverlayEnabled()) {

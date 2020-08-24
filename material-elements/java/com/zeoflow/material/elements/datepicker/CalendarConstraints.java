@@ -1,18 +1,4 @@
-/*
- * Copyright 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.zeoflow.material.elements.datepicker;
 
 import android.os.Bundle;
@@ -22,12 +8,7 @@ import androidx.annotation.NonNull;
 import java.util.Arrays;
 import java.util.Calendar;
 
-/**
- * Used to limit the display range of the calendar and set an openAt month.
- *
- * <p>Implements {@link Parcelable} in order to maintain the {@code CalendarConstraints} across
- * device configuration changes. Parcelable breaks when passed between processes.
- */
+
 public final class CalendarConstraints implements Parcelable {
 
   @NonNull private final Month start;
@@ -38,15 +19,10 @@ public final class CalendarConstraints implements Parcelable {
   private final int yearSpan;
   private final int monthSpan;
 
-  /**
-   * Used to determine whether calendar days are enabled.
-   *
-   * <p>Extends {@link Parcelable} in order to maintain the {@code DateValidator} across device
-   * configuration changes. Parcelable breaks when passed between processes.
-   */
+  
   public interface DateValidator extends Parcelable {
 
-    /** Returns true if the provided {@code date} is enabled. */
+    
     boolean isValid(long date);
   }
 
@@ -70,43 +46,35 @@ public final class CalendarConstraints implements Parcelable {
     return start.getDay(1) <= date && date <= end.getDay(end.daysInMonth);
   }
 
-  /**
-   * Returns the {@link DateValidator} that determines whether a date can be clicked and selected.
-   */
+  
   public DateValidator getDateValidator() {
     return validator;
   }
 
-  /** Returns the earliest month allowed by this set of bounds. */
+  
   @NonNull
   Month getStart() {
     return start;
   }
 
-  /** Returns the latest month allowed by this set of bounds. */
+  
   @NonNull
   Month getEnd() {
     return end;
   }
 
-  /** Returns the openAt month within this set of bounds. */
+  
   @NonNull
   Month getOpenAt() {
     return openAt;
   }
 
-  /**
-   * Returns the total number of {@link java.util.Calendar#MONTH} included in {@code start} to
-   * {@code end}.
-   */
+  
   int getMonthSpan() {
     return monthSpan;
   }
 
-  /**
-   * Returns the total number of {@link java.util.Calendar#YEAR} included in {@code start} to {@code
-   * end}.
-   */
+  
   int getYearSpan() {
     return yearSpan;
   }
@@ -132,9 +100,9 @@ public final class CalendarConstraints implements Parcelable {
     return Arrays.hashCode(hashedFields);
   }
 
-  /* Parcelable interface */
+  
 
-  /** {@link Parcelable.Creator} */
+  
   public static final Parcelable.Creator<CalendarConstraints> CREATOR =
       new Parcelable.Creator<CalendarConstraints>() {
         @NonNull
@@ -161,15 +129,13 @@ public final class CalendarConstraints implements Parcelable {
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
-    dest.writeParcelable(start, /* parcelableFlags= */ 0);
-    dest.writeParcelable(end, /* parcelableFlags= */ 0);
-    dest.writeParcelable(openAt, /* parcelableFlags= */ 0);
-    dest.writeParcelable(validator, /* parcelableFlags = */ 0);
+    dest.writeParcelable(start,  0);
+    dest.writeParcelable(end,  0);
+    dest.writeParcelable(openAt,  0);
+    dest.writeParcelable(validator,  0);
   }
 
-  /**
-   * Returns the given month if it's within the constraints or the closest bound if it's outside.
-   */
+  
   Month clamp(Month month) {
     if (month.compareTo(start) < 0) {
       return start;
@@ -182,19 +148,13 @@ public final class CalendarConstraints implements Parcelable {
     return month;
   }
 
-  /** Builder for {@link CalendarConstraints}. */
+  
   public static final class Builder {
 
-    /**
-     * Default UTC timeInMilliseconds for the first selectable month unless {@link Builder#setStart}
-     * is called. Set to January, 1900.
-     */
+    
     static final long DEFAULT_START =
         UtcDates.canonicalYearMonthDay(Month.create(1900, Calendar.JANUARY).timeInMillis);
-    /**
-     * Default UTC timeInMilliseconds for the last selectable month unless {@link Builder#setEnd} is
-     * called. Set to December, 2100.
-     */
+    
     static final long DEFAULT_END =
         UtcDates.canonicalYearMonthDay(Month.create(2100, Calendar.DECEMBER).timeInMillis);
 
@@ -214,98 +174,35 @@ public final class CalendarConstraints implements Parcelable {
       validator = clone.validator;
     }
 
-    /**
-     * A UTC timeInMilliseconds contained within the earliest month the calendar will page to.
-     * Defaults January, 1900.
-     *
-     * <p>If you have access to java.time in Java 8, you can obtain a long using {@code
-     * java.time.ZonedDateTime}.
-     *
-     * <pre>{@code
-     * LocalDateTime local = LocalDateTime.of(year, month, 1, 0, 0);
-     * local.atZone(ZoneId.ofOffset("UTC", ZoneOffset.UTC)).toInstant().toEpochMilli();
-     * }</pre>
-     *
-     * <p>If you don't have access to java.time in Java 8, you can obtain this value using a {@code
-     * java.util.Calendar} instance from the UTC timezone.
-     *
-     * <pre>{@code
-     * Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-     * c.set(year, month, 1);
-     * c.getTimeInMillis();
-     * }</pre>
-     */
+    
     @NonNull
     public Builder setStart(long month) {
       start = month;
       return this;
     }
 
-    /**
-     * A UTC timeInMilliseconds contained within the latest month the calendar will page to.
-     * Defaults December, 2100.
-     *
-     * <p>If you have access to java.time in Java 8, you can obtain a long using {@code
-     * java.time.ZonedDateTime}.
-     *
-     * <pre>{@code
-     * LocalDateTime local = LocalDateTime.of(year, month, 1, 0, 0);
-     * local.atZone(ZoneId.ofOffset("UTC", ZoneOffset.UTC)).toInstant().toEpochMilli();
-     * }</pre>
-     *
-     * <p>If you don't have access to java.time in Java 8, you can obtain this value using a {@code
-     * java.util.Calendar} instance from the UTC timezone.
-     *
-     * <pre>{@code
-     * Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-     * c.set(year, month, 1);
-     * c.getTimeInMillis();
-     * }</pre>
-     */
+    
     @NonNull
     public Builder setEnd(long month) {
       end = month;
       return this;
     }
 
-    /**
-     * A UTC timeInMilliseconds contained within the month the calendar should openAt. Defaults to
-     * the month containing today if within bounds; otherwise, defaults to the starting month.
-     *
-     * <p>If you have access to java.time in Java 8, you can obtain a long using {@code
-     * java.time.ZonedDateTime}.
-     *
-     * <pre>{@code
-     * LocalDateTime local = LocalDateTime.of(year, month, 1, 0, 0);
-     * local.atZone(ZoneId.ofOffset("UTC", ZoneOffset.UTC)).toInstant().toEpochMilli();
-     * }</pre>
-     *
-     * <p>If you don't have access to java.time in Java 8, you can obtain this value using a {@code
-     * java.util.Calendar} instance from the UTC timezone.
-     *
-     * <pre>{@code
-     * Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-     * c.set(year, month, 1);
-     * c.getTimeInMillis();
-     * }</pre>
-     */
+    
     @NonNull
     public Builder setOpenAt(long month) {
       openAt = month;
       return this;
     }
 
-    /**
-     * Limits valid dates to those for which {@link DateValidator#isValid(long)} is true. Defaults
-     * to all dates as valid.
-     */
+    
     @NonNull
     public Builder setValidator(DateValidator validator) {
       this.validator = validator;
       return this;
     }
 
-    /** Builds the {@link CalendarConstraints} object using the set parameters or defaults. */
+    
     @NonNull
     public CalendarConstraints build() {
       if (openAt == null) {

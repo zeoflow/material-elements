@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2015 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.bottomsheet;
 
@@ -24,16 +10,10 @@ import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import android.view.View;
 
-/**
- * Modal bottom sheet. This is a version of {@link DialogFragment} that shows a bottom sheet using
- * {@link BottomSheetDialog} instead of a floating dialog.
- */
+
 public class BottomSheetDialogFragment extends AppCompatDialogFragment {
 
-  /**
-   * Tracks if we are waiting for a dismissAllowingStateLoss or a regular dismiss once the
-   * BottomSheet is hidden and onStateChanged() is called.
-   */
+  
   private boolean waitingForDismissAllowingStateLoss;
 
   @NonNull
@@ -56,10 +36,7 @@ public class BottomSheetDialogFragment extends AppCompatDialogFragment {
     }
   }
 
-  /**
-   * Tries to dismiss the dialog fragment with the bottom sheet animation. Returns true if possible,
-   * false otherwise.
-   */
+  
   private boolean tryDismissWithAnimation(boolean allowingStateLoss) {
     Dialog baseDialog = getDialog();
     if (baseDialog instanceof BottomSheetDialog) {

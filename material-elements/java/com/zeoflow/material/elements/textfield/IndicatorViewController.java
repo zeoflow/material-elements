@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.textfield;
 
@@ -51,23 +37,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Controller for indicator views underneath the text input line in {@link
- * TextInputLayout}. This class controls helper and error
- * views.
- */
+
 final class IndicatorViewController {
 
-  /** Duration for the caption's vertical translation animation. */
+  
   private static final int CAPTION_TRANSLATE_Y_ANIMATION_DURATION = 217;
 
-  /** Duration for the caption's opacity fade animation. */
+  
   private static final int CAPTION_OPACITY_FADE_ANIMATION_DURATION = 167;
 
-  /**
-   * Values for indicator indices. Indicators are views below the text input area, like a caption
-   * (error text or helper text) or a character counter.
-   */
+  
   @IntDef({COUNTER_INDEX, ERROR_INDEX, HELPER_INDEX})
   @Retention(RetentionPolicy.SOURCE)
   private @interface IndicatorIndex {}
@@ -76,10 +55,7 @@ final class IndicatorViewController {
   static final int HELPER_INDEX = 1;
   static final int COUNTER_INDEX = 2;
 
-  /**
-   * Values for caption display state constants. There is either an error displayed, helper text
-   * displayed, or no caption.
-   */
+  
   @IntDef({CAPTION_STATE_NONE, CAPTION_STATE_ERROR, CAPTION_STATE_HELPER_TEXT})
   @Retention(RetentionPolicy.SOURCE)
   private @interface CaptionDisplayState {}
@@ -128,7 +104,7 @@ final class IndicatorViewController {
     this.helperText = helperText;
     helperTextView.setText(helperText);
 
-    // If helper is not already shown, show helper.
+    
     if (captionDisplayed != CAPTION_STATE_HELPER_TEXT) {
       captionToShow = CAPTION_STATE_HELPER_TEXT;
     }
@@ -139,7 +115,7 @@ final class IndicatorViewController {
   void hideHelperText() {
     cancelCaptionAnimator();
 
-    // Hide helper if it's shown.
+    
     if (captionDisplayed == CAPTION_STATE_HELPER_TEXT) {
       captionToShow = CAPTION_STATE_NONE;
     }
@@ -152,7 +128,7 @@ final class IndicatorViewController {
     this.errorText = errorText;
     errorView.setText(errorText);
 
-    // If error is not already shown, show error.
+    
     if (captionDisplayed != CAPTION_STATE_ERROR) {
       captionToShow = CAPTION_STATE_ERROR;
     }
@@ -163,13 +139,13 @@ final class IndicatorViewController {
   void hideError() {
     errorText = null;
     cancelCaptionAnimator();
-    // Hide  error if it's shown.
+    
     if (captionDisplayed == CAPTION_STATE_ERROR) {
-      // If helper text is enabled and not empty, show helper text in place of the error.
+      
       if (helperTextEnabled && !TextUtils.isEmpty(helperText)) {
         captionToShow = CAPTION_STATE_HELPER_TEXT;
       } else {
-        // Otherwise, just hide the error.
+        
         captionToShow = CAPTION_STATE_NONE;
       }
     }
@@ -177,14 +153,7 @@ final class IndicatorViewController {
         captionDisplayed, captionToShow, shouldAnimateCaptionView(errorView, null));
   }
 
-  /**
-   * Check if the caption view should animate. Only animate the caption view if we're enabled, laid
-   * out, and have a different caption message.
-   *
-   * @param captionView The view that contains text for the caption underneath the text input area
-   * @param captionText The text for the caption view
-   * @return Whether the view should animate when setting the caption
-   */
+  
   private boolean shouldAnimateCaptionView(
       @Nullable TextView captionView, @Nullable final CharSequence captionText) {
     return ViewCompat.isLaidOut(textInputView)
@@ -281,7 +250,7 @@ final class IndicatorViewController {
       TextView captionViewDisplayed = getCaptionViewFromDisplayState(captionToHide);
       if (captionViewDisplayed != null) {
         captionViewDisplayed.setVisibility(View.INVISIBLE);
-        // Only set the caption text to null if it's the error.
+        
         if (captionToHide == CAPTION_STATE_ERROR) {
           captionViewDisplayed.setText(null);
         }
@@ -297,11 +266,11 @@ final class IndicatorViewController {
       @CaptionDisplayState int captionState,
       @CaptionDisplayState int captionToHide,
       @CaptionDisplayState int captionToShow) {
-    // If caption view is null or not enabled, do nothing.
+    
     if (captionView == null || !captionEnabled) {
       return;
     }
-    // If the caption view should be shown, set alpha to 1f.
+    
     if ((captionState == captionToShow) || (captionState == captionToHide)) {
       captionAnimatorList.add(
           createCaptionOpacityAnimator(captionView, captionToShow == captionState));
@@ -345,14 +314,14 @@ final class IndicatorViewController {
       case CAPTION_STATE_HELPER_TEXT:
         return helperTextView;
       case CAPTION_STATE_NONE:
-      default: // No caption displayed, fall out and return null.
+      default: 
     }
     return null;
   }
 
   void adjustIndicatorPadding() {
     if (canAdjustIndicatorPadding()) {
-      // Add padding to the indicators so that they match the EditText
+      
       ViewCompat.setPaddingRelative(
           indicatorArea,
           ViewCompat.getPaddingStart(textInputView.getEditText()),
@@ -418,12 +387,12 @@ final class IndicatorViewController {
   }
 
   void setErrorEnabled(boolean enabled) {
-    // If the enabled state is the same as before, do nothing.
+    
     if (errorEnabled == enabled) {
       return;
     }
 
-    // Otherwise, adjust enabled state.
+    
     cancelCaptionAnimator();
 
     if (enabled) {
@@ -460,12 +429,12 @@ final class IndicatorViewController {
   }
 
   void setHelperTextEnabled(boolean enabled) {
-    // If the enabled state is the same as before, do nothing.
+    
     if (helperTextEnabled == enabled) {
       return;
     }
 
-    // Otherwise, adjust enabled state.
+    
     cancelCaptionAnimator();
 
     if (enabled) {
@@ -530,7 +499,7 @@ final class IndicatorViewController {
     return helperText;
   }
 
-  @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
+  @SuppressWarnings("ReferenceEquality") 
   void setTypefaces(Typeface typeface) {
     if (typeface != this.typeface) {
       this.typeface = typeface;

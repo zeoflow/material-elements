@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2015 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.textfield;
 
@@ -94,91 +80,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.LinkedHashSet;
 
-/**
- * Layout which wraps a {@link TextInputEditText}, {@link android.widget.EditText}, or descendant to
- * show a floating label when the hint is hidden while the user inputs text.
- *
- * <p>Also supports:
- *
- * <ul>
- *   <li>Showing an error via {@link #setErrorEnabled(boolean)} and {@link #setError(CharSequence)},
- *       along with showing an error icon via {@link #setErrorIconDrawable}
- *   <li>Showing helper text via {@link #setHelperTextEnabled(boolean)} and {@link
- *       #setHelperText(CharSequence)}
- *   <li>Showing placeholder text via {@link #setPlaceholderText(CharSequence)}
- *   <li>Showing prefix text via {@link #setPrefixText(CharSequence)}
- *   <li>Showing suffix text via {@link #setSuffixText(CharSequence)}
- *   <li>Showing a character counter via {@link #setCounterEnabled(boolean)} and {@link
- *       #setCounterMaxLength(int)}
- *   <li>Password visibility toggling via {@link #setEndIconMode(int)} API and related attribute. If
- *       set, a button is displayed to toggle between the password being displayed as plain-text or
- *       disguised, when your EditText is set to display a password.
- *   <li>Clearing text functionality via {@link #setEndIconMode(int)} API and related attribute. If
- *       set, a button is displayed when text is present and clicking it clears the EditText field.
- *   <li>Showing a custom icon specified via {@link #setEndIconMode(int)} API and related attribute.
- *       You should specify a drawable and content description for the icon. Optionally, you can
- *       also specify an {@link android.view.View.OnClickListener}, an {@link
- *       OnEditTextAttachedListener} and an {@link OnEndIconChangedListener}.
- *       <p><strong>Note:</strong> When using an end icon, the 'end' compound drawable of the
- *       EditText will be overridden while the end icon view is visible. To ensure that any existing
- *       drawables are restored correctly, you should set those compound drawables relatively
- *       (start/end), as opposed to absolutely (left/right).
- *   <li>Showing a start icon via {@link #setStartIconDrawable(Drawable)} API and related attribute.
- *       You should specify a content description for the icon. Optionally, you can also specify an
- *       {@link android.view.View.OnClickListener} for it.
- *       <p><strong>Note:</strong> Use the {@link #setStartIconDrawable(Drawable)} API in place of
- *       setting a start/left compound drawable on the EditText. When using a start icon, the
- *       'start/left' compound drawable of the EditText will be overridden.
- *   <li>Showing a button that when clicked displays a dropdown menu. The selected option is
- *       displayed above the dropdown. You need to use an {@link AutoCompleteTextView} instead of a
- *       {@link TextInputEditText} as the input text child, and a
- *       Widget.MaterialComponents.TextInputLayout.(...).ExposedDropdownMenu style.
- *       <p>To disable user input you should set
- *       <pre>android:editable=&quot;false&quot;</pre>
- *       on the {@link AutoCompleteTextView}.
- * </ul>
- *
- * <p>The {@link TextInputEditText} class is provided to be used as the input text child of this
- * layout. Using TextInputEditText instead of an EditText provides accessibility support for the
- * text field and allows TextInputLayout greater control over the visual aspects of the text field.
- * An example usage is as so:
- *
- * <pre>
- * &lt;com.google.android.material.textfield.TextInputLayout
- *         android:layout_width=&quot;match_parent&quot;
- *         android:layout_height=&quot;wrap_content&quot;
- *         android:hint=&quot;@string/form_username&quot;&gt;
- *
- *     &lt;com.google.android.material.textfield.TextInputEditText
- *             android:layout_width=&quot;match_parent&quot;
- *             android:layout_height=&quot;wrap_content&quot;/&gt;
- *
- * &lt;/com.google.android.material.textfield.TextInputLayout&gt;
- * </pre>
- *
- * The hint should be set on the TextInputLayout, rather than the EditText. If a hint is specified
- * on the child EditText in XML, the TextInputLayout might still work correctly; TextInputLayout
- * will use the EditText's hint as its floating label. However, future calls to modify the hint will
- * not update TextInputLayout's hint. To avoid unintended behavior, call {@link
- * TextInputLayout#setHint(CharSequence)} and {@link TextInputLayout#getHint()} on TextInputLayout,
- * instead of on EditText.
- *
- * <p>If the {@link EditText} child is not a {@link TextInputEditText}, make sure to set the {@link
- * EditText}'s {@code android:background} to {@code null} when using an outlined or filled text
- * field. This allows {@link TextInputLayout} to set the {@link EditText}'s background to an
- * outlined or filled box, respectively.
- *
- * <p><strong>Note:</strong> The actual view hierarchy present under TextInputLayout is
- * <strong>NOT</strong> guaranteed to match the view hierarchy as written in XML. As a result, calls
- * to getParent() on children of the TextInputLayout -- such as a TextInputEditText -- may not
- * return the TextInputLayout itself, but rather an intermediate View. If you need to access a View
- * directly, set an {@code android:id} and use {@link View#findViewById(int)}.
- */
+
 public class TextInputLayout extends LinearLayout {
 
   private static final int DEF_STYLE_RES = R.style.Widget_Design_TextInputLayout;
 
-  /** Duration for the label's scale up and down animations. */
+  
   private static final int LABEL_SCALE_ANIMATION_DURATION = 167;
 
   private static final int INVALID_MAX_LENGTH = -1;
@@ -218,11 +125,7 @@ public class TextInputLayout extends LinearLayout {
   private boolean hintEnabled;
   private CharSequence hint;
 
-  /**
-   * {@code true} when providing a hint on behalf of a child {@link EditText}. If the child is an
-   * instance of {@link TextInputEditText}, this value defines the behavior of its {@link
-   * TextInputEditText#getHint()} method.
-   */
+  
   private boolean isProvidingHint;
 
   @Nullable private MaterialShapeDrawable boxBackground;
@@ -238,10 +141,7 @@ public class TextInputLayout extends LinearLayout {
   @ColorInt private int boxStrokeColor;
   @ColorInt private int boxBackgroundColor;
 
-  /**
-   * Values for box background mode. There is either a filled background, an outline background, or
-   * no background.
-   */
+  
   @IntDef({BOX_BACKGROUND_NONE, BOX_BACKGROUND_FILLED, BOX_BACKGROUND_OUTLINE})
   @Retention(RetentionPolicy.SOURCE)
   public @interface BoxBackgroundMode {}
@@ -264,11 +164,7 @@ public class TextInputLayout extends LinearLayout {
   private int startDummyDrawableWidth;
   private OnLongClickListener startIconOnLongClickListener;
 
-  /**
-   * Values for the end icon mode.
-   *
-   * @hide
-   */
+  
   @RestrictTo(LIBRARY_GROUP)
   @IntDef({
     END_ICON_CUSTOM,
@@ -280,88 +176,32 @@ public class TextInputLayout extends LinearLayout {
   @Retention(RetentionPolicy.SOURCE)
   public @interface EndIconMode {}
 
-  /**
-   * The TextInputLayout will show a custom icon specified by the user.
-   *
-   * @see #setEndIconMode(int)
-   * @see #getEndIconMode()
-   * @see #setEndIconDrawable(Drawable)
-   * @see #setEndIconContentDescription(CharSequence)
-   * @see #setEndIconOnClickListener(OnClickListener) (optionally)
-   * @see #addOnEditTextAttachedListener(OnEditTextAttachedListener) (optionally)
-   * @see #addOnEndIconChangedListener(OnEndIconChangedListener) (optionally)
-   */
+  
   public static final int END_ICON_CUSTOM = -1;
 
-  /**
-   * Default for the TextInputLayout. It will not display an end icon.
-   *
-   * @see #setEndIconMode(int)
-   * @see #getEndIconMode()
-   */
+  
   public static final int END_ICON_NONE = 0;
 
-  /**
-   * The TextInputLayout will show a password toggle button if its EditText displays a password.
-   * When this end icon is clicked, the password is shown as plain-text if it was disguised, or
-   * vice-versa.
-   *
-   * @see #setEndIconMode(int)
-   * @see #getEndIconMode()
-   */
+  
   public static final int END_ICON_PASSWORD_TOGGLE = 1;
 
-  /**
-   * The TextInputLayout will show a clear text button while there is input in the EditText.
-   * Clicking it will clear out the text and hide the icon.
-   *
-   * @see #setEndIconMode(int)
-   * @see #getEndIconMode()
-   */
+  
   public static final int END_ICON_CLEAR_TEXT = 2;
 
-  /**
-   * The TextInputLayout will show a dropdown button if the EditText is an {@link
-   * AutoCompleteTextView} and a {@code
-   * Widget.MaterialComponents.TextInputLayout.(...).ExposedDropdownMenu} style is being used.
-   *
-   * <p>Clicking the button will display a popup with a list of options. The current selected option
-   * is displayed on the EditText.
-   */
+  
   public static final int END_ICON_DROPDOWN_MENU = 3;
 
-  /**
-   * Callback interface invoked when the view's {@link EditText} is attached, or from {@link
-   * #addOnEditTextAttachedListener(OnEditTextAttachedListener)} if the edit text is already
-   * present.
-   *
-   * @see #addOnEditTextAttachedListener(OnEditTextAttachedListener)
-   */
+  
   public interface OnEditTextAttachedListener {
 
-    /**
-     * Called when the {@link EditText} is attached, or from {@link
-     * #addOnEditTextAttachedListener(OnEditTextAttachedListener)} if the edit text is already
-     * present.
-     *
-     * @param textInputLayout the {@link TextInputLayout}
-     */
+    
     void onEditTextAttached(@NonNull TextInputLayout textInputLayout);
   }
 
-  /**
-   * Callback interface invoked when the view's end icon changes.
-   *
-   * @see #setEndIconMode(int)
-   */
+  
   public interface OnEndIconChangedListener {
 
-    /**
-     * Called when the end icon changes.
-     *
-     * @param textInputLayout the {@link TextInputLayout}
-     * @param previousIcon the end icon mode the view previously had set
-     */
+    
     void onEndIconChanged(@NonNull TextInputLayout textInputLayout, @EndIconMode int previousIcon);
   }
 
@@ -400,7 +240,7 @@ public class TextInputLayout extends LinearLayout {
 
   @ColorInt private int disabledColor;
 
-  // Only used for testing
+  
   private boolean hintExpanded;
 
   final CollapsingTextHelper collapsingTextHelper = new CollapsingTextHelper(this);
@@ -422,7 +262,7 @@ public class TextInputLayout extends LinearLayout {
 
   public TextInputLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
-    // Ensure we are using the correctly themed context rather than the context that was passed in.
+    
     context = getContext();
 
     setOrientation(VERTICAL);
@@ -563,14 +403,14 @@ public class TextInputLayout extends LinearLayout {
 
     ColorStateList boxStrokeColorStateList =
         MaterialResources.getColorStateList(context, a, R.styleable.TextInputLayout_boxStrokeColor);
-    // Default values for stroke colors if boxStrokeColorStateList is not stateful
+    
     focusedStrokeColor = a.getColor(R.styleable.TextInputLayout_boxStrokeColor, Color.TRANSPARENT);
     defaultStrokeColor =
         ContextCompat.getColor(context, R.color.mtrl_textinput_default_box_stroke_color);
     disabledColor = ContextCompat.getColor(context, R.color.mtrl_textinput_disabled_color);
     hoveredStrokeColor =
         ContextCompat.getColor(context, R.color.mtrl_textinput_hovered_box_stroke_color);
-    // Values from boxStrokeColorStateList
+    
     if (boxStrokeColorStateList != null) {
       setBoxStrokeColorStateList(boxStrokeColorStateList);
     }
@@ -590,7 +430,7 @@ public class TextInputLayout extends LinearLayout {
     final CharSequence errorContentDescription =
         a.getText(R.styleable.TextInputLayout_errorContentDescription);
     final boolean errorEnabled = a.getBoolean(R.styleable.TextInputLayout_errorEnabled, false);
-    // Initialize error icon view.
+    
     errorIconView =
         (CheckableImageButton)
             LayoutInflater.from(getContext())
@@ -641,7 +481,7 @@ public class TextInputLayout extends LinearLayout {
     counterOverflowTextAppearance =
         a.getResourceId(R.styleable.TextInputLayout_counterOverflowTextAppearance, 0);
 
-    // Initialize start icon view.
+    
     startIconView =
         (CheckableImageButton)
             LayoutInflater.from(getContext())
@@ -649,7 +489,7 @@ public class TextInputLayout extends LinearLayout {
     startIconView.setVisibility(GONE);
     setStartIconOnClickListener(null);
     setStartIconOnLongClickListener(null);
-    // Set up start icon if any.
+    
     if (a.hasValue(R.styleable.TextInputLayout_startIconDrawable)) {
       setStartIconDrawable(a.getDrawable(R.styleable.TextInputLayout_startIconDrawable));
       if (a.hasValue(R.styleable.TextInputLayout_startIconContentDescription)) {
@@ -658,13 +498,13 @@ public class TextInputLayout extends LinearLayout {
       }
       setStartIconCheckable(a.getBoolean(R.styleable.TextInputLayout_startIconCheckable, true));
     }
-    // Default tint for a start icon or value specified by user.
+    
     if (a.hasValue(R.styleable.TextInputLayout_startIconTint)) {
       setStartIconTintList(
           MaterialResources.getColorStateList(
               context, a, R.styleable.TextInputLayout_startIconTint));
     }
-    // Default tint mode for a start icon or value specified by user.
+    
     if (a.hasValue(R.styleable.TextInputLayout_startIconTintMode)) {
       setStartIconTintMode(
           ViewUtils.parseTintMode(
@@ -674,7 +514,7 @@ public class TextInputLayout extends LinearLayout {
     setBoxBackgroundMode(
         a.getInt(R.styleable.TextInputLayout_boxBackgroundMode, BOX_BACKGROUND_NONE));
 
-    // Initialize end icon view.
+    
     endIconView =
         (CheckableImageButton)
             LayoutInflater.from(getContext())
@@ -686,11 +526,11 @@ public class TextInputLayout extends LinearLayout {
     endIconDelegates.append(END_ICON_PASSWORD_TOGGLE, new PasswordToggleEndIconDelegate(this));
     endIconDelegates.append(END_ICON_CLEAR_TEXT, new ClearTextEndIconDelegate(this));
     endIconDelegates.append(END_ICON_DROPDOWN_MENU, new DropdownMenuEndIconDelegate(this));
-    // Set up the end icon if any.
+    
     if (a.hasValue(R.styleable.TextInputLayout_endIconMode)) {
-      // Specific defaults depending on which end icon mode is set
+      
       setEndIconMode(a.getInt(R.styleable.TextInputLayout_endIconMode, END_ICON_NONE));
-      // Overwrite default values if user specified any different ones
+      
       if (a.hasValue(R.styleable.TextInputLayout_endIconDrawable)) {
         setEndIconDrawable(a.getDrawable(R.styleable.TextInputLayout_endIconDrawable));
       }
@@ -700,7 +540,7 @@ public class TextInputLayout extends LinearLayout {
       }
       setEndIconCheckable(a.getBoolean(R.styleable.TextInputLayout_endIconCheckable, true));
     } else if (a.hasValue(R.styleable.TextInputLayout_passwordToggleEnabled)) {
-      // Support for deprecated attributes related to the password toggle end icon
+      
       boolean passwordToggleEnabled =
           a.getBoolean(R.styleable.TextInputLayout_passwordToggleEnabled, false);
       setEndIconMode(passwordToggleEnabled ? END_ICON_PASSWORD_TOGGLE : END_ICON_NONE);
@@ -720,13 +560,13 @@ public class TextInputLayout extends LinearLayout {
     }
 
     if (!a.hasValue(R.styleable.TextInputLayout_passwordToggleEnabled)) {
-      // Default tint for any end icon or value specified by user
+      
       if (a.hasValue(R.styleable.TextInputLayout_endIconTint)) {
         setEndIconTintList(
             MaterialResources.getColorStateList(
                 context, a, R.styleable.TextInputLayout_endIconTint));
       }
-      // Default tint mode for any end icon or value specified by user
+      
       if (a.hasValue(R.styleable.TextInputLayout_endIconTintMode)) {
         setEndIconTintMode(
             ViewUtils.parseTintMode(
@@ -734,7 +574,7 @@ public class TextInputLayout extends LinearLayout {
       }
     }
 
-    // Set up prefix view.
+    
     prefixTextView = new AppCompatTextView(context);
     prefixTextView.setId(R.id.textinput_prefix_text);
     prefixTextView.setLayoutParams(
@@ -746,7 +586,7 @@ public class TextInputLayout extends LinearLayout {
     startLayout.addView(startIconView);
     startLayout.addView(prefixTextView);
 
-    // Set up suffix view.
+    
     suffixTextView = new AppCompatTextView(context);
     suffixTextView.setId(R.id.textinput_suffix_text);
     suffixTextView.setLayoutParams(
@@ -808,8 +648,8 @@ public class TextInputLayout extends LinearLayout {
 
     a.recycle();
 
-    // For accessibility, consider TextInputLayout itself to be a simple container for an EditText,
-    // and do not expose it to accessibility services.
+    
+    
     ViewCompat.setImportantForAccessibility(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO);
   }
 
@@ -817,20 +657,20 @@ public class TextInputLayout extends LinearLayout {
   public void addView(
       @NonNull View child, int index, @NonNull final ViewGroup.LayoutParams params) {
     if (child instanceof EditText) {
-      // Make sure that the EditText is vertically at the bottom, so that it sits on the
-      // EditText's underline
+      
+      
       FrameLayout.LayoutParams flp = new FrameLayout.LayoutParams(params);
       flp.gravity = Gravity.CENTER_VERTICAL | (flp.gravity & ~Gravity.VERTICAL_GRAVITY_MASK);
       inputFrame.addView(child, flp);
 
-      // Now use the EditText's LayoutParams as our own and update them to make enough space
-      // for the label
+      
+      
       inputFrame.setLayoutParams(params);
       updateInputLayoutMargins();
 
       setEditText((EditText) child);
     } else {
-      // Carry on adding the View...
+      
       super.addView(child, index, params);
     }
   }
@@ -843,21 +683,7 @@ public class TextInputLayout extends LinearLayout {
     throw new IllegalStateException();
   }
 
-  /**
-   * Set the box background mode (filled, outline, or none).
-   *
-   * <p>May be one of {@link #BOX_BACKGROUND_NONE}, {@link #BOX_BACKGROUND_FILLED}, or {@link
-   * #BOX_BACKGROUND_OUTLINE}.
-   *
-   * <p>Note: This method defines TextInputLayout's internal behavior (for example, it allows the
-   * hint to be displayed inline with the stroke in a cutout), but doesn't set all attributes that
-   * are set in the styles provided for the box background modes. To achieve the look of an outlined
-   * or filled text field, supplement this method with other methods that modify the box, such as
-   * {@link #setBoxStrokeColor(int)} and {@link #setBoxBackgroundColor(int)}.
-   *
-   * @param boxBackgroundMode box's background mode
-   * @throws IllegalArgumentException if boxBackgroundMode is not a @BoxBackgroundMode constant
-   */
+  
   public void setBoxBackgroundMode(@BoxBackgroundMode int boxBackgroundMode) {
     if (boxBackgroundMode == this.boxBackgroundMode) {
       return;
@@ -868,12 +694,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Get the box background mode (filled, outline, or none).
-   *
-   * <p>May be one of {@link #BOX_BACKGROUND_NONE}, {@link #BOX_BACKGROUND_FILLED}, or {@link
-   * #BOX_BACKGROUND_OUTLINE}.
-   */
+  
   @BoxBackgroundMode
   public int getBoxBackgroundMode() {
     return boxBackgroundMode;
@@ -913,102 +734,54 @@ public class TextInputLayout extends LinearLayout {
   }
 
   private void setEditTextBoxBackground() {
-    // Set the EditText background to boxBackground if we should use that as the box background.
+    
     if (shouldUseEditTextBackgroundForBoxBackground()) {
       ViewCompat.setBackground(editText, boxBackground);
     }
   }
 
   private boolean shouldUseEditTextBackgroundForBoxBackground() {
-    // When the text field's EditText's background is null, use the EditText's background for the
-    // box background.
+    
+    
     return editText != null
         && boxBackground != null
         && editText.getBackground() == null
         && boxBackgroundMode != BOX_BACKGROUND_NONE;
   }
 
-  /**
-   * Set the resource dimension to use for the box's stroke when in outline box mode, or for the
-   * underline stroke in filled mode.
-   *
-   * @param boxStrokeWidthResId the resource dimension to use for the box's stroke width
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidth
-   * @see #setBoxStrokeWidth(int)
-   * @see #getBoxStrokeWidth()
-   */
+  
   public void setBoxStrokeWidthResource(@DimenRes int boxStrokeWidthResId) {
     setBoxStrokeWidth(getResources().getDimensionPixelSize(boxStrokeWidthResId));
   }
 
-  /**
-   * Set the value to use for the box's stroke when in outline box mode, or for the underline stroke
-   * in filled mode.
-   *
-   * @param boxStrokeWidth the value to use for the box's stroke
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidth
-   * @see #getBoxStrokeWidth()
-   */
+  
   public void setBoxStrokeWidth(int boxStrokeWidth) {
     boxStrokeWidthDefaultPx = boxStrokeWidth;
     updateTextInputBoxState();
   }
 
-  /**
-   * Returns the box's stroke width.
-   *
-   * @return the value used for the box's stroke width
-   * @see #setBoxStrokeWidth(int)
-   */
+  
   public int getBoxStrokeWidth() {
     return boxStrokeWidthDefaultPx;
   }
 
-  /**
-   * Set the resource dimension to use for the focused box's stroke when in outline box mode, or for
-   * the focused underline stroke in filled mode.
-   *
-   * @param boxStrokeWidthFocusedResId the resource dimension to use for the box's stroke width
-   *     when focused
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidthFocused
-   * @see #setBoxStrokeWidthFocused(int)
-   * @see #getBoxStrokeWidthFocused()
-   */
+  
   public void setBoxStrokeWidthFocusedResource(@DimenRes int boxStrokeWidthFocusedResId) {
     setBoxStrokeWidthFocused(getResources().getDimensionPixelSize(boxStrokeWidthFocusedResId));
   }
 
-  /**
-   * Set the value to use for the focused box's stroke when in outline box mode, or for the focused
-   * underline stroke in filled mode.
-   *
-   * @param boxStrokeWidthFocused the value to use for the box's stroke when focused
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeWidthFocused
-   * @see #getBoxStrokeWidthFocused()
-   */
+  
   public void setBoxStrokeWidthFocused(int boxStrokeWidthFocused) {
     boxStrokeWidthFocusedPx = boxStrokeWidthFocused;
     updateTextInputBoxState();
   }
 
-  /**
-   * Returns the box's stroke focused width.
-   *
-   * @return the value used for the box's stroke width when focused
-   * @see #setBoxStrokeWidthFocused(int)
-   */
+  
   public int getBoxStrokeWidthFocused() {
     return boxStrokeWidthFocusedPx;
   }
 
-  /**
-   * Set the outline box's stroke focused color.
-   *
-   * <p>Calling this method when not in outline box mode will do nothing.
-   *
-   * @param boxStrokeColor the color to use for the box's stroke when focused
-   * @see #getBoxStrokeColor()
-   */
+  
   public void setBoxStrokeColor(@ColorInt int boxStrokeColor) {
     if (focusedStrokeColor != boxStrokeColor) {
       focusedStrokeColor = boxStrokeColor;
@@ -1016,21 +789,12 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the box's stroke focused color.
-   *
-   * @return the color used for the box's stroke when focused
-   * @see #setBoxStrokeColor(int)
-   */
+  
   public int getBoxStrokeColor() {
     return focusedStrokeColor;
   }
 
-  /**
-   * Set the box's stroke color state list.
-   *
-   * @param boxStrokeColorStateList the color state list to use for the box's stroke
-   */
+  
   public void setBoxStrokeColorStateList(@NonNull ColorStateList boxStrokeColorStateList) {
     if (boxStrokeColorStateList.isStateful()) {
       defaultStrokeColor = boxStrokeColorStateList.getDefaultColor();
@@ -1043,21 +807,14 @@ public class TextInputLayout extends LinearLayout {
           boxStrokeColorStateList.getColorForState(
               new int[] {android.R.attr.state_focused, android.R.attr.state_enabled}, -1);
     } else if (focusedStrokeColor != boxStrokeColorStateList.getDefaultColor()) {
-      // If attribute boxStrokeColor is not a color state list but only a single value, its value
-      // will be applied to the box's focus state.
+      
+      
       focusedStrokeColor = boxStrokeColorStateList.getDefaultColor();
     }
     updateTextInputBoxState();
   }
 
-  /**
-   * Set the outline box's stroke color when an error is being displayed.
-   *
-   * <p>Calling this method when not in outline box mode will do nothing.
-   *
-   * @param strokeErrorColor the error color to use for the box's stroke
-   * @see #getBoxStrokeErrorColor()
-   */
+  
   public void setBoxStrokeErrorColor(@Nullable ColorStateList strokeErrorColor) {
     if (this.strokeErrorColor != strokeErrorColor) {
       this.strokeErrorColor = strokeErrorColor;
@@ -1065,41 +822,18 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the box's stroke color when an error is being displayed.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_boxStrokeErrorColor
-   * @see #setBoxStrokeErrorColor(ColorStateList)
-   */
+  
   @Nullable
   public ColorStateList getBoxStrokeErrorColor() {
     return strokeErrorColor;
   }
 
-  /**
-   * Set the resource used for the filled box's background color.
-   *
-   * <p>Note: The background color is only supported for filled boxes. When used with box variants
-   * other than {@link BoxBackgroundMode#BOX_BACKGROUND_FILLED}, the box background color may not
-   * work as intended.
-   *
-   * @param boxBackgroundColorId the resource to use for the box's background color
-   */
+  
   public void setBoxBackgroundColorResource(@ColorRes int boxBackgroundColorId) {
     setBoxBackgroundColor(ContextCompat.getColor(getContext(), boxBackgroundColorId));
   }
 
-  /**
-   * Sets the filled box's default background color. Calling this method will make the background
-   * color not be stateful, if it was before.
-   *
-   * <p>Note: The background color is only supported for filled boxes. When used with box variants
-   * other than {@link BoxBackgroundMode#BOX_BACKGROUND_FILLED}, the box background color may not
-   * work as intended.
-   *
-   * @param boxBackgroundColor the color to use for the filled box's background
-   * @see #getBoxBackgroundColor()
-   */
+  
   public void setBoxBackgroundColor(@ColorInt int boxBackgroundColor) {
     if (this.boxBackgroundColor != boxBackgroundColor) {
       this.boxBackgroundColor = boxBackgroundColor;
@@ -1110,15 +844,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Sets the box's background color state list.
-   *
-   * <p>Note: The background color is only supported for filled boxes. When used with box variants
-   * other than {@link BoxBackgroundMode#BOX_BACKGROUND_FILLED}, the box background color may not
-   * work as intended.
-   *
-   * @param boxBackgroundColorStateList the color state list to use for the box's background color
-   */
+  
   public void setBoxBackgroundColorStateList(@NonNull ColorStateList boxBackgroundColorStateList) {
     defaultFilledBackgroundColor = boxBackgroundColorStateList.getDefaultColor();
     boxBackgroundColor = defaultFilledBackgroundColor;
@@ -1134,25 +860,12 @@ public class TextInputLayout extends LinearLayout {
     applyBoxAttributes();
   }
 
-  /**
-   * Returns the filled box's default background color.
-   *
-   * @return the color used for the filled box's background
-   * @see #setBoxBackgroundColor(int)
-   */
+  
   public int getBoxBackgroundColor() {
     return boxBackgroundColor;
   }
 
-  /**
-   * Set the resources used for the box's corner radii.
-   *
-   * @param boxCornerRadiusTopStartId the resource to use for the box's top start corner radius
-   * @param boxCornerRadiusTopEndId the resource to use for the box's top end corner radius
-   * @param boxCornerRadiusBottomEndId the resource to use for the box's bottom end corner radius
-   * @param boxCornerRadiusBottomStartId the resource to use for the box's bottom start corner
-   *     radius
-   */
+  
   public void setBoxCornerRadiiResources(
       @DimenRes int boxCornerRadiusTopStartId,
       @DimenRes int boxCornerRadiusTopEndId,
@@ -1165,18 +878,7 @@ public class TextInputLayout extends LinearLayout {
         getContext().getResources().getDimension(boxCornerRadiusBottomEndId));
   }
 
-  /**
-   * Set the box's corner radii.
-   *
-   * @param boxCornerRadiusTopStart the value to use for the box's top start corner radius
-   * @param boxCornerRadiusTopEnd the value to use for the box's top end corner radius
-   * @param boxCornerRadiusBottomEnd the value to use for the box's bottom end corner radius
-   * @param boxCornerRadiusBottomStart the value to use for the box's bottom start corner radius
-   * @see #getBoxCornerRadiusTopStart()
-   * @see #getBoxCornerRadiusTopEnd()
-   * @see #getBoxCornerRadiusBottomEnd()
-   * @see #getBoxCornerRadiusBottomStart()
-   */
+  
   public void setBoxCornerRadii(
       float boxCornerRadiusTopStart,
       float boxCornerRadiusTopEnd,
@@ -1198,52 +900,28 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the box's top start corner radius.
-   *
-   * @return the value used for the box's top start corner radius
-   * @see #setBoxCornerRadii(float, float, float, float)
-   */
+  
   public float getBoxCornerRadiusTopStart() {
     return boxBackground.getTopLeftCornerResolvedSize();
   }
 
-  /**
-   * Returns the box's top end corner radius.
-   *
-   * @return the value used for the box's top end corner radius
-   * @see #setBoxCornerRadii(float, float, float, float)
-   */
+  
   public float getBoxCornerRadiusTopEnd() {
     return boxBackground.getTopRightCornerResolvedSize();
   }
 
-  /**
-   * Returns the box's bottom end corner radius.
-   *
-   * @return the value used for the box's bottom end corner radius
-   * @see #setBoxCornerRadii(float, float, float, float)
-   */
+  
   public float getBoxCornerRadiusBottomEnd() {
     return boxBackground.getBottomLeftCornerResolvedSize();
   }
 
-  /**
-   * Returns the box's bottom start corner radius.
-   *
-   * @return the value used for the box's bottom start corner radius
-   * @see #setBoxCornerRadii(float, float, float, float)
-   */
+  
   public float getBoxCornerRadiusBottomStart() {
     return boxBackground.getBottomRightCornerResolvedSize();
   }
 
-  /**
-   * Set the typeface to use for the hint and any label views (such as counter and error views).
-   *
-   * @param typeface typeface to use, or {@code null} to use the default.
-   */
-  @SuppressWarnings("ReferenceEquality") // Matches the Typeface comparison in TextView
+  
+  @SuppressWarnings("ReferenceEquality") 
   public void setTypeface(@Nullable Typeface typeface) {
     if (typeface != this.typeface) {
       this.typeface = typeface;
@@ -1257,9 +935,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the typeface used for the hint and any label views (such as counter and error views).
-   */
+  
   @Nullable
   public Typeface getTypeface() {
     return typeface;
@@ -1272,10 +948,10 @@ public class TextInputLayout extends LinearLayout {
       return;
     }
 
-    // Temporarily sets child's hint to its original value so it is properly set in the
-    // child's ViewStructure.
+    
+    
     boolean wasProvidingHint = isProvidingHint;
-    // Ensures a child TextInputEditText does not retrieve its hint from this TextInputLayout.
+    
     isProvidingHint = false;
     final CharSequence hint = editText.getHint();
     editText.setHint(originalHint);
@@ -1288,7 +964,7 @@ public class TextInputLayout extends LinearLayout {
   }
 
   private void setEditText(EditText editText) {
-    // If we already have an EditText, throw an exception
+    
     if (this.editText != null) {
       throw new IllegalArgumentException("We already have an EditText, can only have one");
     }
@@ -1304,7 +980,7 @@ public class TextInputLayout extends LinearLayout {
     onApplyBoxBackgroundMode();
     setTextInputAccessibilityDelegate(new AccessibilityDelegate(this));
 
-    // Use the EditText's typeface, and its text size for our expanded text.
+    
     collapsingTextHelper.setTypefaces(this.editText.getTypeface());
     collapsingTextHelper.setExpandedTextSize(this.editText.getTextSize());
 
@@ -1313,7 +989,7 @@ public class TextInputLayout extends LinearLayout {
         Gravity.TOP | (editTextGravity & ~Gravity.VERTICAL_GRAVITY_MASK));
     collapsingTextHelper.setExpandedTextGravity(editTextGravity);
 
-    // Add a TextWatcher so that we know when the text input has changed.
+    
     this.editText.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -1334,18 +1010,18 @@ public class TextInputLayout extends LinearLayout {
           public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-    // Use the EditText's hint colors if we don't have one set
+    
     if (defaultHintTextColor == null) {
       defaultHintTextColor = this.editText.getHintTextColors();
     }
 
-    // If we do not have a valid hint, try and retrieve it from the EditText, if enabled
+    
     if (hintEnabled) {
       if (TextUtils.isEmpty(hint)) {
-        // Save the hint so it can be restored on dispatchProvideAutofillStructure();
+        
         originalHint = this.editText.getHint();
         setHint(originalHint);
-        // Clear the EditText's hint as we will display it ourselves
+        
         this.editText.setHint(null);
       }
       this.isProvidingHint = true;
@@ -1366,19 +1042,19 @@ public class TextInputLayout extends LinearLayout {
     updatePrefixTextViewPadding();
     updateSuffixTextViewPadding();
 
-    // Only call setEnabled on the edit text if the layout is disabled, to prevent reenabling an
-    // already disabled edit text.
+    
+    
     if (!isEnabled()) {
       editText.setEnabled(false);
     }
 
-    // Update the label visibility with no animation, but force a state change
+    
     updateLabelState(false, true);
   }
 
   private void updateInputLayoutMargins() {
-    // Create/update the LayoutParams so that we can add enough top margin
-    // to the EditText to make room for the label.
+    
+    
     if (boxBackgroundMode != BOX_BACKGROUND_FILLED) {
       final LayoutParams lp = (LayoutParams) inputFrame.getLayoutParams();
       final int newTopMargin = calculateLabelMarginTop();
@@ -1409,13 +1085,13 @@ public class TextInputLayout extends LinearLayout {
     final boolean hasFocus = editText != null && editText.hasFocus();
     final boolean errorShouldBeShown = indicatorViewController.errorShouldBeShown();
 
-    // Set the expanded and collapsed labels to the default text color.
+    
     if (defaultHintTextColor != null) {
       collapsingTextHelper.setCollapsedTextColor(defaultHintTextColor);
       collapsingTextHelper.setExpandedTextColor(defaultHintTextColor);
     }
 
-    // Set the collapsed and expanded label text colors based on the current state.
+    
     if (!isEnabled) {
       int disabledHintColor =
           defaultHintTextColor != null
@@ -1430,33 +1106,28 @@ public class TextInputLayout extends LinearLayout {
       collapsingTextHelper.setCollapsedTextColor(counterView.getTextColors());
     } else if (hasFocus && focusedTextColor != null) {
       collapsingTextHelper.setCollapsedTextColor(focusedTextColor);
-    } // If none of these states apply, leave the expanded and collapsed colors as they are.
+    } 
 
     if (hasText || (isEnabled() && (hasFocus || errorShouldBeShown))) {
-      // We should be showing the label so do so if it isn't already
+      
       if (force || hintExpanded) {
         collapseHint(animate);
       }
     } else {
-      // We should not be showing the label so hide it
+      
       if (force || !hintExpanded) {
         expandHint(animate);
       }
     }
   }
 
-  /** Returns the {@link android.widget.EditText} used for text input. */
+  
   @Nullable
   public EditText getEditText() {
     return editText;
   }
 
-  /**
-   * Set the hint to be displayed in the floating label, if enabled.
-   *
-   * @see #setHintEnabled(boolean)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_android_hint
-   */
+  
   public void setHint(@Nullable CharSequence hint) {
     if (hintEnabled) {
       setHintInternal(hint);
@@ -1468,52 +1139,37 @@ public class TextInputLayout extends LinearLayout {
     if (!TextUtils.equals(hint, this.hint)) {
       this.hint = hint;
       collapsingTextHelper.setText(hint);
-      // Reset the cutout to make room for a larger hint.
+      
       if (!hintExpanded) {
         openCutout();
       }
     }
   }
 
-  /**
-   * Returns the hint which is displayed in the floating label, if enabled.
-   *
-   * @return the hint, or null if there isn't one set, or the hint is not enabled.
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_android_hint
-   */
+  
   @Nullable
   public CharSequence getHint() {
     return hintEnabled ? hint : null;
   }
 
-  /**
-   * Sets whether the floating label functionality is enabled or not in this layout.
-   *
-   * <p>If enabled, any non-empty hint in the child EditText will be moved into the floating hint,
-   * and its existing hint will be cleared. If disabled, then any non-empty floating hint in this
-   * layout will be moved into the EditText, and this layout's hint will be cleared.
-   *
-   * @see #setHint(CharSequence)
-   * @see #isHintEnabled()
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintEnabled
-   */
+  
   public void setHintEnabled(boolean enabled) {
     if (enabled != hintEnabled) {
       hintEnabled = enabled;
       if (!hintEnabled) {
-        // Ensures a child TextInputEditText provides its internal hint, not this TextInputLayout's.
+        
         isProvidingHint = false;
         if (!TextUtils.isEmpty(hint) && TextUtils.isEmpty(editText.getHint())) {
-          // If the child EditText has no hint, but this layout does, restore it on the child.
+          
           editText.setHint(hint);
         }
-        // Now clear out any set hint
+        
         setHintInternal(null);
       } else {
         final CharSequence editTextHint = editText.getHint();
         if (!TextUtils.isEmpty(editTextHint)) {
-          // If the hint is now enabled and the EditText has one set, we'll use it if
-          // we don't already have one, and clear the EditText's
+          
+          
           if (TextUtils.isEmpty(hint)) {
             setHint(editTextHint);
           }
@@ -1522,55 +1178,36 @@ public class TextInputLayout extends LinearLayout {
         isProvidingHint = true;
       }
 
-      // Now update the EditText top margin
+      
       if (editText != null) {
         updateInputLayoutMargins();
       }
     }
   }
 
-  /**
-   * Returns whether the floating label functionality is enabled or not in this layout.
-   *
-   * @see #setHintEnabled(boolean)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintEnabled
-   */
+  
   public boolean isHintEnabled() {
     return hintEnabled;
   }
 
-  /**
-   * Returns whether or not this layout is actively managing a child {@link EditText}'s hint. If the
-   * child is an instance of {@link TextInputEditText}, this value defines the behavior of {@link
-   * TextInputEditText#getHint()}.
-   *
-   * @hide
-   */
+  
   @RestrictTo(LIBRARY_GROUP)
   public boolean isProvidingHint() {
     return isProvidingHint;
   }
 
-  /**
-   * Sets the collapsed hint text color, size, style from the specified TextAppearance resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintTextAppearance
-   */
+  
   public void setHintTextAppearance(@StyleRes int resId) {
     collapsingTextHelper.setCollapsedTextAppearance(resId);
     focusedTextColor = collapsingTextHelper.getCollapsedTextColor();
 
     if (editText != null) {
       updateLabelState(false);
-      // Text size might have changed so update the top margin
+      
       updateInputLayoutMargins();
     }
   }
-  /**
-   * Sets the collapsed hint text color from the specified ColorStateList resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintTextColor
-   */
+  
   public void setHintTextColor(@Nullable ColorStateList hintTextColor) {
     if (focusedTextColor != hintTextColor) {
       if (defaultHintTextColor == null) {
@@ -1585,17 +1222,13 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Gets the collapsed hint text color.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintTextColor
-   */
+  
   @Nullable
   public ColorStateList getHintTextColor() {
     return focusedTextColor;
   }
 
-  /** Sets the text color used by the hint in both the collapsed and expanded states. */
+  
   public void setDefaultHintTextColor(@Nullable ColorStateList textColor) {
     defaultHintTextColor = textColor;
     focusedTextColor = textColor;
@@ -1605,95 +1238,56 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the text color used by the hint in both the collapsed and expanded states, or null if
-   * no color has been set.
-   */
+  
   @Nullable
   public ColorStateList getDefaultHintTextColor() {
     return defaultHintTextColor;
   }
 
-  /**
-   * Whether the error functionality is enabled or not in this layout. Enabling this functionality
-   * before setting an error message via {@link #setError(CharSequence)}, will mean that this layout
-   * will not change size when an error is displayed.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorEnabled
-   */
+  
   public void setErrorEnabled(boolean enabled) {
     indicatorViewController.setErrorEnabled(enabled);
   }
 
-  /**
-   * Sets the text color and size for the error message from the specified TextAppearance resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorTextAppearance
-   */
+  
   public void setErrorTextAppearance(@StyleRes int errorTextAppearance) {
     indicatorViewController.setErrorTextAppearance(errorTextAppearance);
   }
 
-  /** Sets the text color used by the error message in all states. */
+  
   public void setErrorTextColor(@Nullable ColorStateList errorTextColor) {
     indicatorViewController.setErrorViewTextColor(errorTextColor);
   }
 
-  /** Returns the text color used by the error message in current state. */
+  
   @ColorInt
   public int getErrorCurrentTextColors() {
     return indicatorViewController.getErrorViewCurrentTextColor();
   }
 
-  /**
-   * Sets the text color and size for the helper text from the specified TextAppearance resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_helperTextTextAppearance
-   */
+  
   public void setHelperTextTextAppearance(@StyleRes int helperTextTextAppearance) {
     indicatorViewController.setHelperTextAppearance(helperTextTextAppearance);
   }
 
-  /** Sets the text color used by the helper text in all states. */
+  
   public void setHelperTextColor(@Nullable ColorStateList helperTextColor) {
     indicatorViewController.setHelperTextViewTextColor(helperTextColor);
   }
 
-  /**
-   * Returns whether the error functionality is enabled or not in this layout.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorEnabled
-   * @see #setErrorEnabled(boolean)
-   */
+  
   public boolean isErrorEnabled() {
     return indicatorViewController.isErrorEnabled();
   }
 
-  /**
-   * Whether the helper text functionality is enabled or not in this layout. Enabling this
-   * functionality before setting a helper message via {@link #setHelperText(CharSequence)} will
-   * mean that this layout will not change size when a helper message is displayed.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_helperTextEnabled
-   */
+  
   public void setHelperTextEnabled(boolean enabled) {
     indicatorViewController.setHelperTextEnabled(enabled);
   }
 
-  /**
-   * Sets a helper message that will be displayed below the {@link EditText}. If the {@code helper}
-   * is {@code null}, the helper text functionality will be disabled and the helper message will be
-   * hidden.
-   *
-   * <p>If the helper text functionality has not been enabled via {@link
-   * #setHelperTextEnabled(boolean)}, then it will be automatically enabled if {@code helper} is not
-   * empty.
-   *
-   * @param helperText Helper text to display
-   * @see #getHelperText()
-   */
+  
   public void setHelperText(@Nullable final CharSequence helperText) {
-    // If helper text is null, disable helper if it's enabled.
+    
     if (TextUtils.isEmpty(helperText)) {
       if (isHelperTextEnabled()) {
         setHelperTextEnabled(false);
@@ -1706,63 +1300,36 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns whether the helper text functionality is enabled or not in this layout.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_helperTextEnabled
-   * @see #setHelperTextEnabled(boolean)
-   */
+  
   public boolean isHelperTextEnabled() {
     return indicatorViewController.isHelperTextEnabled();
   }
 
-  /** Returns the text color used by the helper text in the current states. */
+  
   @ColorInt
   public int getHelperTextCurrentTextColor() {
     return indicatorViewController.getHelperTextViewCurrentTextColor();
   }
 
-  /**
-   * Sets a content description for the error message.
-   *
-   * <p>A content description should be set when the error message contains special characters that
-   * screen readers or other accessibility systems are not able to read, so that they announce the
-   * content description instead.
-   *
-   * @param errorContentDecription Content description to set, or null to clear it
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorContentDescription
-   */
+  
   public void setErrorContentDescription(@Nullable final CharSequence errorContentDecription) {
     indicatorViewController.setErrorContentDescription(errorContentDecription);
   }
 
-  /**
-   * Returns the content description of the error message, or null if not set.
-   *
-   * @see #setErrorContentDescription(CharSequence)
-   */
+  
   @Nullable
   public CharSequence getErrorContentDescription() {
     return indicatorViewController.getErrorContentDescription();
   }
 
-  /**
-   * Sets an error message that will be displayed below our {@link EditText}. If the {@code error}
-   * is {@code null}, the error message will be cleared.
-   *
-   * <p>If the error functionality has not been enabled via {@link #setErrorEnabled(boolean)}, then
-   * it will be automatically enabled if {@code error} is not empty.
-   *
-   * @param errorText Error message to display, or null to clear
-   * @see #getError()
-   */
+  
   public void setError(@Nullable final CharSequence errorText) {
     if (!indicatorViewController.isErrorEnabled()) {
       if (TextUtils.isEmpty(errorText)) {
-        // If error isn't enabled, and the error is empty, just return
+        
         return;
       }
-      // Else, we'll assume that they want to enable the error functionality
+      
       setErrorEnabled(true);
     }
 
@@ -1773,44 +1340,24 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Set the drawable to use for the error icon.
-   *
-   * @param resId resource id of the drawable to set, or 0 to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconDrawable
-   */
+  
   public void setErrorIconDrawable(@DrawableRes int resId) {
     setErrorIconDrawable(resId != 0 ? AppCompatResources.getDrawable(getContext(), resId) : null);
   }
 
-  /**
-   * Set the drawable to use for the error icon.
-   *
-   * @param errorIconDrawable Drawable to set, may be null to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconDrawable
-   */
+  
   public void setErrorIconDrawable(@Nullable Drawable errorIconDrawable) {
     errorIconView.setImageDrawable(errorIconDrawable);
     setErrorIconVisible(errorIconDrawable != null && indicatorViewController.isErrorEnabled());
   }
 
-  /**
-   * Returns the drawable currently used for the error icon.
-   *
-   * @see #setErrorIconDrawable(Drawable)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconDrawable
-   */
+  
   @Nullable
   public Drawable getErrorIconDrawable() {
     return errorIconView.getDrawable();
   }
 
-  /**
-   * Applies a tint to the error icon drawable.
-   *
-   * @param errorIconTintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconTint
-   */
+  
   public void setErrorIconTintList(@Nullable ColorStateList errorIconTintList) {
     this.errorIconTintList = errorIconTintList;
     Drawable icon = errorIconView.getDrawable();
@@ -1824,13 +1371,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Specifies the blending mode used to apply tint to the end icon drawable. The default mode is
-   * {@link PorterDuff.Mode#SRC_IN}.
-   *
-   * @param errorIconTintMode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_errorIconTintMode
-   */
+  
   public void setErrorIconTintMode(@Nullable PorterDuff.Mode errorIconTintMode) {
     Drawable icon = errorIconView.getDrawable();
     if (icon != null) {
@@ -1843,11 +1384,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Whether the character counter functionality is enabled or not in this layout.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterEnabled
-   */
+  
   public void setCounterEnabled(boolean enabled) {
     if (counterEnabled != enabled) {
       if (enabled) {
@@ -1871,13 +1408,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Sets the text color and size for the character counter using the specified TextAppearance
-   * resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterTextAppearance
-   * @see #setCounterTextColor(ColorStateList)
-   */
+  
   public void setCounterTextAppearance(int counterTextAppearance) {
     if (this.counterTextAppearance != counterTextAppearance) {
       this.counterTextAppearance = counterTextAppearance;
@@ -1885,14 +1416,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Sets the text color for the character counter using a ColorStateList.
-   *
-   * <p>This text color takes precedence over a text color set in counterTextAppearance.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterTextColor
-   * @param counterTextColor text color used for the character counter
-   */
+  
   public void setCounterTextColor(@Nullable ColorStateList counterTextColor) {
     if (this.counterTextColor != counterTextColor) {
       this.counterTextColor = counterTextColor;
@@ -1900,25 +1424,13 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the text color used for the character counter, or null if one has not been set.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextColor
-   * @see #setCounterTextAppearance(int)
-   * @return the text color used for the character counter
-   */
+  
   @Nullable
   public ColorStateList getCounterTextColor() {
     return counterTextColor;
   }
 
-  /**
-   * Sets the text color and size for the overflowed character counter using the specified
-   * TextAppearance resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextAppearance
-   * @see #setCounterOverflowTextColor(ColorStateList)
-   */
+  
   public void setCounterOverflowTextAppearance(int counterOverflowTextAppearance) {
     if (this.counterOverflowTextAppearance != counterOverflowTextAppearance) {
       this.counterOverflowTextAppearance = counterOverflowTextAppearance;
@@ -1926,15 +1438,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Sets the text color for the overflowed character counter using a ColorStateList.
-   *
-   * <p>This text color takes precedence over a text color set in counterOverflowTextAppearance.
-   *
-   * @see #setCounterOverflowTextAppearance(int)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextColor
-   * @param counterOverflowTextColor the text color used for the overflowed character counter
-   */
+  
   public void setCounterOverflowTextColor(@Nullable ColorStateList counterOverflowTextColor) {
     if (this.counterOverflowTextColor != counterOverflowTextColor) {
       this.counterOverflowTextColor = counterOverflowTextColor;
@@ -1942,35 +1446,18 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the text color used for the overflowed character counter, or null if one has not been
-   * set.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterOverflowTextColor
-   * @see #setCounterOverflowTextAppearance(int)
-   * @return the text color used for the overflowed character counter
-   */
+  
   @Nullable
   public ColorStateList getCounterOverflowTextColor() {
     return counterTextColor;
   }
 
-  /**
-   * Returns whether the character counter functionality is enabled or not in this layout.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterEnabled
-   * @see #setCounterEnabled(boolean)
-   */
+  
   public boolean isCounterEnabled() {
     return counterEnabled;
   }
 
-  /**
-   * Sets the max length to display at the character counter.
-   *
-   * @param maxLength maxLength to display. Any value less than or equal to 0 will not be shown.
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterMaxLength
-   */
+  
   public void setCounterMaxLength(int maxLength) {
     if (counterMaxLength != maxLength) {
       if (maxLength > 0) {
@@ -2032,21 +1519,14 @@ public class TextInputLayout extends LinearLayout {
             counterMaxLength));
   }
 
-  /**
-   * Sets placeholder text that will be displayed in the input area when the hint is collapsed
-   * before text is entered. If the {@code placeholder} is {@code null}, any previous placeholder
-   * text will be hidden and no placeholder text will be shown.
-   *
-   * @param placeholderText Placeholder text to display
-   * @see #getPlaceholderText()
-   */
+  
   public void setPlaceholderText(@Nullable final CharSequence placeholderText) {
-    // If placeholder text is null, disable placeholder if it's enabled.
+    
     if (placeholderEnabled && TextUtils.isEmpty(placeholderText)) {
       setPlaceholderTextEnabled(false);
     } else {
       if (!placeholderEnabled) {
-        // Enable the placeholder if it isn't already.
+        
         setPlaceholderTextEnabled(true);
       }
       this.placeholderText = placeholderText;
@@ -2054,24 +1534,19 @@ public class TextInputLayout extends LinearLayout {
     updatePlaceholderText();
   }
 
-  /**
-   * Returns the placeholder text that was set to be displayed with {@link
-   * #setPlaceholderText(CharSequence)}, or <code>null</code> if there is no placeholder text.
-   *
-   * @see #setPlaceholderText(CharSequence)
-   */
+  
   @Nullable
   public CharSequence getPlaceholderText() {
     return placeholderEnabled ? placeholderText : null;
   }
 
   private void setPlaceholderTextEnabled(boolean placeholderEnabled) {
-    // If the enabled state is the same as before, do nothing.
+    
     if (this.placeholderEnabled == placeholderEnabled) {
       return;
     }
 
-    // Otherwise, adjust enabled state.
+    
     if (placeholderEnabled) {
       placeholderTextView = new AppCompatTextView(getContext());
       placeholderTextView.setId(R.id.textinput_placeholder);
@@ -2129,11 +1604,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Sets the text color used by the placeholder text in all states.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextColor
-   */
+  
   public void setPlaceholderTextColor(@Nullable ColorStateList placeholderTextColor) {
     if (this.placeholderTextColor != placeholderTextColor) {
       this.placeholderTextColor = placeholderTextColor;
@@ -2143,22 +1614,13 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the ColorStateList used for the placeholder text.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextColor
-   */
+  
   @Nullable
   public ColorStateList getPlaceholderTextColor() {
     return placeholderTextColor;
   }
 
-  /**
-   * Sets the text color and size for the placeholder text from the specified TextAppearance
-   * resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextAppearance
-   */
+  
   public void setPlaceholderTextAppearance(@StyleRes int placeholderTextAppearance) {
     this.placeholderTextAppearance = placeholderTextAppearance;
     if (placeholderTextView != null) {
@@ -2166,49 +1628,26 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the TextAppearance resource used for the placeholder text color.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_placeholderTextAppearance
-   */
+  
   @StyleRes
   public int getPlaceholderTextAppearance() {
     return placeholderTextAppearance;
   }
 
-  /**
-   * Sets prefix text that will be displayed in the input area when the hint is collapsed before
-   * text is entered. If the {@code prefix} is {@code null}, any previous prefix text will be hidden
-   * and no prefix text will be shown.
-   *
-   * @param prefixText Prefix text to display
-   * @see #getPrefixText()
-   */
+  
   public void setPrefixText(@Nullable final CharSequence prefixText) {
     this.prefixText = TextUtils.isEmpty(prefixText) ? null : prefixText;
     prefixTextView.setText(prefixText);
     updatePrefixTextVisibility();
   }
 
-  /**
-   * Returns the prefix text that was set to be displayed with {@link #setPrefixText(CharSequence)},
-   * or <code>null</code> if there is no prefix text.
-   *
-   * @see #setPrefixText(CharSequence)
-   */
+  
   @Nullable
   public CharSequence getPrefixText() {
     return prefixText;
   }
 
-  /**
-   * Returns the prefix text view.
-   *
-   * <p>Note: In order for the prefix to work correctly, text should always be set only via {@link
-   * #setPrefixText(CharSequence)}, instead of on the {@link TextView} directly.
-   *
-   * @see #setPrefixText(CharSequence)
-   */
+  
   @NonNull
   public TextView getPrefixTextView() {
     return prefixTextView;
@@ -2219,30 +1658,18 @@ public class TextInputLayout extends LinearLayout {
     updateDummyDrawables();
   }
 
-  /**
-   * Sets the text color used by the prefix text in all states.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_prefixTextColor
-   */
+  
   public void setPrefixTextColor(@NonNull ColorStateList prefixTextColor) {
     prefixTextView.setTextColor(prefixTextColor);
   }
 
-  /**
-   * Returns the ColorStateList used for the prefix text.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_prefixTextColor
-   */
+  
   @Nullable
   public ColorStateList getPrefixTextColor() {
     return prefixTextView.getTextColors();
   }
 
-  /**
-   * Sets the text color and size for the prefix text from the specified TextAppearance resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_prefixTextAppearance
-   */
+  
   public void setPrefixTextAppearance(@StyleRes int prefixTextAppearance) {
     TextViewCompat.setTextAppearance(prefixTextView, prefixTextAppearance);
   }
@@ -2260,39 +1687,20 @@ public class TextInputLayout extends LinearLayout {
         editText.getCompoundPaddingBottom());
   }
 
-  /**
-   * Sets suffix text that will be displayed in the input area when the hint is collapsed before
-   * text is entered. If the {@code suffix} is {@code null}, any previous suffix text will be hidden
-   * and no suffix text will be shown.
-   *
-   * @param suffixText Suffix text to display
-   * @see #getSuffixText()
-   */
+  
   public void setSuffixText(@Nullable final CharSequence suffixText) {
     this.suffixText = TextUtils.isEmpty(suffixText) ? null : suffixText;
     suffixTextView.setText(suffixText);
     updateSuffixTextVisibility();
   }
 
-  /**
-   * Returns the suffix text that was set to be displayed with {@link #setSuffixText(CharSequence)},
-   * or <code>null</code> if there is no suffix text.
-   *
-   * @see #setSuffixText(CharSequence)
-   */
+  
   @Nullable
   public CharSequence getSuffixText() {
     return suffixText;
   }
 
-  /**
-   * Returns the suffix text view.
-   *
-   * <p>Note: In order for the suffix to work correctly, text should always be set only via {@link
-   * #setSuffixText(CharSequence)}, instead of on the {@link TextView} directly.
-   *
-   * @see #setSuffixText(CharSequence)
-   */
+  
   @NonNull
   public TextView getSuffixTextView() {
     return suffixTextView;
@@ -2308,30 +1716,18 @@ public class TextInputLayout extends LinearLayout {
     updateDummyDrawables();
   }
 
-  /**
-   * Sets the text color used by the suffix text in all states.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_suffixTextColor
-   */
+  
   public void setSuffixTextColor(@NonNull ColorStateList suffixTextColor) {
     suffixTextView.setTextColor(suffixTextColor);
   }
 
-  /**
-   * Returns the ColorStateList used for the suffix text.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_suffixTextColor
-   */
+  
   @Nullable
   public ColorStateList getSuffixTextColor() {
     return suffixTextView.getTextColors();
   }
 
-  /**
-   * Sets the text color and size for the suffix text from the specified TextAppearance resource.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_suffixTextAppearance
-   */
+  
   public void setSuffixTextAppearance(@StyleRes int suffixTextAppearance) {
     TextViewCompat.setTextAppearance(suffixTextView, suffixTextAppearance);
   }
@@ -2348,9 +1744,9 @@ public class TextInputLayout extends LinearLayout {
 
   @Override
   public void setEnabled(boolean enabled) {
-    // Since we're set to addStatesFromChildren, we need to make sure that we set all
-    // children to enabled/disabled otherwise any enabled children will wipe out our disabled
-    // drawable state
+    
+    
+    
     recursiveSetEnabled(this, enabled);
     super.setEnabled(enabled);
   }
@@ -2365,19 +1761,12 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the max length shown at the character counter.
-   *
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_counterMaxLength
-   */
+  
   public int getCounterMaxLength() {
     return counterMaxLength;
   }
 
-  /**
-   * Returns the {@code contentDescription} for accessibility purposes of the counter view, or
-   * {@code null} if the counter is not enabled, not overflowed, or has no description.
-   */
+  
   @Nullable
   CharSequence getCounterOverflowDescription() {
     if (counterEnabled && counterOverflowed && (counterView != null)) {
@@ -2407,19 +1796,19 @@ public class TextInputLayout extends LinearLayout {
 
       if (VERSION.SDK_INT >= VERSION_CODES.M
           && textView.getTextColors().getDefaultColor() == Color.MAGENTA) {
-        // Caused by our theme not extending from Theme.Design*. On API 23 and
-        // above, unresolved theme attrs result in MAGENTA rather than an exception.
-        // Flag so that we use a decent default
+        
+        
+        
         useDefaultColor = true;
       }
     } catch (Exception e) {
-      // Caused by our theme not extending from Theme.Design*. Flag so that we use
-      // a decent default
+      
+      
       useDefaultColor = true;
     }
     if (useDefaultColor) {
-      // Probably caused by our theme not extending from Theme.Design*. Instead
-      // we manually set something appropriate
+      
+      
       TextViewCompat.setTextAppearance(textView, R.style.TextAppearance_AppCompat_Caption);
       textView.setTextColor(ContextCompat.getColor(getContext(), R.color.design_error));
     }
@@ -2473,7 +1862,7 @@ public class TextInputLayout extends LinearLayout {
   private int getLabelLeftBoundAlightWithPrefix(int rectLeft, boolean isRtl) {
     int left = rectLeft + editText.getCompoundPaddingLeft();
     if (prefixText != null && !isRtl) {
-      // Label should be vertically aligned with prefix
+      
       left = left - prefixTextView.getMeasuredWidth() + prefixTextView.getPaddingLeft();
     }
     return left;
@@ -2482,7 +1871,7 @@ public class TextInputLayout extends LinearLayout {
   private int getLabelRightBoundAlignedWithSuffix(int rectRight, boolean isRtl) {
     int right = rectRight - editText.getCompoundPaddingRight();
     if (prefixText != null && isRtl) {
-      // Label should be vertically aligned with prefix if in RTL
+      
       right += prefixTextView.getMeasuredWidth() - prefixTextView.getPaddingRight();
     }
     return right;
@@ -2516,9 +1905,9 @@ public class TextInputLayout extends LinearLayout {
   private int calculateExpandedLabelBottom(
       @NonNull Rect rect, @NonNull Rect bounds, float labelHeight) {
     if (isSingleLineFilledTextField()) {
-      // Add the label's height to the top of the bounds rather than calculating from the vertical
-      // center for both the top and bottom of the label. This prevents a potential fractional loss
-      // of label height caused by the float to int conversion.
+      
+      
+      
       return (int) (bounds.top + labelHeight);
     }
     return rect.bottom - editText.getCompoundPaddingBottom();
@@ -2529,12 +1918,7 @@ public class TextInputLayout extends LinearLayout {
         && (VERSION.SDK_INT < 16 || editText.getMinLines() <= 1);
   }
 
-  /*
-   * Calculates the box background color that should be set.
-   *
-   * The filled text field has a surface layer with value {@code ?attr/colorSurface} underneath its
-   * background that is taken into account when calculating the background color.
-   */
+  
   private int calculateBoxBackgroundColor() {
     int backgroundColor = boxBackgroundColor;
     if (boxBackgroundMode == BOX_BACKGROUND_FILLED) {
@@ -2558,7 +1942,7 @@ public class TextInputLayout extends LinearLayout {
     boxBackgroundColor = calculateBoxBackgroundColor();
     boxBackground.setFillColor(ColorStateList.valueOf(boxBackgroundColor));
     if (endIconMode == END_ICON_DROPDOWN_MENU) {
-      // Makes sure the exposed dropdown menu gets updated properly.
+      
       editText.getBackground().invalidateSelf();
     }
     applyBoxUnderlineAttributes();
@@ -2566,7 +1950,7 @@ public class TextInputLayout extends LinearLayout {
   }
 
   private void applyBoxUnderlineAttributes() {
-    // Exit if the underline is not being drawn by TextInputLayout.
+    
     if (boxUnderline == null) {
       return;
     }
@@ -2586,8 +1970,8 @@ public class TextInputLayout extends LinearLayout {
   }
 
   void updateEditTextBackground() {
-    // Only update the color filter for the legacy text field, since we can directly change the
-    // Paint colors of the MaterialShapeDrawable box background without having to use color filters.
+    
+    
     if (editText == null || boxBackgroundMode != BOX_BACKGROUND_NONE) {
       return;
     }
@@ -2602,18 +1986,18 @@ public class TextInputLayout extends LinearLayout {
     }
 
     if (indicatorViewController.errorShouldBeShown()) {
-      // Set a color filter for the error color
+      
       editTextBackground.setColorFilter(
           AppCompatDrawableManager.getPorterDuffColorFilter(
               indicatorViewController.getErrorViewCurrentTextColor(), PorterDuff.Mode.SRC_IN));
     } else if (counterOverflowed && counterView != null) {
-      // Set a color filter of the counter color
+      
       editTextBackground.setColorFilter(
           AppCompatDrawableManager.getPorterDuffColorFilter(
               counterView.getCurrentTextColor(), PorterDuff.Mode.SRC_IN));
     } else {
-      // Else reset the color filter and refresh the drawable state so that the
-      // normal tint is used
+      
+      
       DrawableCompat.clearColorFilter(editTextBackground);
       editText.refreshDrawableState();
     }
@@ -2694,13 +2078,13 @@ public class TextInputLayout extends LinearLayout {
     super.onRestoreInstanceState(ss.getSuperState());
     setError(ss.error);
     if (ss.isEndIconChecked) {
-      // Make sure the end icon is not clicked before the application is visible.
+      
       endIconView.post(
           new Runnable() {
             @Override
             public void run() {
               endIconView.performClick();
-              // Skip animation
+              
               endIconView.jumpDrawablesToCurrentState();
             }
           });
@@ -2715,24 +2099,13 @@ public class TextInputLayout extends LinearLayout {
     restoringSavedState = false;
   }
 
-  /**
-   * Returns the error message that was set to be displayed with {@link #setError(CharSequence)}, or
-   * <code>null</code> if no error was set or if error displaying is not enabled.
-   *
-   * @see #setError(CharSequence)
-   */
+  
   @Nullable
   public CharSequence getError() {
     return indicatorViewController.isErrorEnabled() ? indicatorViewController.getErrorText() : null;
   }
 
-  /**
-   * Returns the helper message that was set to be displayed with {@link
-   * #setHelperText(CharSequence)}, or <code>null</code> if no helper text was set or if helper text
-   * functionality is not enabled.
-   *
-   * @see #setHelperText(CharSequence)
-   */
+  
   @Nullable
   public CharSequence getHelperText() {
     return indicatorViewController.isHelperTextEnabled()
@@ -2740,22 +2113,12 @@ public class TextInputLayout extends LinearLayout {
         : null;
   }
 
-  /**
-   * Returns whether any hint state changes, due to being focused or non-empty text, are animated.
-   *
-   * @see #setHintAnimationEnabled(boolean)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintAnimationEnabled
-   */
+  
   public boolean isHintAnimationEnabled() {
     return hintAnimationEnabled;
   }
 
-  /**
-   * Set whether any hint state changes, due to being focused or non-empty text, are animated.
-   *
-   * @see #isHintAnimationEnabled()
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_hintAnimationEnabled
-   */
+  
   public void setHintAnimationEnabled(boolean enabled) {
     hintAnimationEnabled = enabled;
   }
@@ -2785,9 +2148,9 @@ public class TextInputLayout extends LinearLayout {
       return false;
     }
 
-    // We need to make sure that the EditText's height is at least the same as the end or start
-    // icon's height (whichever is bigger). This ensures focus works properly, and there is no
-    // visual jump if the icon is enabled/disabled.
+    
+    
+    
     int maxIconHeight = Math.max(endLayout.getMeasuredHeight(), startLayout.getMeasuredHeight());
     if (editText.getMeasuredHeight() < maxIconHeight) {
       editText.setMinimumHeight(maxIconHeight);
@@ -2799,7 +2162,7 @@ public class TextInputLayout extends LinearLayout {
 
   private void updatePlaceholderMeasurementsBasedOnEditText() {
     if (placeholderTextView != null && editText != null) {
-      // Use the EditText's positioning for the placeholder.
+      
       final int editTextGravity = this.editText.getGravity();
       placeholderTextView.setGravity(editTextGravity);
 
@@ -2811,28 +2174,12 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Sets the start icon.
-   *
-   * <p>If you use an icon you should also set a description for its action using {@link
-   * #setStartIconContentDescription(CharSequence)}. This is used for accessibility.
-   *
-   * @param resId resource id of the drawable to set, or 0 to clear and remove the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconDrawable
-   */
+  
   public void setStartIconDrawable(@DrawableRes int resId) {
     setStartIconDrawable(resId != 0 ? AppCompatResources.getDrawable(getContext(), resId) : null);
   }
 
-  /**
-   * Sets the start icon.
-   *
-   * <p>If you use an icon you should also set a description for its action using {@link
-   * #setStartIconContentDescription(CharSequence)}. This is used for accessibility.
-   *
-   * @param startIconDrawable Drawable to set, may be null to clear and remove the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconDrawable
-   */
+  
   public void setStartIconDrawable(@Nullable Drawable startIconDrawable) {
     startIconView.setImageDrawable(startIconDrawable);
     if (startIconDrawable != null) {
@@ -2846,47 +2193,25 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns the start icon.
-   *
-   * @see #setStartIconDrawable(Drawable)
-   * @return the drawable used for the start icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconDrawable
-   */
+  
   @Nullable
   public Drawable getStartIconDrawable() {
     return startIconView.getDrawable();
   }
 
-  /**
-   * Sets the start icon's functionality that is performed when the start icon is clicked. The icon
-   * will not be clickable if its click and long click listeners are null.
-   *
-   * @param startIconOnClickListener the {@link android.view.View.OnClickListener} the start icon
-   *     view will have, or null to clear it.
-   */
+  
   public void setStartIconOnClickListener(@Nullable OnClickListener startIconOnClickListener) {
     setIconOnClickListener(startIconView, startIconOnClickListener, startIconOnLongClickListener);
   }
 
-  /**
-   * Sets the start icon's functionality that is performed when the start icon is long clicked. The
-   * icon will not be clickable if its click and long click listeners are null.
-   *
-   * @param startIconOnLongClickListener the {@link android.view.View.OnLongClickListener} the start
-   *     icon view will have, or null to clear it.
-   */
+  
   public void setStartIconOnLongClickListener(
       @Nullable OnLongClickListener startIconOnLongClickListener) {
     this.startIconOnLongClickListener = startIconOnLongClickListener;
     setIconOnLongClickListener(startIconView, startIconOnLongClickListener);
   }
 
-  /**
-   * Sets the start icon to be VISIBLE or GONE.
-   *
-   * @param visible whether the icon should be set to visible
-   */
+  
   public void setStartIconVisible(boolean visible) {
     if (isStartIconVisible() != visible) {
       startIconView.setVisibility(visible ? View.VISIBLE : View.GONE);
@@ -2895,89 +2220,40 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns whether the current start icon is visible.
-   *
-   * @see #setStartIconVisible(boolean)
-   */
+  
   public boolean isStartIconVisible() {
     return startIconView.getVisibility() == View.VISIBLE;
   }
 
-  /**
-   * Sets the current start icon to be checkable or not.
-   *
-   * <p>If the icon works just as a button and the fact that it's checked or not doesn't affect its
-   * behavior, such as the clear text end icon, calling this method is encouraged so that screen
-   * readers will not announce the icon's checked state.
-   *
-   * @param startIconCheckable whether the icon should be checkable
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconCheckable
-   */
+  
   public void setStartIconCheckable(boolean startIconCheckable) {
     startIconView.setCheckable(startIconCheckable);
   }
 
-  /**
-   * Returns whether the start icon is checkable.
-   *
-   * @see #setStartIconCheckable(boolean)
-   */
+  
   public boolean isStartIconCheckable() {
     return startIconView.isCheckable();
   }
 
-  /**
-   * Set a content description for the start icon.
-   *
-   * <p>The content description will be read via screen readers or other accessibility systems to
-   * explain the purpose or action of the icon.
-   *
-   * @param resId Resource ID of a content description string to set, or 0 to clear the description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconContentDescription
-   */
+  
   public void setStartIconContentDescription(@StringRes int resId) {
     setStartIconContentDescription(resId != 0 ? getResources().getText(resId) : null);
   }
 
-  /**
-   * Set a content description for the start icon.
-   *
-   * <p>The content description will be read via screen readers or other accessibility systems to
-   * explain the purpose or action of the icon.
-   *
-   * @param startIconContentDescription Content description to set, or null to clear the content
-   *     description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconContentDescription
-   */
+  
   public void setStartIconContentDescription(@Nullable CharSequence startIconContentDescription) {
     if (getStartIconContentDescription() != startIconContentDescription) {
       startIconView.setContentDescription(startIconContentDescription);
     }
   }
 
-  /**
-   * Returns the currently configured content description for the start icon.
-   *
-   * <p>This will be used to describe the navigation action to users through mechanisms such as
-   * screen readers.
-   */
+  
   @Nullable
   public CharSequence getStartIconContentDescription() {
     return startIconView.getContentDescription();
   }
 
-  /**
-   * Applies a tint to the start icon drawable. Does not modify the current tint mode, which is
-   * {@link PorterDuff.Mode#SRC_IN} by default.
-   *
-   * <p>Subsequent calls to {@link #setStartIconDrawable(Drawable)} will automatically mutate the
-   * drawable and apply the specified tint and tint mode using {@link
-   * DrawableCompat#setTintList(Drawable, ColorStateList)}.
-   *
-   * @param startIconTintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconTint
-   */
+  
   public void setStartIconTintList(@Nullable ColorStateList startIconTintList) {
     if (this.startIconTintList != startIconTintList) {
       this.startIconTintList = startIconTintList;
@@ -2986,14 +2262,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Specifies the blending mode used to apply the tint specified by {@link
-   * #setEndIconTintList(ColorStateList)} to the start icon drawable. The default mode is {@link
-   * PorterDuff.Mode#SRC_IN}.
-   *
-   * @param startIconTintMode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_startIconTintMode
-   */
+  
   public void setStartIconTintMode(@Nullable PorterDuff.Mode startIconTintMode) {
     if (this.startIconTintMode != startIconTintMode) {
       this.startIconTintMode = startIconTintMode;
@@ -3002,15 +2271,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Set up the end icon mode. When set, a button is placed at the end of the EditText which enables
-   * the user to perform the specific icon's functionality.
-   *
-   * @param endIconMode the end icon mode to be set: {@link #END_ICON_PASSWORD_TOGGLE}, {@link
-   *     #END_ICON_CLEAR_TEXT}, or {@link #END_ICON_CUSTOM}; or {@link #END_ICON_NONE} to clear the
-   *     current icon if any
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconMode
-   */
+  
   public void setEndIconMode(@EndIconMode int endIconMode) {
     int previousEndIconMode = this.endIconMode;
     this.endIconMode = endIconMode;
@@ -3028,71 +2289,37 @@ public class TextInputLayout extends LinearLayout {
     applyEndIconTint();
   }
 
-  /**
-   * Returns the current end icon mode.
-   *
-   * @return the end icon mode enum
-   * @see #setEndIconMode(int)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconMode
-   */
+  
   @EndIconMode
   public int getEndIconMode() {
     return endIconMode;
   }
 
-  /**
-   * Sets the end icon's functionality that is performed when the icon is clicked. The icon will not
-   * be clickable if its click and long click listeners are null.
-   *
-   * @param endIconOnClickListener the {@link android.view.View.OnClickListener} the end icon view
-   *     will have
-   */
+  
   public void setEndIconOnClickListener(@Nullable OnClickListener endIconOnClickListener) {
     setIconOnClickListener(endIconView, endIconOnClickListener, endIconOnLongClickListener);
   }
 
-  /**
-   * Sets the error icon's functionality that is performed when the icon is clicked. The icon will
-   * not be clickable if its click and long click listeners are null.
-   *
-   * @param errorIconOnClickListener the {@link android.view.View.OnClickListener} the error icon
-   *     view will have
-   */
+  
   public void setErrorIconOnClickListener(@Nullable OnClickListener errorIconOnClickListener) {
     setIconOnClickListener(errorIconView, errorIconOnClickListener, errorIconOnLongClickListener);
   }
 
-  /**
-   * Sets the end icon's functionality that is performed when the end icon is long clicked. The icon
-   * will not be clickable if its click and long click listeners are null.
-   *
-   * @param endIconOnLongClickListener the {@link android.view.View.OnLongClickListener} the end
-   *     icon view will have, or null to clear it.
-   */
+  
   public void setEndIconOnLongClickListener(
       @Nullable OnLongClickListener endIconOnLongClickListener) {
     this.endIconOnLongClickListener = endIconOnLongClickListener;
     setIconOnLongClickListener(endIconView, endIconOnLongClickListener);
   }
 
-  /**
-   * Sets the error icon's functionality that is performed when the end icon is long clicked. The
-   * icon will not be clickable if its click and long click listeners are null.
-   *
-   * @param errorIconOnLongClickListener the {@link android.view.View.OnLongClickListener} the error
-   *     icon view will have, or null to clear it.
-   */
+  
   public void setErrorIconOnLongClickListener(
       @Nullable OnLongClickListener errorIconOnLongClickListener) {
     this.errorIconOnLongClickListener = errorIconOnLongClickListener;
     setIconOnLongClickListener(errorIconView, errorIconOnLongClickListener);
   }
 
-  /**
-   * Sets the current end icon to be VISIBLE or GONE.
-   *
-   * @param visible whether the icon should be set to visible
-   */
+  
   public void setEndIconVisible(boolean visible) {
     if (isEndIconVisible() != visible) {
       endIconView.setVisibility(visible ? View.VISIBLE : View.GONE);
@@ -3101,135 +2328,61 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Returns whether the current end icon is visible.
-   *
-   * @see #setEndIconVisible(boolean)
-   */
+  
   public boolean isEndIconVisible() {
     return endIconFrame.getVisibility() == VISIBLE && endIconView.getVisibility() == VISIBLE;
   }
 
-  /**
-   * Sets the current end icon's state to be activated or not.
-   *
-   * @param endIconActivated whether the icon should be activated
-   */
+  
   public void setEndIconActivated(boolean endIconActivated) {
     endIconView.setActivated(endIconActivated);
   }
 
-  /**
-   * Sets the current end icon to be checkable or not.
-   *
-   * <p>If the icon works just as a button and the fact that it's checked or not doesn't affect its
-   * behavior, such as the clear text end icon, calling this method is encouraged so that screen
-   * readers will not announce the icon's checked state.
-   *
-   * @param endIconCheckable whether the icon should be checkable
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconCheckable
-   */
+  
   public void setEndIconCheckable(boolean endIconCheckable) {
     endIconView.setCheckable(endIconCheckable);
   }
 
-  /**
-   * Returns whether the end icon is checkable.
-   *
-   * @see #setEndIconCheckable(boolean)
-   */
+  
   public boolean isEndIconCheckable() {
     return endIconView.isCheckable();
   }
 
-  /**
-   * Set the icon to use for the end icon.
-   *
-   * <p>If you use an icon you should also set a description for its action using {@link
-   * #setEndIconContentDescription(CharSequence)}. This is used for accessibility.
-   *
-   * @param resId resource id of the drawable to set, or 0 to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconDrawable
-   */
+  
   public void setEndIconDrawable(@DrawableRes int resId) {
     setEndIconDrawable(resId != 0 ? AppCompatResources.getDrawable(getContext(), resId) : null);
   }
 
-  /**
-   * Set the icon to use for the end icon.
-   *
-   * <p>If you use an icon you should also set a description for its action using {@link
-   * #setEndIconContentDescription(CharSequence)}. This is used for accessibility.
-   *
-   * @param endIconDrawable Drawable to set, may be null to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconDrawable
-   */
+  
   public void setEndIconDrawable(@Nullable Drawable endIconDrawable) {
     endIconView.setImageDrawable(endIconDrawable);
   }
 
-  /**
-   * Returns the drawable currently used for the end icon.
-   *
-   * @see #setEndIconDrawable(Drawable)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconDrawable
-   */
+  
   @Nullable
   public Drawable getEndIconDrawable() {
     return endIconView.getDrawable();
   }
 
-  /**
-   * Set a content description for the end icon.
-   *
-   * <p>The content description will be read via screen readers or other accessibility systems to
-   * explain the action of the icon.
-   *
-   * @param resId Resource ID of a content description string to set, or 0 to clear the description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconContentDescription
-   */
+  
   public void setEndIconContentDescription(@StringRes int resId) {
     setEndIconContentDescription(resId != 0 ? getResources().getText(resId) : null);
   }
 
-  /**
-   * Set a content description for the end icon.
-   *
-   * <p>The content description will be read via screen readers or other accessibility systems to
-   * explain the action of the icon.
-   *
-   * @param endIconContentDescription Content description to set, or null to clear the content
-   *     description
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconContentDescription
-   */
+  
   public void setEndIconContentDescription(@Nullable CharSequence endIconContentDescription) {
     if (getEndIconContentDescription() != endIconContentDescription) {
       endIconView.setContentDescription(endIconContentDescription);
     }
   }
 
-  /**
-   * Returns the currently configured content description for the end icon.
-   *
-   * <p>This will be used to describe the navigation action to users through mechanisms such as
-   * screen readers.
-   */
+  
   @Nullable
   public CharSequence getEndIconContentDescription() {
     return endIconView.getContentDescription();
   }
 
-  /**
-   * Applies a tint to the end icon drawable. Does not modify the current tint mode, which is {@link
-   * PorterDuff.Mode#SRC_IN} by default.
-   *
-   * <p>Subsequent calls to {@link #setEndIconDrawable(Drawable)} will automatically mutate the
-   * drawable and apply the specified tint and tint mode using {@link
-   * DrawableCompat#setTintList(Drawable, ColorStateList)}.
-   *
-   * @param endIconTintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconTint
-   */
+  
   public void setEndIconTintList(@Nullable ColorStateList endIconTintList) {
     if (this.endIconTintList != endIconTintList) {
       this.endIconTintList = endIconTintList;
@@ -3238,14 +2391,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Specifies the blending mode used to apply the tint specified by {@link
-   * #setEndIconTintList(ColorStateList)} to the end icon drawable. The default mode is {@link
-   * PorterDuff.Mode#SRC_IN}.
-   *
-   * @param endIconTintMode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_endIconTintMode
-   */
+  
   public void setEndIconTintMode(@Nullable PorterDuff.Mode endIconTintMode) {
     if (this.endIconTintMode != endIconTintMode) {
       this.endIconTintMode = endIconTintMode;
@@ -3254,43 +2400,22 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Add a {@link TextInputLayout.OnEndIconChangedListener} that will be invoked when the end icon
-   * gets changed.
-   *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
-   * #removeOnEndIconChangedListener(OnEndIconChangedListener)}.
-   *
-   * @param listener listener to add
-   */
+  
   public void addOnEndIconChangedListener(@NonNull OnEndIconChangedListener listener) {
     endIconChangedListeners.add(listener);
   }
 
-  /**
-   * Remove the given {@link TextInputLayout.OnEndIconChangedListener} that was previously added via
-   * {@link #addOnEndIconChangedListener(OnEndIconChangedListener)}.
-   *
-   * @param listener listener to remove
-   */
+  
   public void removeOnEndIconChangedListener(@NonNull OnEndIconChangedListener listener) {
     endIconChangedListeners.remove(listener);
   }
 
-  /** Remove all previously added {@link TextInputLayout.OnEndIconChangedListener}s. */
+  
   public void clearOnEndIconChangedListeners() {
     endIconChangedListeners.clear();
   }
 
-  /**
-   * Add a {@link OnEditTextAttachedListener} that will be invoked when the edit text is attached,
-   * or from this method if the EditText is already present.
-   *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
-   * #removeOnEditTextAttachedListener(OnEditTextAttachedListener)}.
-   *
-   * @param listener listener to add
-   */
+  
   public void addOnEditTextAttachedListener(@NonNull OnEditTextAttachedListener listener) {
     editTextAttachedListeners.add(listener);
     if (editText != null) {
@@ -3298,156 +2423,75 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Remove the given {@link OnEditTextAttachedListener} that was previously added via {@link
-   * #addOnEditTextAttachedListener(OnEditTextAttachedListener)}.
-   *
-   * @param listener listener to remove
-   */
+  
   public void removeOnEditTextAttachedListener(@NonNull OnEditTextAttachedListener listener) {
     editTextAttachedListeners.remove(listener);
   }
 
-  /** Remove all previously added {@link OnEditTextAttachedListener}s. */
+  
   public void clearOnEditTextAttachedListeners() {
     editTextAttachedListeners.clear();
   }
 
-  /**
-   * Set the icon to use for the password visibility toggle button.
-   *
-   * <p>If you use an icon you should also set a description for its action using {@link
-   * #setPasswordVisibilityToggleContentDescription(CharSequence)}. This is used for accessibility.
-   *
-   * @param resId resource id of the drawable to set, or 0 to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleDrawable
-   * @deprecated Use {@link #setEndIconDrawable(int)} instead.
-   */
+  
   @Deprecated
   public void setPasswordVisibilityToggleDrawable(@DrawableRes int resId) {
     setPasswordVisibilityToggleDrawable(
         resId != 0 ? AppCompatResources.getDrawable(getContext(), resId) : null);
   }
 
-  /**
-   * Set the icon to use for the password visibility toggle button.
-   *
-   * <p>If you use an icon you should also set a description for its action using {@link
-   * #setPasswordVisibilityToggleContentDescription(CharSequence)}. This is used for accessibility.
-   *
-   * @param icon Drawable to set, may be null to clear the icon
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleDrawable
-   * @deprecated Use {@link #setEndIconDrawable(Drawable)} instead.
-   */
+  
   @Deprecated
   public void setPasswordVisibilityToggleDrawable(@Nullable Drawable icon) {
     endIconView.setImageDrawable(icon);
   }
 
-  /**
-   * Set a content description for the navigation button if one is present.
-   *
-   * <p>The content description will be read via screen readers or other accessibility systems to
-   * explain the action of the password visibility toggle.
-   *
-   * @param resId Resource ID of a content description string to set, or 0 to clear the description
-   * @attr ref
-   *     com.google.android.material.R.styleable#TextInputLayout_passwordToggleContentDescription
-   * @deprecated Use {@link #setEndIconContentDescription(int)} instead.
-   */
+  
   @Deprecated
   public void setPasswordVisibilityToggleContentDescription(@StringRes int resId) {
     setPasswordVisibilityToggleContentDescription(
         resId != 0 ? getResources().getText(resId) : null);
   }
 
-  /**
-   * Set a content description for the navigation button if one is present.
-   *
-   * <p>The content description will be read via screen readers or other accessibility systems to
-   * explain the action of the password visibility toggle.
-   *
-   * @param description Content description to set, or null to clear the content description
-   * @attr ref
-   *     com.google.android.material.R.styleable#TextInputLayout_passwordToggleContentDescription
-   * @deprecated Use {@link #setEndIconContentDescription(CharSequence)} instead.
-   */
+  
   @Deprecated
   public void setPasswordVisibilityToggleContentDescription(@Nullable CharSequence description) {
     endIconView.setContentDescription(description);
   }
 
-  /**
-   * Returns the icon currently used for the password visibility toggle button.
-   *
-   * @see #setPasswordVisibilityToggleDrawable(Drawable)
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleDrawable
-   * @deprecated Use {@link #getEndIconDrawable()} instead.
-   */
+  
   @Nullable
   @Deprecated
   public Drawable getPasswordVisibilityToggleDrawable() {
     return endIconView.getDrawable();
   }
 
-  /**
-   * Returns the currently configured content description for the password visibility toggle button.
-   *
-   * <p>This will be used to describe the navigation action to users through mechanisms such as
-   * screen readers.
-   *
-   * @deprecated Use {@link #getEndIconContentDescription()} instead.
-   */
+  
   @Nullable
   @Deprecated
   public CharSequence getPasswordVisibilityToggleContentDescription() {
     return endIconView.getContentDescription();
   }
 
-  /**
-   * Returns whether the password visibility toggle functionality is currently enabled.
-   *
-   * @see #setPasswordVisibilityToggleEnabled(boolean)
-   * @deprecated Use {@link #getEndIconMode()} instead.
-   */
+  
   @Deprecated
   public boolean isPasswordVisibilityToggleEnabled() {
     return endIconMode == END_ICON_PASSWORD_TOGGLE;
   }
 
-  /**
-   * Enables or disable the password visibility toggle functionality.
-   *
-   * <p>When enabled, a button is placed at the end of the EditText which enables the user to switch
-   * between the field's input being visibly disguised or not.
-   *
-   * @param enabled true to enable the functionality
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleEnabled
-   * @deprecated Use {@link #setEndIconMode(int)} instead.
-   */
+  
   @Deprecated
   public void setPasswordVisibilityToggleEnabled(final boolean enabled) {
     if (enabled && endIconMode != END_ICON_PASSWORD_TOGGLE) {
-      // Set password toggle end icon if it's not already set
+      
       setEndIconMode(END_ICON_PASSWORD_TOGGLE);
     } else if (!enabled) {
-      // Set end icon to null
+      
       setEndIconMode(END_ICON_NONE);
     }
   }
 
-  /**
-   * Applies a tint to the password visibility toggle drawable. Does not modify the current tint
-   * mode, which is {@link PorterDuff.Mode#SRC_IN} by default.
-   *
-   * <p>Subsequent calls to {@link #setPasswordVisibilityToggleDrawable(Drawable)} will
-   * automatically mutate the drawable and apply the specified tint and tint mode using {@link
-   * DrawableCompat#setTintList(Drawable, ColorStateList)}.
-   *
-   * @param tintList the tint to apply, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleTint
-   * @deprecated Use {@link #setEndIconTintList(ColorStateList)} instead.
-   */
+  
   @Deprecated
   public void setPasswordVisibilityToggleTintList(@Nullable ColorStateList tintList) {
     endIconTintList = tintList;
@@ -3455,15 +2499,7 @@ public class TextInputLayout extends LinearLayout {
     applyEndIconTint();
   }
 
-  /**
-   * Specifies the blending mode used to apply the tint specified by {@link
-   * #setPasswordVisibilityToggleTintList(ColorStateList)} to the password visibility toggle
-   * drawable. The default mode is {@link PorterDuff.Mode#SRC_IN}.
-   *
-   * @param mode the blending mode used to apply the tint, may be null to clear tint
-   * @attr ref com.google.android.material.R.styleable#TextInputLayout_passwordToggleTintMode
-   * @deprecated Use {@link #setEndIconTintMode(PorterDuff.Mode)} instead.
-   */
+  
   @Deprecated
   public void setPasswordVisibilityToggleTintMode(@Nullable PorterDuff.Mode mode) {
     endIconTintMode = mode;
@@ -3471,17 +2507,7 @@ public class TextInputLayout extends LinearLayout {
     applyEndIconTint();
   }
 
-  /**
-   * Handles visibility for a password toggle icon when changing obfuscation in a password edit
-   * text. Public so that clients can override this method for custom UI changes when toggling the
-   * display of password text
-   *
-   * @param shouldSkipAnimations true if the password toggle indicator icon should not animate
-   *     changes
-   * @deprecated The password toggle will show as checked or unchecked depending on whether the
-   *     {@link EditText}'s {@link android.text.method.TransformationMethod} is of type {@link
-   *     android.text.method.PasswordTransformationMethod}
-   */
+  
   @Deprecated
   public void passwordVisibilityToggleRequested(boolean shouldSkipAnimations) {
     if (endIconMode == END_ICON_PASSWORD_TOGGLE) {
@@ -3492,13 +2518,7 @@ public class TextInputLayout extends LinearLayout {
     }
   }
 
-  /**
-   * Sets an {@link TextInputLayout.AccessibilityDelegate} providing an accessibility implementation
-   * for the {@link EditText} used by this layout.
-   *
-   * <p>Note: This method should be used in place of providing an {@link AccessibilityDelegate}
-   * directly on the {@link EditText}.
-   */
+  
   public void setTextInputAccessibilityDelegate(
       @Nullable TextInputLayout.AccessibilityDelegate delegate) {
     if (editText != null) {
@@ -3543,8 +2563,8 @@ public class TextInputLayout extends LinearLayout {
 
   private void tintEndIconOnError(boolean tintEndIconOnError) {
     if (tintEndIconOnError && getEndIconDrawable() != null) {
-      // Setting the tint here instead of calling setEndIconTintList() in order to preserve and
-      // restore the icon's original tint.
+      
+      
       Drawable endIconDrawable = DrawableCompat.wrap(getEndIconDrawable()).mutate();
       DrawableCompat.setTint(
           endIconDrawable, indicatorViewController.getErrorViewCurrentTextColor());
@@ -3559,17 +2579,14 @@ public class TextInputLayout extends LinearLayout {
         endIconView, hasEndIconTintList, endIconTintList, hasEndIconTintMode, endIconTintMode);
   }
 
-  /*
-   * We need to add a dummy drawable as the start and/or end compound drawables so that the text is
-   * indented and doesn't display below the icon or suffix/prefix views.
-   */
+  
   private boolean updateDummyDrawables() {
     if (editText == null) {
       return false;
     }
 
     boolean updatedIcon = false;
-    // Update start dummy drawable if needed.
+    
     if (shouldUpdateStartDummyDrawable()) {
       int right = startLayout.getMeasuredWidth() - editText.getPaddingLeft();
       if (startDummyDrawable == null || startDummyDrawableWidth != right) {
@@ -3584,7 +2601,7 @@ public class TextInputLayout extends LinearLayout {
         updatedIcon = true;
       }
     } else if (startDummyDrawable != null) {
-      // Remove the dummy start compound drawable if it exists and clear it.
+      
       final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
       TextViewCompat.setCompoundDrawablesRelative(
           editText, null, compounds[1], compounds[2], compounds[3]);
@@ -3592,7 +2609,7 @@ public class TextInputLayout extends LinearLayout {
       updatedIcon = true;
     }
 
-    // Update end dummy drawable if needed.
+    
     if (shouldUpdateEndDummyDrawable()) {
       int right = suffixTextView.getMeasuredWidth() - editText.getPaddingRight();
       View iconView = getEndIconToUpdateDummyDrawable();
@@ -3605,8 +2622,8 @@ public class TextInputLayout extends LinearLayout {
       }
       final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
       if (endDummyDrawable != null && endDummyDrawableWidth != right) {
-        // If endLayout only changed width, update dummy drawable here so that we don't override
-        // the currently saved originalEditTextEndDrawable.
+        
+        
         endDummyDrawableWidth = right;
         endDummyDrawable.setBounds(0, 0, endDummyDrawableWidth, 1);
         TextViewCompat.setCompoundDrawablesRelative(
@@ -3618,7 +2635,7 @@ public class TextInputLayout extends LinearLayout {
           endDummyDrawableWidth = right;
           endDummyDrawable.setBounds(0, 0, endDummyDrawableWidth, 1);
         }
-        // Store the user defined end compound drawable so that we can restore it later.
+        
         if (compounds[2] != endDummyDrawable) {
           originalEditTextEndDrawable = compounds[2];
           TextViewCompat.setCompoundDrawablesRelative(
@@ -3627,7 +2644,7 @@ public class TextInputLayout extends LinearLayout {
         }
       }
     } else if (endDummyDrawable != null) {
-      // Remove the dummy end compound drawable if it exists and clear it.
+      
       final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
       if (compounds[2] == endDummyDrawable) {
         TextViewCompat.setCompoundDrawablesRelative(
@@ -3735,8 +2752,8 @@ public class TextInputLayout extends LinearLayout {
         collapsingTextHelper.setExpandedBounds(calculateExpandedTextBounds(rect));
         collapsingTextHelper.recalculate();
 
-        // If the label should be collapsed, set the cutout bounds on the CutoutDrawable to make
-        // sure it draws with a cutout in draw().
+        
+        
         if (cutoutEnabled() && !hintExpanded) {
           openCutout();
         }
@@ -3766,7 +2783,7 @@ public class TextInputLayout extends LinearLayout {
 
   private void drawBoxUnderline(Canvas canvas) {
     if (boxUnderline != null) {
-      // Draw using the current boxStrokeWidth.
+      
       Rect underlineBounds = boxUnderline.getBounds();
       underlineBounds.top = underlineBounds.bottom - boxStrokeWidthPx;
       boxUnderline.draw(canvas);
@@ -3804,8 +2821,8 @@ public class TextInputLayout extends LinearLayout {
     collapsingTextHelper.getCollapsedTextActualBounds(
         cutoutBounds, editText.getWidth(), editText.getGravity());
     applyCutoutPadding(cutoutBounds);
-    // Offset the cutout bounds by the TextInputLayout's left and top paddings to ensure that the
-    // cutout is inset relative to the TextInputLayout's bounds.
+    
+    
     cutoutBounds.offset(-getPaddingLeft(), -getPaddingTop());
     ((CutoutDrawable) boxBackground).setCutout(cutoutBounds);
   }
@@ -3831,9 +2848,9 @@ public class TextInputLayout extends LinearLayout {
   @Override
   protected void drawableStateChanged() {
     if (inDrawableStateChanged) {
-      // Some of the calls below will update the drawable state of child views. Since we're
-      // using addStatesFromChildren we can get into infinite recursion, hence we'll just
-      // exit in this instance
+      
+      
+      
       return;
     }
 
@@ -3848,7 +2865,7 @@ public class TextInputLayout extends LinearLayout {
       changed |= collapsingTextHelper.setState(state);
     }
 
-    // Drawable state has changed so see if we need to update the label
+    
     if (editText != null) {
       updateLabelState(ViewCompat.isLaidOut(this) && isEnabled());
     }
@@ -3870,7 +2887,7 @@ public class TextInputLayout extends LinearLayout {
     final boolean hasFocus = isFocused() || (editText != null && editText.hasFocus());
     final boolean isHovered = isHovered() || (editText != null && editText.isHovered());
 
-    // Update the text box's stroke color based on the current state.
+    
     if (!isEnabled()) {
       boxStrokeColor = disabledColor;
     } else if (indicatorViewController.errorShouldBeShown()) {
@@ -3898,7 +2915,7 @@ public class TextInputLayout extends LinearLayout {
             && indicatorViewController.isErrorEnabled()
             && indicatorViewController.errorShouldBeShown());
 
-    // Update icons tints
+    
     updateIconColorOnState(errorIconView, errorIconTintList);
     updateIconColorOnState(startIconView, startIconTintList);
     updateIconColorOnState(endIconView, endIconTintList);
@@ -3907,14 +2924,14 @@ public class TextInputLayout extends LinearLayout {
       tintEndIconOnError(indicatorViewController.errorShouldBeShown());
     }
 
-    // Update the text box's stroke width based on the current state.
+    
     if (hasFocus && isEnabled()) {
       boxStrokeWidthPx = boxStrokeWidthFocusedPx;
     } else {
       boxStrokeWidthPx = boxStrokeWidthDefaultPx;
     }
 
-    // Update the text box's background color based on the current state.
+    
     if (boxBackgroundMode == BOX_BACKGROUND_FILLED) {
       if (!isEnabled()) {
         boxBackgroundColor = disabledFilledBackgroundColor;
@@ -4042,12 +3059,7 @@ public class TextInputLayout extends LinearLayout {
     return indicatorViewController.getErrorViewCurrentTextColor();
   }
 
-  /**
-   * An {@link AccessibilityDelegate} intended to be set on an {@link EditText} or {@link
-   * TextInputEditText} with {@link
-   * TextInputLayout#setTextInputAccessibilityDelegate(TextInputLayout.AccessibilityDelegate)} to
-   * provide attributes for accessibility that are managed by {@link TextInputLayout}.
-   */
+  
   public static class AccessibilityDelegate extends AccessibilityDelegateCompat {
     private final TextInputLayout layout;
 
@@ -4086,15 +3098,15 @@ public class TextInputLayout extends LinearLayout {
         if (VERSION.SDK_INT >= 26) {
           info.setHintText(hint);
         } else {
-          // Due to a TalkBack bug, setHintText has no effect in APIs < 26 so we append the hint to
-          // the text announcement. The resulting announcement is the same as in APIs >= 26.
+          
+          
           String text = showingText ? (inputText + ", " + hint) : hint;
           info.setText(text);
         }
         info.setShowingHintText(!showingText);
       }
 
-      // Announce when the character limit is reached.
+      
       info.setMaxTextLength(
           (inputText != null && inputText.length() == maxCharLimit) ? maxCharLimit : -1);
 

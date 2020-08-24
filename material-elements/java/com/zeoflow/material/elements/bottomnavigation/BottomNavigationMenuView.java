@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.bottomnavigation;
 
@@ -54,7 +40,7 @@ import com.zeoflow.material.elements.badge.BadgeDrawable;
 import com.zeoflow.material.elements.internal.TextScale;
 import java.util.HashSet;
 
-/** @hide For internal use only. */
+
 @RestrictTo(LIBRARY_GROUP)
 public class BottomNavigationMenuView extends ViewGroup implements MenuView {
   private static final long ACTIVE_ANIMATION_DURATION_MS = 115L;
@@ -142,9 +128,9 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     final int width = MeasureSpec.getSize(widthMeasureSpec);
-    // Use visible item count to calculate widths
+    
     final int visibleCount = menu.getVisibleItems().size();
-    // Use total item counts to measure children
+    
     final int totalCount = getChildCount();
 
     final int heightSpec = MeasureSpec.makeMeasureSpec(itemHeight, MeasureSpec.EXACTLY);
@@ -153,8 +139,8 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
       final View activeChild = getChildAt(selectedItemPosition);
       int activeItemWidth = activeItemMinWidth;
       if (activeChild.getVisibility() != View.GONE) {
-        // Do an AT_MOST measure pass on the active child to get its desired width, and resize the
-        // active child view based on that width
+        
+        
         activeChild.measure(
             MeasureSpec.makeMeasureSpec(activeItemMaxWidth, MeasureSpec.AT_MOST), heightSpec);
         activeItemWidth = Math.max(activeItemWidth, activeChild.getMeasuredWidth());
@@ -171,9 +157,9 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
       for (int i = 0; i < totalCount; i++) {
         if (getChildAt(i).getVisibility() != View.GONE) {
           tempChildWidths[i] = (i == selectedItemPosition) ? activeWidth : inactiveWidth;
-          // Account for integer division which sometimes leaves some extra pixel spaces.
-          // e.g. If the nav was 10px wide, and 3 children were measured to be 3px-3px-3px, there
-          // would be a 1px gap somewhere, which this fills in.
+          
+          
+          
           if (extra > 0) {
             tempChildWidths[i]++;
             extra--;
@@ -248,17 +234,13 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     AccessibilityNodeInfoCompat infoCompat = AccessibilityNodeInfoCompat.wrap(info);
     infoCompat.setCollectionInfo(
         CollectionInfoCompat.obtain(
-            /* rowCount= */ 1,
-            /* columnCount= */ menu.getVisibleItems().size(),
-            /* hierarchical= */ false,
-            /* selectionMode = */ CollectionInfoCompat.SELECTION_MODE_SINGLE));
+             1,
+             menu.getVisibleItems().size(),
+             false,
+             CollectionInfoCompat.SELECTION_MODE_SINGLE));
   }
 
-  /**
-   * Sets the tint which is applied to the menu items' icons.
-   *
-   * @param tint the tint to apply
-   */
+  
   public void setIconTintList(ColorStateList tint) {
     itemIconTint = tint;
     if (buttons != null) {
@@ -268,23 +250,13 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
   }
 
-  /**
-   * Returns the tint which is applied for the menu item labels.
-   *
-   * @return the ColorStateList that is used to tint menu items' icons
-   */
+  
   @Nullable
   public ColorStateList getIconTintList() {
     return itemIconTint;
   }
 
-  /**
-   * Sets the size to provide for the menu item icons.
-   *
-   * <p>For best image resolution, use an icon with the same size set in this method.
-   *
-   * @param iconSize the size to provide for the menu item icons in pixels
-   */
+  
   public void setItemIconSize(@Dimension int iconSize) {
     this.itemIconSize = iconSize;
     if (buttons != null) {
@@ -294,17 +266,13 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
   }
 
-  /** Returns the size in pixels provided for the menu item icons. */
+  
   @Dimension
   public int getItemIconSize() {
     return itemIconSize;
   }
 
-  /**
-   * Sets the text color to be used for the menu item labels.
-   *
-   * @param color the ColorStateList used for menu item labels
-   */
+  
   public void setItemTextColor(ColorStateList color) {
     itemTextColorFromUser = color;
     if (buttons != null) {
@@ -314,27 +282,19 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
   }
 
-  /**
-   * Returns the text color used for menu item labels.
-   *
-   * @return the ColorStateList used for menu items labels
-   */
+  
   public ColorStateList getItemTextColor() {
     return itemTextColorFromUser;
   }
 
-  /**
-   * Sets the text appearance to be used for inactive menu item labels.
-   *
-   * @param textAppearanceRes the text appearance ID used for inactive menu item labels
-   */
+  
   public void setItemTextAppearanceInactive(@StyleRes int textAppearanceRes) {
     this.itemTextAppearanceInactive = textAppearanceRes;
     if (buttons != null) {
       for (BottomNavigationItemView item : buttons) {
         item.setTextAppearanceInactive(textAppearanceRes);
-        // Set the text color if the user has set it, since itemTextColorFromUser takes precedence
-        // over a color set in the text appearance.
+        
+        
         if (itemTextColorFromUser != null) {
           item.setTextColor(itemTextColorFromUser);
         }
@@ -342,28 +302,20 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
   }
 
-  /**
-   * Returns the text appearance used for inactive menu item labels.
-   *
-   * @return the text appearance ID used for inactive menu item labels
-   */
+  
   @StyleRes
   public int getItemTextAppearanceInactive() {
     return itemTextAppearanceInactive;
   }
 
-  /**
-   * Sets the text appearance to be used for the active menu item label.
-   *
-   * @param textAppearanceRes the text appearance ID used for the active menu item label
-   */
+  
   public void setItemTextAppearanceActive(@StyleRes int textAppearanceRes) {
     this.itemTextAppearanceActive = textAppearanceRes;
     if (buttons != null) {
       for (BottomNavigationItemView item : buttons) {
         item.setTextAppearanceActive(textAppearanceRes);
-        // Set the text color if the user has set it, since itemTextColorFromUser takes precedence
-        // over a color set in the text appearance.
+        
+        
         if (itemTextColorFromUser != null) {
           item.setTextColor(itemTextColorFromUser);
         }
@@ -371,21 +323,13 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
   }
 
-  /**
-   * Returns the text appearance used for the active menu item label.
-   *
-   * @return the text appearance ID used for the active menu item label
-   */
+  
   @StyleRes
   public int getItemTextAppearanceActive() {
     return itemTextAppearanceActive;
   }
 
-  /**
-   * Sets the resource ID to be used for item backgrounds.
-   *
-   * @param background the resource ID of the background
-   */
+  
   public void setItemBackgroundRes(int background) {
     itemBackgroundRes = background;
     if (buttons != null) {
@@ -395,22 +339,13 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
   }
 
-  /**
-   * Returns the resource ID for the background of the menu items.
-   *
-   * @return the resource ID for the background
-   * @deprecated Use {@link #getItemBackground()} instead.
-   */
+  
   @Deprecated
   public int getItemBackgroundRes() {
     return itemBackgroundRes;
   }
 
-  /**
-   * Sets the drawable to be used for item backgrounds.
-   *
-   * @param background the drawable of the background
-   */
+  
   public void setItemBackground(@Nullable Drawable background) {
     itemBackground = background;
     if (buttons != null) {
@@ -420,67 +355,34 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
   }
 
-  /**
-   * Returns the drawable for the background of the menu items.
-   *
-   * @return the drawable for the background
-   */
+  
   @Nullable
   public Drawable getItemBackground() {
     if (buttons != null && buttons.length > 0) {
-      // Return button background instead of itemBackground if possible, so that the correct
-      // drawable is returned if the background is set via #setItemBackgroundRes.
+      
+      
       return buttons[0].getBackground();
     } else {
       return itemBackground;
     }
   }
 
-  /**
-   * Sets the navigation items' label visibility mode.
-   *
-   * <p>The label is either always shown, never shown, or only shown when activated. Also supports
-   * "auto" mode, which uses the item count to determine whether to show or hide the label.
-   *
-   * @param labelVisibilityMode mode which decides whether or not the label should be shown. Can be
-   *     one of {@link LabelVisibilityMode#LABEL_VISIBILITY_AUTO}, {@link
-   *     LabelVisibilityMode#LABEL_VISIBILITY_SELECTED}, {@link
-   *     LabelVisibilityMode#LABEL_VISIBILITY_LABELED}, or {@link
-   *     LabelVisibilityMode#LABEL_VISIBILITY_UNLABELED}
-   * @see #getLabelVisibilityMode()
-   */
+  
   public void setLabelVisibilityMode(@LabelVisibilityMode int labelVisibilityMode) {
     this.labelVisibilityMode = labelVisibilityMode;
   }
 
-  /**
-   * Returns the current label visibility mode.
-   *
-   * @see #setLabelVisibilityMode(int)
-   */
+  
   public int getLabelVisibilityMode() {
     return labelVisibilityMode;
   }
 
-  /**
-   * Sets whether the menu items horizontally translate on selection when the combined item widths
-   * fill the screen.
-   *
-   * @param itemHorizontalTranslationEnabled whether the menu items horizontally translate on
-   *     selection
-   * @see #isItemHorizontalTranslationEnabled()
-   */
+  
   public void setItemHorizontalTranslationEnabled(boolean itemHorizontalTranslationEnabled) {
     this.itemHorizontalTranslationEnabled = itemHorizontalTranslationEnabled;
   }
 
-  /**
-   * Returns whether the menu items horizontally translate on selection when the combined item
-   * widths fill the screen.
-   *
-   * @return whether the menu items horizontally translate on selection
-   * @see #setItemHorizontalTranslationEnabled(boolean)
-   */
+  
   public boolean isItemHorizontalTranslationEnabled() {
     return itemHorizontalTranslationEnabled;
   }
@@ -539,7 +441,7 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
       buttons[i] = child;
       child.setIconTintList(itemIconTint);
       child.setIconSize(itemIconSize);
-      // Set the text color the default, then look for another text color in order of precedence.
+      
       child.setTextColor(itemTextColorDefault);
       child.setTextAppearanceInactive(itemTextAppearanceInactive);
       child.setTextAppearanceActive(itemTextAppearanceActive);
@@ -571,7 +473,7 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
 
     final int menuSize = menu.size();
     if (menuSize != buttons.length) {
-      // The size has changed. Rebuild menu view from scratch.
+      
       buildMenuView();
       return;
     }
@@ -586,7 +488,7 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
       }
     }
     if (previousSelectedId != selectedItemId) {
-      // Note: this has to be called before BottomNavigationItemView#initialize().
+      
       TransitionManager.beginDelayedTransition(this, set);
     }
 
@@ -649,17 +551,11 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     return badgeDrawables.get(menuItemId);
   }
 
-  /**
-   * Creates an instance of {@link BadgeDrawable} if none exists. Initializes (if needed) and
-   * returns the associated instance of {@link BadgeDrawable}.
-   *
-   * @param menuItemId Id of the menu item.
-   * @return an instance of BadgeDrawable associated with {@code menuItemId}.
-   */
+  
   BadgeDrawable getOrCreateBadge(int menuItemId) {
     validateMenuItemId(menuItemId);
     BadgeDrawable badgeDrawable = badgeDrawables.get(menuItemId);
-    // Create an instance of BadgeDrawable if none were already initialized for this menu item.
+    
     if (badgeDrawable == null) {
       badgeDrawable = BadgeDrawable.create(getContext());
       badgeDrawables.put(menuItemId, badgeDrawable);
@@ -686,7 +582,7 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
   private void setBadgeIfNeeded(@NonNull BottomNavigationItemView child) {
     int childId = child.getId();
     if (!isValidId(childId)) {
-      // Child doesn't have a valid id, do not set any BadgeDrawable on the view.
+      
       return;
     }
 
@@ -698,7 +594,7 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
 
   private void removeUnusedBadges() {
     HashSet<Integer> activeKeys = new HashSet<>();
-    // Remove keys from badgeDrawables that don't have a corresponding value in the menu.
+    
     for (int i = 0; i < menu.size(); i++) {
       activeKeys.add(menu.getItem(i).getItemId());
     }

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.floatingactionbutton;
 
@@ -55,22 +41,7 @@ import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
 
 import java.util.List;
 
-/**
- * Extended floating action buttons are used for a special type of promoted action. They are
- * distinguished by an icon and a text floating above the UI and have special motion behaviors
- * related to morphing, launching, and the transferring anchor point.
- *
- * <p>Extended floating action buttons may have icon and text, but may also hold just an icon or
- * text.
- *
- * <p>As this class descends from {@link MaterialButton}, you can control the icon which is
- * displayed via {@link #setIcon(android.graphics.drawable.Drawable)}, and the text via {@link
- * #setText(CharSequence)}.
- *
- * <p>The background color of this view defaults to the your theme's {@code colorSecondary}. If you
- * wish to change this at runtime then you can do so via
- * {@link #setBackgroundTintList(android.content.res.ColorStateList)}.
- */
+
 public class ExtendedFloatingActionButton extends MaterialButton implements AttachedBehavior {
 
   private static final int DEF_STYLE_RES =
@@ -92,43 +63,19 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
 
   private boolean isExtended = true;
 
-  /**
-   * Callback to be invoked when the visibility or the state of an ExtendedFloatingActionButton
-   * changes.
-   */
+  
   public abstract static class OnChangedCallback {
 
-    /**
-     * Called when a ExtendedFloatingActionButton has been {@link
-     * #show(OnChangedCallback) shown}.
-     *
-     * @param extendedFab the FloatingActionButton that was shown.
-     */
+    
     public void onShown(ExtendedFloatingActionButton extendedFab) {}
 
-    /**
-     * Called when a ExtendedFloatingActionButton has been {@link
-     * #hide(OnChangedCallback) hidden}.
-     *
-     * @param extendedFab the ExtendedFloatingActionButton that was hidden.
-     */
+    
     public void onHidden(ExtendedFloatingActionButton extendedFab) {}
 
-    /**
-     * Called when a ExtendedFloatingActionButton has been {@link
-     * #extend(OnChangedCallback) extended} to show the icon and the
-     * text.
-     *
-     * @param extendedFab the ExtendedFloatingActionButton that was extended.
-     */
+    
     public void onExtended(ExtendedFloatingActionButton extendedFab) {}
 
-    /**
-     * Called when a ExtendedFloatingActionButton has been {@link
-     * #shrink(OnChangedCallback) shrunken} to show just the icon.
-     *
-     * @param extendedFab the ExtendedFloatingActionButton that was shrunk.
-     */
+    
     public void onShrunken(ExtendedFloatingActionButton extendedFab) {}
   }
 
@@ -144,7 +91,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   public ExtendedFloatingActionButton(
       @NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
-    // Ensure we are using the correctly themed context rather than the context that was passed in.
+    
     context = getContext();
     behavior = new ExtendedFloatingActionButtonBehavior<>(context, attrs);
     TypedArray a =
@@ -183,7 +130,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
             return new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
           }
         },
-        /* extending= */ true);
+         true);
 
     shrinkStrategy = new ChangeSizeStrategy(
         changeSizeTracker,
@@ -203,7 +150,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
             return new LayoutParams(getWidth(), getHeight());
           }
         },
-        /* extending= */ false);
+         false);
 
     showStrategy.setMotionSpec(showMotionSpec);
     hideStrategy.setMotionSpec(hideMotionSpec);
@@ -221,7 +168,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
-    // Shrink the button in case the text is empty.
+    
     if (isExtended && TextUtils.isEmpty(getText()) && getIcon() != null) {
       isExtended = false;
       shrinkStrategy.performNow();
@@ -235,9 +182,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
   }
 
 
-  /**
-   * Extends or shrinks the fab depending on the value of {@param extended}.
-   */
+  
   public void setExtended(boolean extended) {
     if (this.isExtended == extended) {
       return;
@@ -255,281 +200,147 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
     return isExtended;
   }
 
-  /**
-   * Add a listener that will be invoked when this ExtendedFloatingActionButton is shown. See {@link
-   * AnimatorListener}.
-   *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
-   * #removeOnShowAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to add
-   */
+  
   public void addOnShowAnimationListener(@NonNull AnimatorListener listener) {
     showStrategy.addAnimationListener(listener);
   }
 
-  /**
-   * Remove a listener that was previously added via
-   * {@link #addOnShowAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to remove
-   */
+  
   public void removeOnShowAnimationListener(@NonNull AnimatorListener listener) {
     showStrategy.removeAnimationListener(listener);
   }
 
-  /**
-   * Add a listener that will be invoked when this ExtendedFloatingActionButton is hidden. See
-   * {@link AnimatorListener}.
-   *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
-   * #removeOnHideAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to add
-   */
+  
   public void addOnHideAnimationListener(@NonNull AnimatorListener listener) {
     hideStrategy.addAnimationListener(listener);
   }
 
-  /**
-   * Remove a listener that was previously added via
-   * {@link #addOnHideAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to remove
-   */
+  
   public void removeOnHideAnimationListener(@NonNull AnimatorListener listener) {
     hideStrategy.removeAnimationListener(listener);
   }
 
-  /**
-   * Add a listener that will be invoked when this ExtendedFloatingActionButton is shrunk. See
-   * {@link AnimatorListener}.
-   *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
-   * #removeOnShrinkAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to add
-   */
+  
   public void addOnShrinkAnimationListener(@NonNull AnimatorListener listener) {
     shrinkStrategy.addAnimationListener(listener);
   }
 
-  /**
-   * Remove a listener that was previously added via
-   * {@link #addOnShrinkAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to remove
-   */
+  
   public void removeOnShrinkAnimationListener(@NonNull AnimatorListener listener) {
     shrinkStrategy.removeAnimationListener(listener);
   }
 
-  /**
-   * Add a listener that will be invoked when this ExtendedFloatingActionButton is extended. See
-   * {@link AnimatorListener}.
-   *
-   * <p>Components that add a listener should take care to remove it when finished via {@link
-   * #removeOnExtendAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to add
-   */
+  
   public void addOnExtendAnimationListener(@NonNull AnimatorListener listener) {
     extendStrategy.addAnimationListener(listener);
   }
 
-  /**
-   * Remove a listener that was previously added via
-   * {@link #addOnExtendAnimationListener(AnimatorListener)}.
-   *
-   * @param listener listener to remove
-   */
+  
   public void removeOnExtendAnimationListener(@NonNull AnimatorListener listener) {
     extendStrategy.removeAnimationListener(listener);
   }
 
-  /**
-   * Hides the button.
-   *
-   * <p>This method will animate the button hide if the view has already been laid out.
-   */
+  
   public void hide() {
     performMotion(hideStrategy, null);
   }
 
-  /**
-   * Hides the button.
-   *
-   * <p>This method will animate the button hide if the view has already been laid out.
-   *
-   * @param callback the callback to notify when this view is hidden
-   */
+  
   public void hide(@NonNull OnChangedCallback callback) {
     performMotion(hideStrategy, callback);
   }
 
-  /**
-   * Shows the button.
-   *
-   * <p>This method will animate the button show if the view has already been laid out.
-   */
+  
   public void show() {
     performMotion(showStrategy, null);
   }
 
-  /**
-   * Shows the button.
-   *
-   * <p>This method will animate the button show if the view has already been laid out.
-   *
-   * @param callback the callback to notify when this view is shown
-   */
+  
   public void show(@NonNull OnChangedCallback callback) {
     performMotion(showStrategy, callback);
   }
 
-  /**
-   * Extends the FAB to show the text and the icon.
-   *
-   * <p>This method will not affect an extended FAB which holds just text and no icon. Also, this
-   * method will animate the button show if the view has already been laid out.
-   *
-   * @see #extend(OnChangedCallback)
-   */
+  
   public void extend() {
     performMotion(extendStrategy, null);
   }
 
-  /**
-   * Extends the FAB to show the text and the icon.
-   *
-   * <p>This method will not affect an extended FAB which holds just text and no icon. Also, this
-   * method will animate the button show if the view has already been laid out.
-   *
-   * @param callback the callback to notify when the FAB is extended
-   */
+  
   public void extend(@NonNull final OnChangedCallback callback) {
     performMotion(extendStrategy, callback);
   }
 
 
-  /**
-   * Shrinks the FAB to show just the icon.
-   *
-   * <p>This method will not affect an extended FAB which holds just text and no icon. Also, this
-   * method will animate the button show if the view has already been laid out.
-   *
-   * @see #shrink(OnChangedCallback)
-   */
+  
   public void shrink() {
     performMotion(shrinkStrategy, null);
   }
 
-  /**
-   * Shrinks the FAB to show just the icon.
-   *
-   * <p>This method will not affect an extended FAB which holds just text and no icon. Also, this
-   * method will animate the button show if the view has already been laid out.
-   *
-   * @param callback the callback to notify when the FAB shrank
-   */
+  
   public void shrink(@NonNull final OnChangedCallback callback) {
     performMotion(shrinkStrategy, callback);
   }
 
-  /** Returns the motion spec for the show animation. */
+  
   @Nullable
   public MotionSpec getShowMotionSpec() {
     return showStrategy.getMotionSpec();
   }
 
-  /**
-   * Updates the motion spec for the show animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_showMotionSpec
-   */
+  
   public void setShowMotionSpec(@Nullable MotionSpec spec) {
     showStrategy.setMotionSpec(spec);
   }
 
-  /**
-   * Updates the motion spec for the show animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_showMotionSpec
-   */
+  
   public void setShowMotionSpecResource(@AnimatorRes int id) {
     setShowMotionSpec(MotionSpec.createFromResource(getContext(), id));
   }
 
-  /** Returns the motion spec for the hide animation. */
+  
   @Nullable
   public MotionSpec getHideMotionSpec() {
     return hideStrategy.getMotionSpec();
   }
 
-  /**
-   * Updates the motion spec for the hide animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_hideMotionSpec
-   */
+  
   public void setHideMotionSpec(@Nullable MotionSpec spec) {
     hideStrategy.setMotionSpec(spec);
   }
 
-  /**
-   * Updates the motion spec for the hide animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_hideMotionSpec
-   */
+  
   public void setHideMotionSpecResource(@AnimatorRes int id) {
     setHideMotionSpec(MotionSpec.createFromResource(getContext(), id));
   }
 
-  /** Returns the motion spec for the extend animation. */
+  
   @Nullable
   public MotionSpec getExtendMotionSpec() {
     return extendStrategy.getMotionSpec();
   }
 
-  /**
-   * Updates the motion spec for the extend animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_extendMotionSpec
-   */
+  
   public void setExtendMotionSpec(@Nullable MotionSpec spec) {
     extendStrategy.setMotionSpec(spec);
   }
 
-  /**
-   * Updates the motion spec for the extend animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_extendMotionSpec
-   */
+  
   public void setExtendMotionSpecResource(@AnimatorRes int id) {
     setExtendMotionSpec(MotionSpec.createFromResource(getContext(), id));
   }
 
-  /**
-   * Returns the motion spec for the shrink animation.
-   */
+  
   @Nullable
   public MotionSpec getShrinkMotionSpec() {
     return shrinkStrategy.getMotionSpec();
   }
 
-  /**
-   * Updates the motion spec for the shrink animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_shrinkMotionSpec
-   */
+  
   public void setShrinkMotionSpec(@Nullable MotionSpec spec) {
     shrinkStrategy.setMotionSpec(spec);
   }
 
-  /**
-   * Updates the motion spec for the shrink animation.
-   *
-   * @attr ref com.google.android.material.R.styleable#ExtendedFloatingActionButton_shrinkMotionSpec
-   */
+  
   public void setShrinkMotionSpecResource(@AnimatorRes int id) {
     setShrinkMotionSpec(MotionSpec.createFromResource(getContext(), id));
   }
@@ -583,20 +394,20 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
 
   private boolean isOrWillBeShown() {
     if (getVisibility() != View.VISIBLE) {
-      // If we're not currently visible, return true if we're animating to be shown
+      
       return animState == ANIM_STATE_SHOWING;
     } else {
-      // Otherwise if we're visible, return true if we're not animating to be hidden
+      
       return animState != ANIM_STATE_HIDING;
     }
   }
 
   private boolean isOrWillBeHidden() {
     if (getVisibility() == View.VISIBLE) {
-      // If we're currently visible, return true if we're animating to be hidden
+      
       return animState == ANIM_STATE_HIDING;
     } else {
-      // Otherwise if we're not visible, return true if we're not animating to be shown
+      
       return animState != ANIM_STATE_SHOWING;
     }
   }
@@ -605,10 +416,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
     return ViewCompat.isLaidOut(this) && !isInEditMode();
   }
 
-  /**
-   * A Property wrapper around the <code>width</code> functionality handled by the {@link
-   * LayoutParams#width} value.
-   */
+  
   static final Property<View, Float> WIDTH =
       new Property<View, Float>(Float.class, "width") {
         @Override
@@ -624,10 +432,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
         }
       };
 
-  /**
-   * A Property wrapper around the <code>height</code> functionality handled by the {@link
-   * LayoutParams#height} value.
-   */
+  
   static final Property<View, Float> HEIGHT =
       new Property<View, Float>(Float.class, "height") {
         @Override
@@ -643,21 +448,14 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
         }
       };
 
-  /**
-   * Shrink to the smaller value between paddingStart and paddingEnd, such that when shrunk the icon
-   * will be centered.
-   */
+  
   @VisibleForTesting
   int getCollapsedSize() {
     return Math.min(ViewCompat.getPaddingStart(this), ViewCompat.getPaddingEnd(this)) * 2
         + getIconSize();
   }
 
-  /**
-   * Behavior designed for use with {@link ExtendedFloatingActionButton} instances. Its main
-   * function is to move {@link ExtendedFloatingActionButton} views so that any displayed {@link
-   * Snackbar}s do not cover them.
-   */
+  
   protected static class ExtendedFloatingActionButtonBehavior<
       T extends ExtendedFloatingActionButton>
       extends CoordinatorLayout.Behavior<T> {
@@ -676,7 +474,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
       autoShrinkEnabled = AUTO_SHRINK_DEFAULT;
     }
 
-    // Behavior attrs should be nullable in the framework
+    
     @SuppressWarnings("argument.type.incompatible")
     public ExtendedFloatingActionButtonBehavior(
         @NonNull Context context, @Nullable AttributeSet attrs) {
@@ -695,62 +493,30 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
       a.recycle();
     }
 
-    /**
-     * Sets whether the associated ExtendedFloatingActionButton automatically hides when there is
-     * not enough space to be displayed. This works with {@link AppBarLayout} and {@link
-     * BottomSheetBehavior}.
-     *
-     * <p>In case auto-shrink is enabled, it will take precedence over the auto-hide option.
-     *
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
-     * @param autoHide true to enable automatic hiding
-     */
+    
     public void setAutoHideEnabled(boolean autoHide) {
       autoHideEnabled = autoHide;
     }
 
-    /**
-     * Returns whether the associated ExtendedFloatingActionButton automatically hides when there is
-     * not enough space to be displayed.
-     *
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
-     * @return true if enabled
-     */
+    
     public boolean isAutoHideEnabled() {
       return autoHideEnabled;
     }
 
-    /**
-     * Sets whether the associated ExtendedFloatingActionButton automatically shrink when there is
-     * not enough space to be displayed. This works with {@link AppBarLayout} and {@link
-     * BottomSheetBehavior}.
-     *
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
-     * @param autoShrink true to enable automatic shrinking
-     */
+    
     public void setAutoShrinkEnabled(boolean autoShrink) {
       autoShrinkEnabled = autoShrink;
     }
 
-    /**
-     * Returns whether the associated ExtendedFloatingActionButton automatically shrinks when there
-     * is not enough space to be displayed.
-     *
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
-     * @return true if enabled
-     */
+    
     public boolean isAutoShrinkEnabled() {
       return autoShrinkEnabled;
     }
 
     @Override
     @SuppressWarnings({"unchecked"})
-    // TODO: remove this stub method. Adding now to mantain compatibility since the override is
-    // not correct.
+    
+    
     public boolean getInsetDodgeRect(
         @NonNull CoordinatorLayout parent,
         @NonNull ExtendedFloatingActionButton child,
@@ -761,8 +527,8 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
     @Override
     public void onAttachedToLayoutParams(@NonNull CoordinatorLayout.LayoutParams lp) {
       if (lp.dodgeInsetEdges == Gravity.NO_GRAVITY) {
-        // If the developer hasn't set dodgeInsetEdges, lets set it to BOTTOM so that
-        // we dodge any Snackbars
+        
+        
         lp.dodgeInsetEdges = Gravity.BOTTOM;
       }
     }
@@ -771,8 +537,8 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
     public boolean onDependentViewChanged(
         CoordinatorLayout parent, @NonNull ExtendedFloatingActionButton child, View dependency) {
       if (dependency instanceof AppBarLayout) {
-        // If we're depending on an AppBarLayout we will show/hide it automatically
-        // if the FAB is anchored to the AppBarLayout
+        
+        
         updateFabVisibilityForAppBarLayout(parent, (AppBarLayout) dependency, child);
       } else if (isBottomSheet(dependency)) {
         updateFabVisibilityForBottomSheet(dependency, child);
@@ -807,8 +573,8 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
       }
 
       if (lp.getAnchorId() != dependency.getId()) {
-        // The anchor ID doesn't match the dependency, so we won't automatically
-        // show/hide the FAB
+        
+        
         return false;
       }
 
@@ -827,15 +593,15 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
         tmpRect = new Rect();
       }
 
-      // First, let's get the visible rect of the dependency
+      
       final Rect rect = tmpRect;
       DescendantOffsetUtils.getDescendantRect(parent, appBarLayout, rect);
 
       if (rect.bottom <= appBarLayout.getMinimumHeightForVisibleOverlappingContent()) {
-        // If the anchor's bottom is below the seam, we'll animate our FAB out
+        
         shrinkOrHide(child);
       } else {
-        // Else, we'll animate our FAB back in
+        
         extendOrShow(child);
       }
       return true;
@@ -855,18 +621,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
       return true;
     }
 
-    /**
-     * Shrinks the Extended FAB, in case auto-shrink is enabled, or hides it in case auto-hide is
-     * enabled. The priority is given to the default shrink option, and the button will be hidden
-     * only when the auto-shrink is {@code false} and auto-hide is {@code true}.
-     *
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
-     * @see #setAutoShrinkEnabled(boolean)
-     * @see #setAutoHideEnabled(boolean)
-     */
+    
     protected void shrinkOrHide(@NonNull ExtendedFloatingActionButton fab) {
       OnChangedCallback callback = autoShrinkEnabled
           ? internalAutoShrinkCallback
@@ -878,18 +633,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
       fab.performMotion(strategy, callback);
     }
 
-    /**
-     * Extends the Extended FAB, in case auto-shrink is enabled, or show it in case auto-hide is
-     * enabled. The priority is given to the default extend option, and the button will be shown
-     * only when the auto-shrink is {@code false} and auto-hide is {@code true}.
-     *
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoShrink
-     * @attr ref
-     *     com.google.android.material.R.styleable#ExtendedFloatingActionButton_Behavior_Layout_behavior_autoHide
-     * @see #setAutoShrinkEnabled(boolean)
-     * @see #setAutoHideEnabled(boolean)
-     */
+    
     protected void extendOrShow(@NonNull ExtendedFloatingActionButton fab) {
       OnChangedCallback callback = autoShrinkEnabled
           ? internalAutoShrinkCallback
@@ -906,7 +650,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
         @NonNull CoordinatorLayout parent,
         @NonNull ExtendedFloatingActionButton child,
         int layoutDirection) {
-      // First, let's make sure that the visibility of the FAB is consistent
+      
       final List<View> dependencies = parent.getDependencies(child);
       for (int i = 0, count = dependencies.size(); i < count; i++) {
         final View dependency = dependencies.get(i);
@@ -920,7 +664,7 @@ public class ExtendedFloatingActionButton extends MaterialButton implements Atta
           }
         }
       }
-      // Now let the CoordinatorLayout lay out the FAB
+      
       parent.onLayoutChild(child, layoutDirection);
       return true;
     }

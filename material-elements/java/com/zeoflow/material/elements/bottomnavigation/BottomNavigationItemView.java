@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.bottomnavigation;
 
@@ -51,7 +37,7 @@ import android.widget.TextView;
 import com.zeoflow.material.elements.badge.BadgeDrawable;
 import com.zeoflow.material.elements.badge.BadgeUtils;
 
-/** @hide */
+
 @RestrictTo(LIBRARY_GROUP)
 public class BottomNavigationItemView extends FrameLayout implements MenuView.ItemView {
   public static final int INVALID_ITEM_POSITION = -1;
@@ -99,14 +85,14 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
     icon = findViewById(R.id.icon);
     smallLabel = findViewById(R.id.smallLabel);
     largeLabel = findViewById(R.id.largeLabel);
-    // The labels used aren't always visible, so they are unreliable for accessibility. Instead,
-    // the content description of the BottomNavigationItemView should be used for accessibility.
+    
+    
     ViewCompat.setImportantForAccessibility(smallLabel, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO);
     ViewCompat.setImportantForAccessibility(largeLabel, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO);
     setFocusable(true);
     calculateTextScaleFactors(smallLabel.getTextSize(), largeLabel.getTextSize());
 
-    // TODO(b/138148581): Support displaying a badge on label-only bottom navigation views.
+    
     if (icon != null) {
       icon.addOnLayoutChangeListener(
           new OnLayoutChangeListener() {
@@ -271,8 +257,8 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
 
     refreshDrawableState();
 
-    // Set the item as selected to send an AccessibilityEvent.TYPE_VIEW_SELECTED from View, so that
-    // the item is read out as selected.
+    
+    
     setSelected(checked);
   }
 
@@ -290,12 +276,12 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
     AccessibilityNodeInfoCompat infoCompat = AccessibilityNodeInfoCompat.wrap(info);
     infoCompat.setCollectionItemInfo(
         CollectionItemInfoCompat.obtain(
-            /* rowIndex= */ 0,
-            /* rowSpan= */ 1,
-            /* columnIndex= */ getItemPosition(),
-            /* columnSpan= */ 1,
-            /* heading= */ false,
-            /* selected= */ isSelected()));
+             0,
+             1,
+             getItemPosition(),
+             1,
+             false,
+             isSelected()));
     if (isSelected()) {
       infoCompat.setClickable(false);
       infoCompat.removeAction(AccessibilityActionCompat.ACTION_CLICK);
@@ -349,7 +335,7 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
       return;
     }
 
-    // Save the original icon to check if it has changed in future calls of this method.
+    
     originalIconDrawable = iconDrawable;
     if (iconDrawable != null) {
       Drawable.ConstantState state = iconDrawable.getConstantState();
@@ -457,7 +443,7 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
       return;
     }
     if (anchorView != null) {
-      // Avoid clipping a badge if it's displayed.
+      
       setClipChildren(false);
       setClipToPadding(false);
 
@@ -471,7 +457,7 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
       return;
     }
     if (anchorView != null) {
-      // Clip children / view to padding when no badge is displayed.
+      
       setClipChildren(true);
       setClipToPadding(true);
 
@@ -486,7 +472,7 @@ public class BottomNavigationItemView extends FrameLayout implements MenuView.It
     if (anchorView == icon) {
       return BadgeUtils.USE_COMPAT_PARENT ? ((FrameLayout) icon.getParent()) : null;
     }
-    // TODO(b/138148581): Support displaying a badge on label-only bottom navigation views.
+    
     return null;
   }
 }

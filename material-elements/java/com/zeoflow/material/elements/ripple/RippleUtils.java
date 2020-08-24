@@ -1,18 +1,4 @@
-/*
- * Copyright 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.zeoflow.material.elements.ripple;
 
@@ -31,11 +17,7 @@ import androidx.core.graphics.ColorUtils;
 import android.util.Log;
 import android.util.StateSet;
 
-/**
- * Utils class for ripples.
- *
- * @hide
- */
+
 @RestrictTo(Scope.LIBRARY_GROUP)
 public class RippleUtils {
 
@@ -83,30 +65,7 @@ public class RippleUtils {
 
   private RippleUtils() {}
 
-  /**
-   * Converts the given color state list to one that can be passed to a RippleDrawable.
-   *
-   * <p>The passed in stateful ripple color can contain colors for these states:
-   *
-   * <ul>
-   *   <li>android:state_pressed="true"
-   *   <li>android:state_focused="true" and android:state_hovered="true"
-   *   <li>android:state_focused="true"
-   *   <li>android:state_hovered="true"
-   *   <li>Default unselected state - transparent color. TODO: remove
-   * </ul>
-   *
-   * <p>For selectable components, the ripple color may contain additional colors for these states:
-   *
-   * <ul>
-   *   <li>android:state_pressed="true" and android:state_selected="true"
-   *   <li>android:state_focused="true" and android:state_hovered="true" and
-   *       android:state_selected="true"
-   *   <li>android:state_focused="true" and android:state_selected="true"
-   *   <li>android:state_hovered="true" and android:state_selected="true"
-   *   <li>Default selected state - transparent color.
-   * </ul>
-   */
+  
   @NonNull
   public static ColorStateList convertToRippleDrawableColor(@Nullable ColorStateList rippleColor) {
     if (USE_FRAMEWORK_RIPPLE) {
@@ -116,17 +75,17 @@ public class RippleUtils {
       final int[] colors = new int[size];
       int i = 0;
 
-      // Ideally we would define a different composite color for each state, but that causes the
-      // ripple animation to abort prematurely.
-      // So we only allow two base states: selected, and non-selected. For each base state, we only
-      // base the ripple composite on its pressed state.
+      
+      
+      
+      
 
-      // Selected base state.
+      
       states[i] = SELECTED_STATE_SET;
       colors[i] = getColorForState(rippleColor, SELECTED_PRESSED_STATE_SET);
       i++;
 
-      // Non-selected base state.
+      
       states[i] = StateSet.NOTHING;
       colors[i] = getColorForState(rippleColor, PRESSED_STATE_SET);
       i++;
@@ -155,7 +114,7 @@ public class RippleUtils {
       colors[i] = getColorForState(rippleColor, SELECTED_HOVERED_STATE_SET);
       i++;
 
-      // Checked state.
+      
       states[i] = SELECTED_STATE_SET;
       colors[i] = Color.TRANSPARENT;
       i++;
@@ -176,7 +135,7 @@ public class RippleUtils {
       colors[i] = getColorForState(rippleColor, HOVERED_STATE_SET);
       i++;
 
-      // Default state.
+      
       states[i] = StateSet.NOTHING;
       colors[i] = Color.TRANSPARENT;
       i++;
@@ -185,19 +144,7 @@ public class RippleUtils {
     }
   }
 
-  /**
-   * Returns a {@link ColorStateList} that is safe to pass to {@link
-   * android.graphics.drawable.RippleDrawable}.
-   *
-   * <p>If given a null ColorStateList, this will return a new transparent ColorStateList since
-   * RippleDrawable requires a non-null ColorStateList.
-   *
-   * <p>If given a non-null ColorStateList, this method will log a warning for API 22-27 if the
-   * ColorStateList is transparent in the default state and non-transparent in the pressed state.
-   * This will result in using the pressed state color for the ripple until the finger is lifted at
-   * which point the ripple will transition to the default state color (transparent), making the
-   * ripple appear to terminate prematurely.
-   */
+  
   @NonNull
   public static ColorStateList sanitizeRippleDrawableColor(@Nullable ColorStateList rippleColor) {
     if (rippleColor != null) {
@@ -213,10 +160,7 @@ public class RippleUtils {
     return ColorStateList.valueOf(Color.TRANSPARENT);
   }
 
-  /**
-   * Whether a compat ripple should be drawn. Compat ripples should be drawn when enabled and at
-   * least one of: focused, pressed, hovered.
-   */
+  
   public static boolean shouldDrawRippleCompat(@NonNull int[] stateSet) {
     boolean enabled = false;
     boolean interactedState = false;
@@ -246,10 +190,7 @@ public class RippleUtils {
     return USE_FRAMEWORK_RIPPLE ? doubleAlpha(color) : color;
   }
 
-  /**
-   * On API 21+, the framework composites a ripple color onto the display at about 50% opacity.
-   * Since we are providing precise ripple colors, cancel that out by doubling the opacity here.
-   */
+  
   @ColorInt
   @TargetApi(VERSION_CODES.LOLLIPOP)
   private static int doubleAlpha(@ColorInt int color) {
