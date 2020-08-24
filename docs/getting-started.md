@@ -5,13 +5,6 @@ section: docs
 path: /docs/getting-started/
 -->
 
-# Getting started with Material Components for Android
-
-Take a look at our
-[guide](https://medium.com/androiddevelopers/migrating-to-material-components-for-android-ec6757795351)
-that helps you migrate your codebase from the Design Support Library to Material
-Components for Android.
-
 ### 1. Depend on our library
 
 Material Components for Android is available through Google's Maven Repository.
