@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "[Component name] Short description of issue"
 labels: bug
-assignees: ''
+assignees: 'TeodorHMX1'
 
 ---
 
@@ -19,6 +19,6 @@ assignees: ''
 
 **Device:** Device on which the bug was encountered here
 
-To help us triage faster, please check to make sure you are using the [latest version](https://github.com/material-components/material-components-android/releases) of the library.
+To help us triage faster, please check to make sure you are using the [latest version](https://github.com/zeoflow/material-elements/releases) of the library.
 
-We also happily accept [pull requests](https://github.com/material-components/material-components-android/pulls).
+We also happily accept [pull requests](https://github.com/zeoflow/material-elements/pulls).
