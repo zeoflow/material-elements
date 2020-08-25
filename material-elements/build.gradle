@@ -166,3 +166,6 @@ android {
 }
 
 apply from: "${rootProject.projectDir}/material-elements/maven-push.gradle"
+repositories {
+  mavenCentral()
+}
