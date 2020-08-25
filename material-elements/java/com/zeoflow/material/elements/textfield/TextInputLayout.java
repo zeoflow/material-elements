@@ -1480,6 +1480,14 @@ public class TextInputLayout extends LinearLayout
     return editText;
   }
 
+  public void setText(String text)
+  {
+    if (this.editText != null)
+    {
+      editText.setText(text);
+    }
+  }
+
   private void setEditText(EditText editText)
   {
     // If we already have an EditText, throw an exception

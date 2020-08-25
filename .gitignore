@@ -5,5 +5,4 @@ build
 release
 *.iml
 gradlew*
-material-elements/zflow_materialelements.gpg
-material-elements/package.properties
+material-elements/material-elements.gpg
