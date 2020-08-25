@@ -1,18 +1,72 @@
 apply plugin: 'com.android.library'
 
+ext {
+  androidXVersions = [
+    annotation           : '1.0.1',
+    appCompat            : '1.1.0',
+    cardView             : '1.0.0',
+    constraintlayout     : '1.1.3',
+    coordinatorlayout    : '1.1.0',
+    core                 : '1.2.0',
+    experimental         : '1.0.0',
+    fragment             : '1.0.0',
+    lifecycle            : '2.0.0',
+    recyclerView         : '1.0.0',
+    recyclerViewSelection: '1.0.0',
+    transition           : '1.2.0',
+    vectorDrawable       : '1.1.0',
+    viewpager2           : '1.0.0',
+  ]
+}
+
+def compatibility(name) {
+  switch (name) {
+    case "annotation":
+      return "androidx.annotation:annotation:${androidXVersions.annotation}"
+    case "appcompat":
+      return "androidx.appcompat:appcompat:${androidXVersions.appCompat}"
+    case "cardview":
+      return "androidx.cardview:cardview:${androidXVersions.cardView}"
+    case "constraintlayout":
+      return "androidx.constraintlayout:constraintlayout:${androidXVersions.constraintlayout}"
+    case "coordinatorlayout":
+      return "androidx.coordinatorlayout:coordinatorlayout:${androidXVersions.coordinatorlayout}"
+    case "core":
+      return "androidx.core:core:${androidXVersions.core}"
+    case "fragment":
+      return "androidx.fragment:fragment:${androidXVersions.fragment}"
+    case "lifecycleRuntime":
+      return "androidx.lifecycle:lifecycle-runtime:${androidXVersions.lifecycle}"
+    case "recyclerview":
+      return "androidx.recyclerview:recyclerview:${androidXVersions.recyclerView}"
+    case "transition":
+      return "androidx.transition:transition:${androidXVersions.transition}"
+    case "vectordrawable":
+      return "androidx.vectordrawable:vectordrawable:${androidXVersions.vectorDrawable}"
+    case "recyclerViewSelection":
+      return "androidx.recyclerview:recyclerview-selection:${androidXVersions.recyclerViewSelection}"
+    case "viewpager2":
+      return "androidx.viewpager2:viewpager2:${androidXVersions.viewpager2}"
+    case "experimental":
+      return "androidx.annotation:annotation-experimental:${androidXVersions.experimental}"
+    default:
+      throw new IllegalArgumentException("No mapping exists for name: $name.")
+  }
+}
+
 dependencies {
-  api compatibility("annotation")
-  api compatibility("appcompat")
-  api compatibility("cardview")
-  api compatibility("coordinatorlayout")
-  api compatibility("core")
-  api compatibility("experimental")
-  api compatibility("fragment")
-  api compatibility("lifecycleRuntime")
-  api compatibility("recyclerview")
-  api compatibility("transition")
-  api compatibility("vectordrawable")
-  api compatibility("viewpager2")
+  implementation compatibility("annotation")
+  implementation compatibility("appcompat")
+  implementation compatibility("cardview")
+  implementation compatibility("coordinatorlayout")
+  implementation compatibility("core")
+  implementation compatibility("experimental")
+  implementation compatibility("fragment")
+  implementation compatibility("lifecycleRuntime")
+  implementation compatibility("recyclerview")
+  implementation compatibility("transition")
+  implementation compatibility("vectordrawable")
+  implementation compatibility("viewpager2")
 }
 
 def srcDirs = [
@@ -84,10 +138,13 @@ android {
   }
 
   compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
   defaultConfig {
-    vectorDrawables.useSupportLibrary = true
     minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion 30
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode rootProject.ext.versionCode
+    versionName rootProject.ext.versionName
+    vectorDrawables.useSupportLibrary = true
   }
 
   testOptions {
@@ -104,14 +161,8 @@ android {
   }
 
   dexOptions {
-    preDexLibraries = rootProject.ext.preDexLibs
+    preDexLibraries = !project.hasProperty('disablePreDex')
   }
-}
-
-ext {
-  PUBLISH_GROUP_ID = 'com.zeoflow'
-  PUBLISH_ARTIFACT_ID = 'material-elements'
-  PUBLISH_VERSION = '1.0.0'
 }
 
 apply from: "${rootProject.projectDir}/material-elements/maven-push.gradle"
