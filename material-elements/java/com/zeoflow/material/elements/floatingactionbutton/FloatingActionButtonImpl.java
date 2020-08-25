@@ -140,6 +140,7 @@ class FloatingActionButtonImpl
   private ArrayList<InternalTransformationCallback> transformationCallbacks;
   @Nullable
   private ViewTreeObserver.OnPreDrawListener preDrawListener;
+
   @SuppressWarnings("nullness")
   FloatingActionButtonImpl(FloatingActionButton view, ShadowViewDelegate shadowViewDelegate)
   {

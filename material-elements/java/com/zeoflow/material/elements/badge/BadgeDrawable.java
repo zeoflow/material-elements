@@ -176,6 +176,7 @@ public class BadgeDrawable extends Drawable implements TextDrawableHelper.TextDr
   private WeakReference<View> anchorViewRef;
   @Nullable
   private WeakReference<ViewGroup> customBadgeParentRef;
+
   private BadgeDrawable(@NonNull Context context)
   {
     this.contextRef = new WeakReference<>(context);

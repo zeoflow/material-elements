@@ -91,6 +91,7 @@ public class MaterialCardView extends CardView implements Checkable, Shapeable
   private boolean checked = false;
   private boolean dragged = false;
   private OnCheckedChangeListener onCheckedChangeListener;
+
   public MaterialCardView(Context context)
   {
     this(context, null /* attrs */);

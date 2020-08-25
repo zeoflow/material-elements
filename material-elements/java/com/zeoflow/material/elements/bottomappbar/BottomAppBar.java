@@ -196,6 +196,7 @@ public class BottomAppBar extends Toolbar implements AttachedBehavior
           maybeAnimateMenuView(fabAlignmentMode, fabAttached);
         }
       };
+
   public BottomAppBar(@NonNull Context context)
   {
     this(context, null, 0);

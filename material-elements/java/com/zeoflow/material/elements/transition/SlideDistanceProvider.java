@@ -50,6 +50,7 @@ public final class SlideDistanceProvider implements VisibilityAnimatorProvider
   private int slideEdge;
   @Px
   private int slideDistance = DEFAULT_DISTANCE;
+
   public SlideDistanceProvider(@GravityFlag int slideEdge)
   {
     this.slideEdge = slideEdge;
