@@ -28,13 +28,12 @@ To use it:
     ```groovy
       dependencies {
         // ...
-        implementation 'com.zeoflow.material.elements:material:<version>'
+        implementation 'com.zeoflow:material-elements:<version>'
         // ...
       }
     ```
 
-Visit [Google's Maven Repository](http://maven.google.com) or
-[MVN Repository](https://mvnrepository.com/artifact/com.zeoflow.material.elements/material)
+Visit [MVN Repository](https://mvnrepository.com/artifact/com.zeoflow/material-elements)
 to find the latest version of the library.
 
 ##### New Namespace and AndroidX
@@ -43,21 +42,14 @@ If your app currently depends on the original Design Support Library, you can
 make use of the
 [`Refactor to AndroidX…`](https://developer.android.com/jetpack/androidx/migrate)
 option provided by Android Studio. Doing so will update your app's dependencies
-and code to use the newly packaged `androidx` and `com.zeoflow.material.elements`
+and code to use the newly packaged `androidx` and `com.zeoflow:material-elements`
 libraries.
-
-If you don't want to switch over to the new `androidx` and
-`com.zeoflow.material.elements` packages yet, you can use Material Elements via
-the `com.android.support:design:28.0.0` dependency.
-
-Note: You should not use the `com.android.support` and
-`com.zeoflow.material.elements` dependencies in your app at the same time.
 
 ### 2. Compile your app with Android 10
 
 In order to use Material Elements for Android, and the latest versions of the
 Support Libraries, you will have to install Android Studio 3.5 or higher to
-build with Android 10, and update your app's `compileSdkVersion` to `29`.
+build with Android 10, and update your app's `compileSdkVersion` to `30`.
 
 ### 3. Ensure you are using `AppCompatActivity`
 
@@ -185,18 +177,9 @@ theme, or you will encounter `ThemeEnforcement` errors:
 ```
 
 ### 5. Add a Material component to your app
-
-Take a look at our [documentation](https://www.material.io/elements/android)
-for the full list of available Material Elements. Each component's page has
-specific instructions on how to implement it in your app.
-
-Let's use [text fields](elements/TextField.md) as an example.
-
 #### **Implementing a text field via XML**
 
-The default
-[filled text field](https://material.io/go/design-text-fields#filled-text-field)
-XML is defined as:
+The default text field XML is defined as:
 
 ```xml
 <com.zeoflow.material.elements.textfield.TextInputLayout
@@ -237,15 +220,3 @@ text field in XML:
 Material Elements for Android welcomes contributions from the community. Check
 out our [contributing guidelines](contributing.md) as well as an overview of the
 [directory structure](directorystructure.md) before getting started.
-
-## Useful Links
-
--   [Theming Guide](theming.md)
--   [Contributing](contributing.md)
--   [Building From Source](building-from-source.md)
--   [Catalog App](catalog-app.md)
--   [Class documentation](https://developer.android.com/reference/com/google/android/material/classes)
--   [MDC-Android on Stack Overflow](https://www.stackoverflow.com/questions/tagged/material-elements+android)
--   [Android Developer’s Guide](https://developer.android.com/training/material/index.html)
--   [Material.io](https://www.material.io)
--   [Material Design Guidelines](https://material.google.com)
