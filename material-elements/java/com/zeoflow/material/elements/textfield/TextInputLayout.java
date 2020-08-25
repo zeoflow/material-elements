@@ -361,6 +361,7 @@ public class TextInputLayout extends LinearLayout
   {
     this(context, null);
   }
+
   public TextInputLayout(@NonNull Context context, @Nullable AttributeSet attrs)
   {
     this(context, attrs, R.attr.textInputStyle);
@@ -1480,14 +1481,6 @@ public class TextInputLayout extends LinearLayout
     return editText;
   }
 
-  public void setText(String text)
-  {
-    if (this.editText != null)
-    {
-      editText.setText(text);
-    }
-  }
-
   private void setEditText(EditText editText)
   {
     // If we already have an EditText, throw an exception
@@ -1591,6 +1584,14 @@ public class TextInputLayout extends LinearLayout
 
     // Update the label visibility with no animation, but force a state change
     updateLabelState(false, true);
+  }
+
+  public void setText(String text)
+  {
+    if (this.editText != null)
+    {
+      editText.setText(text);
+    }
   }
 
   private void setHintInternal(CharSequence hint)

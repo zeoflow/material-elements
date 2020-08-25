@@ -118,6 +118,7 @@ public class CircularRevealHelper
   private Paint debugPaint;
   private boolean buildingCircularRevealCache;
   private boolean hasCircularRevealCache;
+
   public CircularRevealHelper(Delegate delegate)
   {
     this.delegate = delegate;

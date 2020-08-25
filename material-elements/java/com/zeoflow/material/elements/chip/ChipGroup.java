@@ -80,6 +80,7 @@ public class ChipGroup extends FlowLayout
   {
     this(context, null);
   }
+
   public ChipGroup(Context context, AttributeSet attrs)
   {
     this(context, attrs, R.attr.chipGroupStyle);

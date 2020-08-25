@@ -105,6 +105,7 @@ final class IndicatorViewController
   @Nullable
   private ColorStateList helperTextViewTextColor;
   private Typeface typeface;
+
   public IndicatorViewController(@NonNull TextInputLayout textInputView)
   {
     this.context = textInputView.getContext();

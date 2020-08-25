@@ -77,6 +77,7 @@ public final class MaterialSharedAxis extends MaterialVisibility<VisibilityAnima
   @Axis
   private final int axis;
   private final boolean forward;
+
   public MaterialSharedAxis(@Axis int axis, boolean forward)
   {
     super(createPrimaryAnimatorProvider(axis, forward), createSecondaryAnimatorProvider());

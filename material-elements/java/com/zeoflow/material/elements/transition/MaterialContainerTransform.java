@@ -230,6 +230,7 @@ public final class MaterialContainerTransform extends Transition
   private boolean elevationShadowEnabled = VERSION.SDK_INT >= VERSION_CODES.P;
   private float startElevation = ELEVATION_NOT_SET;
   private float endElevation = ELEVATION_NOT_SET;
+
   public MaterialContainerTransform()
   {
     setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);

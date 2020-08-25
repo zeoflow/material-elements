@@ -1215,6 +1215,7 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
         SCROLL_FLAG_EXIT_UNTIL_COLLAPSED | SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED;
     int scrollFlags = SCROLL_FLAG_SCROLL;
     Interpolator scrollInterpolator;
+
     public LayoutParams(Context c, AttributeSet attrs)
     {
       super(c, attrs);
@@ -1391,6 +1392,7 @@ public class AppBarLayout extends LinearLayout implements CoordinatorLayout.Atta
     @Nullable
     private WeakReference<View> lastNestedScrollingChildRef;
     private BaseDragCallback onDragCallback;
+
     public BaseBehavior()
     {
     }

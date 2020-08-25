@@ -358,14 +358,17 @@ public class TabLayout extends HorizontalScrollView
   private TabLayoutOnPageChangeListener pageChangeListener;
   private AdapterChangeListener adapterChangeListener;
   private boolean setupViewPagerImplicitly;
+
   public TabLayout(@NonNull Context context)
   {
     this(context, null);
   }
+
   public TabLayout(@NonNull Context context, @Nullable AttributeSet attrs)
   {
     this(context, attrs, R.attr.tabStyle);
   }
+
   public TabLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
   {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);

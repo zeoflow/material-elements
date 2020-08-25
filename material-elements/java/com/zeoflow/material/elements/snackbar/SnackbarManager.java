@@ -45,6 +45,7 @@ class SnackbarManager
   private SnackbarRecord currentSnackbar;
   @Nullable
   private SnackbarRecord nextSnackbar;
+
   private SnackbarManager()
   {
     lock = new Object();

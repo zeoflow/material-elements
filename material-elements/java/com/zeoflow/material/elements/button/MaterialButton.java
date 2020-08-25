@@ -172,10 +172,12 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   {
     this(context, null /* attrs */);
   }
+
   public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs)
   {
     this(context, attrs, R.attr.materialButtonStyle);
   }
+
   public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
   {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);

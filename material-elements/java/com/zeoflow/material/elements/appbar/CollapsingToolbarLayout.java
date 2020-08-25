@@ -1347,6 +1347,7 @@ public class CollapsingToolbarLayout extends FrameLayout
     private static final float DEFAULT_PARALLAX_MULTIPLIER = 0.5f;
     int collapseMode = COLLAPSE_MODE_OFF;
     float parallaxMult = DEFAULT_PARALLAX_MULTIPLIER;
+
     public LayoutParams(Context c, AttributeSet attrs)
     {
       super(c, attrs);

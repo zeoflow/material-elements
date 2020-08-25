@@ -169,6 +169,7 @@ public class FloatingActionButton extends VisibilityAwareImageButton
   private int imagePadding;
   private int maxImageSize;
   private FloatingActionButtonImpl impl;
+
   public FloatingActionButton(@NonNull Context context)
   {
     this(context, null);
