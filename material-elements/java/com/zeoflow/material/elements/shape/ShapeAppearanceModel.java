@@ -56,6 +56,7 @@ public class ShapeAppearanceModel
   EdgeTreatment rightEdge;
   EdgeTreatment bottomEdge;
   EdgeTreatment leftEdge;
+
   private ShapeAppearanceModel(@NonNull ShapeAppearanceModel.Builder builder)
   {
     topLeftCorner = builder.topLeftCorner;
@@ -73,6 +74,7 @@ public class ShapeAppearanceModel
     bottomEdge = builder.bottomEdge;
     leftEdge = builder.leftEdge;
   }
+
   /**
    * Constructs a default path generator with default edge and corner treatments.
    */

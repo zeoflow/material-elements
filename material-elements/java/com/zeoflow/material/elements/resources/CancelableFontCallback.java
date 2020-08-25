@@ -35,6 +35,7 @@ public final class CancelableFontCallback extends TextAppearanceFontCallback
   private final Typeface fallbackFont;
   private final ApplyFont applyFont;
   private boolean cancelled;
+
   public CancelableFontCallback(ApplyFont applyFont, Typeface fallbackFont)
   {
     this.fallbackFont = fallbackFont;
