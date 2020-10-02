@@ -15,6 +15,15 @@
         "infra",
         "maintenance"
       ]
+    },
+    {
+      "login": "teogor",
+      "name": "Teogor",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/70129978?v=4",
+      "profile": "https://github.com/teogor",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "files": [
