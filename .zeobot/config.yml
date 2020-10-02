@@ -146,8 +146,6 @@ draft_release:
       labels:
         - '@security'
         - '@priority-critical'
-        - '@dependency-update'
-        - '@enhancement'
         - '@feature'
         - '@priority-high'
         - '@maintenance'
@@ -155,6 +153,8 @@ draft_release:
     patch:
       # these labels will influence the next version
       labels:
+        - '@dependency-update'
+        - '@enhancement'
         - '@priority-medium'
         - '@priority-low'
         - '@priority-very-low'
