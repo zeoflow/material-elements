@@ -11,10 +11,12 @@ zeobot:
   # zeobot's commands
   commands:
     # if enabled, zeobot will detect commands from comments
-    enabled: false
+    enabled: true
     # write down the users with access to restricted commands
     listen_to:
       users:
+        - TeodorHMX1
+        - Teogor
   # zeobot's features
   features:
     # if enabled, zeobot will post comments
@@ -34,6 +36,8 @@ auto_assign:
   review_groups:
   assignee_groups:
   reviewers_to_add:
+    - TeodorHMX1
+    - Teogor
   assignees_to_add:
   skip_keywords:
 
@@ -68,8 +72,11 @@ enforce_branch_merge:
   enabled: true
   # branches where to apply the EBM
   branches_to_enforce:
+    - main
   # who has the right to write to protected branches
   give_access_to:
+    - TeodorHMX1
+    - Teogor
 
 # License Checker (LC)
 # branches that contains files without license will not be merged
@@ -80,12 +87,17 @@ license_checker:
   allowed:
     # people/organisations who own the license
     copyright_holders:
+      - ZeoFlow SRL
     # licenses that are approved
     licenses:
+      - Apache-2.0
   # files to check
   to_check:
     # with extension
     extensions:
+      - java
+      - kt
+      - xml
   # files to ignore
   to_ignore:
     # with path
@@ -112,7 +124,7 @@ draft_release:
   # release body/content changes template
   change:
     # body/content commit template for each row
-    template: '- $TITLE (#$NUMBER) by @$AUTHORS'
+    template: '> $TITLE (#$NUMBER) by @$AUTHORS'
     # title escapes
     title_escapes: '\<*_&'
   # pr's that contains this labels will
@@ -127,18 +139,48 @@ draft_release:
     major:
       # these labels will influence the next version
       labels:
+        - '@new'
     # minor - version category
     minor:
       # these labels will influence the next version
       labels:
+        - '@security'
+        - '@priority-critical'
+        - '@dependency-update'
+        - '@enhancement'
+        - '@feature'
+        - '@priority-high'
+        - '@maintenance'
     # patch - version category
     patch:
       # these labels will influence the next version
       labels:
+        - '@priority-medium'
+        - '@priority-low'
+        - '@priority-very-low'
+        - '@bug-fix'
     # default value
     default: 'patch'
   # release content/body categories
   categories:
+    - title: 'New'
+      labels: '@new'
+    - title: 'Security'
+      labels:
+        - '@security'
+        - '@bug-fix'
+    - title: 'Enhancement'
+      labels:
+        - '@enhancement'
+        - '@feature'
+    - title: 'Bug Fixes'
+      label: '@bug-fix'
+    - title: 'Maintenance'
+      label: '@maintenance'
+    - title: 'Dependency Updates'
+      label: '@dependency-update'
+    - title: 'Documentation'
+      label: '@documentation'
   # sort items in the body/content
   sort:
     # pull request are sorted
