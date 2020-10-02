@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:mlbAccentColor="#2575fc"
+    app:mlbAccentColor="#FFFFFF"
     app:mlbButtonDesign="filled"
     app:mlbLoadingColor="#2575fc"
     app:mlbLoadingDesign="circle"
