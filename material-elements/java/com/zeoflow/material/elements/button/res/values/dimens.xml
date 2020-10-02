@@ -48,4 +48,8 @@
 
   <item name="mtrl_btn_letter_spacing" format="float" type="dimen">0.07</item>
 
+  <dimen name="mtrl_btn_stroke_width">2dp</dimen>
+  <dimen name="progress_bar_height">20dp</dimen>
+  <dimen name="progress_bar_width">20dp</dimen>
+
 </resources>

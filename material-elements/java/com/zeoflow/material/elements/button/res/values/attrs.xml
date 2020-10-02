@@ -24,6 +24,7 @@
   <attr name="materialButtonToggleGroupStyle" format="reference" />
 
   <declare-styleable name="MaterialButton">
+    <attr name="mbFontFamily" format="reference" />
     <!-- Whether the button can be checked. -->
     <attr name="android:checkable" />
     <attr name="android:insetLeft" />
@@ -96,6 +97,26 @@
     <attr name="selectionRequired" />
     <!-- The id of the child button that should be checked by default within this button group. -->
     <attr name="checkedButton" format="reference" />
+  </declare-styleable>
+
+  <declare-styleable name="MaterialLoadingButton">
+    <attr name="mlbStrokeWidth" format="dimension" />
+    <attr name="mlbButtonDesign">
+      <flag name="outlined" value="0x1" />
+      <flag name="filled" value="0x2" />
+    </attr>
+    <attr name="mlbLoadingDesign">
+      <flag name="circle" value="0x1" />
+      <flag name="horizontal" value="0x2" />
+    </attr>
+    <attr name="mlbRippleColor" format="color" />
+    <attr name="mlbBackgroundColor" format="color" />
+    <attr name="mlbText" format="string" />
+    <attr name="mlbTextColor" format="color" />
+    <attr name="mlbLoadingColor" format="color" />
+    <attr name="mlbAccentColor" format="color" />
+    <attr name="mlbRippleDefault" format="boolean" />
+    <attr name="mlbFontFamily" format="reference" />
   </declare-styleable>
 
 </resources>
