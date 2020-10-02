@@ -49,22 +49,4 @@
   <!-- Menu/item attributes -->
   <style name="Theme.MaterialElements.CompactMenu" parent="Base.Theme.MaterialElements.CompactMenu" />
 
-  <!-- Deprecated. Use Theme.MaterialElements instead. -->
-  <style name="Theme.Design" parent="Theme.AppCompat"></style>
-
-  <!-- Deprecated. Use Theme.MaterialElements.Light instead. -->
-  <style name="Theme.Design.Light" parent="Theme.AppCompat.Light"></style>
-
-  <!-- Deprecated. Use Theme.MaterialElements.NoActionBar instead. -->
-  <style name="Theme.Design.NoActionBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-  </style>
-
-  <!-- Deprecated. Use Theme.MaterialElements.Light.NoActionBar instead. -->
-  <style name="Theme.Design.Light.NoActionBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-  </style>
-
 </resources>

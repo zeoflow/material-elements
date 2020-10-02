@@ -116,7 +116,7 @@
     <attr name="mlbLoadingColor" format="color" />
     <attr name="mlbAccentColor" format="color" />
     <attr name="mlbRippleDefault" format="boolean" />
-    <attr name="mlbFontFamily" format="reference" />
+    <attr name="mlbFontFamily" format="boolean" />
   </declare-styleable>
 
 </resources>

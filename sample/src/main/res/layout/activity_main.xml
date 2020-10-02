@@ -11,21 +11,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:mlbAccentColor="#2575fc"
-    app:mlbBackgroundColor="#FFFFFF"
-    app:mlbButtonDesign="outlined"
-    app:mlbLoadingColor="#2575fc"
-    app:mlbLoadingDesign="circle"
-    app:mlbRippleDefault="true"
-    app:mlbStrokeWidth="2dp"
-    app:mlbText="Login"
-    app:mlbTextColor="#2575fc"
-    app:mlbFontFamily="@font/zeoflow_regular"/>
-
-  <com.zeoflow.material.elements.button.MaterialButtonLoading
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:mlbAccentColor="#2575fc"
     app:mlbButtonDesign="filled"
     app:mlbLoadingColor="#2575fc"
     app:mlbLoadingDesign="circle"
@@ -33,5 +18,17 @@
     app:mlbText="Login"
     app:mlbTextColor="#FFFFFF"
     app:mlbFontFamily="@font/zeoflow_regular"/>
+
+  <com.zeoflow.material.elements.button.MaterialButton
+    style="@style/MaterialElements.Button.OutlinedButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="login_btn"
+    android:textAllCaps="false"
+    android:textColor="#2575fc"
+    app:strokeColor="#2575fc"
+    app:strokeWidth="2dp"
+    app:textAllCaps="false"
+    app:mbFontFamily="@font/zeoflow_regular" />
 
 </LinearLayout>

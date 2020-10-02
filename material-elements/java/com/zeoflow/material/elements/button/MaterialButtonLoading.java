@@ -23,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -130,7 +131,6 @@ public class MaterialButtonLoading extends FrameLayout
     rippleDefault = attributes.getBoolean(R.styleable.MaterialLoadingButton_mlbRippleDefault, true);
     zFont = attributes.getResourceId(R.styleable.MaterialLoadingButton_mlbFontFamily, 0);
 
-
     zButton = findViewById(R.id.btn);
     if (zFont != 0)
     {
@@ -161,27 +161,32 @@ public class MaterialButtonLoading extends FrameLayout
     zButton.setTypeface(typeface, Typeface.BOLD);
   }
 
-  public void setText(String text) {
+  public void setText(String text)
+  {
     this.text = text;
     zButton.setText(text);
   }
 
-  public void setTextColor(int textColor) {
+  public void setTextColor(int textColor)
+  {
     this.textColor = textColor;
     zButton.setTextColor(textColor);
   }
 
-  public void setRippleColor(int rippleColor) {
+  public void setRippleColor(int rippleColor)
+  {
     this.rippleColor = rippleColor;
     zButton.setRippleColor(ColorStateList.valueOf(rippleColor));
   }
 
-  public void setRippleColor(ColorStateList rippleColor) {
+  public void setRippleColor(ColorStateList rippleColor)
+  {
     this.rippleColor = rippleColor.getDefaultColor();
     zButton.setRippleColor(rippleColor);
   }
 
-  public void setAccentColor(int accentColor) {
+  public void setAccentColor(int accentColor)
+  {
     this.accentColor = accentColor;
     if (buttonDesign == BUTTON_DESIGN_OUTLINED)
     {
@@ -202,17 +207,20 @@ public class MaterialButtonLoading extends FrameLayout
     }
   }
 
-  public void setRippleDeafult(boolean rippleDefault) {
+  public void setRippleDeafult(boolean rippleDefault)
+  {
     this.rippleDefault = rippleDefault;
   }
 
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-  public void setLoadingColor(int loadingColor) {
+  public void setLoadingColor(int loadingColor)
+  {
     zPbar.setIndeterminateTintList(ColorStateList.valueOf(loadingColor));
   }
 
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-  public void setLoadingColor(ColorStateList loadingColor) {
+  public void setLoadingColor(ColorStateList loadingColor)
+  {
     zPbar.setIndeterminateTintList(loadingColor);
   }
 
