@@ -1,7 +1,23 @@
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/activity_padding"
-    android:background="@color/colorPrimary"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/colorPrimary"
+  android:orientation="vertical"
+  android:padding="@dimen/activity_padding">
+
+  <com.zeoflow.material.elements.button.MaterialButtonLoading
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:mlbAccentColor="#2575fc"
+    app:mlbBackgroundColor="#212121"
+    app:mlbButtonDesign="outlined"
+    app:mlbLoadingColor="#2575fc"
+    app:mlbLoadingDesign="circle"
+    app:mlbRippleDefault="true"
+    app:mlbStrokeWidth="2dp"
+    app:mlbText="Login"
+    app:mlbTextColor="#2575fc" />
+
 </LinearLayout>
