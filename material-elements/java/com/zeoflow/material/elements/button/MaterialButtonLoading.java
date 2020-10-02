@@ -207,6 +207,10 @@ public class MaterialButtonLoading extends FrameLayout
     }
   }
 
+  public void setOnClickListener(OnClickListener onClickListener) {
+    zButton.setOnClickListener(onClickListener);
+  }
+
   public void setRippleDeafult(boolean rippleDefault)
   {
     this.rippleDefault = rippleDefault;
