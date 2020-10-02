@@ -1,0 +1,25 @@
+{
+  "projectName": "material-elements",
+  "projectOwner": "zeoflow",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "contributors": [
+    {
+      "login": "TeodorHMX1",
+      "name": "Teodor G.",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/22307006?v=4",
+      "profile": "http://team.zeoflow.com/teodor_g",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "maintenance"
+      ]
+    }
+  ],
+  "files": [
+    "README.md",
+    "docs/contributors.md"
+  ],
+  "contributorsPerLine": 7
+}
