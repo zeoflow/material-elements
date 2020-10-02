@@ -16,12 +16,14 @@
 
 package com.zeoflow.material.elements.button;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -47,6 +49,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.TextViewCompat;
@@ -73,7 +76,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * <p>This class supplies updated Material styles for the button in the constructor. The widget will
  * display the correct default Material styles without the use of the style flag.
  *
- * <p>All attributes from {@link com.zeoflow.material.elements.R.styleable#MaterialButton} are
+ * <p>All attributes from {@link com.zeoflow.material.elements} are
  * supported. Do not use the {@code android:background} attribute. MaterialButton manages its own
  * background drawable, and setting a new background means {@link MaterialButton} can no longer
  * guarantee that the new attributes it introduces will function properly. If the default background
@@ -167,6 +170,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   private boolean broadcasting = false;
   @IconGravity
   private int iconGravity;
+  private int zFont;
 
   public MaterialButton(@NonNull Context context)
   {
@@ -178,11 +182,13 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     this(context, attrs, R.attr.materialButtonStyle);
   }
 
+  private Context zContext;
   public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
   {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
     // Ensure we are using the correctly themed context rather than the context that was passed in.
     context = getContext();
+    zContext = context;
 
     TypedArray attributes =
         ThemeEnforcement.obtainStyledAttributes(
@@ -203,6 +209,13 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     ShapeAppearanceModel shapeAppearanceModel =
         ShapeAppearanceModel.builder(context, attrs, defStyleAttr, DEF_STYLE_RES).build();
 
+    zFont = attributes.getResourceId(R.styleable.MaterialButton_mbFontFamily, 0);
+    if (zFont != 0)
+    {
+      Typeface typeface = ResourcesCompat.getFont(context, zFont);
+      setTypeface(typeface, Typeface.BOLD);
+    }
+
     // Loads and sets background drawable attributes
     materialButtonHelper = new MaterialButtonHelper(this, shapeAppearanceModel);
     materialButtonHelper.loadFromAttributes(attributes);
@@ -211,6 +224,13 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
 
     setCompoundDrawablePadding(iconPadding);
     updateIcon(/*needsIconUpdate=*/icon != null);
+  }
+
+  public void setFont(int font)
+  {
+    this.zFont = font;
+    Typeface typeface = ResourcesCompat.getFont(zContext, font);
+    setTypeface(typeface, Typeface.BOLD);
   }
 
   @NonNull
@@ -267,6 +287,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    *
    * @hide
    */
+  @SuppressLint("RestrictedApi")
   @RestrictTo(LIBRARY_GROUP)
   @Override
   @Nullable
@@ -290,6 +311,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    *
    * @hide
    */
+  @SuppressLint("RestrictedApi")
   @RestrictTo(LIBRARY_GROUP)
   @Override
   public void setSupportBackgroundTintList(@Nullable ColorStateList tint)
@@ -311,6 +333,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
    *
    * @hide
    */
+  @SuppressLint("RestrictedApi")
   @RestrictTo(LIBRARY_GROUP)
   @Override
   @Nullable
