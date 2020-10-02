@@ -1,12 +1,12 @@
 /**
  * Copyright 2020 ZeoFlow SRL
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 
 import com.zeoflow.R;
@@ -40,6 +42,7 @@ import java.lang.annotation.RetentionPolicy;
 public class MaterialButtonLoading extends FrameLayout
 {
 
+  private boolean isLoading = false;
   private MaterialButton zButton;
   private ProgressBar zPbar;
   private String text;
@@ -51,6 +54,7 @@ public class MaterialButtonLoading extends FrameLayout
   private Context zContext;
   private AttributeSet zAttrs;
   private boolean rippleDefault;
+  private int zFont;
 
   private int btnStrokeWidth;
 
@@ -122,10 +126,17 @@ public class MaterialButtonLoading extends FrameLayout
     textColor = attributes.getColor(R.styleable.MaterialLoadingButton_mlbTextColor, 0);
     loadingColor = attributes.getColor(R.styleable.MaterialLoadingButton_mlbLoadingColor, 0);
     accentColor = attributes.getColor(R.styleable.MaterialLoadingButton_mlbAccentColor, 0);
-    backgroundColor = attributes.getColor(R.styleable.MaterialLoadingButton_mlbBackgroundColor, -1);
+    backgroundColor = attributes.getColor(R.styleable.MaterialLoadingButton_mlbBackgroundColor, 0);
     rippleDefault = attributes.getBoolean(R.styleable.MaterialLoadingButton_mlbRippleDefault, true);
+    zFont = attributes.getResourceId(R.styleable.MaterialLoadingButton_mlbFontFamily, 0);
+
 
     zButton = findViewById(R.id.btn);
+    if (zFont != 0)
+    {
+      Typeface typeface = ResourcesCompat.getFont(zContext, zFont);
+      zButton.setTypeface(typeface, Typeface.BOLD);
+    }
     if (loadingDesign == LOADING_DESIGN_CIRCLE)
     {
       zPbar = findViewById(R.id.pbCircle);
@@ -136,6 +147,73 @@ public class MaterialButtonLoading extends FrameLayout
     zPbar.setVisibility(GONE);
 
     drawBtn();
+  }
+
+  public void setTypeface(Typeface typeface)
+  {
+    zButton.setTypeface(typeface, Typeface.BOLD);
+  }
+
+  public void setFont(int font)
+  {
+    this.zFont = font;
+    Typeface typeface = ResourcesCompat.getFont(zContext, font);
+    zButton.setTypeface(typeface, Typeface.BOLD);
+  }
+
+  public void setText(String text) {
+    this.text = text;
+    zButton.setText(text);
+  }
+
+  public void setTextColor(int textColor) {
+    this.textColor = textColor;
+    zButton.setTextColor(textColor);
+  }
+
+  public void setRippleColor(int rippleColor) {
+    this.rippleColor = rippleColor;
+    zButton.setRippleColor(ColorStateList.valueOf(rippleColor));
+  }
+
+  public void setRippleColor(ColorStateList rippleColor) {
+    this.rippleColor = rippleColor.getDefaultColor();
+    zButton.setRippleColor(rippleColor);
+  }
+
+  public void setAccentColor(int accentColor) {
+    this.accentColor = accentColor;
+    if (buttonDesign == BUTTON_DESIGN_OUTLINED)
+    {
+      zButton.setStrokeColor(ColorStateList.valueOf(accentColor));
+    } else if (buttonDesign == BUTTON_DESIGN_FILLED)
+    {
+      zButton.setBackgroundColor(accentColor);
+    }
+    if (rippleDefault)
+    {
+      if (isDark(accentColor))
+      {
+        zButton.setRippleColor(ColorStateList.valueOf(lighten(accentColor, 0.2f)));
+      } else
+      {
+        zButton.setRippleColor(ColorStateList.valueOf(darken(accentColor, 0.2f)));
+      }
+    }
+  }
+
+  public void setRippleDeafult(boolean rippleDefault) {
+    this.rippleDefault = rippleDefault;
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  public void setLoadingColor(int loadingColor) {
+    zPbar.setIndeterminateTintList(ColorStateList.valueOf(loadingColor));
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  public void setLoadingColor(ColorStateList loadingColor) {
+    zPbar.setIndeterminateTintList(loadingColor);
   }
 
   private void drawBtn()
@@ -150,7 +228,7 @@ public class MaterialButtonLoading extends FrameLayout
     {
       zButton.setBackgroundColor(accentColor);
     }
-    if (backgroundColor != -1)
+    if (backgroundColor != 0)
     {
       zButton.setBackgroundColor(backgroundColor);
     }
@@ -162,10 +240,10 @@ public class MaterialButtonLoading extends FrameLayout
     {
       if (isDark(accentColor))
       {
-        zButton.setRippleColor(ColorStateList.valueOf(lighten(accentColor, 0.4f)));
+        zButton.setRippleColor(ColorStateList.valueOf(lighten(accentColor, 0.2f)));
       } else
       {
-        zButton.setRippleColor(ColorStateList.valueOf(darken(accentColor, 0.4f)));
+        zButton.setRippleColor(ColorStateList.valueOf(darken(accentColor, 0.2f)));
       }
     } else
     {
@@ -216,6 +294,7 @@ public class MaterialButtonLoading extends FrameLayout
 
   public void setLoading(boolean isLoading)
   {
+    this.isLoading = isLoading;
     if (isLoading)
     {
       zPbar.setVisibility(VISIBLE);

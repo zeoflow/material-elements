@@ -24,6 +24,7 @@
   <attr name="materialButtonToggleGroupStyle" format="reference" />
 
   <declare-styleable name="MaterialButton">
+    <attr name="mbFontFamily" format="reference" />
     <!-- Whether the button can be checked. -->
     <attr name="android:checkable" />
     <attr name="android:insetLeft" />
@@ -115,6 +116,7 @@
     <attr name="mlbLoadingColor" format="color" />
     <attr name="mlbAccentColor" format="color" />
     <attr name="mlbRippleDefault" format="boolean" />
+    <attr name="mlbFontFamily" format="reference" />
   </declare-styleable>
 
 </resources>
