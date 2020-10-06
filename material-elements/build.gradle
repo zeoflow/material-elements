@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 ext {
   androidXVersions = [
@@ -67,6 +68,8 @@ dependencies {
   implementation compatibility("transition")
   implementation compatibility("vectordrawable")
   implementation compatibility("viewpager2")
+  implementation "androidx.core:core-ktx:1.3.1"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 def srcDirs = [
@@ -86,12 +89,14 @@ def srcDirs = [
   'com/zeoflow/material/elements/circularreveal/cardview',
   'com/zeoflow/material/elements/circularreveal/coordinatorlayout',
   'com/zeoflow/material/elements/color',
+  'com/zeoflow/material/elements/colorwheel',
   'com/zeoflow/material/elements/datepicker',
   'com/zeoflow/material/elements/dialog',
   'com/zeoflow/material/elements/drawable',
   'com/zeoflow/material/elements/elevation',
   'com/zeoflow/material/elements/expandable',
   'com/zeoflow/material/elements/floatingactionbutton',
+  'com/zeoflow/material/elements/gradientseekbar',
   'com/zeoflow/material/elements/imageview',
   'com/zeoflow/material/elements/internal',
   'com/zeoflow/material/elements/math',
