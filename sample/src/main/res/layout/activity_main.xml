@@ -1,15 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:background="@color/colorPrimary"
   android:orientation="vertical"
   android:padding="@dimen/activity_padding">
 
-  <com.zeoflow.material.elements.imageview.CircleImageView
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+  <FrameLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="333dp"
     android:layout_centerInParent="true"
-    app:circleBackgroundColor="#212121"/>
+    android:background="@color/colorPrimary">
+
+    <com.zeoflow.material.elements.textfield.AutoFitEditText
+      android:id="@+id/rET"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/colorPrimary"
+      android:focusable="true"
+      android:focusableInTouchMode="true"
+      android:gravity="center_vertical|center_horizontal"
+      android:hint="hintt"
+      android:inputType="textMultiLine|textNoSuggestions"
+      android:isScrollContainer="false"
+      android:maxLength="240"
+      android:textColor="@android:color/white"
+      android:textColorHint="@android:color/white"
+      android:textSize="90sp" />
+  </FrameLayout>
 
 </RelativeLayout>

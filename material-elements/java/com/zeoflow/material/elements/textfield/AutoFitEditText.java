@@ -15,6 +15,8 @@ import android.util.TypedValue;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
+import java.util.Objects;
+
 @SuppressWarnings("UnusedDeclaration")
 public class AutoFitEditText extends AppCompatEditText
 {
@@ -29,7 +31,7 @@ public class AutoFitEditText extends AppCompatEditText
   private int _widthLimit;
   private int _maxLines;
   private boolean _enableSizeCache = true;
-  private boolean _initiallized = false;
+  private boolean _initiallized;
   private TextPaint paint;
 
   private interface SizeTester
@@ -43,7 +45,7 @@ public class AutoFitEditText extends AppCompatEditText
      * text, it takes less space than {@code availableSpace}, > 0
      * otherwise
      */
-    public int onTestSize(int suggestedSize, RectF availableSpace);
+    int onTestSize(int suggestedSize, RectF availableSpace);
   }
 
   public AutoFitEditText(final Context context)
@@ -78,7 +80,7 @@ public class AutoFitEditText extends AppCompatEditText
                             final RectF availableSPace)
       {
         paint.setTextSize(suggestedSize);
-        final String text = getText().toString();
+        final String text = Objects.requireNonNull(getText()).toString();
         final boolean singleline = getMaxLines() == 1;
         if (singleline)
         {
@@ -191,11 +193,6 @@ public class AutoFitEditText extends AppCompatEditText
     _spacingAdd = add;
   }
 
-  /**
-   * Set the lower text size limit and invalidate the view
-   *
-   * @param
-   */
   public void setMinTextSize(final Float minTextSize)
   {
     _minTextSize = minTextSize;
@@ -251,8 +248,8 @@ public class AutoFitEditText extends AppCompatEditText
   {
     if (!_enableSizeCache)
       return binarySearch(start, end, sizeTester, availableSpace);
-    final String text = getText().toString();
-    final int key = text == null ? 0 : text.length();
+    final String text = Objects.requireNonNull(getText()).toString();
+    final int key = text.length();
     int size = _textCachedSizes.get(key);
     if (size != 0)
       return size;
