@@ -31,6 +31,7 @@ import java.util.List;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
+@SuppressWarnings("UnusedDeclaration")
 public class AnimatorSetCompat
 {
 

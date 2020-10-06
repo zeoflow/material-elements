@@ -47,7 +47,7 @@ import androidx.annotation.RequiresApi;
 
 import com.zeoflow.R;
 
-@SuppressWarnings("UnusedDeclaration")
+
 public class CircleImageView extends ShapeableImageView
 {
 
