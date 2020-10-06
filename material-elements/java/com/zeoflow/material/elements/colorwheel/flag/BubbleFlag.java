@@ -1,5 +1,5 @@
 /*
- * 
+ *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,22 +31,22 @@ import com.zeoflow.material.elements.color.ColorEnvelope;
 public class BubbleFlag extends FlagView
 {
 
-    private AppCompatImageView bubble;
+  private AppCompatImageView bubble;
 
-    public BubbleFlag(Context context)
-    {
-        super(context, R.layout.flag_bubble);
-        this.bubble = findViewById(R.id.bubble);
-    }
+  public BubbleFlag(Context context)
+  {
+    super(context, R.layout.flag_bubble);
+    this.bubble = findViewById(R.id.bubble);
+  }
 
-    /**
-     * invoked when selector is moved.
-     *
-     * @param colorEnvelope provide hsv color, hexCode, argb
-     */
-    @Override
-    public void onRefresh(ColorEnvelope colorEnvelope)
-    {
-        ImageViewCompat.setImageTintList(bubble, ColorStateList.valueOf(colorEnvelope.getColor()));
-    }
+  /**
+   * invoked when selector is moved.
+   *
+   * @param colorEnvelope provide hsv color, hexCode, argb
+   */
+  @Override
+  public void onRefresh(ColorEnvelope colorEnvelope)
+  {
+    ImageViewCompat.setImageTintList(bubble, ColorStateList.valueOf(colorEnvelope.getColor()));
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,46 +25,46 @@ import androidx.annotation.ColorInt;
 public class ColorEnvelope
 {
 
-    @ColorInt
-    private int color;
-    private String hexCode;
-    private int[] argb;
+  @ColorInt
+  private int color;
+  private String hexCode;
+  private int[] argb;
 
-    public ColorEnvelope(@ColorInt int color)
-    {
-        this.color = color;
-        this.hexCode = ColorUtils.getHexCode(color);
-        this.argb = ColorUtils.getColorARGB(color);
-    }
+  public ColorEnvelope(@ColorInt int color)
+  {
+    this.color = color;
+    this.hexCode = ColorUtils.getHexCode(color);
+    this.argb = ColorUtils.getColorARGB(color);
+  }
 
-    /**
-     * gets envelope's color.
-     *
-     * @return color.
-     */
-    public @ColorInt
-    int getColor()
-    {
-        return color;
-    }
+  /**
+   * gets envelope's color.
+   *
+   * @return color.
+   */
+  public @ColorInt
+  int getColor()
+  {
+    return color;
+  }
 
-    /**
-     * gets envelope's hex code value.
-     *
-     * @return hex code.
-     */
-    public String getHexCode()
-    {
-        return hexCode;
-    }
+  /**
+   * gets envelope's hex code value.
+   *
+   * @return hex code.
+   */
+  public String getHexCode()
+  {
+    return hexCode;
+  }
 
-    /**
-     * gets envelope's argb color.
-     *
-     * @return argb integer array.
-     */
-    public int[] getArgb()
-    {
-        return argb;
-    }
+  /**
+   * gets envelope's argb color.
+   *
+   * @return argb integer array.
+   */
+  public int[] getArgb()
+  {
+    return argb;
+  }
 }
