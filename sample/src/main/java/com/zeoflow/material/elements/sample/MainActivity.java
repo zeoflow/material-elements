@@ -21,15 +21,5 @@ public class MainActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    ColorWheel colorWheel = findViewById(R.id.colorWheel);
-    colorWheel.setFlagView(new FlagView(this, R.layout.flag_bubble)
-    {
-      @Override
-      public void onRefresh(ColorEnvelope colorEnvelope)
-      {
-        Log.d("color", String.valueOf(Objects.requireNonNull(colorWheel.getFlagView()).getVisibility()));
-      }
-    });
-
   }
 }
