@@ -1,5 +1,6 @@
 package com.zeoflow.material.elements.colorwheel
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -11,8 +12,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import com.zeoflow.R
+import com.zeoflow.material.elements.color.ColorEnvelope
 import com.zeoflow.material.elements.colorwheel.extensions.readBooleanCompat
 import com.zeoflow.material.elements.colorwheel.extensions.writeBooleanCompat
+import com.zeoflow.material.elements.colorwheel.flag.FlagView
 import com.zeoflow.material.elements.colorwheel.thumb.ThumbDrawable
 import com.zeoflow.material.elements.colorwheel.thumb.ThumbDrawableState
 import com.zeoflow.material.elements.colorwheel.thumb.readThumbState
@@ -88,7 +91,7 @@ open class ColorWheel @JvmOverloads constructor(
       invalidate()
     }
 
-  var colorChangeListener: ((Int) -> Unit)? = null
+  private var colorChangeListener: ((Int) -> Unit)? = null
 
   var interceptTouchEvent = true
 
@@ -159,6 +162,7 @@ open class ColorWheel @JvmOverloads constructor(
     thumbDrawable.draw(canvas)
   }
 
+  @SuppressLint("ClickableViewAccessibility")
   override fun onTouchEvent(event: MotionEvent): Boolean {
     when (event.actionMasked) {
       MotionEvent.ACTION_DOWN -> onActionDown(event)
@@ -166,6 +170,23 @@ open class ColorWheel @JvmOverloads constructor(
       MotionEvent.ACTION_UP -> {
         updateColorOnMotionEvent(event)
         if (isTap(event, downX, downY, viewConfig)) performClick()
+      }
+    }
+    when (event.actionMasked) {
+      MotionEvent.ACTION_DOWN -> {
+        if(getFlagView() != null) {
+          getFlagView()?.receiveOnTouchEvent(event)
+        }
+      }
+      MotionEvent.ACTION_MOVE -> {
+        if(getFlagView() != null) {
+          getFlagView()?.receiveOnTouchEvent(event)
+        }
+      }
+      MotionEvent.ACTION_UP -> {
+        if(getFlagView() != null) {
+          getFlagView()?.receiveOnTouchEvent(event)
+        }
       }
     }
 
@@ -194,8 +215,36 @@ open class ColorWheel @JvmOverloads constructor(
     hsvColor.set(hue, saturation, 1f)
   }
 
+  private var flagView: FlagView? = null
+
+  /**
+   * gets a [FlagView].
+   *
+   * @return [FlagView].
+   */
+  open fun getFlagView(): FlagView? {
+    return flagView
+  }
+
+  /**
+   * sets a [FlagView].
+   *
+   * @param flagView [FlagView].
+   */
+  open fun setFlagView(flagView: FlagView) {
+    flagView.gone()
+    this.flagView = flagView
+  }
+
+  open fun getColorEnvelope(): ColorEnvelope? {
+    return ColorEnvelope(rgb)
+  }
+
   private fun fireColorListener() {
-    println("Here we are inside " + 23)
+    if (flagView != null) {
+      flagView!!.onRefresh(getColorEnvelope())
+      println("hereWeAre -> onRefresh")
+    }
     colorChangeListener?.invoke(hsvColor.rgb)
   }
 
