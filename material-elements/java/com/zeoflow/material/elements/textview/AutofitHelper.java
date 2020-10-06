@@ -55,6 +55,8 @@ public class AutofitHelper
   {
     AutofitHelper helper = new AutofitHelper(view);
     boolean sizeToFit = true;
+    boolean autofitWidthEnabled = true;
+    boolean autofitHeightEnabled = false;
     if (attrs != null)
     {
       Context context = view.getContext();
@@ -66,6 +68,11 @@ public class AutofitHelper
           R.styleable.AutofitTextView,
           defStyle,
           0);
+
+      autofitWidthEnabled = ta.getBoolean(R.styleable.AutofitTextView_autofitWidthEnabled,
+          autofitWidthEnabled);
+      autofitHeightEnabled = ta.getBoolean(R.styleable.AutofitTextView_autofitHeightEnabled,
+          autofitHeightEnabled);
       sizeToFit = ta.getBoolean(R.styleable.AutofitTextView_sizeToFit, sizeToFit);
       minTextSize = ta.getDimensionPixelSize(R.styleable.AutofitTextView_minTextSize,
           minTextSize);
@@ -76,15 +83,20 @@ public class AutofitHelper
           .setPrecision(precision);
     }
     helper.setEnabled(sizeToFit);
+    helper.setAutofitWidthEnabled(autofitWidthEnabled);
+    helper.setAutofitHeightEnabled(autofitHeightEnabled);
 
     return helper;
   }
 
-  /**
-   * Re-sizes the textSize of the TextView so that the text fits within the bounds of the View.
-   */
   private static void autofit(TextView view, TextPaint paint, float minTextSize, float maxTextSize,
                               int maxLines, float precision)
+  {
+    autofit(view, paint, minTextSize, maxTextSize, maxLines, precision, true, true);
+  }
+
+  private static void autofit(TextView view, TextPaint paint, float minTextSize, float maxTextSize,
+                              int maxLines, float precision, boolean isAutofitWidthEnabled, boolean isAutofitHeightEnabled)
   {
     if (maxLines <= 0 || maxLines == Integer.MAX_VALUE)
     {
@@ -129,12 +141,41 @@ public class AutofitHelper
           displayMetrics);
     }
 
+    if (isAutofitHeightEnabled)
+    {
+      int targetHeight = view.getHeight() - view.getPaddingTop() - view.getPaddingBottom();
+      if (targetHeight > 0)
+      {
+        float textHeight = getTextHeight(text, paint, targetWidth, size);
+        float heightRatio = targetHeight / textHeight;
+        float newSize = size * heightRatio;
+        if (newSize < size)
+        {
+          size = newSize;
+        }
+      }
+    }
+
     if (size < minTextSize)
     {
       size = minTextSize;
     }
 
     view.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+  }
+
+  /**
+   * Try to fit the text with current size to a static layout to calculate height needed
+   * by that text size.
+   *
+   * @return float The height size required by the text.
+   * @note Can be put in a loop where text size is gradually decreased etc.
+   */
+  private static float getTextHeight(CharSequence text, TextPaint paint, int width, float textSize)
+  {
+    StaticLayout textHeightAdjuster = new StaticLayout(text, paint, width,
+        Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true);
+    return textHeightAdjuster.getHeight();
   }
 
   /**
@@ -247,7 +288,57 @@ public class AutofitHelper
   private float mPrecision;
 
   private boolean mEnabled;
+  private boolean mIsAutofitWidthEnabled;
+  private boolean mIsAutofitHeightEnabled;
   private boolean mIsAutofitting;
+
+  public boolean isAutofitWidthEnabled()
+  {
+    return mIsAutofitWidthEnabled;
+  }
+
+  /**
+   * Set the enabled state of automatically resizing text.
+   */
+  public AutofitHelper setAutofitWidthEnabled(boolean autofitWidthEnabled) {
+    if (mIsAutofitWidthEnabled != autofitWidthEnabled) {
+      mIsAutofitWidthEnabled = autofitWidthEnabled;
+
+      if (autofitWidthEnabled) {
+        mTextView.addTextChangedListener(mTextWatcher);
+        mTextView.addOnLayoutChangeListener(mOnLayoutChangeListener);
+
+        autofit();
+      } else {
+        mTextView.removeTextChangedListener(mTextWatcher);
+        mTextView.removeOnLayoutChangeListener(mOnLayoutChangeListener);
+
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+      }
+    }
+    return this;
+  }
+
+  /**
+   * Returns whether or not automatically resizing text
+   * by height is enabled.
+   * @return boolean True when height scaling is on.
+   */
+  public boolean isAutofitHeightEnabled() {
+    return mIsAutofitHeightEnabled;
+  }
+
+  /**
+   * Sets the state of automatically resizing by text fitting in height.
+   * Calls an autofit if it is already enabled.
+   * @param autofitHeightEnabled The state to update the height fitting member
+   */
+  public AutofitHelper setAutofitHeightEnabled(boolean autofitHeightEnabled) {
+    mIsAutofitHeightEnabled = autofitHeightEnabled;
+    // Fit if required
+    setAutofitWidthEnabled(mIsAutofitWidthEnabled);
+    return this;
+  }
 
   private ArrayList<OnTextSizeChangeListener> mListeners;
 
@@ -542,7 +633,7 @@ public class AutofitHelper
     float textSize;
 
     mIsAutofitting = true;
-    autofit(mTextView, mPaint, mMinTextSize, mMaxTextSize, mMaxLines, mPrecision);
+    autofit(mTextView, mPaint, mMinTextSize, mMaxTextSize, mMaxLines, mPrecision, mIsAutofitWidthEnabled, mIsAutofitHeightEnabled);
     mIsAutofitting = false;
 
     textSize = mTextView.getTextSize();

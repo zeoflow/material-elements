@@ -85,6 +85,54 @@ public class AutofitTextView extends MaterialTextView implements AutofitHelper.O
   /**
    * Returns whether or not the text will be automatically re-sized to fit its constraints.
    */
+  public boolean isAutofitWidthEnabled() {
+    return mHelper.isAutofitWidthEnabled();
+  }
+
+  /**
+   * Sets the property of this field (autofitWidthEnabled), to automatically resize the text to fit its
+   * constraints.
+   */
+  public void setAutofitWidthEnabled() {
+    setAutofitWidthEnabled(true);
+  }
+
+  /**
+   * If true, the text will automatically be re-sized to fit its constraints; if false, it will
+   * act like a normal TextView.
+   *
+   * @param autofitWidthEnabled
+   */
+  public void setAutofitWidthEnabled(boolean autofitWidthEnabled) {
+    mHelper.setAutofitWidthEnabled(autofitWidthEnabled);
+  }
+
+  /**
+   * Returns whether or not the text will be automatically re-sized to fit its height.
+   */
+  public boolean isAutofitHeightEnabled() {
+    return mHelper.isAutofitHeightEnabled();
+  }
+
+  /**
+   * Sets the property of this field (autofitHeightEnabled), to automatically resize the text to fit
+   * its height.
+   */
+  public void setAutofitHeightEnabled() {
+    setAutofitHeightEnabled(true);
+  }
+
+  /**
+   * Enables automatic text resizing to fit the textview height
+   * @param autofitHeightEnabled If true, the text will automatically be re-sized to fit its height
+   */
+  public void setAutofitHeightEnabled(boolean autofitHeightEnabled) {
+    mHelper.setAutofitHeightEnabled(autofitHeightEnabled);
+  }
+
+  /**
+   * Returns whether or not the text will be automatically re-sized to fit its constraints.
+   */
   public boolean isSizeToFit()
   {
     return mHelper.isEnabled();

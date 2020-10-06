@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:material="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/colorPrimary"
@@ -12,21 +13,13 @@
     android:layout_centerInParent="true"
     android:background="@color/colorPrimary">
 
-    <com.zeoflow.material.elements.textfield.AutoFitEditText
-      android:id="@+id/rET"
+    <com.zeoflow.material.elements.textview.AutofitTextView
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@color/colorPrimary"
-      android:focusable="true"
-      android:focusableInTouchMode="true"
-      android:gravity="center_vertical|center_horizontal"
-      android:hint="hintt"
-      android:inputType="textMultiLine|textNoSuggestions"
-      android:isScrollContainer="false"
-      android:maxLength="240"
-      android:textColor="@android:color/white"
-      android:textColorHint="@android:color/white"
-      android:textSize="90sp" />
+      android:layout_height="wrap_content"
+      android:singleLine="true"
+      android:maxLines="2"
+      android:textSize="40sp"
+      material:minTextSize="16sp" />
   </FrameLayout>
 
 </RelativeLayout>

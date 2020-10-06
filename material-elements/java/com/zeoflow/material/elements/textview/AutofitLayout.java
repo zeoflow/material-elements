@@ -18,6 +18,8 @@ public class AutofitLayout extends FrameLayout
 {
 
   private boolean mEnabled;
+  private boolean mIsAutofitWidthEnabled;
+  private boolean mIsAutofitHeightEnabled;
   private float mMinTextSize;
   private float mPrecision;
   private WeakHashMap<View, AutofitHelper> mHelpers = new WeakHashMap<>();
@@ -43,6 +45,8 @@ public class AutofitLayout extends FrameLayout
   private void init(Context context, AttributeSet attrs, int defStyle)
   {
     boolean sizeToFit = true;
+    boolean autofitWidthEnabled = true;
+    boolean autofitHeightEnabled = false;
     int minTextSize = -1;
     float precision = -1;
 
@@ -56,10 +60,16 @@ public class AutofitLayout extends FrameLayout
       sizeToFit = ta.getBoolean(R.styleable.AutofitTextView_sizeToFit, sizeToFit);
       minTextSize = ta.getDimensionPixelSize(R.styleable.AutofitTextView_minTextSize,
           minTextSize);
+      autofitWidthEnabled = ta.getBoolean(R.styleable.AutofitTextView_autofitWidthEnabled,
+          autofitWidthEnabled);
+      autofitHeightEnabled = ta.getBoolean(R.styleable.AutofitTextView_autofitHeightEnabled,
+          autofitHeightEnabled);
       precision = ta.getFloat(R.styleable.AutofitTextView_precision, precision);
       ta.recycle();
     }
 
+    mIsAutofitWidthEnabled = autofitWidthEnabled;
+    mIsAutofitHeightEnabled = autofitHeightEnabled;
     mEnabled = sizeToFit;
     mMinTextSize = minTextSize;
     mPrecision = precision;
@@ -70,8 +80,10 @@ public class AutofitLayout extends FrameLayout
   {
     super.addView(child, index, params);
     TextView textView = (TextView) child;
-    AutofitHelper helper = AutofitHelper.create(textView)
-        .setEnabled(mEnabled);
+    AutofitHelper helper = AutofitHelper.create(textView);
+    helper.setAutofitWidthEnabled(mIsAutofitWidthEnabled);
+    helper.setAutofitHeightEnabled(mIsAutofitHeightEnabled);
+    helper.setEnabled(mEnabled);
     if (mPrecision > 0)
     {
       helper.setPrecision(mPrecision);
