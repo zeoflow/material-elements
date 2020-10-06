@@ -34,20 +34,6 @@ public class AutoFitEditText extends AppCompatEditText
   private boolean _initiallized;
   private TextPaint paint;
 
-  private interface SizeTester
-  {
-    /**
-     * AutoFitEditText
-     *
-     * @param suggestedSize  Size of text to be tested
-     * @param availableSpace available space in which text must fit
-     * @return an integer < 0 if after applying {@code suggestedSize} to
-     * text, it takes less space than {@code availableSpace}, > 0
-     * otherwise
-     */
-    int onTestSize(int suggestedSize, RectF availableSpace);
-  }
-
   public AutoFitEditText(final Context context)
   {
     this(context, null, 0);
@@ -130,17 +116,17 @@ public class AutoFitEditText extends AppCompatEditText
   }
 
   @Override
+  public int getMaxLines()
+  {
+    return _maxLines;
+  }
+
+  @Override
   public void setMaxLines(final int maxlines)
   {
     super.setMaxLines(maxlines);
     _maxLines = maxlines;
     reAdjust();
-  }
-
-  @Override
-  public int getMaxLines()
-  {
-    return _maxLines;
   }
 
   @Override
@@ -301,6 +287,20 @@ public class AutoFitEditText extends AppCompatEditText
     super.onSizeChanged(width, height, oldwidth, oldheight);
     if (width != oldwidth || height != oldheight)
       reAdjust();
+  }
+
+  private interface SizeTester
+  {
+    /**
+     * AutoFitEditText
+     *
+     * @param suggestedSize  Size of text to be tested
+     * @param availableSpace available space in which text must fit
+     * @return an integer < 0 if after applying {@code suggestedSize} to
+     * text, it takes less space than {@code availableSpace}, > 0
+     * otherwise
+     */
+    int onTestSize(int suggestedSize, RectF availableSpace);
   }
 
 

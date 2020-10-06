@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="GradientSeekBar">
-        <attr name="asb_thumbColor" format="color" />
-        <attr name="asb_thumbStrokeColor" format="color" />
-        <attr name="asb_thumbColorCircleScale" format="float" />
-        <attr name="asb_thumbRadius" format="dimension" />
-        <attr name="asb_barSize" format="dimension" />
-        <attr name="asb_barCornersRadius" format="dimension" />
-        <attr name="asb_startColor" format="color" />
-        <attr name="asb_endColor" format="color" />
-        <attr name="asb_offset" format="float" />
-        <attr name="asb_orientation" format="enum">
-            <enum name="vertical" value="0" />
-            <enum name="horizontal" value="1" />
-        </attr>
-    </declare-styleable>
+  <declare-styleable name="GradientSeekBar">
+    <attr name="asb_thumbColor" format="color" />
+    <attr name="asb_thumbStrokeColor" format="color" />
+    <attr name="asb_thumbColorCircleScale" format="float" />
+    <attr name="asb_thumbRadius" format="dimension" />
+    <attr name="asb_barSize" format="dimension" />
+    <attr name="asb_barCornersRadius" format="dimension" />
+    <attr name="asb_startColor" format="color" />
+    <attr name="asb_endColor" format="color" />
+    <attr name="asb_offset" format="float" />
+    <attr name="asb_orientation" format="enum">
+      <enum name="vertical" value="0" />
+      <enum name="horizontal" value="1" />
+    </attr>
+  </declare-styleable>
 
 </resources>

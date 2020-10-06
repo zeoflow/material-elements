@@ -376,6 +376,12 @@ public class CircleImageView extends ShapeableImageView
   }
 
   @Override
+  public int getImageAlpha()
+  {
+    return mImageAlpha;
+  }
+
+  @Override
   public void setImageAlpha(int alpha)
   {
     alpha &= 0xFF;
@@ -397,9 +403,9 @@ public class CircleImageView extends ShapeableImageView
   }
 
   @Override
-  public int getImageAlpha()
+  public ColorFilter getColorFilter()
   {
-    return mImageAlpha;
+    return mColorFilter;
   }
 
   @Override
@@ -419,12 +425,6 @@ public class CircleImageView extends ShapeableImageView
       mBitmapPaint.setColorFilter(cf);
       invalidate();
     }
-  }
-
-  @Override
-  public ColorFilter getColorFilter()
-  {
-    return mColorFilter;
   }
 
   private Bitmap getBitmapFromDrawable(Drawable drawable)

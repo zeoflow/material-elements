@@ -6,57 +6,59 @@ import com.zeoflow.material.elements.colorwheel.utils.ensureNumberWithinRange
 
 internal class ThumbDrawable {
 
-    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { strokeWidth = 1f }
-    private var x = 0f
-    private var y = 0f
+  private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { strokeWidth = 1f }
+  private var x = 0f
+  private var y = 0f
 
-    var indicatorColor = 0
-    var strokeColor = 0
-    var thumbColor = 0
-    var radius = 0
+  var indicatorColor = 0
+  var strokeColor = 0
+  var thumbColor = 0
+  var radius = 0
 
-    var colorCircleScale = 0f
-        set(value) { field = ensureNumberWithinRange(value, 0f, 1f) }
-
-    fun setCoordinates(x: Float, y: Float) {
-        this.x = x
-        this.y = y
+  var colorCircleScale = 0f
+    set(value) {
+      field = ensureNumberWithinRange(value, 0f, 1f)
     }
 
-    fun draw(canvas: Canvas) {
-        drawThumb(canvas)
-        drawStroke(canvas)
-        drawColorIndicator(canvas)
-    }
+  fun setCoordinates(x: Float, y: Float) {
+    this.x = x
+    this.y = y
+  }
 
-    private fun drawThumb(canvas: Canvas) {
-        paint.color = thumbColor
-        paint.style = Paint.Style.FILL
-        canvas.drawCircle(x, y, radius.toFloat(), paint)
-    }
+  fun draw(canvas: Canvas) {
+    drawThumb(canvas)
+    drawStroke(canvas)
+    drawColorIndicator(canvas)
+  }
 
-    private fun drawStroke(canvas: Canvas) {
-        val strokeCircleRadius = radius - paint.strokeWidth / 2f
+  private fun drawThumb(canvas: Canvas) {
+    paint.color = thumbColor
+    paint.style = Paint.Style.FILL
+    canvas.drawCircle(x, y, radius.toFloat(), paint)
+  }
 
-        paint.color = strokeColor
-        paint.style = Paint.Style.STROKE
-        canvas.drawCircle(x, y, strokeCircleRadius, paint)
-    }
+  private fun drawStroke(canvas: Canvas) {
+    val strokeCircleRadius = radius - paint.strokeWidth / 2f
 
-    private fun drawColorIndicator(canvas: Canvas) {
-        val colorIndicatorCircleRadius = radius * colorCircleScale
+    paint.color = strokeColor
+    paint.style = Paint.Style.STROKE
+    canvas.drawCircle(x, y, strokeCircleRadius, paint)
+  }
 
-        paint.color = indicatorColor
-        paint.style = Paint.Style.FILL
-        canvas.drawCircle(x, y, colorIndicatorCircleRadius, paint)
-    }
+  private fun drawColorIndicator(canvas: Canvas) {
+    val colorIndicatorCircleRadius = radius * colorCircleScale
 
-    fun restoreState(state: ThumbDrawableState) {
-        radius = state.radius
-        thumbColor = state.thumbColor
-        strokeColor = state.strokeColor
-        colorCircleScale = state.colorCircleScale
-    }
+    paint.color = indicatorColor
+    paint.style = Paint.Style.FILL
+    canvas.drawCircle(x, y, colorIndicatorCircleRadius, paint)
+  }
 
-    fun saveState() = ThumbDrawableState(this)
+  fun restoreState(state: ThumbDrawableState) {
+    radius = state.radius
+    thumbColor = state.thumbColor
+    strokeColor = state.strokeColor
+    colorCircleScale = state.colorCircleScale
+  }
+
+  fun saveState() = ThumbDrawableState(this)
 }

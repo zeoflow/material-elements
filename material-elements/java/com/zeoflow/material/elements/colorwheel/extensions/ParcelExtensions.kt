@@ -4,15 +4,15 @@ import android.os.Build
 import android.os.Parcel
 
 internal fun Parcel.writeBooleanCompat(value: Boolean) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        this.writeBoolean(value)
-    } else {
-        this.writeInt(if (value) 1 else 0)
-    }
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    this.writeBoolean(value)
+  } else {
+    this.writeInt(if (value) 1 else 0)
+  }
 }
 
 internal fun Parcel.readBooleanCompat() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-    this.readBoolean()
+  this.readBoolean()
 } else {
-    this.readInt() == 1
+  this.readInt() == 1
 }

@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
 
-    <com.zeoflow.material.elements.button.MaterialButton
-            android:id="@+id/btn"
-            style="@style/MaterialElements.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            app:textAllCaps="false" />
+  <com.zeoflow.material.elements.button.MaterialButton
+    android:id="@+id/btn"
+    style="@style/MaterialElements.Button.TextButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAllCaps="false"
+    app:textAllCaps="false" />
 
-    <ProgressBar
-            android:id="@+id/pb"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:indeterminate="true"
-            android:visibility="gone" />
+  <ProgressBar
+    android:id="@+id/pb"
+    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|center_horizontal"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp"
+    android:indeterminate="true"
+    android:visibility="gone" />
 
-    <ProgressBar
-            android:id="@+id/pbCircle"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center|center_horizontal"
-            android:indeterminate="true"
-            android:visibility="gone" />
+  <ProgressBar
+    android:id="@+id/pbCircle"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:layout_gravity="center|center_horizontal"
+    android:indeterminate="true"
+    android:visibility="gone" />
 
 </FrameLayout>

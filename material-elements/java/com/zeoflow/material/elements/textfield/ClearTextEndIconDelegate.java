@@ -44,6 +44,39 @@ class ClearTextEndIconDelegate extends EndIconDelegate
   private static final int ANIMATION_FADE_DURATION = 100;
   private static final int ANIMATION_SCALE_DURATION = 150;
   private static final float ANIMATION_SCALE_FROM_VALUE = 0.8f;
+  private final TextInputLayout.OnEditTextAttachedListener clearTextOnEditTextAttachedListener =
+      new TextInputLayout.OnEditTextAttachedListener()
+      {
+        @Override
+        public void onEditTextAttached(@NonNull TextInputLayout textInputLayout)
+        {
+          EditText editText = textInputLayout.getEditText();
+          textInputLayout.setEndIconVisible(editText.hasFocus() && hasText(editText.getText()));
+          // Make sure there's always only one clear text text watcher added
+          textInputLayout.setEndIconCheckable(false);
+          editText.setOnFocusChangeListener(onFocusChangeListener);
+          editText.removeTextChangedListener(clearTextEndIconTextWatcher);
+          editText.addTextChangedListener(clearTextEndIconTextWatcher);
+        }
+      };
+  private final TextInputLayout.OnEndIconChangedListener endIconChangedListener =
+      new TextInputLayout.OnEndIconChangedListener()
+      {
+        @Override
+        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon)
+        {
+          EditText editText = textInputLayout.getEditText();
+          if (editText != null && previousIcon == TextInputLayout.END_ICON_CLEAR_TEXT)
+          {
+            // Remove any listeners set on the edit text.
+            editText.removeTextChangedListener(clearTextEndIconTextWatcher);
+            if (editText.getOnFocusChangeListener() == onFocusChangeListener)
+            {
+              editText.setOnFocusChangeListener(null);
+            }
+          }
+        }
+      };
   private AnimatorSet iconInAnim;
   private ValueAnimator iconOutAnim;
   private final TextWatcher clearTextEndIconTextWatcher =
@@ -77,39 +110,6 @@ class ClearTextEndIconDelegate extends EndIconDelegate
         {
           boolean hasText = !TextUtils.isEmpty(((EditText) v).getText());
           animateIcon(hasText && hasFocus);
-        }
-      };
-  private final TextInputLayout.OnEditTextAttachedListener clearTextOnEditTextAttachedListener =
-      new TextInputLayout.OnEditTextAttachedListener()
-      {
-        @Override
-        public void onEditTextAttached(@NonNull TextInputLayout textInputLayout)
-        {
-          EditText editText = textInputLayout.getEditText();
-          textInputLayout.setEndIconVisible(editText.hasFocus() && hasText(editText.getText()));
-          // Make sure there's always only one clear text text watcher added
-          textInputLayout.setEndIconCheckable(false);
-          editText.setOnFocusChangeListener(onFocusChangeListener);
-          editText.removeTextChangedListener(clearTextEndIconTextWatcher);
-          editText.addTextChangedListener(clearTextEndIconTextWatcher);
-        }
-      };
-  private final TextInputLayout.OnEndIconChangedListener endIconChangedListener =
-      new TextInputLayout.OnEndIconChangedListener()
-      {
-        @Override
-        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon)
-        {
-          EditText editText = textInputLayout.getEditText();
-          if (editText != null && previousIcon == TextInputLayout.END_ICON_CLEAR_TEXT)
-          {
-            // Remove any listeners set on the edit text.
-            editText.removeTextChangedListener(clearTextEndIconTextWatcher);
-            if (editText.getOnFocusChangeListener() == onFocusChangeListener)
-            {
-              editText.setOnFocusChangeListener(null);
-            }
-          }
         }
       };
 
