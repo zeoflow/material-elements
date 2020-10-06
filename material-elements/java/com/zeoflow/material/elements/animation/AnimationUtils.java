@@ -32,6 +32,7 @@ import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
  * @hide
  */
 @RestrictTo(Scope.LIBRARY_GROUP)
+@SuppressWarnings("UnusedDeclaration")
 public class AnimationUtils
 {
 

@@ -31,6 +31,7 @@ import com.zeoflow.R;
  * <p>This property assumes that it is the only component responsible for the children's {@link
  * View#setAlpha(float) alpha}.
  */
+@SuppressWarnings("UnusedDeclaration")
 public class ChildrenAlphaProperty extends Property<ViewGroup, Float>
 {
 

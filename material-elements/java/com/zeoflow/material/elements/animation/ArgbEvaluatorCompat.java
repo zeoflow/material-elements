@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
  * <p>This compat version is copied from {@link android.animation.ArgbEvaluator} with critical bug
  * fixes for older versions of Android.
  */
+@SuppressWarnings("UnusedDeclaration")
 public class ArgbEvaluatorCompat implements TypeEvaluator<Integer>
 {
   private static final ArgbEvaluatorCompat instance = new ArgbEvaluatorCompat();
