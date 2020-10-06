@@ -174,17 +174,17 @@ open class ColorWheel @JvmOverloads constructor(
     }
     when (event.actionMasked) {
       MotionEvent.ACTION_DOWN -> {
-        if(getFlagView() != null) {
+        if (getFlagView() != null) {
           getFlagView()?.receiveOnTouchEvent(event)
         }
       }
       MotionEvent.ACTION_MOVE -> {
-        if(getFlagView() != null) {
+        if (getFlagView() != null) {
           getFlagView()?.receiveOnTouchEvent(event)
         }
       }
       MotionEvent.ACTION_UP -> {
-        if(getFlagView() != null) {
+        if (getFlagView() != null) {
           getFlagView()?.receiveOnTouchEvent(event)
         }
       }
