@@ -23,7 +23,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -43,6 +42,10 @@ import java.lang.annotation.RetentionPolicy;
 public class MaterialButtonLoading extends FrameLayout
 {
 
+  public static final int BUTTON_DESIGN_OUTLINED = 0x1;
+  public static final int BUTTON_DESIGN_FILLED = 0x2;
+  public static final int LOADING_DESIGN_CIRCLE = 0x1;
+  public static final int LOADING_DESIGN_HORIZONTAL = 0x2;
   private boolean isLoading = false;
   private MaterialButton zButton;
   private ProgressBar zPbar;
@@ -56,30 +59,9 @@ public class MaterialButtonLoading extends FrameLayout
   private AttributeSet zAttrs;
   private boolean rippleDefault;
   private int zFont;
-
   private int btnStrokeWidth;
-
-  public static final int BUTTON_DESIGN_OUTLINED = 0x1;
-  public static final int BUTTON_DESIGN_FILLED = 0x2;
-
-  @IntDef({BUTTON_DESIGN_FILLED, BUTTON_DESIGN_OUTLINED})
-  @Retention(RetentionPolicy.SOURCE)
-  public @interface ButtonDesign
-  {
-  }
-
   @ButtonDesign
   private int buttonDesign;
-
-  public static final int LOADING_DESIGN_CIRCLE = 0x1;
-  public static final int LOADING_DESIGN_HORIZONTAL = 0x2;
-
-  @IntDef({LOADING_DESIGN_CIRCLE, LOADING_DESIGN_HORIZONTAL})
-  @Retention(RetentionPolicy.SOURCE)
-  public @interface LoadingDesign
-  {
-  }
-
   @ButtonDesign
   private int loadingDesign;
 
@@ -111,6 +93,41 @@ public class MaterialButtonLoading extends FrameLayout
     zContext = context;
     zAttrs = attrs;
     loadBtn();
+  }
+
+  public static int lighten(int color, double fraction)
+  {
+    int red = Color.red(color);
+    int green = Color.green(color);
+    int blue = Color.blue(color);
+    red = lightenColor(red, fraction);
+    green = lightenColor(green, fraction);
+    blue = lightenColor(blue, fraction);
+    int alpha = Color.alpha(color);
+    return Color.argb(alpha, red, green, blue);
+  }
+
+  public static int darken(int color, double fraction)
+  {
+    int red = Color.red(color);
+    int green = Color.green(color);
+    int blue = Color.blue(color);
+    red = darkenColor(red, fraction);
+    green = darkenColor(green, fraction);
+    blue = darkenColor(blue, fraction);
+    int alpha = Color.alpha(color);
+
+    return Color.argb(alpha, red, green, blue);
+  }
+
+  private static int darkenColor(int color, double fraction)
+  {
+    return (int) Math.max(color - (color * fraction), 0);
+  }
+
+  private static int lightenColor(int color, double fraction)
+  {
+    return (int) Math.min(color + (color * fraction), 255);
   }
 
   private void loadBtn()
@@ -207,7 +224,8 @@ public class MaterialButtonLoading extends FrameLayout
     }
   }
 
-  public void setOnClickListener(OnClickListener onClickListener) {
+  public void setOnClickListener(OnClickListener onClickListener)
+  {
     zButton.setOnClickListener(onClickListener);
   }
 
@@ -264,41 +282,6 @@ public class MaterialButtonLoading extends FrameLayout
 
   }
 
-  public static int lighten(int color, double fraction)
-  {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    red = lightenColor(red, fraction);
-    green = lightenColor(green, fraction);
-    blue = lightenColor(blue, fraction);
-    int alpha = Color.alpha(color);
-    return Color.argb(alpha, red, green, blue);
-  }
-
-  public static int darken(int color, double fraction)
-  {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    red = darkenColor(red, fraction);
-    green = darkenColor(green, fraction);
-    blue = darkenColor(blue, fraction);
-    int alpha = Color.alpha(color);
-
-    return Color.argb(alpha, red, green, blue);
-  }
-
-  private static int darkenColor(int color, double fraction)
-  {
-    return (int) Math.max(color - (color * fraction), 0);
-  }
-
-  private static int lightenColor(int color, double fraction)
-  {
-    return (int) Math.min(color + (color * fraction), 255);
-  }
-
   boolean isDark(int color)
   {
     return ColorUtils.calculateLuminance(color) < 0.5;
@@ -316,6 +299,18 @@ public class MaterialButtonLoading extends FrameLayout
       zPbar.setVisibility(GONE);
       zButton.setText(text);
     }
+  }
+
+  @IntDef({BUTTON_DESIGN_FILLED, BUTTON_DESIGN_OUTLINED})
+  @Retention(RetentionPolicy.SOURCE)
+  public @interface ButtonDesign
+  {
+  }
+
+  @IntDef({LOADING_DESIGN_CIRCLE, LOADING_DESIGN_HORIZONTAL})
+  @Retention(RetentionPolicy.SOURCE)
+  public @interface LoadingDesign
+  {
   }
 
 }

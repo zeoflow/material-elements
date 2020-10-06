@@ -171,6 +171,7 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
   @IconGravity
   private int iconGravity;
   private int zFont;
+  private Context zContext;
 
   public MaterialButton(@NonNull Context context)
   {
@@ -182,7 +183,6 @@ public class MaterialButton extends AppCompatButton implements Checkable, Shapea
     this(context, attrs, R.attr.materialButtonStyle);
   }
 
-  private Context zContext;
   public MaterialButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr)
   {
     super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);

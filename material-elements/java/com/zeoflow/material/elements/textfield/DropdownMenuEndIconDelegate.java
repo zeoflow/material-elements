@@ -68,6 +68,31 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate
   private static final boolean IS_LOLLIPOP = VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP;
   private static final int ANIMATION_FADE_OUT_DURATION = 50;
   private static final int ANIMATION_FADE_IN_DURATION = 67;
+  @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that handles
+  // interactions with the dropdown menu.
+  private final TextInputLayout.OnEndIconChangedListener endIconChangedListener =
+      new TextInputLayout.OnEndIconChangedListener()
+      {
+        @Override
+        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon)
+        {
+          AutoCompleteTextView editText = (AutoCompleteTextView) textInputLayout.getEditText();
+          if (editText != null && previousIcon == TextInputLayout.END_ICON_DROPDOWN_MENU)
+          {
+            // Remove any listeners set on the edit text.
+            editText.removeTextChangedListener(exposedDropdownEndIconTextWatcher);
+            if (editText.getOnFocusChangeListener() == onFocusChangeListener)
+            {
+              editText.setOnFocusChangeListener(null);
+            }
+            editText.setOnTouchListener(null);
+            if (IS_LOLLIPOP)
+            {
+              editText.setOnDismissListener(null);
+            }
+          }
+        }
+      };
   private boolean dropdownPopupDirty = false;
   private boolean isEndIconChecked = false;
   private long dropdownPopupActivatedAt = Long.MAX_VALUE;
@@ -119,31 +144,6 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate
           {
             setEndIconChecked(false);
             dropdownPopupDirty = false;
-          }
-        }
-      };
-  @SuppressLint("ClickableViewAccessibility") // There's an accessibility delegate that handles
-  // interactions with the dropdown menu.
-  private final TextInputLayout.OnEndIconChangedListener endIconChangedListener =
-      new TextInputLayout.OnEndIconChangedListener()
-      {
-        @Override
-        public void onEndIconChanged(@NonNull TextInputLayout textInputLayout, int previousIcon)
-        {
-          AutoCompleteTextView editText = (AutoCompleteTextView) textInputLayout.getEditText();
-          if (editText != null && previousIcon == TextInputLayout.END_ICON_DROPDOWN_MENU)
-          {
-            // Remove any listeners set on the edit text.
-            editText.removeTextChangedListener(exposedDropdownEndIconTextWatcher);
-            if (editText.getOnFocusChangeListener() == onFocusChangeListener)
-            {
-              editText.setOnFocusChangeListener(null);
-            }
-            editText.setOnTouchListener(null);
-            if (IS_LOLLIPOP)
-            {
-              editText.setOnDismissListener(null);
-            }
           }
         }
       };

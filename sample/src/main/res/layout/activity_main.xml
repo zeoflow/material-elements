@@ -1,20 +1,13 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/colorPrimary"
   android:orientation="vertical"
   android:padding="@dimen/activity_padding">
 
-  <com.zeoflow.material.elements.textview.AutosizeTextView
+  <com.zeoflow.material.elements.colorwheel.ColorWheel
+    android:id="@+id/colorWheel"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:gravity="center"
-    android:text="ds asfd gd fg "
-    android:textAlignment="center"
-    app:autoSizeTextType="uniform"
-    app:autoSizeMinTextSize="12sp"
-    app:autoSizeMaxTextSize="100sp"
-    app:autoSizeStepGranularity="2sp" />
+    android:layout_height="match_parent" />
 
-</RelativeLayout>
+</LinearLayout>
