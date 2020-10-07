@@ -34,7 +34,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

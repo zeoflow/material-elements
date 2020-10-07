@@ -40,7 +40,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_CONTROLS;
 import static android.view.accessibility.AccessibilityManager.FLAG_CONTENT_ICONS;

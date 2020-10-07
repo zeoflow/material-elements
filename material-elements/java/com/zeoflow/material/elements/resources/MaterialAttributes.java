@@ -26,7 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RestrictTo;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 

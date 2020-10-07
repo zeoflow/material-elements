@@ -38,7 +38,7 @@ import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 /**
  * Base class for {@link android.app.Dialog}s styled as a bottom sheet.

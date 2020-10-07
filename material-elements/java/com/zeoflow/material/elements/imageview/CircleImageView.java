@@ -45,7 +45,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 
 public class CircleImageView extends ShapeableImageView

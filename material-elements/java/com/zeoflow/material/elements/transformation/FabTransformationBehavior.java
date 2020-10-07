@@ -47,7 +47,7 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.AnimatorSetCompat;
 import com.zeoflow.material.elements.animation.ArgbEvaluatorCompat;
 import com.zeoflow.material.elements.animation.ChildrenAlphaProperty;

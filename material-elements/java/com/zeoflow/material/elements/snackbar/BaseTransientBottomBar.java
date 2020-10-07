@@ -69,7 +69,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.behavior.SwipeDismissBehavior;
 import com.zeoflow.material.elements.color.MaterialColors;

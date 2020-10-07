@@ -31,7 +31,7 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.util.Pair;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import java.util.Collection;
 

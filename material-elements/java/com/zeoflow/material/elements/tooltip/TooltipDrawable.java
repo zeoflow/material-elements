@@ -38,7 +38,7 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.graphics.ColorUtils;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.TextDrawableHelper;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;

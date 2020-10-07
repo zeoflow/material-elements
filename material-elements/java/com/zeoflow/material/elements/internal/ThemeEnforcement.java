@@ -29,7 +29,7 @@ import androidx.annotation.StyleRes;
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.widget.TintTypedArray;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.resources.MaterialResources;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;

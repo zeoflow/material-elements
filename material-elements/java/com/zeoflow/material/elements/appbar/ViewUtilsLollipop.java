@@ -28,7 +28,7 @@ import android.view.ViewOutlineProvider;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 
 @RequiresApi(21)

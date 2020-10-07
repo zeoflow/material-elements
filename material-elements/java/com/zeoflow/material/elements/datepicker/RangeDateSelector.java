@@ -34,7 +34,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.core.util.Pair;
 import androidx.core.util.Preconditions;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.internal.ManufacturerUtils;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
