@@ -24,8 +24,8 @@ ext {
   buildToolsVersion = '30.0.1'
   minSdkVersion = 14
   targetSdkVersion = 30
-  versionCode = 3
-  versionName = "1.1.1"
+  versionCode = 7
+  versionName = "2.0.0"
 
   androidx = [
     annotation            : 'androidx.annotation:annotation:1.0.1',

@@ -111,6 +111,7 @@ def srcDirs = [
   'com/zeoflow/material/elements/shadow',
   'com/zeoflow/material/elements/slider',
   'com/zeoflow/material/elements/snackbar',
+  'com/zeoflow/material/elements/square',
   'com/zeoflow/material/elements/stateful',
   'com/zeoflow/material/elements/switchmaterial',
   'com/zeoflow/material/elements/tabs',
