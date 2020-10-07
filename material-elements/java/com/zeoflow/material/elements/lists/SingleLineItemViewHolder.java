@@ -25,7 +25,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 /**
  * A simple single line list item.

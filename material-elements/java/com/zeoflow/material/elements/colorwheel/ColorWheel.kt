@@ -13,7 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.annotation.RequiresApi
-import com.zeoflow.R
+import com.zeoflow.material.elements.R
 import com.zeoflow.material.elements.color.ColorEnvelope
 import com.zeoflow.material.elements.colorwheel.extensions.readBooleanCompat
 import com.zeoflow.material.elements.colorwheel.extensions.writeBooleanCompat

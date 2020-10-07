@@ -22,7 +22,7 @@ import android.content.res.ColorStateList;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.widget.ImageViewCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.color.ColorEnvelope;
 
 /**

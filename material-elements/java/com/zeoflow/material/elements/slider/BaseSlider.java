@@ -61,7 +61,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.RangeInfoCompat;
 import androidx.customview.widget.ExploreByTouchHelper;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.drawable.DrawableUtils;
 import com.zeoflow.material.elements.internal.DescendantOffsetUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;

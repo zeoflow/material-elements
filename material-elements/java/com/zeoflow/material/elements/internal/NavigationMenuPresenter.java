@@ -48,7 +48,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionIn
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import java.util.ArrayList;
 

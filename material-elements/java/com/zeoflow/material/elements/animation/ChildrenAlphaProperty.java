@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 /**
  * A Property for the alpha of a ViewGroup's children.

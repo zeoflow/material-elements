@@ -31,7 +31,7 @@ import androidx.annotation.Px;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

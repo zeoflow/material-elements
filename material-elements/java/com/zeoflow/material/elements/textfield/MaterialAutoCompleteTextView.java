@@ -38,7 +38,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.ListPopupWindow;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.internal.ManufacturerUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;

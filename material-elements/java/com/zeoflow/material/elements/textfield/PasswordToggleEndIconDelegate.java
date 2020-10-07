@@ -27,7 +27,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.textfield.TextInputLayout.OnEditTextAttachedListener;
 import com.zeoflow.material.elements.textfield.TextInputLayout.OnEndIconChangedListener;
 

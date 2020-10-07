@@ -11,7 +11,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import com.zeoflow.R
+import com.zeoflow.material.elements.R
 import com.zeoflow.material.elements.colorwheel.extensions.readBooleanCompat
 import com.zeoflow.material.elements.colorwheel.extensions.writeBooleanCompat
 import com.zeoflow.material.elements.colorwheel.thumb.ThumbDrawable

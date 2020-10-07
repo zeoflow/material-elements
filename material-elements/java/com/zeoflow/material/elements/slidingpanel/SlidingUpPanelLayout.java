@@ -22,7 +22,7 @@ import android.view.animation.Interpolator;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

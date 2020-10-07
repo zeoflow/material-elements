@@ -33,7 +33,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.StyleRes;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.dialog.InsetDialogOnTouchListener;
 import com.zeoflow.material.elements.dialog.MaterialDialogs;
 import com.zeoflow.material.elements.resources.MaterialAttributes;

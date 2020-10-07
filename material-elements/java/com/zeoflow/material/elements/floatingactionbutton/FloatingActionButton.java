@@ -58,7 +58,7 @@ import androidx.core.view.TintableBackgroundView;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.TintableImageSourceView;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.MotionSpec;
 import com.zeoflow.material.elements.animation.TransformationCallback;
 import com.zeoflow.material.elements.appbar.AppBarLayout;

@@ -34,7 +34,7 @@ import androidx.annotation.RestrictTo;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.color.MaterialColors;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.resources.MaterialResources;

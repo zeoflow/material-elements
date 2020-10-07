@@ -51,7 +51,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.internal.CollapsingTextHelper;
 import com.zeoflow.material.elements.internal.DescendantOffsetUtils;

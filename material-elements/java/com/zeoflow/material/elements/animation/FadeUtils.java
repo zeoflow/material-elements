@@ -22,7 +22,7 @@ import android.view.animation.AnimationUtils;
 
 import androidx.annotation.RestrictTo;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 

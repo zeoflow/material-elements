@@ -22,7 +22,7 @@ import android.graphics.Paint;
 
 import androidx.annotation.NonNull;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.resources.MaterialResources;
 

@@ -84,7 +84,7 @@ import androidx.core.widget.TextViewCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.badge.BadgeDrawable;
 import com.zeoflow.material.elements.badge.BadgeUtils;

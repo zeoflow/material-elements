@@ -30,7 +30,7 @@ import androidx.annotation.RestrictTo;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.core.view.ViewCompat;
 
-import com.zeoflow.R;
+import com.zeoflow.material.elements.R;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
