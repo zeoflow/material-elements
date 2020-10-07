@@ -3,7 +3,7 @@ package com.zeoflow.material.elements.colorwheel.thumb
 import android.os.Parcel
 import android.os.Parcelable
 
-internal class ThumbDrawableState private constructor(
+class ThumbDrawableState private constructor(
   val radius: Int,
   val thumbColor: Int,
   val strokeColor: Int,

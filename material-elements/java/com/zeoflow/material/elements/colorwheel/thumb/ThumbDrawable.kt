@@ -4,7 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import com.zeoflow.material.elements.colorwheel.utils.ensureNumberWithinRange
 
-internal class ThumbDrawable {
+class ThumbDrawable {
 
   private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { strokeWidth = 1f }
   private var x = 0f

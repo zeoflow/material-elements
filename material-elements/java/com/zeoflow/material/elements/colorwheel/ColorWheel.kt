@@ -5,17 +5,18 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
+import androidx.annotation.RequiresApi
 import com.zeoflow.R
 import com.zeoflow.material.elements.color.ColorEnvelope
 import com.zeoflow.material.elements.colorwheel.extensions.readBooleanCompat
 import com.zeoflow.material.elements.colorwheel.extensions.writeBooleanCompat
-import com.zeoflow.material.elements.colorwheel.flag.FlagView
 import com.zeoflow.material.elements.colorwheel.thumb.ThumbDrawable
 import com.zeoflow.material.elements.colorwheel.thumb.ThumbDrawableState
 import com.zeoflow.material.elements.colorwheel.thumb.readThumbState
@@ -32,27 +33,29 @@ open class ColorWheel @JvmOverloads constructor(
   defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-  private val hueGradient = GradientDrawable().apply {
+  @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+  val hueGradient = GradientDrawable().apply {
     gradientType = GradientDrawable.SWEEP_GRADIENT
     shape = GradientDrawable.OVAL
     colors = HUE_COLORS
   }
 
-  private val saturationGradient = GradientDrawable().apply {
+  @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+  val saturationGradient = GradientDrawable().apply {
     gradientType = GradientDrawable.RADIAL_GRADIENT
     shape = GradientDrawable.OVAL
     colors = SATURATION_COLORS
   }
 
-  private val viewConfig = ViewConfiguration.get(context)
-  private val thumbDrawable = ThumbDrawable()
-  private val hsvColor = HsvColor(value = 1f)
+  val viewConfig = ViewConfiguration.get(context)
+  val thumbDrawable = ThumbDrawable()
+  val hsvColor = HsvColor(value = 1f)
 
-  private var wheelCenterX = 0
-  private var wheelCenterY = 0
-  private var wheelRadius = 0
-  private var downX = 0f
-  private var downY = 0f
+  var wheelCenterX = 0
+  var wheelCenterY = 0
+  var wheelRadius = 0
+  var downX = 0f
+  var downY = 0f
 
   var rgb
     get() = hsvColor.rgb
@@ -91,7 +94,7 @@ open class ColorWheel @JvmOverloads constructor(
       invalidate()
     }
 
-  private var colorChangeListener: ((Int) -> Unit)? = null
+  var colorChangeListener: ((Int) -> Unit)? = null
 
   var interceptTouchEvent = true
 
@@ -99,7 +102,7 @@ open class ColorWheel @JvmOverloads constructor(
     parseAttributes(context, attrs)
   }
 
-  private fun parseAttributes(context: Context, attrs: AttributeSet?) {
+  fun parseAttributes(context: Context, attrs: AttributeSet?) {
     context.obtainStyledAttributes(attrs, R.styleable.ColorWheel, 0, R.style.ColorWheelDefaultStyle).apply {
       thumbRadius = getDimensionPixelSize(R.styleable.ColorWheel_cw_thumbRadius, 0)
       thumbColor = getColor(R.styleable.ColorWheel_cw_thumbColor, 0)
@@ -130,7 +133,7 @@ open class ColorWheel @JvmOverloads constructor(
     drawThumb(canvas)
   }
 
-  private fun drawColorWheel(canvas: Canvas) {
+  fun drawColorWheel(canvas: Canvas) {
     val hSpace = width - paddingLeft - paddingRight
     val vSpace = height - paddingTop - paddingBottom
 
@@ -151,7 +154,7 @@ open class ColorWheel @JvmOverloads constructor(
     saturationGradient.draw(canvas)
   }
 
-  private fun drawThumb(canvas: Canvas) {
+  fun drawThumb(canvas: Canvas) {
     val r = hsvColor.saturation * wheelRadius
     val hueRadians = toRadians(hsvColor.hue)
     val x = cos(hueRadians) * r + wheelCenterX
@@ -172,41 +175,24 @@ open class ColorWheel @JvmOverloads constructor(
         if (isTap(event, downX, downY, viewConfig)) performClick()
       }
     }
-    when (event.actionMasked) {
-      MotionEvent.ACTION_DOWN -> {
-        if (getFlagView() != null) {
-          getFlagView()?.receiveOnTouchEvent(event)
-        }
-      }
-      MotionEvent.ACTION_MOVE -> {
-        if (getFlagView() != null) {
-          getFlagView()?.receiveOnTouchEvent(event)
-        }
-      }
-      MotionEvent.ACTION_UP -> {
-        if (getFlagView() != null) {
-          getFlagView()?.receiveOnTouchEvent(event)
-        }
-      }
-    }
 
     return true
   }
 
-  private fun onActionDown(event: MotionEvent) {
+  fun onActionDown(event: MotionEvent) {
     parent.requestDisallowInterceptTouchEvent(interceptTouchEvent)
     updateColorOnMotionEvent(event)
     downX = event.x
     downY = event.y
   }
 
-  private fun updateColorOnMotionEvent(event: MotionEvent) {
+  fun updateColorOnMotionEvent(event: MotionEvent) {
     calculateColor(event)
     fireColorListener()
     invalidate()
   }
 
-  private fun calculateColor(event: MotionEvent) {
+  fun calculateColor(event: MotionEvent) {
     val legX = event.x - wheelCenterX
     val legY = event.y - wheelCenterY
     val hypot = minOf(hypot(legX, legY), wheelRadius.toFloat())
@@ -215,36 +201,11 @@ open class ColorWheel @JvmOverloads constructor(
     hsvColor.set(hue, saturation, 1f)
   }
 
-  private var flagView: FlagView? = null
-
-  /**
-   * gets a [FlagView].
-   *
-   * @return [FlagView].
-   */
-  open fun getFlagView(): FlagView? {
-    return flagView
-  }
-
-  /**
-   * sets a [FlagView].
-   *
-   * @param flagView [FlagView].
-   */
-  open fun setFlagView(flagView: FlagView) {
-    flagView.gone()
-    this.flagView = flagView
-  }
-
   open fun getColorEnvelope(): ColorEnvelope? {
     return ColorEnvelope(rgb)
   }
 
-  private fun fireColorListener() {
-    if (flagView != null) {
-      flagView!!.onRefresh(getColorEnvelope())
-      println("hereWeAre -> onRefresh")
-    }
+  fun fireColorListener() {
     colorChangeListener?.invoke(hsvColor.rgb)
   }
 
@@ -263,14 +224,14 @@ open class ColorWheel @JvmOverloads constructor(
     }
   }
 
-  private fun readColorWheelState(state: ColorWheelState) {
+  fun readColorWheelState(state: ColorWheelState) {
     thumbDrawable.restoreState(state.thumbState)
     interceptTouchEvent = state.interceptTouchEvent
     rgb = state.rgb
   }
 }
 
-private class ColorWheelState : View.BaseSavedState {
+class ColorWheelState : View.BaseSavedState {
 
   val thumbState: ThumbDrawableState
   val interceptTouchEvent: Boolean
