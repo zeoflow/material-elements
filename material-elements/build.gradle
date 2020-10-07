@@ -103,6 +103,7 @@ def srcDirs = [
   'com/zeoflow/material/elements/menu',
   'com/zeoflow/material/elements/navigation',
   'com/zeoflow/material/elements/pagerindicator',
+  'com/zeoflow/material/elements/photoview',
   'com/zeoflow/material/elements/radiobutton',
   'com/zeoflow/material/elements/resources',
   'com/zeoflow/material/elements/ripple',
