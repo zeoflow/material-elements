@@ -5,4 +5,11 @@
   android:orientation="vertical"
   android:padding="@dimen/activity_padding">
 
+  <com.zeoflow.material.elements.sample.cw.ColorWheel
+    android:id="@+id/colorWheel"
+    android:layout_width="220dp"
+    android:layout_height="220dp"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp" />
+
 </LinearLayout>
