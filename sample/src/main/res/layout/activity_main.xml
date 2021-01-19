@@ -1,15 +1,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/llHomer"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/colorPrimary"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical"
   android:padding="@dimen/activity_padding">
 
-  <com.zeoflow.material.elements.sample.cw.ColorWheel
-    android:id="@+id/colorWheel"
-    android:layout_width="220dp"
-    android:layout_height="220dp"
-    android:paddingBottom="15dp"
-    android:paddingTop="15dp" />
+  <com.zeoflow.material.elements.gradientseekbar.GradientSeekBar
+    android:id="@+id/gsb_picker"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="0dp"
+    app:asb_endColor="#F44336"
+    app:asb_orientation="horizontal"
+    app:asb_startColor="#00F44336"
+    app:asb_thumbColor="#ffffff"
+    app:asb_barSize="14dp"
+    app:asb_strokeSize="8dp" />
+
+  <com.zeoflow.material.elements.color.ColorSeekBar
+    android:id="@+id/csb_picker"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="0dp"
+    app:asb_orientation="horizontal"
+    app:asb_thumbColor="#ffffff"
+    app:asb_barSize="14dp"
+    app:asb_strokeSize="8dp"/>
 
 </LinearLayout>

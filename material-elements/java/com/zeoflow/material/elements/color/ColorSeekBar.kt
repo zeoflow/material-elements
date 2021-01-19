@@ -1,4 +1,4 @@
-package com.zeoflow.material.elements.gradientseekbar
+package com.zeoflow.material.elements.color
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -18,9 +18,12 @@ import com.zeoflow.material.elements.colorwheel.thumb.ThumbDrawable
 import com.zeoflow.material.elements.colorwheel.thumb.ThumbDrawableState
 import com.zeoflow.material.elements.colorwheel.thumb.readThumbState
 import com.zeoflow.material.elements.colorwheel.thumb.writeThumbState
-import com.zeoflow.material.elements.colorwheel.utils.*
+import com.zeoflow.material.elements.colorwheel.utils.MAX_ALPHA
+import com.zeoflow.material.elements.colorwheel.utils.ensureNumberWithinRange
+import com.zeoflow.material.elements.colorwheel.utils.isTap
+import com.zeoflow.material.elements.colorwheel.utils.setColorAlpha
 
-open class GradientSeekBar @JvmOverloads constructor(
+open class ColorSeekBar @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
@@ -29,23 +32,40 @@ open class GradientSeekBar @JvmOverloads constructor(
   private val viewConfig = ViewConfiguration.get(context)
   private val gradientColors = IntArray(2)
   private val thumbDrawable = ThumbDrawable()
-  private val gradientDrawable = GradientDrawable()
+  private var colorSeeds = intArrayOf(
+    Color.parseColor("#000000"),
+    Color.parseColor("#ff0000"),
+    Color.parseColor("#ff0040"),
+    Color.parseColor("#ff0080"),
+    Color.parseColor("#ff00bf"),
+    Color.parseColor("#ff00ff"),
+    Color.parseColor("#bf00ff"),
+    Color.parseColor("#8000ff"),
+    Color.parseColor("#4000ff"),
+    Color.parseColor("#0000ff"),
+    Color.parseColor("#0040ff"),
+    Color.parseColor("#0080ff"),
+    Color.parseColor("#00bfff"),
+    Color.parseColor("#00ffff"),
+    Color.parseColor("#00ffbf"),
+    Color.parseColor("#00ff80"),
+    Color.parseColor("#00ff40"),
+    Color.parseColor("#00ff00"),
+    Color.parseColor("#40ff00"),
+    Color.parseColor("#80ff00"),
+    Color.parseColor("#bfff00"),
+    Color.parseColor("#ffff00"),
+    Color.parseColor("#ffbf00"),
+    Color.parseColor("#ff8000"),
+    Color.parseColor("#ff4000"),
+    Color.parseColor("#ff0000"),
+      Color.parseColor("#ffffff")
+  )
+  private val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colorSeeds)
 
   private lateinit var orientationStrategy: OrientationStrategy
   private var downX = 0f
   private var downY = 0f
-
-  var startColor
-    get() = gradientColors[0]
-    set(color) {
-      setColors(startColor = color)
-    }
-
-  var endColor
-    get() = gradientColors[1]
-    set(color) {
-      setColors(endColor = color)
-    }
 
   var offset = 0f
     set(offset) {
@@ -119,7 +139,6 @@ open class GradientSeekBar @JvmOverloads constructor(
 
   private fun parseAttributes(context: Context, attrs: AttributeSet?, defStyle: Int) {
     context.obtainStyledAttributes(attrs, R.styleable.GradientSeekBar, 0, defStyle).apply {
-      readGradientColors(this)
       thumbColor = getColor(R.styleable.GradientSeekBar_asb_thumbColor, 0)
       thumbStrokeColor = getColor(R.styleable.GradientSeekBar_asb_thumbStrokeColor, 0)
       thumbColorCircleScale = getFloat(R.styleable.GradientSeekBar_asb_thumbColorCircleScale, 0f)
@@ -133,27 +152,9 @@ open class GradientSeekBar @JvmOverloads constructor(
     }
   }
 
-  private fun readGradientColors(array: TypedArray) {
-    setColors(
-      array.getColor(R.styleable.GradientSeekBar_asb_startColor, Color.TRANSPARENT),
-      array.getColor(R.styleable.GradientSeekBar_asb_endColor, Color.BLACK)
-    )
-  }
-
   private fun createOrientationStrategy() = when (orientation) {
     Orientation.VERTICAL -> VerticalStrategy()
     Orientation.HORIZONTAL -> HorizontalStrategy()
-  }
-
-  fun setColors(startColor: Int = gradientColors[0], endColor: Int = gradientColors[1]) {
-    updateGradientColors(startColor, endColor)
-    calculateArgb()
-  }
-
-  private fun updateGradientColors(startColor: Int, endColor: Int) {
-    gradientColors[0] = startColor
-    gradientColors[1] = endColor
-    gradientDrawable.colors = gradientColors
   }
 
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -177,6 +178,7 @@ open class GradientSeekBar @JvmOverloads constructor(
   private fun drawThumb(canvas: Canvas) {
     val coordinates = orientationStrategy.calculateThumbCoordinates(this, gradientDrawable.bounds)
 
+    argb = pickColor(thumbX, width)
     thumbDrawable.indicatorColor = argb
     thumbDrawable.setCoordinates(coordinates.x, coordinates.y)
     thumbDrawable.draw(canvas)
@@ -202,14 +204,43 @@ open class GradientSeekBar @JvmOverloads constructor(
     downY = event.y
   }
 
+  private var thumbX: Float = 24f
   private fun calculateOffsetOnMotionEvent(event: MotionEvent) {
+    event.x.let {
+      thumbX = it
+      invalidate()
+    }
     offset = orientationStrategy.calculateOffsetOnMotionEvent(this, event, gradientDrawable.bounds)
   }
 
   private fun calculateArgb() {
-    argb = interpolateColorLinear(gradientColors[0], gradientColors[1], offset)
+    argb = pickColor(thumbX, width)
     fireListener()
     invalidate()
+  }
+
+  private fun pickColor(position: Float, canvasWidth: Int): Int {
+    val value = (position - paddingStart) / (canvasWidth - (paddingStart + paddingEnd))
+    when {
+      value <= 0.0 -> return colorSeeds[0]
+      value >= 1 -> return colorSeeds[colorSeeds.size - 1]
+      else -> {
+        var colorPosition = value * (colorSeeds.size - 1)
+        val i = colorPosition.toInt()
+        colorPosition -= i
+        val c0 = colorSeeds[i]
+        val c1 = colorSeeds[i + 1]
+
+        val red = mix(Color.red(c0), Color.red(c1), colorPosition)
+        val green = mix(Color.green(c0), Color.green(c1), colorPosition)
+        val blue = mix(Color.blue(c0), Color.blue(c1), colorPosition)
+        return Color.rgb(red, green, blue)
+      }
+    }
+  }
+
+  private fun mix(start: Int, end: Int, position: Float): Int {
+    return start + Math.round(position * (end - start))
   }
 
   private fun fireListener() {
@@ -219,20 +250,19 @@ open class GradientSeekBar @JvmOverloads constructor(
   override fun onSaveInstanceState(): Parcelable {
     val superState = super.onSaveInstanceState()
     val thumbState = thumbDrawable.saveState()
-    return GradientSeekBarState(superState, this, thumbState)
+    return ColorSeekBarState(superState, this, thumbState)
   }
 
   override fun onRestoreInstanceState(state: Parcelable) {
-    if (state is GradientSeekBarState) {
+    if (state is ColorSeekBarState) {
       super.onRestoreInstanceState(state.superState)
-      readGradientSeekBarState(state)
+      readColorSeekBarState(state)
     } else {
       super.onRestoreInstanceState(state)
     }
   }
 
-  private fun readGradientSeekBarState(state: GradientSeekBarState) {
-    updateGradientColors(state.startColor, state.endColor)
+  private fun readColorSeekBarState(state: ColorSeekBarState) {
     offset = state.offset
     barSize = state.barSize
     cornersRadius = state.cornerRadius
@@ -244,22 +274,20 @@ open class GradientSeekBar @JvmOverloads constructor(
   enum class Orientation { VERTICAL, HORIZONTAL }
 }
 
-private class GradientSeekBarState : View.BaseSavedState {
+private class ColorSeekBarState : View.BaseSavedState {
 
-  val startColor: Int
-  val endColor: Int
   val offset: Float
   val barSize: Int
+  val strokeSize: Int
   val cornerRadius: Float
   val orientation: Int
   val interceptTouchEvent: Boolean
   val thumbState: ThumbDrawableState
 
-  constructor(superState: Parcelable?, view: GradientSeekBar, thumbState: ThumbDrawableState) : super(superState) {
-    startColor = view.startColor
-    endColor = view.endColor
+  constructor(superState: Parcelable?, view: ColorSeekBar, thumbState: ThumbDrawableState) : super(superState) {
     offset = view.offset
     barSize = view.barSize
+    strokeSize = view.strokeSize
     cornerRadius = view.cornersRadius
     orientation = view.orientation.ordinal
     interceptTouchEvent = view.interceptTouchEvent
@@ -267,10 +295,9 @@ private class GradientSeekBarState : View.BaseSavedState {
   }
 
   constructor(source: Parcel) : super(source) {
-    startColor = source.readInt()
-    endColor = source.readInt()
     offset = source.readFloat()
     barSize = source.readInt()
+    strokeSize = source.readInt()
     cornerRadius = source.readFloat()
     orientation = source.readInt()
     interceptTouchEvent = source.readBooleanCompat()
@@ -279,37 +306,27 @@ private class GradientSeekBarState : View.BaseSavedState {
 
   override fun writeToParcel(out: Parcel, flags: Int) {
     super.writeToParcel(out, flags)
-    out.writeInt(startColor)
-    out.writeInt(endColor)
     out.writeFloat(offset)
     out.writeInt(barSize)
+    out.writeInt(strokeSize)
     out.writeFloat(cornerRadius)
     out.writeInt(orientation)
     out.writeBooleanCompat(interceptTouchEvent)
     out.writeThumbState(thumbState, flags)
   }
 
-  companion object CREATOR : Parcelable.Creator<GradientSeekBarState> {
+  companion object CREATOR : Parcelable.Creator<ColorSeekBarState> {
 
-    override fun createFromParcel(source: Parcel) = GradientSeekBarState(source)
+    override fun createFromParcel(source: Parcel) = ColorSeekBarState(source)
 
-    override fun newArray(size: Int) = arrayOfNulls<GradientSeekBarState>(size)
+    override fun newArray(size: Int) = arrayOfNulls<ColorSeekBarState>(size)
   }
 }
 
-val GradientSeekBar.currentColorAlpha get() = Color.alpha(argb)
+val ColorSeekBar.currentColorAlpha get() = Color.alpha(argb)
 
-fun GradientSeekBar.setTransparentToColor(color: Int, respectAlpha: Boolean = true) {
-  if (respectAlpha) this.offset = Color.alpha(color) / MAX_ALPHA.toFloat()
-  this.setColors(setColorAlpha(color, 0), setColorAlpha(color, MAX_ALPHA))
-}
-
-inline fun GradientSeekBar.setAlphaChangeListener(crossinline listener: (Int, Int) -> Unit) {
+inline fun ColorSeekBar.setAlphaChangeListener(crossinline listener: (Int, Int) -> Unit) {
   this.colorChangeListener = { color -> listener(color, this.currentColorAlpha) }
-}
-
-fun GradientSeekBar.setBlackToColor(color: Int) {
-  this.setColors(Color.BLACK, color)
 }
 
 private fun ensureOffsetWithinRange(offset: Float) = ensureNumberWithinRange(offset, 0f, 1f)
