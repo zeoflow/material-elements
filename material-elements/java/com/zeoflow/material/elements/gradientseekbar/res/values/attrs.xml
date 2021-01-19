@@ -7,6 +7,7 @@
     <attr name="asb_thumbColorCircleScale" format="float" />
     <attr name="asb_thumbRadius" format="dimension" />
     <attr name="asb_barSize" format="dimension" />
+    <attr name="asb_strokeSize" format="dimension" />
     <attr name="asb_barCornersRadius" format="dimension" />
     <attr name="asb_startColor" format="color" />
     <attr name="asb_endColor" format="color" />
