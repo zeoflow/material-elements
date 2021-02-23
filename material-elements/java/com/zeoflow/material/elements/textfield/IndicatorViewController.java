@@ -527,10 +527,7 @@ final class IndicatorViewController
     {
       helperTextView = new AppCompatTextView(context);
       helperTextView.setId(R.id.textinput_helper_text);
-      if (VERSION.SDK_INT >= 17)
-      {
-        helperTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-      }
+      helperTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
       if (typeface != null)
       {
         helperTextView.setTypeface(typeface);

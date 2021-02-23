@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2020 ZeoFlow
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<resources>
+
+  <!-- Style to use for OutlinedLayout in the theme. -->
+  <attr name="outlinedLayoutStyle" format="reference" />
+
+  <declare-styleable name="OutlinedLayout">
+    <!-- The text to display as prefix text in the text input area. -->
+<!--    <attr name="title" format="string" />-->
+<!--    &lt;!&ndash; The text to display as prefix text in the text input area. &ndash;&gt;-->
+<!--    <attr name="titleEnabled" format="boolean" />-->
+    <!-- TextAppearance of the hint in the collapsed floating label. -->
+    <attr name="titleAppearance" format="reference" />
+    <!-- Text color of the hint in the collapsed floating label.
+         If set, this takes precedence over hintTextAppearance. -->
+    <attr name="titleColor" format="color" />
+  </declare-styleable>
+
+</resources>
