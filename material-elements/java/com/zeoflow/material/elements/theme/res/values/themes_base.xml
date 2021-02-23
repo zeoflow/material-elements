@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2020 ZeoFlow
+  ~ Copyright (C) 2021 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
   <style name="Base.V14.Theme.MaterialElements" parent="Base.V14.Theme.MaterialElements.Bridge">
     <item name="viewInflaterClass">
-      com.zeoflow.theme.MaterialElementsViewInflater
+      com.zeoflow.material.elements.theme.MaterialElementsViewInflater
     </item>
 
     <!-- Colors -->
@@ -93,7 +93,7 @@
 
   <style name="Base.V14.Theme.MaterialElements.Light" parent="Base.V14.Theme.MaterialElements.Light.Bridge">
     <item name="viewInflaterClass">
-      com.zeoflow.theme.MaterialElementsViewInflater
+      com.zeoflow.material.elements.theme.MaterialElementsViewInflater
     </item>
 
     <!-- Colors -->
