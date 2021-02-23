@@ -21,6 +21,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.zeoflow.material.elements.R;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * @author Nikita Olifer
  */
@@ -737,6 +740,7 @@ public class ScrollingPagerIndicator extends View
     }
   }
 
+  @Retention(RetentionPolicy.SOURCE)
   @IntDef({RecyclerView.HORIZONTAL, RecyclerView.VERTICAL})
   public @interface Orientation
   {
