@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2021 ZeoFlow
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<resources>
+
+  <style name="MaterialElements.OutlinedLayout" parent="Base.MaterialElements.OutlinedLayout">
+    <item name="materialThemeOverlay">
+      @style/Base.MaterialElements.OutlinedLayout
+    </item>
+    <item name="boxCollapsedPaddingTop">0dp</item>
+  </style>
+
+  <style name="Design.OutlinedLayout" parent="android:Widget">
+    <item name="materialThemeOverlay">@style/ThemeOverlay.Design.OutlinedLayout</item>
+    <item name="enforceMaterialTheme">false</item>
+    <item name="enforceTextAppearance">false</item>
+
+    <item name="boxBackgroundMode">none</item>
+    <item name="boxStrokeColor">@color/o_stroke_colour</item>
+
+    <item name="titleAppearance">@style/TextAppearance.Design.OutlinedLayout.Hint</item>
+    <item name="titleColor">@color/o_title_colour</item>>
+
+    <item name="shapeAppearance">@null</item>
+    <item name="shapeAppearanceOverlay">@null</item>
+  </style>
+
+  <!-- Set of ThemeOverlays to be used internally in the OutlinedLayout styles to automatically
+       apply the correct OutlinedLayout style to the OutlinedHolder. -->
+  <style name="ThemeOverlay.Design.OutlinedLayout" parent="" />
+
+  <style name="TextAppearance.Design.OutlinedLayout.Hint" parent="TextAppearance.AppCompat.Caption">
+    <item name="android:textColor">?attr/colorControlActivated</item>
+  </style>
+
+  <!-- Base style for TextInputLayout. You should use one of the sub-styles instead. -->
+  <style name="Base.MaterialElements.OutlinedLayout" parent="Design.OutlinedLayout">
+    <item name="enforceMaterialTheme">true</item>
+    <item name="enforceTextAppearance">true</item>
+    <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
+
+    <item name="boxBackgroundMode">outline</item>
+    <item name="boxBackgroundColor">@null</item>
+    <item name="boxCollapsedPaddingTop">0dp</item>
+    <item name="boxStrokeColor">@color/o_stroke_colour</item>
+    <item name="boxStrokeErrorColor">@color/mtrl_error</item>
+    <item name="boxStrokeWidth">@dimen/mtrl_textinput_box_stroke_width_default</item>
+    <item name="boxStrokeWidthFocused">@dimen/mtrl_textinput_box_stroke_width_focused</item>
+
+    <item name="titleAppearance">?attr/textAppearanceCaption</item>
+    <item name="titleColor">@color/o_title_colour</item>
+
+    <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+    <item name="shapeAppearanceOverlay">@null</item>
+  </style>
+
+</resources>

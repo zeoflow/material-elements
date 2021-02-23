@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 ZeoFlow
+ * Copyright (C) 2021 ZeoFlow
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -527,10 +527,7 @@ final class IndicatorViewController
     {
       helperTextView = new AppCompatTextView(context);
       helperTextView.setId(R.id.textinput_helper_text);
-      if (VERSION.SDK_INT >= 17)
-      {
-        helperTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-      }
+      helperTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
       if (typeface != null)
       {
         helperTextView.setTypeface(typeface);

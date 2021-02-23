@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2021 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,15 +13,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <resources>
-
-	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.MaterialElements.NoActionBar">
-		<!-- Customize your theme here. -->
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorAccent">@color/colorAccent</item>
-	</style>
-
+  <color name="o_stroke_colour">#212121</color>
+  <color name="o_title_colour">#212121</color>
 </resources>

@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2021 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +14,12 @@
   ~ limitations under the License.
   -->
 
+<!-- Definitions of attributes to be exposed as public -->
 <resources>
+  <public name="outlinedLayoutStyle" type="attr" />
 
-	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.MaterialElements.NoActionBar">
-		<!-- Customize your theme here. -->
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorAccent">@color/colorAccent</item>
-	</style>
+  <public name="titleAppearance" type="attr" />
+  <public name="titleColor" type="attr" />
 
+  <public name="MaterialElements.OutlinedLayout" type="style" />
 </resources>

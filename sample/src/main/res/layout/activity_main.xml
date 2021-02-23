@@ -1,37 +1,51 @@
+<!--
+  ~ Copyright 2021 ZeoFlow
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/llHomer"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="vertical"
-  android:padding="@dimen/activity_padding">
-
-  <com.zeoflow.material.elements.gradientseekbar.GradientSeekBar
-    android:id="@+id/gsb_picker"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llHomer"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="0dp"
-    app:asb_endColor="#F44336"
-    app:asb_orientation="horizontal"
-    app:asb_startColor="#00F44336"
-    app:asb_thumbColor="#ffffff"
-    app:asb_barSize="14dp"
-    app:asb_strokeSize="8dp" />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
 
-  <com.zeoflow.material.elements.color.ColorSeekBar
-    android:id="@+id/csb_picker"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="0dp"
-    app:asb_orientation="horizontal"
-    app:asb_thumbColor="#ffffff"
-    app:asb_barSize="14dp"
-    app:asb_strokeSize="8dp"/>
+<!--    style="@style/MaterialElements.OutlinedLayout"-->
+    <com.zeoflow.material.elements.outlined.OutlinedLayout
+        style="@style/MaterialElements.OutlinedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleEnabled="true"
+        android:layout_margin="5dp"
+        app:title="Here We Go"
+        app:titleColor="#ffffff"
+        app:boxStrokeColor="#ffffff">
+
+        <com.zeoflow.material.elements.outlined.OutlinedHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Attempt something new!"
+                android:textColor="#212121"/>
+
+        </com.zeoflow.material.elements.outlined.OutlinedHolder>
+
+    </com.zeoflow.material.elements.outlined.OutlinedLayout>
 
 </LinearLayout>

@@ -1,18 +1,25 @@
+/*
+ * Copyright (C) 2021 ZeoFlow
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.zeoflow.material.elements.sample;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.zeoflow.material.elements.color.ColorSeekBar;
-import com.zeoflow.material.elements.gradientseekbar.GradientSeekBar;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
-import kotlin.jvm.functions.Function2;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -22,31 +29,6 @@ public class MainActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-    LinearLayout llHomer = findViewById(R.id.llHomer);
-    ColorSeekBar csbPicker = findViewById(R.id.csb_picker);
-    GradientSeekBar gsbPicker = findViewById(R.id.gsb_picker);
-    gsbPicker.setColorChangeListener(color ->
-    {
-      llHomer.setBackgroundColor(color);
-      return null;
-    });
-    csbPicker.setColorChangeListener(color ->
-    {
-      gsbPicker.setColors(Color.argb(0, Color.red(color), Color.green(color), Color.blue(color)), color);
-      return null;
-    });
-//    ColorWheel mColorWheel = findViewById(R.id.colorWheel);
-//    mColorWheel.colorChangeListener(new Function1<Integer, Unit>()
-//    {
-//      @Override
-//      public Unit invoke(Integer color)
-//      {
-//        mGradientSeekBar.setStartColor(color);
-//        colorSelected = color;
-//        return null;
-//      }
-//    });
   }
 
 }
