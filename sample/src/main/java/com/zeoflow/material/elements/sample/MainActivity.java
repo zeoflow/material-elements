@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 ZeoFlow
+ * Copyright (C) 2021 ZeoFlow SRL
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 package com.zeoflow.material.elements.sample;
 
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity
