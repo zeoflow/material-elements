@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
+import com.zeoflow.material.elements.viewpager.MaterialViewPager;
 
 import com.zeoflow.material.elements.R;
 
@@ -257,13 +257,13 @@ public class ScrollingPagerIndicator extends View
   }
 
   /**
-   * Attaches indicator to ViewPager2
+   * Attaches indicator to MaterialViewPager
    *
    * @param pager pager to attach
    */
-  public void attachToPager(@NonNull ViewPager2 pager)
+  public void attachToPager(@NonNull MaterialViewPager pager)
   {
-    attachToPager(pager, new ViewPager2Attacher());
+    attachToPager(pager, new MaterialViewPagerAttacher());
   }
 
   /**

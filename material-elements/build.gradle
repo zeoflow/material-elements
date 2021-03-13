@@ -125,6 +125,7 @@ def srcDirs = [
   'com/zeoflow/material/elements/transition',
   'com/zeoflow/material/elements/transformation',
   'com/zeoflow/material/elements/typography',
+  'com/zeoflow/material/elements/viewpager',
 ]
 
 android {
