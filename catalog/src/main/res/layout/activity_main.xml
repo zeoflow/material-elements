@@ -13,7 +13,6 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llHomer"
@@ -22,7 +21,6 @@
     android:orientation="vertical"
     android:background="@color/colorPrimary">
 
-<!--    style="@style/MaterialElements.OutlinedLayout"-->
     <com.zeoflow.material.elements.outlined.OutlinedLayout
         style="@style/MaterialElements.OutlinedLayout"
         android:layout_width="match_parent"
