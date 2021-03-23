@@ -19,6 +19,5 @@ assignees: 'TeodorHMX1'
 
 **Device:** Device on which the bug was encountered here
 
-To help us triage faster, please check to make sure you are using the [latest version](https://github.com/zeoflow/material-elements/releases) of the library.
-
-We also happily accept [pull requests](https://github.com/zeoflow/material-elements/pulls).
+###### To help us triage faster, please check to make sure you are using the [latest version](https://github.com/zeoflow/material-elements/releases) of the library.
+###### We also happily accept [pull requests](https://github.com/zeoflow/material-elements/pulls).

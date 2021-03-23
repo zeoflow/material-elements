@@ -1,4 +1,0 @@
-repository: camp
-labels:
-  - @first-timers-only
-template: .github/FIRST_TIMERS_ISSUE_TEMPLATE.md
