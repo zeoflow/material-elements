@@ -1,5 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
 
 ext {
   androidXVersions = [
@@ -176,7 +178,4 @@ android {
   }
 }
 
-apply from: "${rootProject.projectDir}/material-elements/maven-push.gradle"
-repositories {
-  mavenCentral()
-}
+apply from: '../buildSrc/upload.gradle'
