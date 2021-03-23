@@ -76,7 +76,7 @@ enforce_branch_merge:
   # who has the right to write to protected branches
   give_access_to:
     - TeodorHMX1
-    - Teogor
+    - teogor
 
 # License Checker (LC)
 # branches that contains files without license will not be merged
@@ -102,6 +102,7 @@ license_checker:
   to_ignore:
     # with path
     files_path:
+      - catalog/
 
 # Draft Release (DR)
 # automatically make a draft release
@@ -145,10 +146,10 @@ draft_release:
       # these labels will influence the next version
       labels:
         - '@security'
-        - '@priority-critical'
         - '@feature'
-        - '@priority-high'
         - '@maintenance'
+        - '@priority-high'
+        - '@priority-critical'
     # patch - version category
     patch:
       # these labels will influence the next version
