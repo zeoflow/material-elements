@@ -19,4 +19,4 @@ A clear and concise description of any alternative solutions or features you've 
 **Additional context**
 Add any other context or screenshots about the feature request here.
 
-We also happily accept [pull requests](https://github.com/zeoflow/material-elements/pulls).
+###### We also happily accept [pull requests](https://github.com/zeoflow/material-elements/pulls).
