@@ -1,8 +1,6 @@
-plugins {
-    id 'maven-publish'
-    id 'maven'
-    id 'signing'
-}
+apply plugin: 'maven-publish'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 version = VERSION_NAME
 group = GROUP
