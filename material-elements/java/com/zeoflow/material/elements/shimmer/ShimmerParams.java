@@ -38,9 +38,9 @@ public class ShimmerParams
     public Shimmer shimmer;
     public boolean defaultChildVisible;
     @ColorInt
-    int baseColor;
+    public int baseColor;
     @ColorInt
-    int highlightColor;
+    public int highlightColor;
 
     public ShimmerParams()
     {
