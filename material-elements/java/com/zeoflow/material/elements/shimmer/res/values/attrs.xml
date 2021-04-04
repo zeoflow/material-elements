@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 ZeoFlow SRL
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<resources>
+    <declare-styleable name="ShimmerFrameLayout">
+        <attr name="shimmer_clip_to_children" format="boolean" />
+        <attr name="shimmer_colored" format="boolean" />
+        <attr name="shimmer_base_color" format="color" />
+        <attr name="shimmer_highlight_color" format="color" />
+        <attr name="shimmer_base_alpha" format="float" />
+        <attr name="shimmer_highlight_alpha" format="float" />
+        <attr name="shimmer_auto_start" format="boolean" />
+        <attr name="shimmer_duration" format="integer" />
+        <attr name="shimmer_repeat_count" format="integer" />
+        <attr name="shimmer_repeat_delay" format="integer" />
+        <attr name="shimmer_repeat_mode" format="enum">
+            <enum name="restart" value="1" />
+            <enum name="reverse" value="2" />
+        </attr>
+        <attr name="shimmer_start_delay" format="integer" />
+        <attr name="shimmer_direction" format="enum">
+            <enum name="left_to_right" value="0" />
+            <enum name="top_to_bottom" value="1" />
+            <enum name="right_to_left" value="2" />
+            <enum name="bottom_to_top" value="3" />
+        </attr>
+        <attr name="shimmer_dropoff" format="float" />
+        <attr name="shimmer_fixed_width" format="dimension" />
+        <attr name="shimmer_fixed_height" format="dimension" />
+        <attr name="shimmer_intensity" format="float" />
+        <attr name="shimmer_width_ratio" format="float" />
+        <attr name="shimmer_height_ratio" format="float" />
+        <attr name="shimmer_shape" format="enum">
+            <enum name="linear" value="0" />
+            <enum name="radial" value="1" />
+        </attr>
+        <attr name="shimmer_tilt" format="float" />
+    </declare-styleable>
+    <declare-styleable name="ShimmerLayout">
+        <attr name="shimmerLayout_veiled" format="boolean" />
+        <attr name="shimmerLayout_layout" format="reference" />
+        <attr name="shimmerLayout_drawable" format="reference" />
+        <attr name="shimmerLayout_radius" format="dimension" />
+        <attr name="shimmerLayout_shimmerEnable" format="boolean" />
+        <attr name="shimmerLayout_baseColor" format="color" />
+        <attr name="shimmerLayout_highlightColor" format="color" />
+        <attr name="shimmerLayout_baseAlpha" format="float" />
+        <attr name="shimmerLayout_highlightAlpha" format="float" />
+        <attr name="shimmerLayout_dropOff" format="float" />
+        <attr name="shimmerLayout_defaultChildVisible" format="boolean" />
+    </declare-styleable>
+</resources>
