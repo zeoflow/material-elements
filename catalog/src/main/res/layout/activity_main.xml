@@ -21,29 +21,17 @@
     android:orientation="vertical"
     android:background="@color/colorPrimary">
 
-    <com.zeoflow.material.elements.outlined.OutlinedLayout
-        style="@style/MaterialElements.OutlinedLayout"
+    <com.zeoflow.material.elements.colorwheel.ColorWheel
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
+
+    <com.zeoflow.material.elements.gradientseekbar.GradientSeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleEnabled="true"
-        android:layout_margin="5dp"
-        app:title="Here We Go"
-        app:titleColor="#ffffff"
-        app:boxStrokeColor="#ffffff">
+        app:asb_orientation="horizontal"/>
 
-        <com.zeoflow.material.elements.outlined.OutlinedHolder
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="Attempt something new!"
-                android:textColor="#212121"/>
-
-        </com.zeoflow.material.elements.outlined.OutlinedHolder>
-
-    </com.zeoflow.material.elements.outlined.OutlinedLayout>
+<!--    <com.zeoflow.material.elements.color.ColorSeekBar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
 
 </LinearLayout>
