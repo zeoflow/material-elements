@@ -1,9 +1,21 @@
-apply plugin: 'maven-publish'
+/*
+ * Copyright 2021 ZeoFlow
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 apply plugin: 'maven'
 apply plugin: 'signing'
-
-version = VERSION_NAME
-group = GROUP
 
 static def localMavenRepo() {
     'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
@@ -15,15 +27,13 @@ def isReleaseBuild() {
 }
 
 def getReleaseRepositoryUrl() {
-    return hasProperty('LOCAL') ? localMavenRepo()
-            : hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-            : 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
 
 def getSnapshotRepositoryUrl() {
-    return hasProperty('LOCAL') ? localMavenRepo()
-            : hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-            : 'https://oss.sonatype.org/content/repositories/snapshots/'
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+            : "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
 def getRepositoryUsername() {
@@ -35,16 +45,9 @@ def getRepositoryPassword() {
 }
 
 afterEvaluate { project ->
-    def isAndroidProject = project.plugins.hasPlugin('com.android.application') || project.plugins.hasPlugin('com.android.library')
-    // To avoid uploading the default empty jar artifact in the project root directory, we use a custom
-    // configuration to specify which artifacts we want to upload.
     uploadArchives {
         repositories {
             mavenDeployer {
-                // allow uploading through FTP protocol with the following command:
-                // gradle uploadArchives -PSNAPSHOT_REPOSITORY_URL=ftp://host/repo/path -PUSERNAME=uname -PPASSWORD=passwd
-                configuration = configurations.create('deployerJars')
-
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
                 pom.groupId = GROUP
@@ -58,42 +61,11 @@ afterEvaluate { project ->
                     authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
                 }
 
-                pom.whenConfigured { pom ->
-                    pom.packaging = POM_PACKAGING
-                }
-
-                // Dependencies are only automatically included by the release plugin if the release
-                // variant is built. Since we've disabled the release variant to improve build
-                // times, we need to add the dependencies to the pom file explicitly.
-                if (isAndroidProject) {
-                    pom.withXml {
-                        def dependenciesNode = asNode().appendNode('dependencies')
-
-                        project.configurations.implementation.allDependencies.each {
-                            def groupId = it.group
-                            def artifactId = it.name
-                            // If we specify an artifact id that differs from the project name, it won't
-                            // match. To avoid that, we look up the artifact id (and group) by property
-                            // for any project dependencies.
-                            // TODO: there must be a neater way to do this.
-                            if (it instanceof ProjectDependency) {
-                                def properties = it.getDependencyProject().getProperties()
-                                groupId = properties.get("GROUP")
-                                artifactId = properties.get("POM_ARTIFACT_ID")
-                            }
-                            def dependencyNode = dependenciesNode.appendNode('dependency')
-                            dependencyNode.appendNode('groupId', groupId)
-                            dependencyNode.appendNode('artifactId', artifactId)
-                            dependencyNode.appendNode('version', it.version)
-                            dependencyNode.appendNode('scope', 'compile')
-                        }
-                    }
-                }
-
                 pom.project {
-                    name = POM_NAME
-                    description = POM_DESCRIPTION
-                    url = POM_URL
+                    name POM_NAME
+                    packaging POM_PACKAGING
+                    description POM_DESCRIPTION
+                    url POM_URL
 
                     scm {
                         url POM_SCM_URL
@@ -103,11 +75,6 @@ afterEvaluate { project ->
 
                     licenses {
                         license {
-                            name = 'Simplified BSD License'
-                            url = 'http://www.opensource.org/licenses/bsd-license'
-                            distribution = 'repo'
-                        }
-                        license {
                             name = 'The Apache Software License, Version 2.0'
                             url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                             distribution = 'repo'
@@ -116,9 +83,8 @@ afterEvaluate { project ->
 
                     developers {
                         developer {
-                            id = POM_DEVELOPER_ID
-                            name = POM_DEVELOPER_NAME
-                            email = POM_DEVELOPER_EMAIL
+                            id POM_DEVELOPER_ID
+                            name POM_DEVELOPER_NAME
                         }
                     }
                 }
@@ -127,86 +93,16 @@ afterEvaluate { project ->
     }
 
     signing {
-        required { isReleaseBuild() && gradle.taskGraph.hasTask('uploadArchives') }
+        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
     }
 
-    if (isAndroidProject) {
-        def variants = project.android.libraryVariants.findAll {
-            it.buildType.name.equalsIgnoreCase('debug')
-        }
-
-        def getAndroidSdkDirectory = project.android.sdkDirectory
-
-        def getAndroidJar = "${getAndroidSdkDirectory}/platforms/${project.android.compileSdkVersion}/android.jar"
-
-        task androidJavadocs(type: Javadoc, dependsOn: assembleDebug) {
-            source = variants.collect { it.getJavaCompileProvider().get().source }
-            classpath = files(
-                    getAndroidJar,
-                    project.file("build/intermediates/classes/debug")
-            )
-            doFirst {
-                classpath += files(variants.collect { it.javaCompile.classpath.files })
-            }
-            options {
-                links("http://docs.oracle.com/javase/7/docs/api/")
-                linksOffline("http://d.android.com/reference",
-                        "${getAndroidSdkDirectory}/docs/reference")
-            }
-
-            exclude '**/R.java'
-        }
-
-        def cleanJavadocTask = task("cleanJavadocTask", type: Delete) {
-            delete androidJavadocs.destinationDir
-        } as Task
-        project.clean.dependsOn(cleanJavadocTask)
-
-        task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-            archiveClassifier.set('javadoc')
-            from androidJavadocs.destinationDir
-            baseName "${project.name}"
-        }
-
-        task androidSourcesJar(type: Jar) {
-            archiveClassifier.set('sources')
-            from project.android.sourceSets.main.java.source
-            baseName "${project.name}"
-        }
-
-        task androidLibraryJar(type: Jar, dependsOn: compileDebugJavaWithJavac /* == variant.javaCompile */) {
-            from compileDebugJavaWithJavac.destinationDir
-            exclude '**/R.class'
-            exclude '**/R$*.class'
-            baseName "${project.name}"
-        }
-
-        artifacts {
-            archives androidLibraryJar
-            archives androidSourcesJar
-            // This is unnecessary with a release variant because by default the release variant
-            // includes the release aar in archives. Since we've disabled our release variants and
-            // want to include an aar, we need to manually specify the task that produces the aar
-            // here.
-            archives project.tasks.bundleDebugAar
-        }
-    } else if (project.plugins.hasPlugin('java') || project.plugins.hasPlugin('java-library')) {
-        task sourcesJar(type: Jar, dependsOn: classes) {
-            archiveClassifier.set('sources')
-            from sourceSets.main.allSource
-        }
-
-        task javadocsJar(type: Jar, dependsOn: javadoc) {
-            archiveClassifier.set('javadoc')
-            from javadoc.destinationDir
-        }
-
-        artifacts {
-            archives sourcesJar
-            archives javadocsJar
-        }
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.sourceFiles
     }
-    logger.info("Published artifacts in ${configurations.archives}:")
-    configurations.archives.artifacts.files.files.each { logger.info("\t$it") }
+
+    artifacts {
+        archives androidSourcesJar
+    }
 }
