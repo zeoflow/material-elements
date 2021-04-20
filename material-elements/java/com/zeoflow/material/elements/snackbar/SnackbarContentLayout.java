@@ -29,7 +29,7 @@ import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
@@ -100,9 +100,9 @@ public class SnackbarContentLayout extends LinearLayout implements ContentViewCa
     if (actionTextColorAlpha != 1)
     {
       int originalActionTextColor = actionView.getCurrentTextColor();
-      int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);
+      int colorSurface = ColorUtils.getColor(this, R.attr.colorSurface);
       int actionTextColor =
-          MaterialColors.layer(colorSurface, originalActionTextColor, actionTextColorAlpha);
+          ColorUtils.layer(colorSurface, originalActionTextColor, actionTextColorAlpha);
       actionView.setTextColor(actionTextColor);
     }
   }

@@ -45,7 +45,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.ripple.RippleUtils;
 import com.zeoflow.material.elements.shape.CornerTreatment;
@@ -198,7 +198,7 @@ class MaterialCardViewHelper
     {
       rippleColor =
           ColorStateList.valueOf(
-              MaterialColors.getColor(materialCardView, R.attr.colorControlHighlight));
+              ColorUtils.getColor(materialCardView, R.attr.colorControlHighlight));
     }
 
     ColorStateList foregroundColor =

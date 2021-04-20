@@ -69,7 +69,7 @@ import androidx.core.view.ViewCompat;
 import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.MotionSpec;
 import com.zeoflow.material.elements.canvas.CanvasCompat;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.colorwheel.MaterialColors;
 import com.zeoflow.material.elements.drawable.DrawableUtils;
 import com.zeoflow.material.elements.internal.TextDrawableHelper;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
@@ -1220,7 +1220,7 @@ public class ChipDrawable extends MaterialShapeDrawable
     }
 
     int newCompositeSurfaceBackgroundColor =
-        MaterialColors.layer(newChipSurfaceColor, newChipBackgroundColor);
+            MaterialColors.layer(newChipSurfaceColor, newChipBackgroundColor);
     boolean shouldUpdate =
         currentCompositeSurfaceBackgroundColor != newCompositeSurfaceBackgroundColor;
     shouldUpdate |= getFillColor() == null;
