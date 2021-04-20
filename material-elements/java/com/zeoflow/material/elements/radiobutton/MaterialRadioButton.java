@@ -27,7 +27,7 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.widget.CompoundButtonCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -133,19 +133,19 @@ public class MaterialRadioButton extends AppCompatRadioButton
   {
     if (materialThemeColorsTintList == null)
     {
-      int colorControlActivated = MaterialColors.getColor(this, R.attr.colorControlActivated);
-      int colorOnSurface = MaterialColors.getColor(this, R.attr.colorOnSurface);
-      int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);
+      int colorControlActivated = ColorUtils.getColor(this, R.attr.colorControlActivated);
+      int colorOnSurface = ColorUtils.getColor(this, R.attr.colorOnSurface);
+      int colorSurface = ColorUtils.getColor(this, R.attr.colorSurface);
 
       int[] radioButtonColorList = new int[ENABLED_CHECKED_STATES.length];
       radioButtonColorList[0] =
-          MaterialColors.layer(colorSurface, colorControlActivated, MaterialColors.ALPHA_FULL);
+          ColorUtils.layer(colorSurface, colorControlActivated, ColorUtils.ALPHA_FULL);
       radioButtonColorList[1] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_MEDIUM);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_MEDIUM);
       radioButtonColorList[2] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_DISABLED);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_DISABLED);
       radioButtonColorList[3] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_DISABLED);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_DISABLED);
       materialThemeColorsTintList =
           new ColorStateList(ENABLED_CHECKED_STATES, radioButtonColorList);
     }

@@ -22,10 +22,9 @@ import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.core.graphics.ColorUtils;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 
@@ -48,8 +47,8 @@ public class ElevationOverlayProvider
     this.elevationOverlayEnabled =
         MaterialAttributes.resolveBoolean(context, R.attr.elevationOverlayEnabled, false);
     this.elevationOverlayColor =
-        MaterialColors.getColor(context, R.attr.elevationOverlayColor, Color.TRANSPARENT);
-    this.colorSurface = MaterialColors.getColor(context, R.attr.colorSurface, Color.TRANSPARENT);
+        ColorUtils.getColor(context, R.attr.elevationOverlayColor, Color.TRANSPARENT);
+    this.colorSurface = ColorUtils.getColor(context, R.attr.colorSurface, Color.TRANSPARENT);
     this.displayDensity = context.getResources().getDisplayMetrics().density;
   }
 
@@ -131,10 +130,10 @@ public class ElevationOverlayProvider
   {
     float overlayAlphaFraction = calculateOverlayAlphaFraction(elevation);
     int backgroundAlpha = Color.alpha(backgroundColor);
-    int backgroundColorOpaque = ColorUtils.setAlphaComponent(backgroundColor, 255);
+    int backgroundColorOpaque = androidx.core.graphics.ColorUtils.setAlphaComponent(backgroundColor, 255);
     int overlayColorOpaque =
-        MaterialColors.layer(backgroundColorOpaque, elevationOverlayColor, overlayAlphaFraction);
-    return ColorUtils.setAlphaComponent(overlayColorOpaque, backgroundAlpha);
+        ColorUtils.layer(backgroundColorOpaque, elevationOverlayColor, overlayAlphaFraction);
+    return androidx.core.graphics.ColorUtils.setAlphaComponent(overlayColorOpaque, backgroundAlpha);
   }
 
   /**
@@ -199,6 +198,6 @@ public class ElevationOverlayProvider
 
   private boolean isThemeSurfaceColor(@ColorInt int color)
   {
-    return ColorUtils.setAlphaComponent(color, 255) == colorSurface;
+    return androidx.core.graphics.ColorUtils.setAlphaComponent(color, 255) == colorSurface;
   }
 }

@@ -49,7 +49,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.view.ViewCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.resources.MaterialAttributes;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -100,7 +100,7 @@ public class MaterialAlertDialogBuilder extends AlertDialog.Builder
         MaterialDialogs.getDialogBackgroundInsets(context, DEF_STYLE_ATTR, DEF_STYLE_RES);
 
     int surfaceColor =
-        MaterialColors.getColor(context, R.attr.colorSurface, getClass().getCanonicalName());
+        ColorUtils.getColor(context, R.attr.colorSurface, getClass().getCanonicalName());
     MaterialShapeDrawable materialShapeDrawable =
         new MaterialShapeDrawable(context, null, DEF_STYLE_ATTR, DEF_STYLE_RES);
     materialShapeDrawable.initializeElevationOverlay(context);

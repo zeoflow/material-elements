@@ -72,7 +72,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
 import com.zeoflow.material.elements.behavior.SwipeDismissBehavior;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.resources.MaterialResources;
@@ -1433,7 +1433,7 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
       background.setCornerRadius(cornerRadius);
 
       int backgroundColor =
-          MaterialColors.layer(
+          ColorUtils.layer(
               this, R.attr.colorSurface, R.attr.colorOnSurface, getBackgroundOverlayColorAlpha());
       background.setColor(backgroundColor);
       if (backgroundTint != null)

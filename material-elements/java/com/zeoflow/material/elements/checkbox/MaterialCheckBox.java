@@ -26,7 +26,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.widget.CompoundButtonCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.theme.overlay.MaterialThemeOverlay;
@@ -132,18 +132,18 @@ public class MaterialCheckBox extends AppCompatCheckBox
     if (materialThemeColorsTintList == null)
     {
       int[] checkBoxColorsList = new int[ENABLED_CHECKED_STATES.length];
-      int colorControlActivated = MaterialColors.getColor(this, R.attr.colorControlActivated);
-      int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);
-      int colorOnSurface = MaterialColors.getColor(this, R.attr.colorOnSurface);
+      int colorControlActivated = ColorUtils.getColor(this, R.attr.colorControlActivated);
+      int colorSurface = ColorUtils.getColor(this, R.attr.colorSurface);
+      int colorOnSurface = ColorUtils.getColor(this, R.attr.colorOnSurface);
 
       checkBoxColorsList[0] =
-          MaterialColors.layer(colorSurface, colorControlActivated, MaterialColors.ALPHA_FULL);
+          ColorUtils.layer(colorSurface, colorControlActivated, ColorUtils.ALPHA_FULL);
       checkBoxColorsList[1] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_MEDIUM);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_MEDIUM);
       checkBoxColorsList[2] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_DISABLED);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_DISABLED);
       checkBoxColorsList[3] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_DISABLED);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_DISABLED);
 
       materialThemeColorsTintList = new ColorStateList(ENABLED_CHECKED_STATES, checkBoxColorsList);
     }

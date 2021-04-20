@@ -77,7 +77,7 @@ import androidx.customview.view.AbsSavedState;
 
 import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.internal.CheckableImageButton;
 import com.zeoflow.material.elements.internal.CollapsingTextHelper;
 import com.zeoflow.material.elements.internal.DescendantOffsetUtils;
@@ -2768,8 +2768,8 @@ public class TextInputLayout extends LinearLayout
     int backgroundColor = boxBackgroundColor;
     if (boxBackgroundMode == BOX_BACKGROUND_FILLED)
     {
-      int surfaceLayerColor = MaterialColors.getColor(this, R.attr.colorSurface, Color.TRANSPARENT);
-      backgroundColor = MaterialColors.layer(surfaceLayerColor, boxBackgroundColor);
+      int surfaceLayerColor = ColorUtils.getColor(this, R.attr.colorSurface, Color.TRANSPARENT);
+      backgroundColor = ColorUtils.layer(surfaceLayerColor, boxBackgroundColor);
     }
     return backgroundColor;
   }

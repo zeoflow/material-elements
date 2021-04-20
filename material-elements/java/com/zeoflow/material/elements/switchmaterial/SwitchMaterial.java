@@ -26,7 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.elevation.ElevationOverlayProvider;
 import com.zeoflow.material.elements.internal.ThemeEnforcement;
 import com.zeoflow.material.elements.internal.ViewUtils;
@@ -137,8 +137,8 @@ public class SwitchMaterial extends SwitchCompat
   {
     if (materialThemeColorsThumbTintList == null)
     {
-      int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);
-      int colorControlActivated = MaterialColors.getColor(this, R.attr.colorControlActivated);
+      int colorSurface = ColorUtils.getColor(this, R.attr.colorSurface);
+      int colorControlActivated = ColorUtils.getColor(this, R.attr.colorControlActivated);
       float thumbElevation = getResources().getDimension(R.dimen.mtrl_switch_thumb_elevation);
       if (elevationOverlayProvider.isThemeElevationOverlayEnabled())
       {
@@ -149,10 +149,10 @@ public class SwitchMaterial extends SwitchCompat
 
       int[] switchThumbColorsList = new int[ENABLED_CHECKED_STATES.length];
       switchThumbColorsList[0] =
-          MaterialColors.layer(colorSurface, colorControlActivated, MaterialColors.ALPHA_FULL);
+          ColorUtils.layer(colorSurface, colorControlActivated, ColorUtils.ALPHA_FULL);
       switchThumbColorsList[1] = colorThumbOff;
       switchThumbColorsList[2] =
-          MaterialColors.layer(colorSurface, colorControlActivated, MaterialColors.ALPHA_DISABLED);
+          ColorUtils.layer(colorSurface, colorControlActivated, ColorUtils.ALPHA_DISABLED);
       switchThumbColorsList[3] = colorThumbOff;
       materialThemeColorsThumbTintList =
           new ColorStateList(ENABLED_CHECKED_STATES, switchThumbColorsList);
@@ -165,18 +165,18 @@ public class SwitchMaterial extends SwitchCompat
     if (materialThemeColorsTrackTintList == null)
     {
       int[] switchTrackColorsList = new int[ENABLED_CHECKED_STATES.length];
-      int colorSurface = MaterialColors.getColor(this, R.attr.colorSurface);
-      int colorControlActivated = MaterialColors.getColor(this, R.attr.colorControlActivated);
-      int colorOnSurface = MaterialColors.getColor(this, R.attr.colorOnSurface);
+      int colorSurface = ColorUtils.getColor(this, R.attr.colorSurface);
+      int colorControlActivated = ColorUtils.getColor(this, R.attr.colorControlActivated);
+      int colorOnSurface = ColorUtils.getColor(this, R.attr.colorOnSurface);
       switchTrackColorsList[0] =
-          MaterialColors.layer(colorSurface, colorControlActivated, MaterialColors.ALPHA_MEDIUM);
+          ColorUtils.layer(colorSurface, colorControlActivated, ColorUtils.ALPHA_MEDIUM);
       switchTrackColorsList[1] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_LOW);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_LOW);
       switchTrackColorsList[2] =
-          MaterialColors.layer(
-              colorSurface, colorControlActivated, MaterialColors.ALPHA_DISABLED_LOW);
+          ColorUtils.layer(
+              colorSurface, colorControlActivated, ColorUtils.ALPHA_DISABLED_LOW);
       switchTrackColorsList[3] =
-          MaterialColors.layer(colorSurface, colorOnSurface, MaterialColors.ALPHA_DISABLED_LOW);
+          ColorUtils.layer(colorSurface, colorOnSurface, ColorUtils.ALPHA_DISABLED_LOW);
       materialThemeColorsTrackTintList =
           new ColorStateList(ENABLED_CHECKED_STATES, switchTrackColorsList);
     }

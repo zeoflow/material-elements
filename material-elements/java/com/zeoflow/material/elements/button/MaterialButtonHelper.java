@@ -35,7 +35,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.internal.ViewUtils;
 import com.zeoflow.material.elements.resources.MaterialResources;
 import com.zeoflow.material.elements.ripple.RippleDrawableCompat;
@@ -239,7 +239,7 @@ class MaterialButtonHelper
     surfaceColorStrokeDrawable.setStroke(
         strokeWidth,
         shouldDrawSurfaceColorStroke
-            ? MaterialColors.getColor(materialButton, R.attr.colorSurface)
+            ? ColorUtils.getColor(materialButton, R.attr.colorSurface)
             : Color.TRANSPARENT);
 
     if (IS_LOLLIPOP)
@@ -346,7 +346,7 @@ class MaterialButtonHelper
         surfaceColorStrokeDrawable.setStroke(
             strokeWidth,
             shouldDrawSurfaceColorStroke
-                ? MaterialColors.getColor(materialButton, R.attr.colorSurface)
+                ? ColorUtils.getColor(materialButton, R.attr.colorSurface)
                 : Color.TRANSPARENT);
       }
     }

@@ -52,7 +52,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.animation.AnimationUtils;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.shape.MaterialShapeDrawable;
 import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
@@ -343,7 +343,7 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate
 
     int boxBackgroundMode = textInputLayout.getBoxBackgroundMode();
     MaterialShapeDrawable boxBackground = textInputLayout.getBoxBackground();
-    int rippleColor = MaterialColors.getColor(editText, R.attr.colorControlHighlight);
+    int rippleColor = ColorUtils.getColor(editText, R.attr.colorControlHighlight);
     int[][] states =
         new int[][]{
             new int[]{android.R.attr.state_pressed}, new int[]{},
@@ -365,10 +365,10 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate
       @NonNull MaterialShapeDrawable boxBackground)
   {
     LayerDrawable editTextBackground;
-    int surfaceColor = MaterialColors.getColor(editText, R.attr.colorSurface);
+    int surfaceColor = ColorUtils.getColor(editText, R.attr.colorSurface);
     MaterialShapeDrawable rippleBackground =
         new MaterialShapeDrawable(boxBackground.getShapeAppearanceModel());
-    int pressedBackgroundColor = MaterialColors.layer(rippleColor, surfaceColor, 0.1f);
+    int pressedBackgroundColor = ColorUtils.layer(rippleColor, surfaceColor, 0.1f);
     int[] rippleBackgroundColors = new int[]{pressedBackgroundColor, Color.TRANSPARENT};
     rippleBackground.setFillColor(new ColorStateList(states, rippleBackgroundColors));
 
@@ -399,7 +399,7 @@ class DropdownMenuEndIconDelegate extends EndIconDelegate
       @NonNull MaterialShapeDrawable boxBackground)
   {
     int boxBackgroundColor = textInputLayout.getBoxBackgroundColor();
-    int pressedBackgroundColor = MaterialColors.layer(rippleColor, boxBackgroundColor, 0.1f);
+    int pressedBackgroundColor = ColorUtils.layer(rippleColor, boxBackgroundColor, 0.1f);
     int[] colors = new int[]{pressedBackgroundColor, boxBackgroundColor};
 
     if (IS_LOLLIPOP)

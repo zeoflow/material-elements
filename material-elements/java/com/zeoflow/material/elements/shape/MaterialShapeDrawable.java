@@ -56,7 +56,7 @@ import androidx.core.graphics.drawable.TintAwareDrawable;
 import androidx.core.util.ObjectsCompat;
 
 import com.zeoflow.material.elements.R;
-import com.zeoflow.material.elements.color.MaterialColors;
+import com.zeoflow.material.elements.color.ColorUtils;
 import com.zeoflow.material.elements.elevation.ElevationOverlayProvider;
 import com.zeoflow.material.elements.shadow.ShadowRenderer;
 
@@ -207,7 +207,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
     public static MaterialShapeDrawable createWithElevationOverlay(Context context, float elevation)
     {
         int colorSurface =
-            MaterialColors.getColor(
+            ColorUtils.getColor(
                 context, R.attr.colorSurface, MaterialShapeDrawable.class.getSimpleName());
         MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
         materialShapeDrawable.initializeElevationOverlay(context);
