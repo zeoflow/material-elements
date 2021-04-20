@@ -180,4 +180,4 @@ android {
   }
 }
 
-apply from: '../buildSrc/upload.gradle'
+apply from: "${rootProject.projectDir}/buildSrc/upload.gradle"

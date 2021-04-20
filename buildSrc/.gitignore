@@ -1,0 +1,5 @@
+# SIGNING KEYS
+*.gpg
+
+# Key Credentials
+gradle.properties
