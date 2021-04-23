@@ -28,4 +28,9 @@
     <style name="ThemeOverlay.Catalog.BottomSheetDialog" parent="ThemeOverlay.MaterialElements.BottomSheetDialog">
     </style>
 
+    <style name="Plain" parent="BottomDialogTheme">
+        <item name="bottom_sheet_extra_padding">0dp</item>
+        <item name="should_draw_under_status_bar">false</item>
+    </style>
+
 </resources>

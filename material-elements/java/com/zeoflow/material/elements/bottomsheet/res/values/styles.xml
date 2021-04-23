@@ -15,52 +15,65 @@
   -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="Animation.Design.BottomSheetDialog" parent="Animation.AppCompat.Dialog">
-    <item name="android:windowEnterAnimation">@anim/design_bottom_sheet_slide_in</item>
-    <item name="android:windowExitAnimation">@anim/design_bottom_sheet_slide_out</item>
-  </style>
+    <style name="Animation.Design.BottomSheetDialog" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/design_bottom_sheet_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/design_bottom_sheet_slide_out</item>
+    </style>
 
-  <style name="Animation.MaterialElements.BottomSheetDialog" parent="Animation.AppCompat.Dialog">
-    <item name="android:windowEnterAnimation">@anim/mtrl_bottom_sheet_slide_in</item>
-    <item name="android:windowExitAnimation">@anim/mtrl_bottom_sheet_slide_out</item>
-  </style>
+    <style name="Animation.MaterialElements.BottomSheetDialog" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/mtrl_bottom_sheet_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/mtrl_bottom_sheet_slide_out</item>
+    </style>
 
-  <style name="Design.BottomSheet.Modal" parent="android:Widget">
-    <item name="enforceMaterialTheme">false</item>
-    <item name="android:background">?android:attr/colorBackground</item>
-    <item name="android:elevation" tools:ignore="NewApi">
-      @dimen/design_bottom_sheet_modal_elevation
-    </item>
-    <item name="behavior_peekHeight">auto</item>
-    <item name="behavior_hideable">true</item>
-    <item name="behavior_skipCollapsed">false</item>
-    <item name="shapeAppearance">@null</item>
-    <item name="shapeAppearanceOverlay">@null</item>
-    <item name="backgroundTint">?android:attr/colorBackground</item>
-  </style>
+    <style name="Design.BottomSheet.Modal" parent="android:Widget">
+        <item name="enforceMaterialTheme">false</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:elevation" tools:ignore="NewApi">
+            @dimen/design_bottom_sheet_modal_elevation
+        </item>
+        <item name="behavior_peekHeight">auto</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_skipCollapsed">false</item>
+        <item name="shapeAppearance">@null</item>
+        <item name="shapeAppearanceOverlay">@null</item>
+        <item name="backgroundTint">?android:attr/colorBackground</item>
+    </style>
 
-  <style name="MaterialElements.BottomSheet" parent="Design.BottomSheet.Modal">
-    <item name="enforceMaterialTheme">true</item>
-    <item name="android:background">@null</item>
-    <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
-    <item name="shapeAppearanceOverlay">
-      @style/ShapeAppearanceOverlay.MaterialElements.BottomSheet
-    </item>
-    <item name="backgroundTint">?attr/colorSurface</item>
-    <item name="android:elevation" tools:ignore="NewApi">
-      @dimen/design_bottom_sheet_elevation
-    </item>
-  </style>
+    <style name="MaterialElements.BottomSheet" parent="Design.BottomSheet.Modal">
+        <item name="enforceMaterialTheme">true</item>
+        <item name="android:background">@null</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MaterialElements.BottomSheet
+        </item>
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="android:elevation" tools:ignore="NewApi">
+            @dimen/design_bottom_sheet_elevation
+        </item>
+    </style>
 
-  <style name="MaterialElements.BottomSheet.Modal" parent="MaterialElements.BottomSheet">
-    <item name="android:elevation" tools:ignore="NewApi">
-      @dimen/design_bottom_sheet_modal_elevation
-    </item>
-  </style>
+    <style name="MaterialElements.BottomSheet.Modal" parent="MaterialElements.BottomSheet">
+        <item name="android:elevation" tools:ignore="NewApi">
+            @dimen/design_bottom_sheet_modal_elevation
+        </item>
+    </style>
 
-  <style name="ShapeAppearanceOverlay.MaterialElements.BottomSheet" parent="">
-    <item name="cornerSizeBottomRight">0dp</item>
-    <item name="cornerSizeBottomLeft">0dp</item>
-  </style>
+    <style name="ShapeAppearanceOverlay.MaterialElements.BottomSheet" parent="">
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="BottomDialogTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="ShapeAppearanceBottomDrawer">
+        <item name="cornerSizeTopLeft">@dimen/minimized_sheet_top_radius</item>
+        <item name="cornerSizeTopRight">@dimen/minimized_sheet_top_radius</item>
+    </style>
 
 </resources>
