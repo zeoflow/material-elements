@@ -37,49 +37,13 @@ To use it:
     ```groovy
       dependencies {
         // ...
-        implementation 'com.zeoflow:material-elements:<version>'
+        implementation 'com.zeoflow:material-elements:x.y.z'
         // ...
       }
     ```
 
-### 2. Update your app theme to inherit from one of these themes
-`styles.xml`
-
-```xml
-<style name="Theme.MyApp" parent="Theme.MaterialElements.DayNight">
-    <!-- ... -->
-</style>
-```
-
-#### **Bridge Themes** {#bridge-themes}
-If you cannot change your theme to inherit from a Material Elements theme, you
-can inherit from a Material Elements **Bridge** theme.
-
-```xml
-<style name="Theme.MyApp" parent="Theme.MaterialElements.Light.Bridge">
-    <!-- ... -->
-</style>
-```
-
-### 3. Add a Material component to your app
-#### **Implementing a text field via XML**
-
-The default text field XML is defined as:
-
-```xml
-<com.zeoflow.material.elements.textfield.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="@string/textfield_label">
-
-  <com.zeoflow.material.elements.textfield.TextInputEditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-</com.zeoflow.material.elements.textfield.TextInputLayout>
-```
-
 ## License
-    Copyright 2020 ZeoFlow
+    Copyright (C) 2021 ZeoFlow S.R.L.
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -92,3 +56,22 @@ The default text field XML is defined as:
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+## 🏆 Contributors 🏆
+
+<!-- ZEOBOT-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<p float="left">
+<a href="docs/contributors.md#pushpin-teodor-g-teodorhmx1"><img width="100" src="https://avatars0.githubusercontent.com/u/22307006?v=4" hspace=5 title='Teodor G. (@TeodorHMX1) - click for details about the contributions'></a><a href="docs/contributors.md#pushpin-teogor-teogor"><img width="100" src="https://avatars2.githubusercontent.com/u/70129978?v=4" hspace=5 title='Teogor (@teogor) - click for details about the contributions'></a>
+</p>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ZEOBOT-LIST:END -->
+<!-- ZEOBOT-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ZEOBOT-LIST:END -->

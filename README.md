@@ -37,49 +37,13 @@ To use it:
     ```groovy
       dependencies {
         // ...
-        implementation 'com.zeoflow:material-elements:<version>'
+        implementation 'com.zeoflow:material-elements:x.y.z'
         // ...
       }
     ```
 
-### 2. Update your app theme to inherit from one of these themes
-`styles.xml`
-
-```xml
-<style name="Theme.MyApp" parent="Theme.MaterialElements.DayNight">
-    <!-- ... -->
-</style>
-```
-
-#### **Bridge Themes** {#bridge-themes}
-If you cannot change your theme to inherit from a Material Elements theme, you
-can inherit from a Material Elements **Bridge** theme.
-
-```xml
-<style name="Theme.MyApp" parent="Theme.MaterialElements.Light.Bridge">
-    <!-- ... -->
-</style>
-```
-
-### 3. Add a Material component to your app
-#### **Implementing a text field via XML**
-
-The default text field XML is defined as:
-
-```xml
-<com.zeoflow.material.elements.textfield.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="@string/textfield_label">
-
-  <com.zeoflow.material.elements.textfield.TextInputEditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-</com.zeoflow.material.elements.textfield.TextInputLayout>
-```
-
 ## License
-    Copyright 2020 ZeoFlow
+    Copyright (C) 2021 ZeoFlow S.R.L.
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

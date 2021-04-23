@@ -11,7 +11,7 @@ Material Elements for Android is available through Google's Maven Repository.
 To use it:
 
 1.  Open the `build.gradle` file for your application.
-2.  Make sure that the `repositories` section includes Google's Maven Repository
+2.  Make sure that the `repositories` section includes Maven Repository
     `google()`. For example:
 
     ```groovy
@@ -28,7 +28,7 @@ To use it:
     ```groovy
       dependencies {
         // ...
-        implementation 'com.zeoflow:material-elements:<version>'
+        implementation 'com.zeoflow:material-elements:x.y.z'
         // ...
       }
     ```
