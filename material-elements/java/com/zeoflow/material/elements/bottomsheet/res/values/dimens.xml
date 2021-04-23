@@ -15,8 +15,20 @@
   -->
 <resources>
 
-  <dimen name="design_bottom_sheet_modal_elevation">16dp</dimen>
-  <dimen name="design_bottom_sheet_elevation">8dp</dimen>
-  <dimen name="design_bottom_sheet_peek_height_min">64dp</dimen>
+    <dimen name="design_bottom_sheet_modal_elevation">16dp</dimen>
+    <dimen name="design_bottom_sheet_elevation">8dp</dimen>
+    <dimen name="design_bottom_sheet_peek_height_min">64dp</dimen>
+
+    <dimen name="bottom_sheet_handle_width">30dp</dimen>
+    <dimen name="bottom_sheet_handle_height">5dp</dimen>
+    <dimen name="bottom_sheet_handle_top_margin">8dp</dimen>
+
+    <dimen name="bottom_sheet_handle_thickness">6dp</dimen>
+    <dimen name="bottom_sheet_corner_radius">10dp</dimen>
+    <dimen name="bottom_sheet_extra_padding">4dp</dimen>
+
+    <dimen name="minimized_sheet_top_radius">20dp</dimen>
+
+    <dimen name="bottom_sheet_default_side_margins">0dp</dimen>
 
 </resources>

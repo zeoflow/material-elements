@@ -14,5 +14,5 @@
   ~ limitations under the License.
   -->
 <resources>
-  <integer name="bottom_sheet_slide_duration">150</integer>
+    <integer name="bottom_sheet_slide_duration">150</integer>
 </resources>

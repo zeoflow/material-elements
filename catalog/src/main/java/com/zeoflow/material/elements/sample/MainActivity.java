@@ -17,6 +17,7 @@
 package com.zeoflow.material.elements.sample;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,12 @@ public class MainActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    getSupportFragmentManager().beginTransaction().add(new BottomDialog(), "BottomDialog")
+            .commit();
+
+    findViewById(R.id.llHomer).setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+            .add(new BottomDialog(), "BottomDialog").commit());
   }
 
 }
