@@ -463,6 +463,13 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
     /**
      * Updates the corners for the given {@link CornerSize}.
      */
+    public void setTopCornerSize(float cornerSize) {
+        setShapeAppearanceModel(drawableState.shapeAppearanceModel.withTopCornerSize(cornerSize));
+    }
+
+    /**
+     * Updates the corners for the given {@link CornerSize}.
+     */
     public void setCornerSize(@NonNull CornerSize cornerSize) {
         setShapeAppearanceModel(drawableState.shapeAppearanceModel.withCornerSize(cornerSize));
     }

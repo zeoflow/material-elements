@@ -394,6 +394,12 @@ public class ShapeAppearanceModel
   }
 
   @NonNull
+  public ShapeAppearanceModel withTopCornerSize(float cornerSize)
+  {
+    return toBuilder().setTopLeftCornerSize(cornerSize).setTopRightCornerSize(cornerSize).build();
+  }
+
+  @NonNull
   public ShapeAppearanceModel withCornerSize(@NonNull CornerSize cornerSize)
   {
     return toBuilder().setAllCornerSizes(cornerSize).build();
