@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
                     windowInsets = insets;
                     return insets;
                 });
-        findViewById(R.id.llHomer).setOnClickListener(v -> {
+        findViewById(R.id.cat_bottomsheet_button).setOnClickListener(v -> {
             getSupportFragmentManager().beginTransaction()
                     .add(new BottomDialog(), "BottomDialog").commit();
         });
@@ -54,34 +54,23 @@ public class MainActivity extends Activity {
         BottomSheetBehavior.from(bottomSheetPersistent)
                 .addBottomSheetCallback(createBottomSheetCallback(bottomSheetText));
 
-        setBottomSheetHeights(true);
+        setBottomSheetHeights();
 
     }
 
-    private void setBottomSheetHeights(boolean fullScreen) {
+    private void setBottomSheetHeights() {
         View bottomSheetChildView = findViewById(R.id.bottom_drawer);
         ViewGroup.LayoutParams params = bottomSheetChildView.getLayoutParams();
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetChildView);
-        bottomSheetBehavior.setUpdateImportantForAccessibilityOnSiblings(fullScreen);
-        boolean fitToContents = true;
-        float halfExpandedRatio = 0.5f;
+        bottomSheetBehavior.setUpdateImportantForAccessibilityOnSiblings(true);
         int windowHeight = getWindowHeight();
         if (params != null) {
-            if (fullScreen) {
-                params.height = windowHeight;
-                fitToContents = false;
-                halfExpandedRatio = 0.7f;
-            } else {
-                params.height = getBottomSheetPersistentDefaultHeight();
-            }
+            params.height = windowHeight;
             bottomSheetChildView.setLayoutParams(params);
-            bottomSheetBehavior.setFitToContents(fitToContents);
-            bottomSheetBehavior.setHalfExpandedRatio(halfExpandedRatio);
+            bottomSheetBehavior.setFitToContents(false);
+            bottomSheetBehavior.setHalfExpandedRatio(0.7f);
+            bottomSheetBehavior.setExpandedOffset(dpToPx(54));
         }
-    }
-
-    private int getBottomSheetPersistentDefaultHeight() {
-        return getWindowHeight() * 3 / 5;
     }
 
     private WindowInsetsCompat windowInsets;
@@ -93,10 +82,14 @@ public class MainActivity extends Activity {
         // Allow Fullscreen BottomSheet to expand beyond system windows and draw under status bar.
         int height = displayMetrics.heightPixels;
         if (windowInsets != null) {
-            height += windowInsets.getSystemWindowInsetTop();
-            height += windowInsets.getSystemWindowInsetBottom();
+            height += windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+            height += windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
         }
         return height;
+    }
+
+    public int dpToPx(float dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
     private BottomSheetCallback createBottomSheetCallback(@NonNull TextView text) {
