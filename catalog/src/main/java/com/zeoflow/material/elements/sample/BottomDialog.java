@@ -1,8 +1,6 @@
 package com.zeoflow.material.elements.sample;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +16,9 @@ import com.zeoflow.material.elements.bottomsheet.BottomDrawerFragment;
 import com.zeoflow.material.elements.bottomsheet.BottomSheetBehavior;
 import com.zeoflow.material.elements.bottomsheet.BottomSheetCallback;
 import com.zeoflow.material.elements.bottomsheet.handle.PlainHandleView;
+import com.zeoflow.utils.ContentCompat;
 
-public class BottomDialog extends BottomDrawerFragment
-{
+public class BottomDialog extends BottomDrawerFragment {
 
     private float alphaCancelButton = 0f;
     private ImageView cancelButton;
@@ -43,6 +41,7 @@ public class BottomDialog extends BottomDrawerFragment
                 alphaCancelButton = (alphaTemp >= 0) ? alphaTemp : 0f;
                 cancelButton.setAlpha(alphaCancelButton);
                 cancelButton.setEnabled(true);
+                setStatusBarLightText(slideOffset > 0.975f);
             }
 
             @Override
@@ -54,6 +53,7 @@ public class BottomDialog extends BottomDrawerFragment
 
         return view;
     }
+
     @Override
     public BottomDrawerDialog configureBottomDrawer() {
         PlainHandleView handleView = new PlainHandleView(getContext());
@@ -63,29 +63,31 @@ public class BottomDialog extends BottomDrawerFragment
         params.topMargin = getResources().getDimensionPixelSize(R.dimen.bottom_sheet_handle_top_margin);
         handleView.setLayoutParams(params);
         return new BottomDrawerDialog.Builder()
+                .setCancelableOnTouchOutside(false)
                 .setTheme(R.style.Plain)
-                .setBackgroundColor(Color.parseColor("#ffffff"))
+                .setBackgroundColor(ContentCompat.getColor(R.color.colorBackground))
                 .setHandleView(handleView)
                 .setCornerRadius(30)
                 .setSideMargins(30)
-                .withAutoStatusBarColor(this)
+                .colouredStatusBar(
+                        getActivity(),
+                        false,
+                        false
+                )
                 .build(getContext());
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getBottomSheetBehaviour().addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback()
-        {
+        getBottomSheetBehaviour().addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState)
-            {
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
             }
+
             @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset)
-            {
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 
             }
         });

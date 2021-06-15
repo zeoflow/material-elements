@@ -16,26 +16,67 @@
 
 package com.zeoflow.material.elements.sample;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.zeoflow.app.Activity;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends Activity {
 
-  @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    boolean light = true;
 
-    getSupportFragmentManager().beginTransaction().add(new BottomDialog(), "BottomDialog")
-            .commit();
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    findViewById(R.id.llHomer).setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
-            .add(new BottomDialog(), "BottomDialog").commit());
-  }
+        findViewById(R.id.llHomer).setOnClickListener(v -> {
 
+//            int flags = getWindow().getDecorView().getSystemUiVisibility();
+//            if (light) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+//                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+//                }
+//            } else {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+//                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+//                }
+//            }
+//            getWindow().getDecorView().setSystemUiVisibility(flags);
+//            light = !light;
+//            changeStatusBar(light);
+            getSupportFragmentManager().beginTransaction()
+                    .add(new BottomDialog(), "BottomDialog").commit();
+        });
+
+    }
+    public void changeStatusBar(boolean light) {
+        int flags = MainActivity.this.getWindow().getDecorView().getSystemUiVisibility();
+        if (light) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            }
+        }
+        MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(flags);
+    }
 }
