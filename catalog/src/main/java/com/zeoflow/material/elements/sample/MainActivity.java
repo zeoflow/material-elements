@@ -16,67 +16,113 @@
 
 package com.zeoflow.material.elements.sample;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.zeoflow.app.Activity;
+import com.zeoflow.material.elements.bottomsheet.BottomSheetBehavior;
+import com.zeoflow.material.elements.bottomsheet.BottomSheetCallback;
 
 public class MainActivity extends Activity {
-
-    boolean light = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ViewCompat.setOnApplyWindowInsetsListener(
+                findViewById(R.id.llHomer),
+                (ignored, insets) -> {
+                    windowInsets = insets;
+                    return insets;
+                });
         findViewById(R.id.llHomer).setOnClickListener(v -> {
-
-//            int flags = getWindow().getDecorView().getSystemUiVisibility();
-//            if (light) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-//                }
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-//                }
-//            } else {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-//                }
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-//                }
-//            }
-//            getWindow().getDecorView().setSystemUiVisibility(flags);
-//            light = !light;
-//            changeStatusBar(light);
             getSupportFragmentManager().beginTransaction()
                     .add(new BottomDialog(), "BottomDialog").commit();
         });
 
+        View bottomSheetPersistent = findViewById(R.id.bottom_drawer);
+        TextView bottomSheetText = findViewById(R.id.cat_persistent_bottomsheet_state);
+        BottomSheetBehavior.from(bottomSheetPersistent)
+                .addBottomSheetCallback(createBottomSheetCallback(bottomSheetText));
+
+        setBottomSheetHeights(true);
+
     }
-    public void changeStatusBar(boolean light) {
-        int flags = MainActivity.this.getWindow().getDecorView().getSystemUiVisibility();
-        if (light) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+
+    private void setBottomSheetHeights(boolean fullScreen) {
+        View bottomSheetChildView = findViewById(R.id.bottom_drawer);
+        ViewGroup.LayoutParams params = bottomSheetChildView.getLayoutParams();
+        BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetChildView);
+        bottomSheetBehavior.setUpdateImportantForAccessibilityOnSiblings(fullScreen);
+        boolean fitToContents = true;
+        float halfExpandedRatio = 0.5f;
+        int windowHeight = getWindowHeight();
+        if (params != null) {
+            if (fullScreen) {
+                params.height = windowHeight;
+                fitToContents = false;
+                halfExpandedRatio = 0.7f;
+            } else {
+                params.height = getBottomSheetPersistentDefaultHeight();
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-            }
+            bottomSheetChildView.setLayoutParams(params);
+            bottomSheetBehavior.setFitToContents(fitToContents);
+            bottomSheetBehavior.setHalfExpandedRatio(halfExpandedRatio);
         }
-        MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(flags);
+    }
+
+    private int getBottomSheetPersistentDefaultHeight() {
+        return getWindowHeight() * 3 / 5;
+    }
+
+    private WindowInsetsCompat windowInsets;
+
+    private int getWindowHeight() {
+        // Calculate window height for fullscreen use
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        // Allow Fullscreen BottomSheet to expand beyond system windows and draw under status bar.
+        int height = displayMetrics.heightPixels;
+        if (windowInsets != null) {
+            height += windowInsets.getSystemWindowInsetTop();
+            height += windowInsets.getSystemWindowInsetBottom();
+        }
+        return height;
+    }
+
+    private BottomSheetCallback createBottomSheetCallback(@NonNull TextView text) {
+        // Set up BottomSheetCallback
+        return new BottomSheetCallback(new BottomSheetCallback.IOnBottomSheet() {
+            @Override
+            public void onStateChanged(View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        text.setText("Dragging");
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        text.setText("Expanded");
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        text.setText("Collapsed");
+                        break;
+                    case BottomSheetBehavior.STATE_HALF_EXPANDED:
+                        BottomSheetBehavior<View> bottomSheetBehavior =
+                                BottomSheetBehavior.from(bottomSheet);
+                        text.setText("Half Expanded: " + bottomSheetBehavior.getHalfExpandedRatio());
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }
