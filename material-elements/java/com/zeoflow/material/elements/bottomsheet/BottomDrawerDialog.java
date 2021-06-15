@@ -16,6 +16,7 @@
 
 package com.zeoflow.material.elements.bottomsheet;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -29,13 +30,11 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatDialog;
-import androidx.fragment.app.DialogFragment;
 
 import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.bottomsheet.utils.BottomDrawerDelegate;
 
-public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog
-{
+public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog {
 
     BottomDrawerDelegate bottomDrawerDelegate;
     @StyleRes
@@ -43,17 +42,16 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog
     int backgroundColor;
     float sideMargins;
     float cornerRadius;
-    DialogFragment dialogFragment;
-    boolean autoStatusBarColor;
+    Activity activity;
+    boolean isDarkOnNormal = false;
+    boolean isDarkOnFull = true;
     float peekRatio;
 
-    public BottomDrawerDialog(Context context)
-    {
+    public BottomDrawerDialog(Context context) {
         this(context, R.style.BottomDialogTheme);
     }
 
-    public BottomDrawerDialog(Context context, int theme)
-    {
+    public BottomDrawerDialog(Context context, int theme) {
         super(context, theme);
         this.theme = theme;
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -62,105 +60,112 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog
             getDrawer().changeBackgroundColor(backgroundColor);
             getDrawer().changeCornerRadius(cornerRadius);
             getDrawer().changeSideMargins((int) sideMargins);
-            getDrawer().setAutoStatusBar(autoStatusBarColor, dialogFragment);
+            getDrawer().setAutoStatusBar(isDarkOnNormal, isDarkOnFull, activity);
         });
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            );
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-
-            int flags = getWindow().getDecorView().getSystemUiVisibility();
-            flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            {
-                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-            }
-            getWindow().getDecorView().setSystemUiVisibility(flags);
-        }
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        );
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            getWindow().getDecorView().setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//            );
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//            int flags = getWindow().getDecorView().getSystemUiVisibility();
+//            flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+//            }
+//            getWindow().getDecorView().setSystemUiVisibility(flags);
+//        }
     }
 
-    public BottomDrawer getDrawer()
-    {
+    public void setStatusBarLightText(boolean isLight) {
+        int flags = getWindow().getDecorView().getSystemUiVisibility();
+        if (isLight) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            }
+        }
+        getWindow().getDecorView().setSystemUiVisibility(flags);
+    }
+
+    public BottomDrawer getDrawer() {
         return bottomDrawerDelegate.getDrawer();
     }
 
-    public BottomSheetBehavior<BottomDrawer> getBehavior()
-    {
+    public BottomSheetBehavior<BottomDrawer> getBehavior() {
         return bottomDrawerDelegate.getBehavior();
     }
 
     @Override
-    public void setContentView(View view)
-    {
+    public void setContentView(View view) {
         super.setContentView(bottomDrawerDelegate.wrapInBottomSheet(0, view, null));
     }
 
     @Override
-    public void setContentView(int layoutResID)
-    {
+    public void setContentView(int layoutResID) {
         super.setContentView(bottomDrawerDelegate.wrapInBottomSheet(layoutResID, null, null));
     }
 
     @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params)
-    {
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(bottomDrawerDelegate.wrapInBottomSheet(0, view, params));
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
         bottomDrawerDelegate.open();
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
         bottomDrawerDelegate.onBackPressed();
     }
 
     @Override
-    public void onDismiss()
-    {
+    public void onDismiss() {
         dismiss();
     }
 
     @Override
-    public void onCancel()
-    {
+    public void onCancel() {
         cancel();
     }
 
     @NonNull
     @Override
-    public Bundle onSaveInstanceState()
-    {
+    public Bundle onSaveInstanceState() {
         Bundle superState = super.onSaveInstanceState();
         bottomDrawerDelegate.onSaveInstanceState(superState);
         return superState;
     }
 
     @Override
-    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
-    {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         bottomDrawerDelegate.onRestoreInstanceState(savedInstanceState);
     }
 
     @SuppressWarnings({"unused", "RedundantSuppression"})
-    public static class Builder
-    {
+    public static class Builder {
 
         int theme = R.style.BottomDialogTheme;
         View handleView;
@@ -168,69 +173,70 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog
         int backgroundColor = Color.parseColor("#ffffff");
         float sideMargins = -1;
         float cornerRadius = -1;
-        DialogFragment dialogFragment;
-        boolean autoStatusBarColor = false;
+        Activity activity;
+        boolean isDarkOnNormal = false;
+        boolean isDarkOnFull = true;
         float peekRatio;
 
-        public Builder setTheme(int theme)
-        {
+        public Builder setTheme(int theme) {
             this.theme = theme;
             return this;
         }
 
-        public Builder setHandleView(View handleView)
-        {
+        public Builder setHandleView(View handleView) {
             this.handleView = handleView;
             return this;
         }
 
-        public Builder setBackgroundColor(String backgroundColor)
-        {
+        public Builder setBackgroundColor(String backgroundColor) {
             this.backgroundColor = Color.parseColor(backgroundColor);
             return this;
         }
 
-        public Builder setCornerRadius(float cornerRadius)
-        {
+        public Builder setCornerRadius(float cornerRadius) {
             this.cornerRadius = cornerRadius;
             return this;
         }
-        public Builder setSideMargins(float sideMargins)
-        {
+
+        public Builder setSideMargins(float sideMargins) {
             this.sideMargins = sideMargins;
             return this;
         }
-        public Builder setPeekRatio(float peekRatio)
-        {
+
+        public Builder setPeekRatio(float peekRatio) {
             this.peekRatio = peekRatio;
             return this;
         }
-        public Builder withAutoStatusBarColor(DialogFragment dialogFragment)
-        {
-            this.dialogFragment = dialogFragment;
-            this.autoStatusBarColor = true;
+
+        /**
+         * @param activity       current activity.
+         * @param isDarkOnFull   dark text when status bar is underneath.
+         * @param isDarkOnNormal dark text when bottom dialog is not over
+         *                       the status bar.
+         * @return {@link Builder} for the current instance.
+         */
+        public Builder colouredStatusBar(Activity activity, boolean isDarkOnFull, boolean isDarkOnNormal) {
+            this.activity = activity;
+            this.isDarkOnFull = isDarkOnFull;
+            this.isDarkOnNormal = isDarkOnNormal;
             return this;
         }
-        public Builder setBackgroundColor(@ColorInt int backgroundColor)
-        {
+
+        public Builder setBackgroundColor(@ColorInt int backgroundColor) {
             this.backgroundColor = backgroundColor;
             return this;
         }
 
-        public Builder setCancelableOnTouchOutside(boolean cancelableOnTouchOutside)
-        {
+        public Builder setCancelableOnTouchOutside(boolean cancelableOnTouchOutside) {
             isCancelableOnTouchOutside = cancelableOnTouchOutside;
             return this;
         }
 
-        public BottomDrawerDialog build(Context context)
-        {
-            if (sideMargins == -1)
-            {
+        public BottomDrawerDialog build(Context context) {
+            if (sideMargins == -1) {
                 sideMargins = context.getResources().getDimension(R.dimen.bottom_sheet_default_side_margins);
             }
-            if (cornerRadius == -1)
-            {
+            if (cornerRadius == -1) {
                 cornerRadius = context.getResources().getDimension(R.dimen.minimized_sheet_top_radius);
             }
             BottomDrawerDialog drawerDialog = new BottomDrawerDialog(context, theme);
@@ -239,8 +245,9 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog
             drawerDialog.backgroundColor = backgroundColor;
             drawerDialog.sideMargins = sideMargins;
             drawerDialog.cornerRadius = cornerRadius;
-            drawerDialog.autoStatusBarColor = autoStatusBarColor;
-            drawerDialog.dialogFragment = dialogFragment;
+            drawerDialog.isDarkOnNormal = isDarkOnNormal;
+            drawerDialog.isDarkOnFull = isDarkOnFull;
+            drawerDialog.activity = activity;
             drawerDialog.peekRatio = peekRatio;
             return drawerDialog;
         }

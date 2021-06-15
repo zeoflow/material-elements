@@ -32,26 +32,22 @@ import androidx.core.content.ContextCompat;
 import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.bottomsheet.TranslationUpdater;
 
-public class PullHandleView extends View implements TranslationUpdater
-{
+public class PullHandleView extends View implements TranslationUpdater {
 
     @FloatRange(from = 0.0, to = 1.0)
     private float currentOffset = 0f;
     private final Paint paint = new Paint();
     private final float thickness = (float) getResources().getDimensionPixelSize(R.dimen.bottom_sheet_handle_thickness);
 
-    public PullHandleView(Context context)
-    {
+    public PullHandleView(Context context) {
         this(context, null);
     }
 
-    public PullHandleView(Context context, @Nullable AttributeSet attrs)
-    {
+    public PullHandleView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PullHandleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
-    {
+    public PullHandleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paint.setColor(ContextCompat.getColor(context, R.color.bottom_drawer_handle_view_color));
         paint.setStrokeWidth(thickness);
@@ -59,8 +55,7 @@ public class PullHandleView extends View implements TranslationUpdater
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         float radius = thickness / 2;
 
         int halfWidth = getWidth() / 2;
@@ -83,10 +78,8 @@ public class PullHandleView extends View implements TranslationUpdater
     }
 
     @Override
-    public void updateTranslation(float value)
-    {
-        if (value != currentOffset)
-        {
+    public void updateTranslation(float value) {
+        if (value != currentOffset) {
             currentOffset = value;
             invalidate();
         }
@@ -94,8 +87,7 @@ public class PullHandleView extends View implements TranslationUpdater
 
     @Nullable
     @Override
-    protected Parcelable onSaveInstanceState()
-    {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         HandleViewSavedState customViewSavedState = new HandleViewSavedState(superState);
         customViewSavedState.offset = currentOffset;
@@ -104,43 +96,38 @@ public class PullHandleView extends View implements TranslationUpdater
     }
 
     @Override
-    protected void onRestoreInstanceState(Parcelable state)
-    {
+    protected void onRestoreInstanceState(Parcelable state) {
         Log.d("show_handle", "restore");
         HandleViewSavedState customViewSavedState = (HandleViewSavedState) state;
         currentOffset = customViewSavedState.offset;
         super.onRestoreInstanceState(state);
     }
 
-    private class HandleViewSavedState extends BaseSavedState
-    {
+    private static class HandleViewSavedState extends BaseSavedState {
 
         private float offset = 0f;
 
-        public HandleViewSavedState(Parcel source)
-        {
+        public HandleViewSavedState(Parcel source) {
             super(source);
             offset = source.readFloat();
         }
 
-        public HandleViewSavedState(Parcelable superState)
-        {
+        public HandleViewSavedState(Parcelable superState) {
             super(superState);
         }
-        public float getOffset()
-        {
+
+        public float getOffset() {
             return offset;
         }
+
         @Override
-        public void writeToParcel(Parcel out, int flags)
-        {
+        public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeFloat(offset);
         }
 
         @Override
-        public int describeContents()
-        {
+        public int describeContents() {
             return 0;
         }
 
