@@ -29,8 +29,12 @@ android {
 
 dependencies {
   implementation fileTree(dir: "libs", include: ["*.jar"])
+
   implementation project(':material-elements')
-  implementation 'com.zeoflow:flow-kit:1.5.1'
+
+  implementation("com.zeoflow:flow-kit:1.6.1") {
+    exclude group: 'com.zeoflow', module: 'material-elements'
+  }
   implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
 
   implementation 'androidx.appcompat:appcompat:1.2.0'

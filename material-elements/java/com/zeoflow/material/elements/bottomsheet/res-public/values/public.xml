@@ -14,7 +14,8 @@
   ~ limitations under the License.
   -->
 <resources>
-    <public name="bottom_sheet_behavior" type="string" />
+    <public name="default_bottom_sheet_behavior" type="string" />
+    <public name="lockable_bottom_sheet_behavior" type="string" />
     <public name="Theme.MaterialElements.BottomSheetDialog" type="style" />
     <public name="Theme.MaterialElements.Light.BottomSheetDialog" type="style" />
     <public name="Theme.Design.BottomSheetDialog" type="style" />

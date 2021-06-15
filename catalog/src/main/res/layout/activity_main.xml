@@ -39,10 +39,12 @@
         style="@style/MaterialElements.BottomSheet.Modal"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:clickable="true"
+        android:focusable="true"
         app:behavior_hideable="false"
         app:backgroundTint="?attr/colorSurface"
         app:behavior_peekHeight="200dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        app:layout_behavior="@string/lockable_bottom_sheet_behavior">
 
         <TextView
             android:id="@+id/textView"

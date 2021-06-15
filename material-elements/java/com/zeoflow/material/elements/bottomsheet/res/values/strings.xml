@@ -15,5 +15,6 @@
   -->
 <resources>
     <!-- The class name for the BottomSheetBehavior -->
-    <string name="bottom_sheet_behavior" translatable="false">com.zeoflow.material.elements.bottomsheet.BottomSheetBehavior</string>
+    <string name="default_bottom_sheet_behavior" translatable="false">com.zeoflow.material.elements.bottomsheet.BottomSheetBehavior</string>
+    <string name="lockable_bottom_sheet_behavior" translatable="false">com.zeoflow.material.elements.bottomsheet.LockableBottomSheetBehavior</string>
 </resources>
