@@ -56,6 +56,7 @@ public class BottomDrawerDelegate extends BottomSheetCallback.IOnBottomSheet {
     private IOnDrawer listener;
     private View headerRoot;
     private int headerSize;
+    private int submenuCorners;
 
     public BottomDrawerDelegate(Context context, BottomDialog dialog) {
         this.context = context;
@@ -100,6 +101,7 @@ public class BottomDrawerDelegate extends BottomSheetCallback.IOnBottomSheet {
         }
         drawer = coordinator.findViewById(R.id.bottom_sheet_root);
         drawer.setHeaderData(headerRoot, headerSize);
+        drawer.setSubmenuCorners(submenuCorners);
         behavior = BottomSheetBehavior.from(drawer);
         behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         behavior.setHideable(true);
@@ -172,6 +174,9 @@ public class BottomDrawerDelegate extends BottomSheetCallback.IOnBottomSheet {
     }
     public void setHeaderSize(int size) {
         this.headerSize = size;
+    }
+    public void setSubmenuCorners(int size) {
+        this.submenuCorners = size;
     }
 
     private void addBottomSheetCallback() {

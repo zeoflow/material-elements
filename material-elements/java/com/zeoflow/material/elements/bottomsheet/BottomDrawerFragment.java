@@ -40,6 +40,7 @@ public abstract class BottomDrawerFragment extends DialogFragment implements Vie
         bottomDrawerDialog = dialog;
         bottomDrawerDialog.setHeaderRoot(getHeaderRoot());
         bottomDrawerDialog.setHeaderSize(getHeaderSize());
+        bottomDrawerDialog.setSubmenuCorners(getSubmenuCorners());
         return dialog;
     }
 
@@ -54,6 +55,10 @@ public abstract class BottomDrawerFragment extends DialogFragment implements Vie
 
     @DimenRes
     public int getHeaderSize() {
+        return 0;
+    }
+
+    public int getSubmenuCorners() {
         return 0;
     }
 

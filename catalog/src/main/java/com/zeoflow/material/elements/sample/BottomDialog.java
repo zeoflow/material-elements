@@ -54,13 +54,18 @@ public class BottomDialog extends BottomDrawerFragment {
 
     @Override
     public int getHeaderSize() {
-        return dpToPx(20);
+        return dpToPx(35);
     }
 
     @Nullable
     @Override
     public View getHeaderRoot() {
-        return getLayoutInflater().inflate(R.layout.bottomsheet_layout_header, null);
+        return null;//getLayoutInflater().inflate(R.layout.bottomsheet_layout_header, null);
+    }
+
+    @Override
+    public int getSubmenuCorners() {
+        return dpToPx(30);
     }
 
     private int dpToPx(float dp) {

@@ -95,6 +95,10 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog 
         bottomDrawerDelegate.setHeaderSize(size);
     }
 
+    public void setSubmenuCorners(int size) {
+        bottomDrawerDelegate.setSubmenuCorners(size);
+    }
+
     public void setStatusBarLightText(boolean isLight) {
         int flags = getWindow().getDecorView().getSystemUiVisibility();
         if (isLight) {

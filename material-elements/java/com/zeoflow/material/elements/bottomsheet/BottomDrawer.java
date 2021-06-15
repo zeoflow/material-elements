@@ -55,8 +55,6 @@ public class BottomDrawer extends FrameLayout {
     private final ViewGroup container;
     @NonNull
     private final ViewGroup subContainer;
-    @NonNull
-    private final ViewGroup subElevation;
     private int marginSubHeader = dpToPx(0);
     private final Rect rect = new Rect();
     private final MaterialShapeDrawable backgroundDrawable;
@@ -144,30 +142,6 @@ public class BottomDrawer extends FrameLayout {
         ));
         super.addView(container);
 
-        subElevation = new FrameLayout(context);
-        subElevation.setLayoutParams(new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-        ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) subElevation.getLayoutParams();
-        params3.setMargins(0, dpToPx(marginSubHeader), 0, 0);
-        subElevation.setLayoutParams(params3);
-        subElevation.setElevation(dpToPx(10));
-        MaterialShapeDrawable subContainerBackground2 = new MaterialShapeDrawable(
-                ShapeAppearanceModel.builder(
-                        context,
-                        attrs,
-                        R.attr.bottomSheetStyle,
-                        0
-                ).build()
-        );
-        subContainerBackground2.initializeElevationOverlay(getContext());
-        subContainerBackground2.setShadowColor(Color.DKGRAY);
-        subContainerBackground2.setElevation(dpToPx(10));
-        subContainerBackground2.enableCornersAnimation(false);
-        subContainerBackground2.setFillColor(ColorStateList.valueOf(Color.parseColor("#4DF3F3F3")));
-        subElevation.setBackground(subContainerBackground2);
-
         subContainer = new FrameLayout(context);
         subContainer.setLayoutParams(new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -245,6 +219,14 @@ public class BottomDrawer extends FrameLayout {
         marginSubHeader = headerSize;
     }
 
+    public void setSubmenuCorners(int submenuCorners) {
+        if (marginSubHeader == 0) {
+            subContainerBackground.setCornerSize(0);
+            return;
+        }
+        subContainerBackground.setCornerSize(submenuCorners);
+    }
+
     public void addRootView(@NonNull View rootView) {
         rootView.setBackground(null);
         rootView.setBackgroundColor(Color.parseColor("#00000000"));
@@ -266,12 +248,14 @@ public class BottomDrawer extends FrameLayout {
             backgroundDrawable.setBounds(rect);
             backgroundDrawable.draw(canvas);
 
-            // todo handle the top-padding for sub-menu
-            Rect rectSubContainer = rect;
-            int paddingTop = statusBarHeight - currentMargin * statusBarHeight / marginSide;
-            rectSubContainer.top += dpToPx(marginSubHeader) + paddingTop;
-            subContainerBackground.setBounds(rectSubContainer);
-            subContainerBackground.draw(canvas);
+            if (marginSubHeader != 0) {
+                // todo handle the top-padding for sub-menu
+                Rect rectSubContainer = rect;
+                int paddingTop = statusBarHeight - currentMargin * statusBarHeight / marginSide;
+                rectSubContainer.top += dpToPx(marginSubHeader) + paddingTop;
+                subContainerBackground.setBounds(rectSubContainer);
+                subContainerBackground.draw(canvas);
+            }
         }
     }
 
@@ -390,7 +374,7 @@ public class BottomDrawer extends FrameLayout {
 
     private void translateViews(float offset, int height) {
         translationView = height * offset;
-        subContainer.setTranslationY(translationView);
+        subContainer.setTranslationY(translationView - dpToPx(13));
         if (!shouldDrawUnderStatus) {
             if (handleView != null) {
                 handleView.setTranslationY(translationView);
