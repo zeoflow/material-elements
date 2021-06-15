@@ -221,10 +221,10 @@ public class BottomDrawer extends FrameLayout {
 
     public void setSubmenuCorners(int submenuCorners) {
         if (marginSubHeader == 0) {
-            subContainerBackground.setCornerSize(0);
+            subContainerBackground.setTopCornerSize(0);
             return;
         }
-        subContainerBackground.setCornerSize(submenuCorners);
+        subContainerBackground.setTopCornerSize(submenuCorners);
     }
 
     public void addRootView(@NonNull View rootView) {
