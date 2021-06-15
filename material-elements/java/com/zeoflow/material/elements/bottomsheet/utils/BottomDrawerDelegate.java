@@ -41,8 +41,7 @@ import com.zeoflow.material.elements.bottomsheet.BottomSheetCallback;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @SuppressWarnings({"unused", "RedundantSuppression"})
-public class BottomDrawerDelegate implements BottomSheetCallback.IOnBottomSheet
-{
+public class BottomDrawerDelegate extends BottomSheetCallback.IOnBottomSheet {
 
     private final Context context;
     private final BottomDialog dialog;
@@ -55,47 +54,45 @@ public class BottomDrawerDelegate implements BottomSheetCallback.IOnBottomSheet
     private View handleView;
     private IOnDrawer listener;
 
-    public BottomDrawerDelegate(Context context, BottomDialog dialog)
-    {
+    public BottomDrawerDelegate(Context context, BottomDialog dialog) {
         this.context = context;
         this.dialog = dialog;
     }
-    public void setListener(IOnDrawer listener)
-    {
+
+    public void setListener(IOnDrawer listener) {
         this.listener = listener;
     }
-    public BottomDrawer getDrawer()
-    {
+
+    public BottomDrawer getDrawer() {
         return drawer;
     }
-    public BottomSheetBehavior<BottomDrawer> getBehavior()
-    {
+
+    public BottomSheetBehavior<BottomDrawer> getBehavior() {
         return behavior;
     }
-    public boolean isCancelableOnTouchOutside()
-    {
+
+    public boolean isCancelableOnTouchOutside() {
         return isCancelableOnTouchOutside;
     }
-    public void setCancelableOnTouchOutside(boolean cancelableOnTouchOutside)
-    {
+
+    public void setCancelableOnTouchOutside(boolean cancelableOnTouchOutside) {
         isCancelableOnTouchOutside = cancelableOnTouchOutside;
     }
-    public View getHandleView()
-    {
+
+    public View getHandleView() {
         return handleView;
     }
-    public void setHandleView(View handleView)
-    {
+
+    public void setHandleView(View handleView) {
         this.handleView = handleView;
     }
+
     @SuppressLint("ClickableViewAccessibility")
-    public View wrapInBottomSheet(int layoutResId, View view, ViewGroup.LayoutParams params)
-    {
+    public View wrapInBottomSheet(int layoutResId, View view, ViewGroup.LayoutParams params) {
         View wrappedView = view;
         FrameLayout container = (FrameLayout) View.inflate(context, R.layout.bottom_drawer_layout, null);
         coordinator = container.findViewById(R.id.bottom_sheet_coordinator);
-        if (layoutResId != 0 && wrappedView == null)
-        {
+        if (layoutResId != 0 && wrappedView == null) {
             wrappedView = LayoutInflater.from(context).inflate(layoutResId, coordinator, false);
         }
         drawer = coordinator.findViewById(R.id.bottom_sheet_root);
@@ -104,35 +101,27 @@ public class BottomDrawerDelegate implements BottomSheetCallback.IOnBottomSheet
         behavior.setHideable(true);
         behavior.setHalfExpandedRatio(0.7f);
 
-        if (params == null)
-        {
+        if (params == null) {
             drawer.addView(wrappedView);
-        } else
-        {
+        } else {
             drawer.addView(wrappedView, params);
         }
         drawer.addHandleView(handleView);
 
         coordinator.getBackground().setAlpha((int) offset);
 
-        if (behavior != null)
-        {
-            behavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback()
-            {
+        if (behavior != null) {
+            behavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
                 @Override
-                public void onStateChanged(@NonNull View bottomSheet, int state)
-                {
-                    for (BottomSheetBehavior.BottomSheetCallback callback : callbacks)
-                    {
+                public void onStateChanged(@NonNull View bottomSheet, int state) {
+                    for (BottomSheetBehavior.BottomSheetCallback callback : callbacks) {
                         callback.onStateChanged(bottomSheet, state);
                     }
                 }
 
                 @Override
-                public void onSlide(@NonNull View bottomSheet, float slideOffset)
-                {
-                    for (BottomSheetBehavior.BottomSheetCallback callback : callbacks)
-                    {
+                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                    for (BottomSheetBehavior.BottomSheetCallback callback : callbacks) {
                         callback.onSlide(bottomSheet, slideOffset);
                     }
                 }
@@ -143,29 +132,23 @@ public class BottomDrawerDelegate implements BottomSheetCallback.IOnBottomSheet
 
         coordinator.findViewById(R.id.touch_outside).setOnClickListener(v ->
         {
-            if (isCancelableOnTouchOutside)
-            {
-                if (behavior != null)
-                {
+            if (isCancelableOnTouchOutside) {
+                if (behavior != null) {
                     behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                 }
             }
         });
 
-        ViewCompat.setAccessibilityDelegate(drawer, new AccessibilityDelegateCompat()
-        {
+        ViewCompat.setAccessibilityDelegate(drawer, new AccessibilityDelegateCompat() {
             @Override
-            public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info)
-            {
+            public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
                 super.onInitializeAccessibilityNodeInfo(host, info);
                 info.setDismissable(true);
             }
 
             @Override
-            public boolean performAccessibilityAction(View host, int action, Bundle args)
-            {
-                if (action == AccessibilityNodeInfoCompat.ACTION_DISMISS)
-                {
+            public boolean performAccessibilityAction(View host, int action, Bundle args) {
+                if (action == AccessibilityNodeInfoCompat.ACTION_DISMISS) {
                     dialog.onCancel();
                     return true;
                 }
@@ -173,86 +156,77 @@ public class BottomDrawerDelegate implements BottomSheetCallback.IOnBottomSheet
             }
         });
         drawer.setOnTouchListener((v, event) -> true);
-        if (listener != null)
-        {
+        if (listener != null) {
             listener.onReady();
         }
-        drawer.autoSetStatusBarColor(0f);
+        // TODO initial time colored status bar
         return container;
     }
-    private void addBottomSheetCallback()
-    {
-        BottomSheetCallback listener = new BottomSheetCallback(this);
-        callbacks.add(listener);
+
+    private void addBottomSheetCallback() {
+        callbacks.add(new BottomSheetCallback(this));
     }
-    public void addBottomSheetCallback(BottomSheetCallback.IOnBottomSheet listener)
-    {
+
+    public void addBottomSheetCallback(BottomSheetCallback.IOnBottomSheet listener) {
         callbacks.add(new BottomSheetCallback(listener));
     }
+
     @Override
-    public void onSlide(View view, float slideOffset)
-    {
+    public void onSlide(View view, float slideOffset) {
         offset = (slideOffset != slideOffset) ? 0f : slideOffset;
         offset++;
         updateBackgroundOffset();
         drawer.onSlide(offset / 2f);
     }
+
     @Override
-    public void onStateChanged(View view, int state)
-    {
-        if (state == BottomSheetBehavior.STATE_HIDDEN)
-        {
+    public void onStateChanged(View view, int state) {
+        if (state == BottomSheetBehavior.STATE_HIDDEN) {
             dialog.onDismiss();
         }
     }
-    public void removeBottomSheetCallback(BottomSheetBehavior.BottomSheetCallback callback)
-    {
+
+    public void removeBottomSheetCallback(BottomSheetBehavior.BottomSheetCallback callback) {
         callbacks.remove(callback);
     }
-    private void updateBackgroundOffset()
-    {
-        if (offset <= 1)
-        {
+
+    private void updateBackgroundOffset() {
+        if (offset <= 1) {
             coordinator.getBackground().setAlpha((int) (255 * offset));
-        } else
-        {
+        } else {
             coordinator.getBackground().setAlpha(255);
         }
     }
-    public void open()
-    {
-        if (behavior == null)
-        {
+
+    public void open() {
+        if (behavior == null) {
             return;
         }
         new Handler(Looper.getMainLooper()).postDelayed(() ->
         {
-            if (behavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
-            {
+            if (behavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
                 behavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
             }
         }, 50);
     }
-    public void onBackPressed()
-    {
-        if (behavior == null)
-        {
+
+    public void onBackPressed() {
+        if (behavior == null) {
             return;
         }
         behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
-    public void onSaveInstanceState(Bundle superState)
-    {
+
+    public void onSaveInstanceState(Bundle superState) {
         superState.putFloat("offset", offset);
     }
-    public void onRestoreInstanceState(Bundle savedInstanceState)
-    {
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
         offset = savedInstanceState.getFloat("offset");
         updateBackgroundOffset();
     }
 
-    public interface IOnDrawer
-    {
+    public interface IOnDrawer {
 
         void onReady();
 

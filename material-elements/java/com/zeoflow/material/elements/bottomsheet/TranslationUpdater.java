@@ -16,8 +16,7 @@
 
 package com.zeoflow.material.elements.bottomsheet;
 
-public interface TranslationUpdater
-{
+public interface TranslationUpdater {
 
     void updateTranslation(float value);
 

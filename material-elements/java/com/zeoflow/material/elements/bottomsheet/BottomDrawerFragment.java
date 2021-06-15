@@ -17,7 +17,6 @@
 package com.zeoflow.material.elements.bottomsheet;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
 
@@ -27,101 +26,82 @@ import androidx.fragment.app.DialogFragment;
 
 import com.zeoflow.material.elements.shape.CornerFamily;
 
-public abstract class BottomDrawerFragment extends DialogFragment implements ViewTreeObserver.OnGlobalLayoutListener
-{
+public abstract class BottomDrawerFragment extends DialogFragment implements ViewTreeObserver.OnGlobalLayoutListener {
 
     private BottomDrawerDialog bottomDrawerDialog;
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         BottomDrawerDialog dialog = configureBottomDrawer();
         bottomDrawerDialog = dialog;
         return dialog;
     }
 
-    public BottomDrawerDialog configureBottomDrawer()
-    {
+    public BottomDrawerDialog configureBottomDrawer() {
         return new BottomDrawerDialog(getContext());
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
-        if (bottomDrawerDialog != null)
-        {
+        if (bottomDrawerDialog != null) {
             BottomDrawer drawer = bottomDrawerDialog.getDrawer();
-            if (drawer != null)
-            {
+            if (drawer != null) {
                 drawer.getViewTreeObserver().addOnGlobalLayoutListener(this);
             }
         }
-        if (getDialog() != null)
-        {
-            getDialog().setOnDismissListener(new DialogInterface.OnDismissListener()
-            {
-                @Override
-                public void onDismiss(DialogInterface dialog)
-                {
-                    if (isAdded())
-                    {
-                        dismissAllowingStateLoss();
-                    }
+        if (getDialog() != null) {
+            getDialog().setOnDismissListener(dialog -> {
+                if (isAdded()) {
+                    dismissAllowingStateLoss();
                 }
             });
         }
     }
 
-    public void dismissWithBehavior()
-    {
+    public void dismissWithBehavior() {
         bottomDrawerDialog.getBehavior().setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 
-    public void expandWithBehavior()
-    {
+    public void expandWithBehavior() {
         bottomDrawerDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
-    public int getCurrentState()
-    {
+    public int getCurrentState() {
         return bottomDrawerDialog.getBehavior().getState();
     }
 
     @Override
-    public void onGlobalLayout()
-    {
+    public void onGlobalLayout() {
         bottomDrawerDialog.getDrawer().globalTranslationViews();
     }
 
-    public void setBottomSheetListener(BottomSheetCallback.IOnBottomSheet listener)
-    {
+    public void setBottomSheetListener(BottomSheetCallback.IOnBottomSheet listener) {
         bottomDrawerDialog.bottomDrawerDelegate.addBottomSheetCallback(listener);
     }
 
-    public void changeCornerRadius(float radius)
-    {
+    public void changeCornerRadius(float radius) {
         bottomDrawerDialog.getDrawer().changeCornerRadius(radius);
     }
 
-    public void changeBackgroundColor(int color)
-    {
+    public void changeBackgroundColor(int color) {
         bottomDrawerDialog.getDrawer().changeBackgroundColor(color);
     }
 
-    public void changeExtraPadding(int extraPadding)
-    {
+    public void changeExtraPadding(int extraPadding) {
         bottomDrawerDialog.getDrawer().changeExtraPadding(extraPadding);
     }
 
-    public void changeTopCornerTreatment(@CornerFamily int cornerFamily)
-    {
+    public void changeTopCornerTreatment(@CornerFamily int cornerFamily) {
         bottomDrawerDialog.getDrawer().changeCornerTreatment(cornerFamily);
     }
 
-    public BottomSheetBehavior<BottomDrawer> getBottomSheetBehaviour()
-    {
+    public void setStatusBarLightText(boolean isLight) {
+        bottomDrawerDialog.setStatusBarLightText(isLight);
+    }
+
+    public BottomSheetBehavior<BottomDrawer> getBottomSheetBehaviour() {
         return bottomDrawerDialog.getBehavior();
     }
 

@@ -16,10 +16,10 @@
 
 package com.zeoflow.material.elements.bottomsheet;
 
-public interface BottomDialog
-{
+public interface BottomDialog {
 
     void onDismiss();
+
     void onCancel();
 
 }

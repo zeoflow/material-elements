@@ -33,8 +33,7 @@ import androidx.core.content.ContextCompat;
 import com.zeoflow.material.elements.R;
 import com.zeoflow.material.elements.bottomsheet.TranslationUpdater;
 
-public class PlainHandleView extends View implements TranslationUpdater
-{
+public class PlainHandleView extends View implements TranslationUpdater {
 
     @FloatRange(from = 0.0, to = 1.0)
     private float currentOffset = 0f;
@@ -44,18 +43,15 @@ public class PlainHandleView extends View implements TranslationUpdater
     private final Paint paint = new Paint();
     private final float thickness = (float) getResources().getDimensionPixelSize(R.dimen.bottom_sheet_handle_thickness);
 
-    public PlainHandleView(Context context)
-    {
+    public PlainHandleView(Context context) {
         this(context, null);
     }
 
-    public PlainHandleView(Context context, @Nullable AttributeSet attrs)
-    {
+    public PlainHandleView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PlainHandleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr)
-    {
+    public PlainHandleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paint.setColor(ContextCompat.getColor(context, R.color.bottom_drawer_handle_view_color));
         paint.setStrokeWidth(thickness);
@@ -64,21 +60,18 @@ public class PlainHandleView extends View implements TranslationUpdater
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         canvas.drawRoundRect(tempRect, thickness, thickness, paint);
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
-    {
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         rect.set(left, top, right, bottom);
     }
 
     @Override
-    public void updateTranslation(float value)
-    {
+    public void updateTranslation(float value) {
         currentOffset = value;
         float offset = (getWidth() * currentOffset) / 2;
         tempRect.set(0 + offset, 0f, getWidth() - offset, getHeight());
@@ -87,8 +80,7 @@ public class PlainHandleView extends View implements TranslationUpdater
 
     @Nullable
     @Override
-    protected Parcelable onSaveInstanceState()
-    {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         PlainHandleViewSavedState customViewSavedState = new PlainHandleViewSavedState(superState);
         customViewSavedState.offset = currentOffset;
@@ -97,8 +89,7 @@ public class PlainHandleView extends View implements TranslationUpdater
     }
 
     @Override
-    protected void onRestoreInstanceState(Parcelable state)
-    {
+    protected void onRestoreInstanceState(Parcelable state) {
         Log.d("show_handle", "restore");
         PlainHandleViewSavedState customViewSavedState = (PlainHandleViewSavedState) state;
         currentOffset = customViewSavedState.offset;
@@ -107,35 +98,31 @@ public class PlainHandleView extends View implements TranslationUpdater
         super.onRestoreInstanceState(state);
     }
 
-    private class PlainHandleViewSavedState extends BaseSavedState
-    {
+    private static class PlainHandleViewSavedState extends BaseSavedState {
 
         private float offset = 0f;
 
-        public PlainHandleViewSavedState(Parcel source)
-        {
+        public PlainHandleViewSavedState(Parcel source) {
             super(source);
             offset = source.readFloat();
         }
 
-        public PlainHandleViewSavedState(Parcelable superState)
-        {
+        public PlainHandleViewSavedState(Parcelable superState) {
             super(superState);
         }
-        public float getOffset()
-        {
+
+        public float getOffset() {
             return offset;
         }
+
         @Override
-        public void writeToParcel(Parcel out, int flags)
-        {
+        public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeFloat(offset);
         }
 
         @Override
-        public int describeContents()
-        {
+        public int describeContents() {
             return 0;
         }
 

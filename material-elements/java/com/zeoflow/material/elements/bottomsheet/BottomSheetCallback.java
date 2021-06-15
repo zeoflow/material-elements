@@ -20,31 +20,33 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-public class BottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback
-{
+public class BottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback {
 
     private final IOnBottomSheet listener;
 
-    public BottomSheetCallback(IOnBottomSheet listener)
-    {
+    public BottomSheetCallback(IOnBottomSheet listener) {
         this.listener = listener;
     }
+
     @Override
-    public void onStateChanged(@NonNull View bottomSheet, int newState)
-    {
+    public void onStateChanged(@NonNull View bottomSheet, int newState) {
         listener.onStateChanged(bottomSheet, newState);
     }
+
     @Override
-    public void onSlide(@NonNull View bottomSheet, float slideOffset)
-    {
+    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
         listener.onSlide(bottomSheet, slideOffset);
     }
 
-    public interface IOnBottomSheet
-    {
+    public abstract static class IOnBottomSheet {
 
-        void onSlide(View view, float slideOffset);
-        void onStateChanged(View view, int state);
+        public void onSlide(View view, float slideOffset) {
+
+        }
+
+        public void onStateChanged(View view, int state) {
+
+        }
 
     }
 
