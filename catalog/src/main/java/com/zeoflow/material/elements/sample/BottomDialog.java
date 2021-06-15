@@ -53,6 +53,21 @@ public class BottomDialog extends BottomDrawerFragment {
     }
 
     @Override
+    public int getHeaderSize() {
+        return dpToPx(20);
+    }
+
+    @Nullable
+    @Override
+    public View getHeaderRoot() {
+        return getLayoutInflater().inflate(R.layout.bottomsheet_layout_header, null);
+    }
+
+    private int dpToPx(float dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
+    @Override
     public BottomDrawerDialog configureBottomDrawer() {
         PlainHandleView handleView = new PlainHandleView(getContext());
         int widthHandle = getResources().getDimensionPixelSize(R.dimen.bottom_sheet_handle_width);

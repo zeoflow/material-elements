@@ -18,7 +18,6 @@ package com.zeoflow.material.elements.bottomsheet.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
@@ -54,6 +54,8 @@ public class BottomDrawerDelegate extends BottomSheetCallback.IOnBottomSheet {
     private boolean isCancelableOnTouchOutside = true;
     private View handleView;
     private IOnDrawer listener;
+    private View headerRoot;
+    private int headerSize;
 
     public BottomDrawerDelegate(Context context, BottomDialog dialog) {
         this.context = context;
@@ -97,6 +99,7 @@ public class BottomDrawerDelegate extends BottomSheetCallback.IOnBottomSheet {
             wrappedView = LayoutInflater.from(context).inflate(layoutResId, coordinator, false);
         }
         drawer = coordinator.findViewById(R.id.bottom_sheet_root);
+        drawer.setHeaderData(headerRoot, headerSize);
         behavior = BottomSheetBehavior.from(drawer);
         behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         behavior.setHideable(true);
@@ -162,6 +165,13 @@ public class BottomDrawerDelegate extends BottomSheetCallback.IOnBottomSheet {
         }
         // TODO initial time colored status bar
         return container;
+    }
+
+    public void setHeaderRoot(@Nullable View root) {
+        this.headerRoot = root;
+    }
+    public void setHeaderSize(int size) {
+        this.headerSize = size;
     }
 
     private void addBottomSheetCallback() {

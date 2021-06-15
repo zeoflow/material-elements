@@ -18,8 +18,11 @@ package com.zeoflow.material.elements.bottomsheet;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewTreeObserver;
 
+import androidx.annotation.DimenRes;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -35,11 +38,23 @@ public abstract class BottomDrawerFragment extends DialogFragment implements Vie
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         BottomDrawerDialog dialog = configureBottomDrawer();
         bottomDrawerDialog = dialog;
+        bottomDrawerDialog.setHeaderRoot(getHeaderRoot());
+        bottomDrawerDialog.setHeaderSize(getHeaderSize());
         return dialog;
     }
 
     public BottomDrawerDialog configureBottomDrawer() {
         return new BottomDrawerDialog(getContext());
+    }
+
+    @Nullable
+    public View getHeaderRoot() {
+        return null;
+    }
+
+    @DimenRes
+    public int getHeaderSize() {
+        return 0;
     }
 
     @Override
