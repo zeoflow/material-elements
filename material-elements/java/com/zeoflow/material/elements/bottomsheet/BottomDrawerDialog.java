@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -28,6 +29,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatDialog;
 
@@ -55,12 +57,12 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog 
         super(context, theme);
         this.theme = theme;
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        Log.d("sfsdgfdgfhgfh", "sfadgdf " + null);
         bottomDrawerDelegate = new BottomDrawerDelegate(this.getContext(), this);
         bottomDrawerDelegate.setListener(() -> {
             getDrawer().changeBackgroundColor(backgroundColor);
             getDrawer().changeCornerRadius(cornerRadius);
             getDrawer().changeSideMargins((int) sideMargins);
-            getDrawer().setAutoStatusBar(isDarkOnNormal, isDarkOnFull, activity);
         });
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -83,6 +85,18 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog 
 //            }
 //            getWindow().getDecorView().setSystemUiVisibility(flags);
 //        }
+    }
+
+    public void setHeaderRoot(@Nullable View root) {
+        bottomDrawerDelegate.setHeaderRoot(root);
+    }
+
+    public void setHeaderSize(int size) {
+        bottomDrawerDelegate.setHeaderSize(size);
+    }
+
+    public void setSubmenuCorners(int size) {
+        bottomDrawerDelegate.setSubmenuCorners(size);
     }
 
     public void setStatusBarLightText(boolean isLight) {

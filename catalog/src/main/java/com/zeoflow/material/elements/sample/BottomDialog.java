@@ -41,7 +41,6 @@ public class BottomDialog extends BottomDrawerFragment {
                 alphaCancelButton = (alphaTemp >= 0) ? alphaTemp : 0f;
                 cancelButton.setAlpha(alphaCancelButton);
                 cancelButton.setEnabled(true);
-                setStatusBarLightText(slideOffset > 0.975f);
             }
 
             @Override
@@ -50,8 +49,27 @@ public class BottomDialog extends BottomDrawerFragment {
             }
         });
         cancelButton.setOnClickListener(v -> dismissWithBehavior());
-
         return view;
+    }
+
+    @Override
+    public int getHeaderSize() {
+        return dpToPx(35);
+    }
+
+    @Nullable
+    @Override
+    public View getHeaderRoot() {
+        return null;//getLayoutInflater().inflate(R.layout.bottomsheet_layout_header, null);
+    }
+
+    @Override
+    public int getSubmenuCorners() {
+        return dpToPx(30);
+    }
+
+    private int dpToPx(float dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
     @Override

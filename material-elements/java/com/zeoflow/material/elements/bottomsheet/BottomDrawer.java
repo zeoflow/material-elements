@@ -16,7 +16,6 @@
 
 package com.zeoflow.material.elements.bottomsheet;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -26,6 +25,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,13 +47,18 @@ import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
 public class BottomDrawer extends FrameLayout {
 
+    @SuppressWarnings("unused")
+    private static final String TAG = "BottomDrawer";
+
     public static float offsetTrigger = 0.85f;
+    @NonNull
     private final ViewGroup container;
+    @NonNull
+    private final ViewGroup subContainer;
+    private int marginSubHeader = dpToPx(0);
     private final Rect rect = new Rect();
     private final MaterialShapeDrawable backgroundDrawable;
-    Activity activity;
-    boolean isDarkOnNormal = false;
-    boolean isDarkOnFull = true;
+    private final MaterialShapeDrawable subContainerBackground;
     @LayoutRes
     private int contentViewRes = View.NO_ID;
     private View content;
@@ -66,6 +71,7 @@ public class BottomDrawer extends FrameLayout {
     private float translationView = 0f;
     private TranslationUpdater translationUpdater;
     private View handleView;
+    private View rootView;
     private boolean isEnoughToFullExpand = false;
     private boolean isEnoughToCollapseExpand = false;
     private int heightPixels;
@@ -115,23 +121,18 @@ public class BottomDrawer extends FrameLayout {
         fullHeight = heightPixels;
         collapseHeight = heightPixels / 2;
 
-        ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    heightPixels = getContext().getResources().getDisplayMetrics().heightPixels;
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                        heightPixels -= insets.getSystemWindowInsetTop();
-                    }
-
-                    fullHeight = heightPixels;
-                    collapseHeight = heightPixels / 2;
-
-                    calculateDiffStatusBar(insets.getSystemWindowInsetTop());
-                }
-                insets.consumeSystemWindowInsets();
-                return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(this, (v, insets) -> {
+            heightPixels = getContext().getResources().getDisplayMetrics().heightPixels;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                heightPixels -= insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
             }
+
+            fullHeight = heightPixels;
+            collapseHeight = heightPixels / 2;
+
+            calculateDiffStatusBar(insets.getInsets(WindowInsetsCompat.Type.systemBars()).top);
+            insets.consumeSystemWindowInsets();
+            return insets;
         });
 
         container = new FrameLayout(context);
@@ -140,10 +141,43 @@ public class BottomDrawer extends FrameLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         ));
         super.addView(container);
+
+        subContainer = new FrameLayout(context);
+        subContainer.setLayoutParams(new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) subContainer.getLayoutParams();
+        params2.setMargins(0, dpToPx(marginSubHeader), 0, 0);
+        subContainer.setLayoutParams(params2);
+        subContainer.setElevation(dpToPx(10));
+        subContainerBackground = new MaterialShapeDrawable(
+                ShapeAppearanceModel.builder(
+                        context,
+                        attrs,
+                        R.attr.bottomSheetStyle,
+                        0
+                ).build()
+        );
+        subContainerBackground.initializeElevationOverlay(getContext());
+        subContainerBackground.setShadowColor(Color.DKGRAY);
+        subContainerBackground.setElevation(dpToPx(20));
+        subContainerBackground.enableCornersAnimation(false);
+        subContainerBackground.setShadowCompatibilityMode(
+                MaterialShapeDrawable.SHADOW_COMPAT_MODE_ALWAYS
+        );
+        subContainerBackground.setFillColor(ColorStateList.valueOf(Color.parseColor("#F3F3F3")));
+        super.addView(subContainer);
+
         if (contentViewRes != View.NO_ID) {
             addView(content);
         }
+
         onSlide(0f);
+    }
+
+    private int dpToPx(float dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
     private void initAttributes(Context context, AttributeSet attrs) {
@@ -178,16 +212,50 @@ public class BottomDrawer extends FrameLayout {
         a.recycle();
     }
 
+    public void setHeaderData(@Nullable View headerRoot, int headerSize) {
+        if (headerRoot != null) {
+            addRootView(headerRoot);
+        }
+        marginSubHeader = headerSize;
+    }
+
+    public void setSubmenuCorners(int submenuCorners) {
+        if (marginSubHeader == 0) {
+            subContainerBackground.setCornerSize(0);
+            return;
+        }
+        subContainerBackground.setCornerSize(submenuCorners);
+    }
+
+    public void addRootView(@NonNull View rootView) {
+        rootView.setBackground(null);
+        rootView.setBackgroundColor(Color.parseColor("#00000000"));
+        this.rootView = rootView;
+        super.addView(rootView);
+    }
+
     @Override
     public void addView(View child) {
-        container.addView(child);
+        subContainer.addView(child);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         if (!rect.isEmpty()) {
+            // todo find a better way to handle this
+            rect.top = 0;
+
             backgroundDrawable.setBounds(rect);
             backgroundDrawable.draw(canvas);
+
+            if (marginSubHeader != 0) {
+                // todo handle the top-padding for sub-menu
+                Rect rectSubContainer = rect;
+                int paddingTop = statusBarHeight - currentMargin * statusBarHeight / marginSide;
+                rectSubContainer.top += dpToPx(marginSubHeader) + paddingTop;
+                subContainerBackground.setBounds(rectSubContainer);
+                subContainerBackground.draw(canvas);
+            }
         }
     }
 
@@ -200,8 +268,6 @@ public class BottomDrawer extends FrameLayout {
         int measuredHeight = ((ViewGroup) container.getParent()).getMeasuredHeight();
         isEnoughToFullExpand = measuredHeight >= fullHeight;
         isEnoughToCollapseExpand = measuredHeight >= collapseHeight;
-
-        backgroundDrawable.setInterpolation((!isEnoughToFullExpand) ? 1f : 0f);
     }
 
     public void onSlide(float value) {
@@ -213,9 +279,13 @@ public class BottomDrawer extends FrameLayout {
         if (value <= offsetTrigger) {
             backgroundDrawable.setInterpolation(1f);
             container.setTranslationY(0f);
+
             if (!shouldDrawUnderStatus) {
                 if (handleView != null) {
                     handleView.setTranslationY(0f);
+                }
+                if (rootView != null) {
+                    rootView.setTranslationY(0f);
                 }
             }
             if (translationUpdater != null) {
@@ -236,6 +306,7 @@ public class BottomDrawer extends FrameLayout {
             translationUpdater.updateTranslation(offset);
         }
         backgroundDrawable.setInterpolation(1.0f - offset);
+
         currentMargin = (int) (backgroundDrawable.getInterpolation() * marginSide);
         if (oldMargin != currentMargin) {
             int currentLeft = rect.left - oldMargin + currentMargin;
@@ -243,11 +314,6 @@ public class BottomDrawer extends FrameLayout {
             rect.set(currentLeft, rect.top, currentRight, rect.bottom);
         }
         invalidate();
-    }
-
-    private boolean isColorDark(int color) {
-        double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
-        return !(darkness < 0.5);
     }
 
     private boolean handleNonExpandableViews() {
@@ -270,8 +336,8 @@ public class BottomDrawer extends FrameLayout {
         if (isEnoughToFullExpand && getTop() < fullHeight - collapseHeight) {
             updateTranslationOnGlobalLayoutChanges();
         } else {
-            if (container.getPaddingBottom() != 0) {
-                container.setPadding(0, 0, 0, 0);
+            if (subContainer.getPaddingBottom() != 0) {
+                subContainer.setPadding(0, 0, 0, 0);
             }
             if (translationUpdater != null) {
                 translationUpdater.updateTranslation(0f);
@@ -308,20 +374,25 @@ public class BottomDrawer extends FrameLayout {
 
     private void translateViews(float offset, int height) {
         translationView = height * offset;
-        container.setTranslationY(translationView);
+        subContainer.setTranslationY(translationView - dpToPx(13));
         if (!shouldDrawUnderStatus) {
             if (handleView != null) {
                 handleView.setTranslationY(translationView);
             }
+            if (rootView != null) {
+                rootView.setTranslationY(translationView);
+            }
         }
 
         int paddingBottom = (int) translationView;
-        if (getTop() == 0 && translationView != 0f && container.getPaddingBottom() != paddingBottom) {
-            container.setPadding(0, 0, 0, paddingBottom);
+        if (getTop() == 0 && translationView != 0f && subContainer.getPaddingBottom() != paddingBottom) {
+            subContainer.setPadding(0, 0, 0, paddingBottom);
         }
     }
 
+    private int statusBarHeight = 0;
     private void calculateDiffStatusBar(int topInset) {
+        statusBarHeight = topInset;
         diffWithStatusBar = (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) ? 0 : topInset;
         diffWithStatusBar += extraPadding;
     }
@@ -358,20 +429,14 @@ public class BottomDrawer extends FrameLayout {
         setExtensionsPadding(margins);
     }
 
-    public void setAutoStatusBar(boolean isDarkOnNormal, boolean isDarkOnFull, Activity activity) {
-        this.isDarkOnNormal = isDarkOnNormal;
-        this.isDarkOnFull = isDarkOnFull;
-        this.activity = activity;
-    }
-
     private void setExtensionsPadding(int margins) {
         MarginLayoutParams marginLayoutParams = (MarginLayoutParams) handleView.getLayoutParams();
         int height = marginLayoutParams.height + marginLayoutParams.topMargin;
         int extensionPadding = margins + 20;
         if (!shouldDrawUnderHandle) {
-            setMarginExtensionFunction(extensionPadding, height, extensionPadding, 0, container);
+            setMarginExtensionFunction(extensionPadding, height + dpToPx(marginSubHeader), extensionPadding, 0, subContainer);
         } else {
-            setMarginExtensionFunction(extensionPadding, 0, extensionPadding, 0, container);
+            setMarginExtensionFunction(extensionPadding, dpToPx(marginSubHeader), extensionPadding, 0, subContainer);
         }
     }
 
