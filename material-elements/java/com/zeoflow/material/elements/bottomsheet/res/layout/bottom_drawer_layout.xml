@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="false"
             app:behavior_hideable="true"
-            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:layout_behavior="@string/default_bottom_sheet_behavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceBottomDrawer" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

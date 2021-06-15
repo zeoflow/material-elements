@@ -359,15 +359,13 @@ public class BottomSheetBehavior<V extends View> extends CoordinatorLayout.Behav
             ColorStateList bottomSheetColor =
                     MaterialResources.getColorStateList(
                             context, a, R.styleable.BottomSheetBehavior_Layout_backgroundTint);
-            createMaterialShapeDrawable(context, attrs, hasBackgroundTint, bottomSheetColor);
+            createMaterialShapeDrawable(context, attrs, true, bottomSheetColor);
         } else {
-            createMaterialShapeDrawable(context, attrs, hasBackgroundTint);
+            createMaterialShapeDrawable(context, attrs, false);
         }
         createShapeValueAnimator();
 
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-            this.elevation = a.getDimension(R.styleable.BottomSheetBehavior_Layout_android_elevation, -1);
-        }
+        this.elevation = a.getDimension(R.styleable.BottomSheetBehavior_Layout_android_elevation, -1);
 
         TypedValue value = a.peekValue(R.styleable.BottomSheetBehavior_Layout_behavior_peekHeight);
         if (value != null && value.data == PEEK_HEIGHT_AUTO) {

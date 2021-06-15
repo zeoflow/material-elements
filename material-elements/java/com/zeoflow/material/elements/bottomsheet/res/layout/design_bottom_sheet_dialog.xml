@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (C) 2020 ZeoFlow
+  ~ Copyright (C) 2021 ZeoFlow
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
-            app:layout_behavior="@string/bottom_sheet_behavior" />
+            app:layout_behavior="@string/default_bottom_sheet_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
