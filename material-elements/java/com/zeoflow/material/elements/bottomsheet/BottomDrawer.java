@@ -16,7 +16,6 @@
 
 package com.zeoflow.material.elements.bottomsheet;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -24,8 +23,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,19 +48,24 @@ import com.zeoflow.material.elements.shape.ShapeAppearanceModel;
 
 public class BottomDrawer extends FrameLayout {
 
+    @SuppressWarnings("unused")
+    private static final String TAG = "BottomDrawer";
+
     public static float offsetTrigger = 0.85f;
+    @NonNull
     private final ViewGroup container;
+    @NonNull
+    private final ViewGroup subContainer;
     private final Rect rect = new Rect();
     private final MaterialShapeDrawable backgroundDrawable;
-    Activity activity;
-    boolean isDarkOnNormal = false;
-    boolean isDarkOnFull = true;
+    private final MaterialShapeDrawable subContainerBackground;
     @LayoutRes
     private int contentViewRes = View.NO_ID;
     private View content;
     private int marginSide;
     private int currentMargin;
     private int drawerBackground = 0;
+    private int menuBackground = 0;
     private float cornerRadius = 0f;
     private int extraPadding = 0;
     private int diffWithStatusBar = 0;
@@ -115,23 +121,18 @@ public class BottomDrawer extends FrameLayout {
         fullHeight = heightPixels;
         collapseHeight = heightPixels / 2;
 
-        ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    heightPixels = getContext().getResources().getDisplayMetrics().heightPixels;
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                        heightPixels -= insets.getSystemWindowInsetTop();
-                    }
-
-                    fullHeight = heightPixels;
-                    collapseHeight = heightPixels / 2;
-
-                    calculateDiffStatusBar(insets.getSystemWindowInsetTop());
-                }
-                insets.consumeSystemWindowInsets();
-                return insets;
+        ViewCompat.setOnApplyWindowInsetsListener(this, (v, insets) -> {
+            heightPixels = getContext().getResources().getDisplayMetrics().heightPixels;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                heightPixels -= insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
             }
+
+            fullHeight = heightPixels;
+            collapseHeight = heightPixels / 2;
+
+            calculateDiffStatusBar(insets.getInsets(WindowInsetsCompat.Type.systemBars()).top);
+            insets.consumeSystemWindowInsets();
+            return insets;
         });
 
         container = new FrameLayout(context);
@@ -143,7 +144,32 @@ public class BottomDrawer extends FrameLayout {
         if (contentViewRes != View.NO_ID) {
             addView(content);
         }
+
+        subContainer = new FrameLayout(context);
+        subContainer.setLayoutParams(new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) subContainer.getLayoutParams();
+        params2.setMargins(0, dpToPx(50), 0, 0);
+        subContainer.setLayoutParams(params2);
+        subContainer.setElevation(dpToPx(10));
+        subContainerBackground = new MaterialShapeDrawable(
+                ShapeAppearanceModel.builder(
+                        context,
+                        attrs,
+                        R.attr.bottomSheetStyle,
+                        0
+                ).build()
+        );
+        subContainerBackground.setFillColor(ColorStateList.valueOf(Color.parseColor("#212121")));
+        super.addView(subContainer);
+
         onSlide(0f);
+    }
+
+    private int dpToPx(float dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
     private void initAttributes(Context context, AttributeSet attrs) {
@@ -178,6 +204,10 @@ public class BottomDrawer extends FrameLayout {
         a.recycle();
     }
 
+    public void addHeaderView(View child) {
+        container.addView(child);
+    }
+
     @Override
     public void addView(View child) {
         container.addView(child);
@@ -188,6 +218,12 @@ public class BottomDrawer extends FrameLayout {
         if (!rect.isEmpty()) {
             backgroundDrawable.setBounds(rect);
             backgroundDrawable.draw(canvas);
+
+            Rect rectB = rect;
+            rectB.top += dpToPx(50);
+            // todo added
+//            subContainerBackground.setBounds(rectB);
+//            subContainerBackground.draw(canvas);
         }
     }
 
@@ -202,6 +238,9 @@ public class BottomDrawer extends FrameLayout {
         isEnoughToCollapseExpand = measuredHeight >= collapseHeight;
 
         backgroundDrawable.setInterpolation((!isEnoughToFullExpand) ? 1f : 0f);
+
+        // todo added
+//        subContainerBackground.setInterpolation((!isEnoughToFullExpand) ? 1f : 0f);
     }
 
     public void onSlide(float value) {
@@ -213,6 +252,11 @@ public class BottomDrawer extends FrameLayout {
         if (value <= offsetTrigger) {
             backgroundDrawable.setInterpolation(1f);
             container.setTranslationY(0f);
+
+            // todo added
+//            subContainerBackground.setInterpolation(1f);
+//            subContainer.setTranslationY(0f);
+
             if (!shouldDrawUnderStatus) {
                 if (handleView != null) {
                     handleView.setTranslationY(0f);
@@ -236,6 +280,10 @@ public class BottomDrawer extends FrameLayout {
             translationUpdater.updateTranslation(offset);
         }
         backgroundDrawable.setInterpolation(1.0f - offset);
+
+        // todo added
+//        subContainerBackground.setInterpolation(1.0f - offset);
+
         currentMargin = (int) (backgroundDrawable.getInterpolation() * marginSide);
         if (oldMargin != currentMargin) {
             int currentLeft = rect.left - oldMargin + currentMargin;
@@ -245,14 +293,11 @@ public class BottomDrawer extends FrameLayout {
         invalidate();
     }
 
-    private boolean isColorDark(int color) {
-        double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
-        return !(darkness < 0.5);
-    }
-
     private boolean handleNonExpandableViews() {
         if (!isEnoughToFullExpand) {
             backgroundDrawable.setInterpolation(1f);
+            // todo added
+//            subContainerBackground.setInterpolation(1f);
             if (translationUpdater != null) {
                 translationUpdater.updateTranslation(0f);
             }
@@ -278,6 +323,8 @@ public class BottomDrawer extends FrameLayout {
             }
             if (getTop() == fullHeight - collapseHeight || !rect.isEmpty()) {
                 backgroundDrawable.setInterpolation(1f);
+                // todo added
+//                subContainerBackground.setInterpolation(1f);
                 translateViews(0f);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isEnoughToFullExpand) {
@@ -298,11 +345,15 @@ public class BottomDrawer extends FrameLayout {
                 translationUpdater.updateTranslation(0f);
             }
             backgroundDrawable.setInterpolation(1f);
+            // todo added
+//            subContainerBackground.setInterpolation(1f);
         } else if (getTop() == 0) {
             if (translationUpdater != null) {
                 translationUpdater.updateTranslation(1f);
             }
             backgroundDrawable.setInterpolation(0f);
+            // todo added
+//            subContainerBackground.setInterpolation(0f);
         }
     }
 
@@ -337,6 +388,9 @@ public class BottomDrawer extends FrameLayout {
 
         backgroundDrawable.setShapeAppearanceModel(shapeAppearanceModel.build());
         backgroundDrawable.setInterpolation(1f);
+        // todo added
+//        subContainerBackground.setShapeAppearanceModel(shapeAppearanceModel.build());
+//        subContainerBackground.setInterpolation(1f);
 
         invalidate();
     }
@@ -344,6 +398,13 @@ public class BottomDrawer extends FrameLayout {
     public void changeBackgroundColor(int color) {
         drawerBackground = color;
         backgroundDrawable.setTint(drawerBackground);
+        invalidate();
+    }
+
+    // todo added
+    public void changeMenuBackgroundColor(int color) {
+        menuBackground = color;
+        subContainerBackground.setTint(menuBackground);
         invalidate();
     }
 
@@ -356,12 +417,6 @@ public class BottomDrawer extends FrameLayout {
         marginSide = margins;
         currentMargin = marginSide;
         setExtensionsPadding(margins);
-    }
-
-    public void setAutoStatusBar(boolean isDarkOnNormal, boolean isDarkOnFull, Activity activity) {
-        this.isDarkOnNormal = isDarkOnNormal;
-        this.isDarkOnFull = isDarkOnFull;
-        this.activity = activity;
     }
 
     private void setExtensionsPadding(int margins) {
@@ -383,6 +438,10 @@ public class BottomDrawer extends FrameLayout {
 
         backgroundDrawable.setShapeAppearanceModel(shapeAppearanceModel.build());
         backgroundDrawable.setInterpolation((!isEnoughToFullExpand) ? 1f : 0f);
+
+        // todo added
+//        subContainerBackground.setShapeAppearanceModel(shapeAppearanceModel.build());
+//        subContainerBackground.setInterpolation((!isEnoughToFullExpand) ? 1f : 0f);
 
         invalidate();
     }

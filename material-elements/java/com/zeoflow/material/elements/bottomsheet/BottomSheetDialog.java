@@ -228,7 +228,10 @@ public class BottomSheetDialog extends AppCompatDialog {
 
     @SuppressLint("ClickableViewAccessibility")
     private View wrapInBottomSheet(
-            int layoutResId, @Nullable View view, @Nullable ViewGroup.LayoutParams params) {
+            int layoutResId,
+            @Nullable View view,
+            @Nullable ViewGroup.LayoutParams params
+    ) {
         ensureContainerAndBehavior();
         CoordinatorLayout coordinator = container.findViewById(R.id.coordinator);
         if (layoutResId != 0 && view == null) {
@@ -243,14 +246,11 @@ public class BottomSheetDialog extends AppCompatDialog {
             bottomSheet.addView(view, params);
         }
         // We treat the CoordinatorLayout as outside the dialog though it is technically inside
-        coordinator
-                .findViewById(R.id.touch_outside)
-                .setOnClickListener(view12 ->
-                {
-                    if (cancelable && isShowing() && shouldWindowCloseOnTouchOutside()) {
-                        cancel();
-                    }
-                });
+        coordinator.findViewById(R.id.touch_outside).setOnClickListener(view12 -> {
+            if (cancelable && isShowing() && shouldWindowCloseOnTouchOutside()) {
+                cancel();
+            }
+        });
         // Handle accessibility events
         ViewCompat.setAccessibilityDelegate(
                 bottomSheet,
@@ -276,8 +276,7 @@ public class BottomSheetDialog extends AppCompatDialog {
                         return super.performAccessibilityAction(host, action, args);
                     }
                 });
-        bottomSheet.setOnTouchListener((view1, event) ->
-        {
+        bottomSheet.setOnTouchListener((view1, event) -> {
             // Consume the event and prevent it from falling through
             return true;
         });
@@ -286,9 +285,9 @@ public class BottomSheetDialog extends AppCompatDialog {
 
     boolean shouldWindowCloseOnTouchOutside() {
         if (!canceledOnTouchOutsideSet) {
-            TypedArray a =
-                    getContext()
-                            .obtainStyledAttributes(new int[]{android.R.attr.windowCloseOnTouchOutside});
+            TypedArray a = getContext().obtainStyledAttributes(
+                    new int[]{android.R.attr.windowCloseOnTouchOutside}
+            );
             canceledOnTouchOutside = a.getBoolean(0, true);
             a.recycle();
             canceledOnTouchOutsideSet = true;

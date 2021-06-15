@@ -60,7 +60,6 @@ public class BottomDrawerDialog extends AppCompatDialog implements BottomDialog 
             getDrawer().changeBackgroundColor(backgroundColor);
             getDrawer().changeCornerRadius(cornerRadius);
             getDrawer().changeSideMargins((int) sideMargins);
-            getDrawer().setAutoStatusBar(isDarkOnNormal, isDarkOnFull, activity);
         });
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
