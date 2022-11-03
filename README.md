@@ -1,5 +1,7 @@
 # Material Elements for Android
 
+## Deprecated in favour of [ceres](https://github.com/teogor/ceres) from [@teogor](https://github.com/teogor)/[teogor.dev](https://teogor.dev)
+
 ##  Intro
 Material Elements help developers execute
 Material Elements. Developed by a core team of
